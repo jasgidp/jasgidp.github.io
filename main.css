@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap');
+
+body {
+    background-color: rgb(217, 225, 232);
+    font-family: 'Lato', sans-serif;
+
+
+
+}
+
+.contenedor {
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#title, #subtitle {
+    color: rgb(27, 27, 71);
+
+}
+
+@media (max-width: 300px) {
+    .contenedor div {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
