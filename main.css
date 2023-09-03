@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap');
 
 body {
-    background-color: rgb(217, 225, 232);
     font-family: 'Lato', sans-serif;
+    background-image: url("HOme.png");
+    background-position-x: center;
 
 
 
 }
 
 .contenedor {
+
 
     display: flex;
     justify-content: center;
@@ -18,8 +20,9 @@ body {
 }
 
 #title, #subtitle {
-    color: rgb(27, 27, 71);
-    margin-top: 100px;
+    color: rgb(255, 255, 255);
+    margin-top: 50px;
+    background-color: rgb(27, 27, 71);
 
 }
 
@@ -28,5 +31,10 @@ body {
       display: flex;
       align-items: center;
       flex-direction: column;
+    }
+
+    body div{
+        background-repeat:repeat-y;
+
     }
   }
