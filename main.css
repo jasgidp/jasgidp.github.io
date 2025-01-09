@@ -214,7 +214,7 @@ section{
 }
 
 .contenedor {
-
+    background-image: image('HOme.png');
     font-family: "Montserrat", serif;
     display: flex;
     justify-content: center;
