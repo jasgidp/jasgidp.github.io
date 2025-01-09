@@ -2,35 +2,84 @@
 <html>
 
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>JASG Portfolio</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="shortcut icon" href="favicon.png">
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <!-- Titulo de la web -->
+  <title>JASG</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <!-- https://boxicons.com/ -->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+  <!-- https://remixicon.com/ -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
+
+
+
   <script src='main.js'></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
+
 </head>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-29TMGRLTZK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag() { dataLayer.push(arguments); }
   gtag('js', new Date());
   gtag('config', 'G-29TMGRLTZK');
 </script>
 
-<body  >
+<body>
 
-    <div class="contenedor">
-    <h1 id="title"> Hello Beutiful, Amazing and unique World </h1>
+  <!-- Esta sección es la cabecera de la pagina web -->
+  <header class="header">
+    <a href="#" class="logo">JASG</a>
+    <input type="checkbox" name="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon-action">
+        <div class='bx bx-menu' id="menu-icon"></div>
+    </label>
 
-    <h2 id="subtitle"> This page is under construction with CSS, HTML and JS coming back to this page</h2>
+    <ul class="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About me</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="#">Contact</a></li>
 
-    <h3> Meanwhile you can enjoy my portfolio here  <a href="https://jasn0121.wixsite.com/jsss" title="Click here to go to the place where you can find my portfolio">wixsite</a> </h3>
+    </ul>
+  </header>
 
+  <section class="hero">
+    <div class="hero-text">
+      <h5>Operational Engineer</h5>
+      <h4>Product Design Engineer</h4>
+      <h1> Jonathan Sandoval</h1>
+      <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos animi culpa obcLorem ipsum dolor sit amet consectetur adipisicing elit. Eos animi culpa obcaecatiaecati </p>
+      <a href="#">CV</a>
+      <a href="#" class="videos"><i class="ri-play-fill"></i>Mirá mis videos</a>
+    </div>
+    <div class="hero-image">
+      <img src="foto.jpg" alt="perfil">
+  </section>
+
+  <div class="icons">
+    <a href="#"><i class="ri-instagram-line"></i></a>
+    <a href="#"><i class="ri-youtube-line"></i></a>
+    <a href="#"><i class="ri-github-fill"></i></a>
 </div>
+
+
+<div class="scroll-down">
+  <a href="#"><i class="ri-arrow-down-s-fill"></i></a>
+</div>
+
+
 </body>
 
 </html>
