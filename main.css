@@ -14,7 +14,7 @@
 }
 h1{
     color: #291f44;
-    font-size: 50px;
+    font-size: 30px;
     font-weight: 800;
 }
 
@@ -268,7 +268,7 @@ h2 {
 .description-project{
     color: aliceblue;
     transition: all .5s ease;
-    padding-bottom: 10px;
+    padding: 10px;
 }
 a{
     color: aliceblue;
