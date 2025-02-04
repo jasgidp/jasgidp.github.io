@@ -62,16 +62,14 @@ header {
     border-bottom: 2px solid #f0f0e8;
 }
 
-#menu-icon {
-    display: none;
-    /* lo pongo en none para que solo se vea cuando la página esté colapsada de forma horizontal */
-}
+
 
 #menu-icon {
     font-size: 35px;
     z-index: 101;
     /* para que este sobre el header */
     cursor: pointer;
+    display: none;
     /* para que aparezca la manito cuando ponemos el mouse encima */
 }
 
@@ -219,7 +217,6 @@ section{
 }
 
 .programming{
-
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -252,7 +249,7 @@ h2 {
     margin-top: 10px; 
     padding: 5px;   
 }
-#div1{
+.programming-list{
     padding-top: 10px;
     display: flex;
     justify-content: center;
@@ -261,8 +258,18 @@ h2 {
     background-color: #021719ef;
     border-radius: 20px;
     width: 80%;
-
     
+}
+
+.project-item{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    min-width: 80%;
+
+
 }
 
 .description-project{
@@ -356,18 +363,22 @@ a{
         grid-template-columns: 1fr;
     }
 
-    .navlist{
+    .navlist {
         position: absolute;
         top: 100%;
         right: -100%;
         width: 200px;
-        height: 180px;
+        height: 100vh;
         background-color: #021719ef;
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 30px 20px;
-        transition: all .5s ease-out;
+        transition: right 0.5s ease-out; /* Definir solo la transición de 'right' para que sea suave */
+    }
+    
+    .navlist.open {
+        right: 0;
     }
 
     .navlist a {
@@ -375,9 +386,8 @@ a{
         margin: 7px 0;
     }
 
-    #menu-toggle:checked + label.menu-icon-action + ul{
-        right: 0;
-    }
+
+
 
 
 }
