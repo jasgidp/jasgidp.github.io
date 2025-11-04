@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,73 +27,91 @@
 <body>
 
   <header class="header">
-    <a href="#" class="logo">JASG</a>
+    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
 
-    <div class='bx bx-menu' id="menu-icon"></div>
+    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
 
 
-    <ul class="navlist">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="#">About me</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="programming.html">Programming</a></li>
-      <li><a href="#">Contact</a></li>
+    <ul class="navlist" id="primary-nav">
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="#" data-i18n="nav.about">About</a></li>
+      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
+      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
+      <!-- Programming removed from header navigation -->
+      <li><a href="#" data-i18n="nav.contact">Contact</a></li>
 
     </ul>
+
+    <div class="lang-switcher">
+      <button data-lang="es">ES</button>
+      <button data-lang="en">EN</button>
+      <button data-lang="pt">PT</button>
+    </div>
   </header>
-<br>
+ <video autoplay muted loop class="video-bg">
+    <source src="background.mp4" type="video/mp4">
+  </video>
+<main class="page" style="padding-top:120px;">
+  <section class="about-section">
+    <div class="hero-card about-card" style="max-width:1100px;">
+      <h1 class="timeline-title" data-i18n="programming.title">Programming Portfolio</h1>
+      <!-- Search controls -->
+      <section class="timeline-controls" aria-label="Programming controls">
+        <div class="search-wrap">
+          <i class="ri-search-line" aria-hidden="true"></i>
+          <input id="timeline-search" type="search" placeholder="Search projects..." aria-label="Search programming projects" />
+        </div>
+      </section>
 
-<br><br><br>
-  <section class="programming">
+        <p class="about-bio" data-i18n="programming.intro">Selected software projects with live demos and code repositories. Use the button to toggle the live preview.</p>
 
 
-    <h1>Programming Portfolio</h1> <br>
-    <p>Here you can see my programming projects</p>
+      <ul class="programming-list">
+        <!-- Project 1 -->
+        <li class="project-item">
+          <h2>Project Form Validation</h2>
+          <p class="description-project"></p>
+          <a class="btn" href="https://github.com/jasgidp/Validacion-formulario" target="_blank" rel="noopener">Repo</a>
+          <button class="btn orange toggle-preview"><i class="ri-eye-line" aria-hidden="true"></i><span data-i18n="programming.preview">Show demo</span></button>
+          <iframe class="iframe" src="https://form-validator-jasg.netlify.app/" width="100%" height="900" style="display: none; border:1px solid #e5e7eb; border-radius: 12px;"></iframe>
+        </li>
 
-    
-    <ul class="programming-list">
-      <!-- Project 1 -->
-      <li class="project-item">
-        <h2 class="show-hide">Project Form Validation</h2>
-        <p class="description-project"></p>
-        <a href="https://github.com/jasgidp/Validacion-formulario" target="_blank">HERE</a>
-        <iframe class="iframe" src="https://form-validator-jasg.netlify.app/" width="100%" height="900" style="display: none;"></iframe>
-        <p style="color:aliceblue"> ------------------ </p>
-      </li>
+        <!-- Project 2 -->
+        <li class="project-item">
+          <h2>Project Login</h2>
+          <p class="description-project"></p>
+          <a class="btn" href="https://github.com/jasgidp/Login-page/blob/main/style.css" target="_blank" rel="noopener">Repo</a>
+          <button class="btn orange toggle-preview"><i class="ri-eye-line" aria-hidden="true"></i><span data-i18n="programming.preview">Show demo</span></button>
+          <iframe class="iframe" src="https://login-jasg.netlify.app/" width="100%" height="400" style="display: none; border:1px solid #e5e7eb; border-radius: 12px;"></iframe>
+        </li>
 
-      <!-- Project 2 -->
-      <li class="project-item">
-        <h2 class="show-hide">Project Login</h2>
-        <p class="description-project"></p>
-        <a href="https://github.com/jasgidp/Login-page/blob/main/style.css" target="_blank">HERE</a>
-        <iframe class="iframe" src="https://login-jasg.netlify.app/" width="100%" height="400" style="display: none;"></iframe>
-        <p style="color:aliceblue"> ------------------ </p>
+        <!-- Project 3 -->
+        <li class="project-item">
+          <h2>Project Weather App</h2>
+          <p class="description-project"></p>
+          <a class="btn" href="https://github.com/jasgidp/weather-app/tree/main" target="_blank" rel="noopener">Repo</a>
+          <button class="btn orange toggle-preview"><i class="ri-eye-line" aria-hidden="true"></i><span data-i18n="programming.preview">Show demo</span></button>
+          <iframe class="iframe" src="https://weather-app-jasg.netlify.app/" width="100%" height="400" style="display: none; border:1px solid #e5e7eb; border-radius: 12px;"></iframe>
+        </li>
 
-      </li>
-
-      <!-- Project 3 -->
-      <li class="project-item">
-        <h2 class="show-hide">Project Weather App</h2>
-        <p class="description-project"></p>
-        <a href="https://github.com/jasgidp/weather-app/tree/main" target="_blank">HERE</a>
-        <iframe class="iframe" src="https://weather-app-jasg.netlify.app/" width="100%" height="400" style="display: none;"></iframe>
-        <p style="color:aliceblue"> ------------------ </p>
-
-      </li>
-
-      <!-- Project 4 -->
-      <li class="project-item">
-        <h2 class="show-hide">Project jasg Social Network Draft</h2>
-        <p class="description-project"></p>
-        <a href="https://github.com/jasgidp/jasg-social-network-draft" target="_blank">HERE</a>
-        <iframe class="iframe" src="https://jasg-social-network-draft.netlify.app/" width="100%" height="400" style="display: none;"></iframe>
-        <p style="color:aliceblue"> ------------------ </p>
-
-      </li>
-    </ul>
+        <!-- Project 4 -->
+        <li class="project-item">
+          <h2>Project jasg Social Network Draft</h2>
+          <p class="description-project"></p>
+          <a class="btn" href="https://github.com/jasgidp/jasg-social-network-draft" target="_blank" rel="noopener">Repo</a>
+          <button class="btn orange toggle-preview"><i class="ri-eye-line" aria-hidden="true"></i><span data-i18n="programming.preview">Show demo</span></button>
+          <iframe class="iframe" src="https://jasg-social-network-draft.netlify.app/" width="100%" height="400" style="display: none; border:1px solid #e5e7eb; border-radius: 12px;"></iframe>
+        </li>
+      </ul>
+    </div>
   </section>
+</main>
 
-<script src="script.js"></script>
-
+<script src="i18n.js" defer></script>
+<script src="script.js" defer></script>
+<script>
+  document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
+</script>
 </body>
 </html>

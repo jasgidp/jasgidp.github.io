@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "programming": "Programming",
+    "about": "About",
+    "skills": "Skills",
+    "timeline": "Timeline",
+    "contact": "Contact"
+  },
+  "hero": {
+    "role": "Product Design Engineer · Streaming Engineer Specialist · Master’s Student",
+    "ctaPortfolio": "View Portfolio",
+    "ctaCV": "Download CV",
+    "ctaContact": "Contact",
+    "ctaSkills": "View Skills",
+    "ctaTimeline": "View Timeline",
+    "blurb": "Product Design Engineer and Streaming Specialist focused on useful, measurable solutions. I build internal tools, automate with Python, and monitor with Grafana."
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Browse projects by category",
+    "programmingBtn": "Programming Portfolio",
+    "softwareHint": "Extra button for programming portfolio is located below."
+  },
+  "filters": {
+    "all": "All",
+    "graphic": "Graphic Design",
+    "experience": "Experience Design",
+    "engineering": "Engineering",
+    "research": "Research",
+    "software": "Software",
+    "design": "Design"
+  },
+  "about": {
+    "title": "About",
+    "bio": "Product Design Engineer and Streaming Specialist with hands-on experience in live support, Python automation, and Grafana monitoring. Master’s in Engineering student (sustainability and software development). I’ve led data and internal tooling projects at Genius Sports, plus work across graphic design, renewable energy research, and interactive experiences. I focus on useful, measurable, and well-designed solutions for users and technical teams.",
+    "highlightsTitle": "Highlights",
+    "highlights": [
+      "Python automation for operations and tooling",
+      "Live streaming operations and incident response",
+      "Grafana dashboards and monitoring",
+      "UX for internal tools and data pipelines",
+      "Multidisciplinary background: design, research, engineering"
+    ],
+    "factsTitle": "Quick facts",
+    "facts": {
+      "locationLabel": "Location",
+      "locationValue": "Medellín, Colombia",
+      "languagesLabel": "Languages",
+      "languagesValue": "Spanish · English · Portuguese",
+      "interestsLabel": "Interests",
+      "interestsValue": "Data, design systems, automation"
+    }
+  },
+  "skills": { "title": "Skills" },
+  "timeline": {
+    "title": "Timeline",
+    "work": "Work Experience",
+    "research": "Research",
+    "leadership": "Leadership & Volunteering",
+    "education": "Education",
+    "present": "Present",
+    "noResults": "No items match your search."
+  },
+  "programming": {
+    "title": "Programming Portfolio",
+    "intro": "Selected software projects with live demos and code repositories. Use the button to toggle the live preview.",
+    "preview": "Show demo",
+    "hide": "Hide demo"
+  },
+  "contact": { "title": "Contact", "emailCta": "Send Email" }
+}

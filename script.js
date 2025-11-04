@@ -1,17 +1,18 @@
 // Manejo dinámico de iframes y botones
-document.querySelectorAll(".show-hide").forEach(button => {
-    button.addEventListener("click", function () {
-        let nextElement = this.nextElementSibling; // Iniciar desde el siguiente elemento
+// Replace title click with button-based toggling
 
-        while (nextElement) {
-            if (nextElement.tagName === "IFRAME") {
-                // Alternar la visibilidad del iframe encontrado
-                nextElement.style.display = (nextElement.style.display === "block") ? "none" : "block";
-                break; // Salir del bucle después de encontrar el iframe
-            }
-            nextElement = nextElement.nextElementSibling; // Continuar buscando
-        }
-    });
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.toggle-preview');
+  if (!btn) return;
+  // find the iframe in the same project-item
+  const item = btn.closest('.project-item');
+  if (!item) return;
+  const iframe = item.querySelector('iframe.iframe');
+  if (!iframe) return;
+  const isVisible = iframe.style.display === 'block';
+  iframe.style.display = isVisible ? 'none' : 'block';
+  const label = btn.querySelector('[data-i18n="programming.preview"]');
+  if (label) label.textContent = isVisible ? (window.t ? window.t('programming.preview','Show demo') : 'Show demo') : (window.t ? window.t('programming.hide','Hide demo') : 'Hide demo');
 });
 
 // Texto de descripción para los proyectos
@@ -23,22 +24,52 @@ document.querySelectorAll(".description-project").forEach(description => {
 const menu = document.querySelector('#menu-icon');
 const navlist = document.querySelector('.navlist');
 
-menu.onclick = () => {
-    console.log("estoy click")
-    menu.classList.toggle('bx-x');
-    navlist.classList.toggle('open');
+if (menu && navlist) {
+    const closeMenu = () => {
+        menu.classList.remove('bx-x');
+        navlist.classList.remove('open');
+        menu.setAttribute('aria-expanded', 'false');
+    };
+
+    menu.onclick = () => {
+        console.log("estoy click")
+        const isOpen = navlist.classList.toggle('open');
+        menu.classList.toggle('bx-x', isOpen);
+        menu.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+    });
 }
+
+// Programming page: search filter
+(function(){
+  const input = document.getElementById('programming-search');
+  if (!input) return;
+  const items = Array.from(document.querySelectorAll('.programming-list .project-item'));
+  function normalize(s){ return (s||'').toString().toLowerCase(); }
+  function hay(item){
+    const title = item.querySelector('h2')?.textContent || '';
+    const desc = item.querySelector('.description-project')?.textContent || '';
+    return `${title} ${desc}`.toLowerCase();
+  }
+  input.addEventListener('input', (e)=>{
+    const q = normalize(e.target.value);
+    items.forEach(it => { it.style.display = hay(it).includes(q) ? '' : 'none'; });
+  });
+})();
 
 
 const sr = ScrollReveal({
     distance: '60px',
-    duration: 2500,
-    delay: 400,
-    reset: true
+    duration: 800,
+    delay: 200,
+    reset: false
 })
 
 sr.reveal('.hero-text',{delay:200, origin: 'top'})
-sr.reveal('.hero-img',{delay:300, origin: 'right'})
+sr.reveal('.hero-image',{delay:300, origin: 'right'})
 sr.reveal('.icons',{delay:500, origin: 'left'})
 sr.reveal('.scroll-down',{delay:800, origin: 'top'})
 

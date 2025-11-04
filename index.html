@@ -38,39 +38,59 @@
 
   <!-- Esta sección es la cabecera de la pagina web -->
   <header class="header">
-    <a href="#" class="logo">JASG</a>
+    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
 
-    <div class='bx bx-menu' id="menu-icon"></div>
+    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
 
-    <ul class="navlist">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="#">About me</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="programming.html">Programming</a></li>
-      <li><a href="#">Contact</a></li>
-
+    <ul class="navlist" id="primary-nav">
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
+      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
+      <!-- Programming removed from header navigation -->
+      <li><a href="#" data-i18n="nav.contact">Contact</a></li>
     </ul>
+
+    <div class="lang-switcher">
+      <button data-lang="es" aria-label="Cambiar a español">ES</button>
+      <button data-lang="en" aria-label="Switch to English">EN</button>
+      <button data-lang="pt" aria-label="Mudar para português">PT</button>
+    </div>
   </header>
 
-  <section class="hero">
+
+  <section id="home-hero" class="hero">
+
+  
+
     <div class="hero-text">
-      <h5>Operational Engineer</h5>
-      <h4>Product Design Engineer</h4>
-      <h1> Jonathan Sandoval</h1>
-      <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos animi culpa obcLorem ipsum dolor sit amet
-        consectetur adipisicing elit. Eos animi culpa obcaecatiaecati </p>
-      <a href="#">CV</a>
-      <a href="#" class="videos"><i class="ri-play-fill"></i>Mirá mis videos</a>
+     
+      <div class="hero-card">
+         
+ <video autoplay muted loop class="video-bg">
+    <source src="background.mp4" type="video/mp4">
+  </video>
+        <h5 data-i18n="hero.role">Product Design Engineer · Streaming Engineer Specialist · Master’s Student</h5>
+        <h4>Product Design Engineer</h4>
+        <h1>Jonathan Sandoval</h1>
+        <p id="hero-blurb" data-i18n="hero.blurb">Product Design Engineer and Streaming software engineering with hands-on experience in live support, Python automation, and Grafana monitoring. Master’s in Engineering student and software development.</p>
+        <div class="hero-ctas">
+          <a href="docs/foto.jpg" download class="btn primary" data-i18n="hero.ctaCV">Download CV</a>
+          <a href="portfolio.html" class="btn ghost"><i class="ri-play-fill" aria-hidden="true"></i><span data-i18n="hero.ctaPortfolio">View Portfolio</span></a>
+          <a href="skills.html" class="btn ghost"><i class="ri-rocket-2-line" aria-hidden="true"></i><span data-i18n="hero.ctaSkills">View Skills</span></a>
+          <a href="timeline.html" class="btn ghost"><i class="ri-timeline-view" aria-hidden="true"></i><span data-i18n="hero.ctaTimeline">View Timeline</span></a>
+        </div>
+      </div>
     </div>
-    <div class="hero-image">
-      <img src="HOme.png" alt="perfil">
-    </div>
+
+   
   </section>
 
-  <div class="icons">
-    <a href="#"><i class="ri-instagram-line"></i></a>
-    <a href="#"><i class="ri-youtube-line"></i></a>
-    <a href="#"><i class="ri-github-fill"></i></a>
+  <div class="icons" aria-label="Social links">
+    <a href="https://instagram.com/your-profile" target="_blank" rel="noopener" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+    <a href="https://youtube.com/@your-channel" target="_blank" rel="noopener" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+    <a href="https://github.com/your-username" target="_blank" rel="noopener" aria-label="GitHub"><i class="ri-github-fill"></i></a>
   </div>
 
 
@@ -78,10 +98,20 @@
     <a href="#"><i class="ri-arrow-down-s-fill"></i></a>
   </div>
 
-  <script src="http://unpkg.com/scrollreveal"></script> <!-- Importa la libreria ScrollReveal -->
-  <script src="script.js"></script>
-
-
+  <!-- Use https for ScrollReveal to avoid mixed content issues -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="i18n.js" defer></script>
+  <script src="script.js" defer></script>
+  <script>
+    // Auto-hide hero image overlay after 10 seconds
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const hero = document.getElementById('home-hero');
+        if (hero) hero.classList.add('hide-image');
+      }, 10000);
+    });
+    document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
+  </script>
 
 </body>
 

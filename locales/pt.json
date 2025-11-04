@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Início",
+    "portfolio": "Portfólio",
+    "programming": "Programação",
+    "about": "Sobre",
+    "skills": "Habilidades",
+    "timeline": "Linha do Tempo",
+    "contact": "Contato"
+  },
+  "hero": {
+    "role": "Engenheiro de Design de Produto · Especialista em Streaming · Mestrando",
+    "ctaPortfolio": "Ver Portfólio",
+    "ctaCV": "Baixar CV",
+    "ctaContact": "Contato",
+    "ctaSkills": "Ver Habilidades",
+    "ctaTimeline": "Ver Linha do Tempo",
+    "blurb": "Engenheiro de Design de Produto e especialista em Streaming focado em soluções úteis e mensuráveis. Construo ferramentas internas, automatizo com Python e monitoro com Grafana."
+  },
+  "portfolio": {
+    "title": "Portfólio",
+    "subtitle": "Explore projetos por categoria",
+    "programmingBtn": "Portfólio de Programação",
+    "softwareHint": "O botão extra do portfólio de programação está abaixo."
+  },
+  "filters": {
+    "all": "Tudo",
+    "graphic": "Design Gráfico",
+    "experience": "Design de Experiência",
+    "engineering": "Engenharia",
+    "research": "Pesquisa",
+    "software": "Software",
+    "design": "Design"
+  },
+  "about": {
+    "title": "Sobre",
+    "bio": "Engenheiro de Design de Produto e Especialista em Streaming com experiência em suporte ao vivo, automação em Python e monitoramento com Grafana. Mestrando em Engenharia (sustentabilidade e desenvolvimento de software). Liderei projetos de dados e ferramentas internas na Genius Sports e atuei em design gráfico, pesquisa em energias renováveis e experiências interativas. Busco soluções úteis, mensuráveis e bem projetadas para usuários e equipes técnicas.",
+    "highlightsTitle": "Destaques",
+    "highlights": [
+      "Automação em Python para operações e ferramentas",
+      "Operações de streaming ao vivo e resposta a incidentes",
+      "Dashboards e monitoramento com Grafana",
+      "UX para ferramentas internas e pipelines de dados",
+      "Perfil multidisciplinar: design, pesquisa, engenharia"
+    ],
+    "factsTitle": "Fatos rápidos",
+    "facts": {
+      "locationLabel": "Localização",
+      "locationValue": "Medellín, Colômbia",
+      "languagesLabel": "Idiomas",
+      "languagesValue": "Espanhol · Inglês · Português",
+      "interestsLabel": "Interesses",
+      "interestsValue": "Dados, design systems, automação"
+    }
+  },
+  "skills": { "title": "Habilidades" },
+  "timeline": {
+    "title": "Linha do Tempo",
+    "work": "Experiência Profissional",
+    "research": "Pesquisa",
+    "leadership": "Liderança e Voluntariado",
+    "education": "Educação",
+    "present": "Atualmente",
+    "noResults": "Nenhum item corresponde à sua busca."
+  },
+  "programming": {
+    "title": "Portfólio de Programação",
+    "intro": "Projetos de software selecionados com demos e repositórios. Use o botão para alternar a pré-visualização.",
+    "preview": "Ver demo",
+    "hide": "Ocultar demo"
+  },
+  "contact": { "title": "Contato", "emailCta": "Enviar email" }
+}

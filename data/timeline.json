@@ -1,0 +1,28 @@
+{
+  "experience": [
+    {"org":"Genius Sports","role":"Operational Engineer – Streaming Specialist","start":"2023-10","end":null,"bullets":["Live support with development teams.","Grafana dashboards and Python runbooks for troubleshooting.","Improved streaming tools and new support utilities."]},
+    {"org":"Genius Sports","role":"Streaming Customer Onboarding Specialist","start":"2022-09","end":"2023-09","bullets":["Automated processes across platforms and teams.","Managed internal product releases.","Onboarded customers and trained team members."]},
+    {"org":"Genius Sports","role":"Streaming Support & Implementation Officer","start":"2021-09","end":"2022-09","bullets":["Implemented streaming projects and integrations.","Training and documentation standardization."]},
+    {"org":"Genius Sports","role":"Live Feed Analyst – High Level","start":"2018-07","end":"2021-09","bullets":["Analyzed live sports data.","Analyst onboarding and training."]},
+    {"org":"Ecoluz S.A.S","role":"R&D Intern","start":"2019-01","end":"2019-07","bullets":["Developed concepts and prototypes for luminaires."]},
+    {"org":"EAFIT University","role":"Academic Tutor – Electromechanical Projects","start":"2018-07","end":"2018-11","bullets":["Guided students in control and electronic product design."]},
+    {"org":"LiveSEO Agency (Brazil)","role":"Graphic Design Internship (AIESEC Exchange)","start":"2021-04","end":"2021-06","bullets":["Custom design pieces; web image optimization."]}
+  ],
+  "research": [
+    {"org":"EAFIT – GRID","role":"Investigative Monitor (Solar Energy)","start":"2019-07","end":"2019-12","bullets":["Research on CPV and BICPV technologies."]},
+    {"org":"EAFIT – GRID","role":"Investigative Member (Wind Energy)","start":"2018-07","end":"2018-12","bullets":["Applied tensile structure strategies to wind turbine blades."]},
+    {"org":"Publication","role":"Co-author","start":"2023-01","end":null,"bullets":["Wind Engineering Journal: WIE-23-0168.R1."]}
+  ],
+  "leadership": [
+    {"org":"AIESEC EAFIT","role":"DX Manager & Events Director; Sales/IR; HT & Comms","start":"2017-01","end":"2022-12","bullets":["Managed social media, branding, newsletters, and event identity.","Coordinated sales and international relations.","Led human talent and communications."]},
+    {"org":"Fundación ADIS (Mexico)","role":"International Volunteer – Partnerships (SDG #17)","start":"2018-11","end":"2019-01","bullets":["Marketing strategy; website redesign."]},
+    {"org":"Lar Bethel (Brazil)","role":"International Volunteer – Quality Education","start":"2017-06","end":"2017-08","bullets":[]},
+    {"org":"Seres EAFIT","role":"Volunteer – Social Action & Marketing","start":"2015-01","end":"2018-12","bullets":["Campaign promotion; outreach to foundations."]}
+  ],
+  "education": [
+    {"org":"Universidad EAFIT","role":"Master’s in Engineering","start":"2024-01","end":null,"bullets":["Focus: Sustainability & Software Development."]},
+    {"org":"Digital House","role":"Data Science Intensive","start":"2022-02","end":"2022-10","bullets":["EDA, statistics, visualization, transformation with Python/Pandas."]},
+    {"org":"Universidad EAFIT","role":"Product Design Engineering","start":"2015-01","end":"2019-12","bullets":["GPA 4.3/5.0; Wavy Leading Edge HAWT blade project."]},
+    {"org":"Politécnico JIC","role":"Technical Program in Software Development","start":"2013-01","end":"2014-12","bullets":[]}
+  ]
+}

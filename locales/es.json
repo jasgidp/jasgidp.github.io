@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "portfolio": "Portafolio",
+    "programming": "Programación",
+    "about": "Sobre mí",
+    "skills": "Habilidades",
+    "timeline": "Cronología",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "role": "Ingeniero de Producto · Especialista en Streaming · Estudiante de Maestría",
+    "ctaPortfolio": "Ver Portafolio",
+    "ctaCV": "Descargar CV",
+    "ctaContact": "Contacto",
+    "ctaSkills": "Ver Habilidades",
+    "ctaTimeline": "Ver Cronología",
+    "blurb": "Ingeniero de Diseño de Producto y especialista en Streaming enfocado en soluciones útiles y medibles. Construyo herramientas internas, automatizo con Python y monitoreo con Grafana."
+  },
+  "portfolio": {
+    "title": "Portafolio",
+    "subtitle": "Explora mis proyectos por categoría",
+    "programmingBtn": "Portafolio de Programación",
+    "softwareHint": "El botón extra del portafolio de programación está abajo."
+  },
+  "filters": {
+    "all": "Todo",
+    "graphic": "Diseño Gráfico",
+    "experience": "Experiencia",
+    "engineering": "Ingeniería",
+    "research": "Investigación",
+    "software": "Software",
+    "design": "Diseño"
+  },
+  "about": {
+    "title": "Sobre mí",
+    "bio": "Ingeniero de Diseño de Producto y especialista en Streaming con experiencia en soporte en vivo, automatización con Python y monitoreo con Grafana. Estudiante de Maestría en Ingeniería (sostenibilidad y desarrollo de software). He liderado proyectos de datos y herramientas internas en Genius Sports, y he trabajado en diseño gráfico, investigación en energías renovables y experiencias interactivas. Enfoco mi trabajo en soluciones útiles, medibles y bien diseñadas para usuarios y equipos técnicos.",
+    "highlightsTitle": "Destacados",
+    "highlights": [
+      "Automatización con Python para operaciones y tooling",
+      "Operaciones de streaming en vivo y respuesta a incidentes",
+      "Dashboards y monitoreo con Grafana",
+      "UX para herramientas internas y pipelines de datos",
+      "Perfil multidisciplinario: diseño, investigación, ingeniería"
+    ],
+    "factsTitle": "Datos rápidos",
+    "facts": {
+      "locationLabel": "Ubicación",
+      "locationValue": "Medellín, Colombia",
+      "languagesLabel": "Idiomas",
+      "languagesValue": "Español · Inglés · Portugués",
+      "interestsLabel": "Intereses",
+      "interestsValue": "Datos, design systems, automatización"
+    }
+  },
+  "skills": { "title": "Habilidades" },
+  "timeline": {
+    "title": "Cronología",
+    "work": "Experiencia Laboral",
+    "research": "Investigación",
+    "leadership": "Liderazgo y Voluntariado",
+    "education": "Educación",
+    "present": "Actualidad",
+    "noResults": "No hay elementos que coincidan con tu búsqueda."
+  },
+  "programming": {
+    "title": "Portafolio de Programación",
+    "intro": "Proyectos de software con demos en vivo y repositorios. Usa el botón para mostrar/ocultar la vista previa.",
+    "preview": "Ver demo",
+    "hide": "Ocultar demo"
+  },
+  "contact": { "title": "Contacto", "emailCta": "Enviar correo" }
+}

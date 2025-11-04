@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>JASG | About</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
+    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
+    <ul class="navlist" id="primary-nav">
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
+      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
+      <!-- Programming removed from header navigation -->
+      <li><a href="#" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button data-lang="es">ES</button>
+      <button data-lang="en">EN</button>
+      <button data-lang="pt">PT</button>
+    </div>
+  </header>
+ <video autoplay muted loop class="video-bg">
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  <main class="page">
+    <section class="about-section">
+      <div class="hero-card about-card">
+        <div class="about-grid">
+          <div class="about-photo">
+            <img src="foto.jpg" alt="Jonathan Sandoval headshot" />
+          </div>
+          <div class="about-content">
+            <h1 data-i18n="about.title">About</h1>
+            <p class="about-bio" data-i18n="about.bio">
+              Product Design Engineer and Streaming Specialist with hands-on experience in live support, Python automation, and Grafana monitoring. Master’s in Engineering student (sustainability and software development). I’ve led data and internal tooling projects at Genius Sports, plus work across graphic design, renewable energy research, and interactive experiences. I focus on useful, measurable, and well-designed solutions for users and technical teams.
+            </p>
+
+            <div class="group-chips about-chips" aria-label="Focus areas">
+              <span class="chip" data-filter="engineering" data-i18n="filters.engineering">Engineering</span>
+              <span class="chip" data-filter="software" data-i18n="filters.software">Software</span>
+              <span class="chip" data-filter="experience" data-i18n="filters.experience">Experience</span>
+              <span class="chip" data-filter="research" data-i18n="filters.research">Research</span>
+              <span class="chip" data-filter="design" data-i18n="filters.design">Design</span>
+            </div>
+
+            <h3 class="about-subtitle" data-i18n="about.highlightsTitle">Highlights</h3>
+            <ul class="about-highlights">
+              <li data-i18n="about.highlights.0">Python automation for operations and tooling</li>
+              <li data-i18n="about.highlights.1">Live streaming operations and incident response</li>
+              <li data-i18n="about.highlights.2">Grafana dashboards and monitoring</li>
+              <li data-i18n="about.highlights.3">UX for internal tools and data pipelines</li>
+              <li data-i18n="about.highlights.4">Multidisciplinary background: design, research, engineering</li>
+            </ul>
+
+            <h3 class="about-subtitle" data-i18n="about.factsTitle">Quick facts</h3>
+            <div class="about-facts" role="list">
+              <div class="fact" role="listitem">
+                <span class="label" data-i18n="about.facts.locationLabel">Location</span>
+                <span class="value" data-i18n="about.facts.locationValue">Medellín, Colombia</span>
+              </div>
+              <div class="fact" role="listitem">
+                <span class="label" data-i18n="about.facts.languagesLabel">Languages</span>
+                <span class="value" data-i18n="about.facts.languagesValue">Spanish · English · Portuguese</span>
+              </div>
+              <div class="fact" role="listitem">
+                <span class="label" data-i18n="about.facts.interestsLabel">Interests</span>
+                <span class="value" data-i18n="about.facts.interestsValue">Data, design systems, automation</span>
+              </div>
+
+            <div class="hero-ctas about-ctas">
+              <a class="btn" href="docs/foto.jpg" download data-i18n="hero.ctaCV">Download CV</a>
+              </div>
+             <div class="hero-ctas about-ctas">
+              <a class="btn" href="portfolio.html" data-i18n="hero.ctaPortfolio">View Portfolio</a>
+
+             </div>
+               <div class="hero-ctas about-ctas">
+              <a class="btn" href="#" data-i18n="hero.ctaContact">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="i18n.js" defer></script>
+  <script src="script.js" defer></script>
+  <script>
+    document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
+  </script>
+</body>
+</html>

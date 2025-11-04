@@ -1,0 +1,41 @@
+{
+  "projects": [
+    {"id":"aiesec-awards","category":"graphic","title":"Awards – AIESEC","summary":"Certificates and event logo aligned to ‘The Family’ concept.","role":"Director of Digital Experience & Graphic Design","tech":["Illustrator","Photoshop"],"images":[],"links":{"demo":"","repo":"","video":""},"year":2020},
+    {"id":"zonalito-2020-1","category":"graphic","title":"Conference 2020 (1) – Zonalito","summary":"Concept and visual system for regional AIESEC event.","tech":["Illustrator","Photoshop"],"year":2020},
+    {"id":"zonalito-2020-2","category":"graphic","title":"Conference 2020 (2) – Big Heroes","summary":"Branding: logo, mascot, shirts, templates.","year":2020},
+    {"id":"zonalito-2019","category":"graphic","title":"Conference 2019 (1) – Special Agents","summary":"Visual identity; logo, badges, booklets, templates.","year":2019},
+
+    {"id":"mi-centro","category":"experience","title":"Mi Centro – University Project","summary":"Social urban experience system (station/pole/device).","links":{"video":""},"year":2019},
+    {"id":"thor-machine","category":"experience","title":"Thor Machine – University Project","summary":"Interactive installation for children; ergonomics education.","links":{"video":""},"year":2019},
+
+    {"id":"fwd","category":"engineering","title":"FWD – University Project","summary":"Single-person two-wheel vehicle; internal-rim transmission.","year":2018},
+    {"id":"joha","category":"engineering","title":"JO.HA – Ecoluz","summary":"Details pending documentation.","year":2019},
+    {"id":"kory","category":"engineering","title":"Kory – Beach Cleaner","summary":"Semi-autonomous electric vehicle guided by GPS/manual.","links":{"video":""},"year":2020},
+
+    {"id":"grid-1","category":"research","title":"Comparación de Álabes – GRID","summary":"Comparative study of blade profiles.","year":2018},
+    {"id":"grid-2","category":"research","title":"Validación Wavy Leading Edge – GRID","summary":"Validation of Wavy Leading Edge strategies.","year":2018},
+    {"id":"grid-3","category":"research","title":"Viabilidad de Aerogenerador","summary":"Feasibility analysis of a small wind turbine.","year":2019},
+    {"id":"grid-4","category":"research","title":"Gratu","summary":"Research item placeholder.","year":2019},
+    {"id":"grid-5","category":"research","title":"Artículo Científico","summary":"Co-authored publication in Wind Engineering Journal.","year":2023},
+
+    {"id":"clean-dataset","category":"software","title":"Clean Dataset","summary":"Automation for data cleaning and preprocessing.","tech":["Python"],"links":{"repo":""}},
+    {"id":"forecast-gl","category":"software","title":"Forecast GL Project","summary":"Predictive analytics for streaming operations.","tech":["Python","ML"],"links":{"repo":""}},
+    {"id":"web-jonathan","category":"software","title":"Web Page Jonathan","summary":"Personal portfolio website.","tech":["HTML","CSS","JS"],"links":{"repo":""}},
+    {"id":"sbs","category":"software","title":"SBS","summary":"Internal tool for system/process support.","links":{"repo":""}},
+    {"id":"grafana-improvement","category":"software","title":"Grafana Improvement","summary":"Visualization and monitoring optimization.","links":{"repo":""}},
+    {"id":"hermes-improvements","category":"software","title":"Hermes Improvements","summary":"Enhancements to internal communication platform.","links":{"repo":""}},
+    {"id":"runbooks","category":"software","title":"Runbooks – Troubleshooting/Info/Rules","summary":"Standardized operational runbooks.","links":{"repo":""}},
+    {"id":"db-automation","category":"software","title":"Database Information Automation","summary":"Scripts for updating and validating datasets.","links":{"repo":""}},
+    {"id":"alerts-nfl","category":"software","title":"Alerts for NFL","summary":"Automated alert system for sports data.","links":{"repo":""}},
+    {"id":"permission-system","category":"software","title":"New Permission System","summary":"Backend logic for role-based access control.","links":{"repo":""}},
+    {"id":"fixture-manager","category":"software","title":"Fixture Manager / NFL Messages","summary":"Tools for sports data management and automation.","links":{"repo":""}},
+
+    {"id":"center-box","category":"design","title":"Center Box – Family Project","summary":"Coffee table with storage; upcycled materials.","year":2017},
+    {"id":"overlap","category":"design","title":"Overlap – University Project","summary":"Conceptual model; mechanical systems and abstraction.","year":2017},
+    {"id":"diesel-chair","category":"design","title":"Diesel Chair – University Project","summary":"Ergonomic chair inspired by Diesel brand.","year":2017},
+    {"id":"stad","category":"design","title":"Stad – University Project","summary":"Furniture inspired by Amsterdam and Delft Blue ceramics.","year":2017},
+    {"id":"tengu","category":"design","title":"Tengu – University Project","summary":"Sake bottle inspired by Tengu; 3D modeling and scanning.","year":2017},
+    {"id":"sd-sofa","category":"design","title":"SD Sofa – Family Project","summary":"Convertible sofa-bed using recycled materials.","year":2018},
+    {"id":"models","category":"design","title":"3D Model Design – University Project","summary":"Modeling of existing products using Creo.","year":2017}
+  ]
+}

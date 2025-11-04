@@ -18,6 +18,7 @@
   
   
   
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
@@ -25,40 +26,67 @@
   
 </head>
 <body>
-    <header class="header">
-        <a href="#" class="logo">JASG</a>
-        <input type="checkbox" name="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon-action">
-            <div class='bx bx-menu' id="menu-icon"></div>
-        </label>
+  <header class="header">
+    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
+    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
     
-        <ul class="navlist">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="#">About me</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="programming.html">Programming</a></li>
-          <li><a href="#">Contact</a></li>
-    
-        </ul>
-      </header>
-<br>
+    <ul class="navlist" id="primary-nav">
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
+      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
+      <!-- Programming removed from header navigation -->
+      <li><a href="#" data-i18n="nav.contact">Contact</a></li>
+    </ul>
 
-<br><br><br>
-  <div class="contenedor">
-    <h1 id="title"> Hello Beutiful, Amazing and unique World </h1>
+    <div class="lang-switcher">
+      <button data-lang="es">ES</button>
+      <button data-lang="en">EN</button>
+      <button data-lang="pt">PT</button>
+    </div>
+  </header>
+   <video autoplay muted loop class="video-bg">
+    <source src="background.mp4" type="video/mp4">
+  </video>
 
-    <h2 id="subtitle"> This page is under construction with CSS, HTML and JS coming back to this page</h2>
+  <main style="padding-top:120px;">
+    <h1 data-i18n="portfolio.title" class="timeline-title">Portfolio</h1>
+    <section class="timeline-controls" aria-label="Portfolio controls">
+      <!-- Search first -->
+      <div class="search-wrap">
+        <i class="ri-search-line" aria-hidden="true"></i>
+        <input id="timeline-search" type="search" placeholder="Search projects..." aria-label="Search projects" />
+      </div>
+      <!-- Filters below search -->
+      <nav class="filters group-chips" aria-label="Project filters">
+        <button class="chip active" data-filter="all"><i class="ri-apps-2-line" aria-hidden="true"></i><span data-i18n="filters.all">All</span></button>
+        <button class="chip" data-filter="graphic"><i class="ri-brush-line" aria-hidden="true"></i><span data-i18n="filters.graphic">Graphic Design</span></button>
+        <button class="chip" data-filter="experience"><i class="ri-layout-2-line" aria-hidden="true"></i><span data-i18n="filters.experience">Experience Design</span></button>
+        <button class="chip" data-filter="engineering"><i class="ri-tools-line" aria-hidden="true"></i><span data-i18n="filters.engineering">Engineering</span></button>
+        <button class="chip" data-filter="research"><i class="ri-flask-line" aria-hidden="true"></i><span data-i18n="filters.research">Research</span></button>
+        <button class="chip" data-filter="software"><i class="ri-code-box-line" aria-hidden="true"></i><span data-i18n="filters.software">Software</span></button>
+        <button class="chip" data-filter="design"><i class="ri-shape-2-line" aria-hidden="true"></i><span data-i18n="filters.design">Design</span></button>
+      </nav>
+      <p id="software-hint" class="hint" hidden>
+        <i class="ri-information-line" aria-hidden="true"></i>
+        <span data-i18n="portfolio.softwareHint">Extra button for programming portfolio is located below.</span>
+      </p>
+      
+    </section>
+<div id="software-extra" class="software-extra" hidden>
+        <a href="programming.html" class="btn"><i class="ri-code-s-slash-line" aria-hidden="true"></i><span data-i18n="portfolio.programmingBtn">Programming Portfolio</span></a>
+      </div>
+    <section>
+      <div id="projects-container" class="skills-grid" aria-live="polite"></div>
+    </section>
+  </main>
 
-    <h3> Meanwhile you can enjoy my portfolio here <a href="https://jasn0121.wixsite.com/jsss"
-        title="Click here to go to the place where you can find my portfolio">wixsite</a> </h3>
-
-  </div>
-
-  <div class="hero-image">
-    <img src="foto.jpg" alt="perfil">
-  </div>
-
-  <script src="script.js"></script>
-
+  <script src="i18n.js" defer></script>
+  <script src="projects.js" defer></script>
+  <script src="script.js" defer></script>
+  <script>
+    document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
+  </script>
 </body>
 </html>
