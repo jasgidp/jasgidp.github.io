@@ -25,23 +25,46 @@ const menu = document.querySelector('#menu-icon');
 const navlist = document.querySelector('.navlist');
 
 if (menu && navlist) {
-    const closeMenu = () => {
-        menu.classList.remove('bx-x');
-        navlist.classList.remove('open');
-        menu.setAttribute('aria-expanded', 'false');
-    };
+  const closeMenu = () => {
+    menu.classList.remove('bx-x');
+    navlist.classList.remove('open');
+    menu.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+  };
 
-    menu.onclick = () => {
-        console.log("estoy click")
-        const isOpen = navlist.classList.toggle('open');
-        menu.classList.toggle('bx-x', isOpen);
-        menu.setAttribute('aria-expanded', String(isOpen));
-    }
+  menu.onclick = () => {
+    const isOpen = navlist.classList.toggle('open');
+    menu.classList.toggle('bx-x', isOpen);
+    menu.setAttribute('aria-expanded', String(isOpen));
+    document.body.classList.toggle('menu-open', isOpen);
+  }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeMenu();
-    });
+  // Close menu when a link is clicked
+  navlist.addEventListener('click', (e) => {
+    if (e.target.closest('a')) closeMenu();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
 }
+
+// Highlight active nav link (desktop header)
+document.addEventListener('DOMContentLoaded', () => {
+  const path = (location.pathname || '').split('/').pop() || 'index.html';
+  let key = 'nav.home';
+  if (path.includes('about')) key = 'nav.about';
+  else if (path.includes('portfolio')) key = 'nav.portfolio';
+  else if (path.includes('skills')) key = 'nav.skills';
+  else if (path.includes('timeline')) key = 'nav.timeline';
+  else if (path.includes('programming')) key = 'nav.programming';
+  else if (path.includes('contact')) key = 'nav.contact';
+
+  document.querySelectorAll('.navlist a').forEach(a => {
+    const k = a.getAttribute('data-i18n');
+    if (k === key) a.classList.add('active');
+  });
+});
 
 // Programming page: search filter
 (function(){
