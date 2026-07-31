@@ -12,7 +12,7 @@
   - Subir una imagen en base64 (putBinary).
 
   ¿Por qué?
-  El panel admin.html necesita leer y escribir los JSON del
+  El panel admin/ necesita leer y escribir los JSON del
   repositorio sin meter secretos en el código. El token vive
   solo en el navegador del administrador.
 
@@ -51,7 +51,7 @@
     if (/Failed to fetch|NetworkError|Load failed|CORS/i.test(msg)) {
       return new Error(
         `No se pudo conectar con api.github.com (${path}). ` +
-        `Abre el admin desde https://jasgidp.github.io/admin.html (no como archivo local), ` +
+        `Abre el admin desde https://jasgidp.github.io/admin/ (no como archivo local), ` +
         `usa un token fine-grained con Contents: Read and write en ${OWNER}/${REPO}, ` +
         `y permite api.github.com si tienes un bloqueador. Detalle: ${msg}`
       );

@@ -21,9 +21,9 @@
     <meta property="og:title" content="Portafolio — Jonathan Sandoval">
     <meta property="og:description" content="Proyectos de ingeniería, software, diseño gráfico, experiencia e investigación.">
     <meta property="og:url" content="https://jasgidp.github.io/portfolio.html">
-    <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
+    <meta property="og:image" content="https://jasgidp.github.io/assets/img/brand/HOme.png">
     <link rel="shortcut icon" href="favicon.png">
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
 
     <!-- Iconos Remix Icon -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
@@ -41,7 +41,7 @@
 
   <!-- Video de fondo -->
   <video autoplay muted loop class="video-bg">
-    <source src="background.mp4" type="video/mp4">
+    <source src="assets/video/background.mp4" type="video/mp4">
   </video>
 
   <main class="page">
@@ -94,12 +94,12 @@
     </section>
   </main>
 
-  <script src="analytics.js" defer></script>
-  <script src="partials/header.js" defer></script>
-  <script src="i18n.js" defer></script>
+  <script src="js/analytics.js" defer></script>
+  <script src="js/header.js" defer></script>
+  <script src="js/i18n.js" defer></script>
   <!-- Carga y dibuja los proyectos desde data/projects.json -->
-  <script src="projects.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="js/projects.js" defer></script>
+  <script src="js/script.js" defer></script>
   <script>
     document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
   </script>

@@ -3,7 +3,7 @@
   admin.js — Panel de edición del portafolio
   ------------------------------------------------------------
   ¿Qué es?
-  La "aplicación" del admin.html. Permite editar los JSON del
+  La "aplicación" del admin/. Permite editar los JSON del
   sitio (cronología, skills, proyectos, código) y guardarlos
   en GitHub con un token personal.
 
@@ -95,7 +95,7 @@
     previewMode = true;
     try {
       for (const key of Object.keys(FILES)) {
-        const res = await fetch('./' + FILES[key] + '?t=' + Date.now(), { cache: 'no-store' });
+        const res = await fetch('../' + FILES[key] + '?t=' + Date.now(), { cache: 'no-store' });
         store[key] = { data: await res.json(), sha: null };
       }
       normalizeProjects();
@@ -172,7 +172,7 @@
      ============================================================ */
   async function loadLocalFiles() {
     for (const key of Object.keys(FILES)) {
-      const res = await fetch('./' + FILES[key] + '?t=' + Date.now(), { cache: 'no-store' });
+      const res = await fetch('../' + FILES[key] + '?t=' + Date.now(), { cache: 'no-store' });
       if (!res.ok) throw new Error(`No se pudo leer ${FILES[key]} (${res.status})`);
       store[key] = { data: await res.json(), sha: store[key]?.sha || null };
     }

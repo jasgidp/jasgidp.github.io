@@ -20,9 +20,9 @@
     <meta property="og:title" content="Programación — Jonathan Sandoval">
     <meta property="og:description" content="Proyectos de software con demos en vivo y repositorios de GitHub.">
     <meta property="og:url" content="https://jasgidp.github.io/programming.html">
-    <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
+    <meta property="og:image" content="https://jasgidp.github.io/assets/img/brand/HOme.png">
     <link rel="shortcut icon" href="favicon.png">
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
 
@@ -37,7 +37,7 @@
   <div id="site-header"></div>
 
   <video autoplay muted loop class="video-bg">
-    <source src="background.mp4" type="video/mp4">
+    <source src="assets/video/background.mp4" type="video/mp4">
   </video>
 
 <main class="page">
@@ -68,15 +68,15 @@
   </section>
 </main>
 
-<script src="analytics.js" defer></script>
-<script src="partials/header.js" defer></script>
-<script src="i18n.js" defer></script>
+<script src="js/analytics.js" defer></script>
+<script src="js/header.js" defer></script>
+<script src="js/i18n.js" defer></script>
 <!-- Proyectos curados desde code-projects.json -->
-<script src="programming.js" defer></script>
+<script src="js/programming.js" defer></script>
 <!-- Repos públicos desde la API de GitHub -->
-<script src="github-repos.js" defer></script>
+<script src="js/github-repos.js" defer></script>
 <!-- Toggle del demo iframe + menú móvil -->
-<script src="script.js" defer></script>
+<script src="js/script.js" defer></script>
 <script>
   document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
 </script>

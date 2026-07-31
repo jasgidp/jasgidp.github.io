@@ -1,19 +1,13 @@
 # ============================================================
 # robots.txt — Instrucciones para buscadores (Google, Bing…)
 # ------------------------------------------------------------
-# ¿Qué es?
-# Un archivo que los robots de búsqueda leen antes de indexar
-# tu sitio. Aquí les dices qué pueden visitar y dónde está
-# el mapa del sitio (sitemap).
-#
 # User-agent: *  → aplica a TODOS los buscadores
-# Allow: /       → pueden indexar todas las páginas públicas
-# Disallow: /admin.html → NO indexar el panel de administración
-# Sitemap:       → URL del mapa XML del sitio
+# Allow: /       → pueden indexar páginas públicas
+# Disallow: /admin/ → NO indexar el panel de administración
 # ============================================================
 
 User-agent: *
 Allow: /
-Disallow: /admin.html
+Disallow: /admin/
 
 Sitemap: https://jasgidp.github.io/sitemap.xml

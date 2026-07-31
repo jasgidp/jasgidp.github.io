@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  PANEL DE ADMINISTRACIÓN (admin/) — NO es una página pública
+  ------------------------------------------------------------
+  ¿Qué es?  Editor privado para editar los JSON del sitio
+            (cronología, skills, proyectos, código) y guardarlos
+            en GitHub sin tocar el código a mano.
+  ¿Por qué noindex?  robots "noindex,nofollow" pide a Google
+                     que NO indexe esta página (es solo tuya).
+
+  Flujo:
+  1) Login con un token de GitHub (o modo preview local).
+  2) Elegir pestaña (timeline / skills / projects / code).
+  3) Editar y pulsar "Guardar en GitHub".
+  ============================================================
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Evita que buscadores indexen el panel privado -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin · JASG</title>
+  <link rel="shortcut icon" href="../favicon.png">
+  <!-- Estilos del sitio + estilos exclusivos del admin -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="admin.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body class="admin-body">
+
+  <!--
+    PANTALLA DE LOGIN
+    Se muestra primero. El usuario pega un fine-grained token
+    de GitHub con permiso Contents: Read and write.
+    El token se guarda solo en localStorage del navegador.
+  -->
+  <section id="login-view" class="admin-login" hidden>
+    <div class="admin-login-card">
+      <h1><i class="ri-lock-2-line"></i> Panel de edición</h1>
+      <p class="admin-muted">
+        Usa este panel desde
+        <a href="https://jasgidp.github.io/admin/" target="_blank" rel="noopener"><code>https://jasgidp.github.io/admin/</code></a>
+        (no abras el HTML como archivo local).
+        Pega un <strong>fine-grained token</strong> con permiso
+        <em>Contents: Read and write</em> y el repo
+        <code>jasgidp/jasgidp.github.io</code> seleccionado.
+      </p>
+      <div class="admin-field">
+        <label for="token-input">GitHub token</label>
+        <input id="token-input" type="password" placeholder="github_pat_..." autocomplete="off">
+      </div>
+      <div class="admin-row" style="gap:8px">
+        <!-- Valida el token y abre el editor -->
+        <button id="login-btn" class="admin-btn primary"><i class="ri-login-box-line"></i> Entrar</button>
+        <!-- Abre el editor en solo lectura usando los JSON locales (sin token) -->
+        <button id="preview-btn" class="admin-btn ghost"><i class="ri-eye-line"></i> Previsualizar (local)</button>
+      </div>
+      <p id="login-status" class="admin-status" role="status" aria-live="polite"></p>
+      <p class="admin-muted small">
+        <a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener">
+          Crear un token &rarr;</a>
+        · El token se guarda solo en este navegador.
+      </p>
+    </div>
+  </section>
+
+  <!--
+    PANEL DE EDICIÓN (oculto hasta login o preview).
+    Contiene cabecera, pestañas, barra de guardar y el área del editor.
+  -->
+  <div id="panel-view" hidden>
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <strong><i class="ri-edit-box-line"></i> Panel de edición</strong>
+        <!-- Muestra @usuario de GitHub o "(preview local)" -->
+        <span id="whoami" class="admin-muted small"></span>
+      </div>
+      <div class="admin-header-right">
+        <a href="../index.html" class="admin-btn ghost" target="_blank" rel="noopener"><i class="ri-external-link-line"></i> Ver sitio</a>
+        <button id="logout-btn" class="admin-btn ghost"><i class="ri-logout-box-line"></i> Salir</button>
+      </div>
+    </header>
+
+    <!-- Pestañas: cada una edita un archivo JSON distinto -->
+    <nav class="admin-tabs" id="admin-tabs">
+      <button class="admin-tab active" data-tab="timeline"><i class="ri-time-line"></i> Cronología</button>
+      <button class="admin-tab" data-tab="skills"><i class="ri-lightbulb-line"></i> Habilidades</button>
+      <button class="admin-tab" data-tab="projects"><i class="ri-briefcase-line"></i> Proyectos</button>
+      <button class="admin-tab" data-tab="code"><i class="ri-code-box-line"></i> Proyectos de código</button>
+    </nav>
+
+    <main class="admin-main">
+      <!-- Barra superior: acciones (Agregar…) + guardar -->
+      <div class="admin-toolbar">
+        <div id="toolbar-actions"></div>
+        <div class="admin-toolbar-right">
+          <span id="save-status" class="admin-status" role="status" aria-live="polite"></span>
+          <button id="save-btn" class="admin-btn primary"><i class="ri-save-3-line"></i> Guardar en GitHub</button>
+        </div>
+      </div>
+      <!-- Aquí admin.js dibuja los formularios de edición -->
+      <section id="editor-container" class="admin-editor"></section>
+    </main>
+  </div>
+
+  <!-- github-api.js = helper para leer/escribir archivos en el repo -->
+  <script src="github-api.js?v=20260731c" defer></script>
+  <!-- admin.js = toda la lógica del panel (login, editores, guardar) -->
+  <script src="admin.js?v=20260731c" defer></script>
+</body>
+</html>

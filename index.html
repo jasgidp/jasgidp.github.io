@@ -9,7 +9,7 @@
 
   Cómo se arma la página:
   1) HTML  → estructura (títulos, botones, enlaces).
-  2) CSS   → main.css (colores, tamaños, animaciones).
+  2) CSS   → css/main.css (colores, tamaños, animaciones).
   3) JS    → header, idiomas, analíticas y efectos.
   ============================================================
 -->
@@ -48,7 +48,7 @@
   <meta property="og:title" content="Jonathan Sandoval — Product Design Engineer">
   <meta property="og:description" content="Product Design Engineer y especialista en streaming. Proyectos de ingeniería, software, diseño e investigación.">
   <meta property="og:url" content="https://jasgidp.github.io/">
-  <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
+  <meta property="og:image" content="https://jasgidp.github.io/assets/img/brand/HOme.png">
 
   <!-- Twitter/X: tipo de vista previa grande con imagen -->
   <meta name="twitter:card" content="summary_large_image">
@@ -57,7 +57,7 @@
   <link rel="shortcut icon" href="favicon.png">
 
   <!-- Hoja de estilos principal del sitio (colores, layout, tipografía) -->
-  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
 
   <!-- Iconos Remix Icon (Instagram, GitHub, flechas, etc.) desde CDN -->
   <!-- https://remixicon.com/ -->
@@ -79,7 +79,7 @@
   analytics.js carga Google Analytics para medir visitas.
   "defer" = se ejecuta después de leer el HTML, sin bloquear la página.
 -->
-<script src="analytics.js" defer></script>
+<script src="js/analytics.js" defer></script>
 
 <body>
   <!--
@@ -88,7 +88,7 @@
   -->
 
   <!--
-    Contenedor vacío donde partials/header.js inserta el menú
+    Contenedor vacío donde js/header.js inserta el menú
     (logo, enlaces, selector de idioma). Así el menú es igual
     en todas las páginas sin copiarlo a mano en cada HTML.
   -->
@@ -111,7 +111,7 @@
           - loop: se repite infinito
         -->
         <video autoplay muted loop class="video-bg">
-          <source src="background.mp4" type="video/mp4">
+          <source src="assets/video/background.mp4" type="video/mp4">
         </video>
 
         <!--
@@ -161,11 +161,11 @@
   <!-- Librería ScrollReveal: anima elementos al aparecer al hacer scroll -->
   <script src="https://unpkg.com/scrollreveal"></script>
   <!-- Inserta el menú compartido -->
-  <script src="partials/header.js" defer></script>
+  <script src="js/header.js" defer></script>
   <!-- Sistema de idiomas (ES / EN / PT) -->
-  <script src="i18n.js" defer></script>
+  <script src="js/i18n.js" defer></script>
   <!-- Menú móvil + animaciones de entrada -->
-  <script src="script.js" defer></script>
+  <script src="js/script.js" defer></script>
 
   <script>
     /*

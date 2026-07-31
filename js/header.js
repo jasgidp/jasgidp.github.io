@@ -1,6 +1,6 @@
 /*
   ============================================================
-  partials/header.js — Menú compartido de todo el sitio
+  js/header.js — Menú compartido de todo el sitio
   ------------------------------------------------------------
   ¿Qué hace?
   Genera el HTML del <header> (logo, enlaces, selector de idioma)
@@ -32,7 +32,7 @@
   const headerHTML = `
     <header class="header">
       <!-- Logo: vuelve al inicio -->
-      <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
+      <a href="index.html" class="logo" aria-label="Home"><img src="assets/img/brand/HOme.png" alt="JASG logo"></a>
 
       <!--
         Icono de menú hamburguesa (solo visible en móvil vía CSS).

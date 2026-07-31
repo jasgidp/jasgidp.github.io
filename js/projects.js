@@ -77,7 +77,7 @@
       container.innerHTML = items.map(p => {
         const raw = p.thumb || (Array.isArray(p.images) && p.images[0]) || '';
         // Si la imagen es el logo genérico, usamos un degradado CSS en su lugar
-        const isPlaceholder = !raw || /(^|\/)HOme\.png$/i.test(raw);
+        const isPlaceholder = !raw || /(^|\/)HOme\.png$/i.test(raw) || /assets\/img\/brand\/HOme\.png$/i.test(raw);
         const bgStyle = isPlaceholder ? '' : ` style="background-image:url('${raw}')"`;
         const cls = isPlaceholder ? ' no-image' : '';
         return `

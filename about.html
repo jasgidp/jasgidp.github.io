@@ -20,19 +20,19 @@
   <meta property="og:title" content="Sobre mí — Jonathan Sandoval">
   <meta property="og:description" content="Product Design Engineer con perfil multidisciplinar en ingeniería, diseño e investigación.">
   <meta property="og:url" content="https://jasgidp.github.io/about.html">
-  <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
+  <meta property="og:image" content="https://jasgidp.github.io/assets/img/brand/HOme.png">
   <link rel="shortcut icon" href="favicon.png">
   <!-- Estilos e iconos compartidos con el resto del sitio -->
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="css/main.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 <body>
-  <!-- Menú del sitio (inyectado por partials/header.js) -->
+  <!-- Menú del sitio (inyectado por js/header.js) -->
   <div id="site-header"></div>
 
   <!-- Video de fondo a pantalla completa (decorativo; z-index negativo en CSS) -->
   <video autoplay muted loop class="video-bg">
-    <source src="background.mp4" type="video/mp4">
+    <source src="assets/video/background.mp4" type="video/mp4">
   </video>
 
   <!--
@@ -47,7 +47,7 @@
 
           <!-- Columna izquierda: foto de perfil -->
           <div class="about-photo">
-            <img src="foto.jpg" alt="Jonathan Sandoval headshot" />
+            <img src="assets/img/profile/foto.jpg" alt="Jonathan Sandoval headshot" />
           </div>
 
           <!-- Columna derecha: biografía y datos -->
@@ -115,10 +115,10 @@
   </main>
 
   <!-- Scripts compartidos: analíticas, menú, idiomas y menú móvil -->
-  <script src="analytics.js" defer></script>
-  <script src="partials/header.js" defer></script>
-  <script src="i18n.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="js/analytics.js" defer></script>
+  <script src="js/header.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/script.js" defer></script>
   <script>
     // Cuando el usuario cambia de idioma, reaplicar traducciones
     document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });

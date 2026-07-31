@@ -273,7 +273,7 @@ section{
 }
 
 .contenedor {
-    background-image: image('HOme.png');
+    background-image: url('../assets/img/brand/HOme.png');
     font-family: "Montserrat", serif;
     display: flex;
     justify-content: center;
@@ -982,12 +982,12 @@ a{
 /* Capa oscura detrás del contenido del hero */
 #home-hero::after { z-index: 0; }
 
-/* Overlay con HOme.png: se oculta al hover o con clase .hide-image
+/* Overlay con assets/img/brand/HOme.png: se oculta al hover o con clase .hide-image
    (index.html la añade a los 10 segundos) */
 #home-hero::before {
   content: "";
   position: absolute; inset: 0;
-  background: url('HOme.png') center/cover no-repeat;
+  background: url('../assets/img/brand/HOme.png') center/cover no-repeat;
   z-index: 2;
   opacity: 1;
   transition: opacity .7s ease, visibility .7s ease;
@@ -1159,7 +1159,7 @@ body, html {
 #home-hero.hero { background-size: 140% 140%, 140% 140%, 160% 160%; animation: meshDrift 18s ease-in-out infinite; }
 
 /* Si no hay imagen real: degradado del color de la categoría
-   (evita repetir el logo HOme.png en todas las tiles) */
+   (evita repetir el logo assets/img/brand/HOme.png en todas las tiles) */
 .project-tile.no-image { background-image: linear-gradient(135deg, #64748b, #94a3b8); }
 .project-tile.no-image[data-category="graphic"]     { background-image: linear-gradient(135deg, var(--cat-graphic), #f9a8d4); }
 .project-tile.no-image[data-category="experience"]  { background-image: linear-gradient(135deg, var(--cat-experience), #fcd34d); }

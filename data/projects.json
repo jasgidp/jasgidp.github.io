@@ -12,9 +12,9 @@
         "Photoshop"
       ],
       "images": [
-        "HOme.png"
+        "assets/img/brand/HOme.png"
       ],
-      "thumb": "HOme.png",
+      "thumb": "assets/img/brand/HOme.png",
       "links": {
         "demo": "",
         "repo": "",
@@ -163,9 +163,9 @@
       "tech": [
         "Python"
       ],
-      "thumb": "HOme.png",
+      "thumb": "assets/img/brand/HOme.png",
       "images": [
-        "HOme.png"
+        "assets/img/brand/HOme.png"
       ],
       "links": {
         "repo": "",
@@ -212,9 +212,9 @@
           "GitHub Pages"
         ]
       },
-      "thumb": "HOme.png",
+      "thumb": "assets/img/brand/HOme.png",
       "images": [
-        "HOme.png"
+        "assets/img/brand/HOme.png"
       ],
       "links": {
         "repo": "",
