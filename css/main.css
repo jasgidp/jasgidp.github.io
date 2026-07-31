@@ -361,19 +361,36 @@ header {
     right: 3%;
 }
 
+/* Circulo de cristal, no un boton oscuro macizo:
+   asi acompana al hero en vez de competir con el. */
 .scroll-down i {
-    display: block;
-    color: #f0f0e8;
-
-    padding: 12px;
-    font-size: 25px;
-    background-color: #21383d;
-    border-radius: 30px;
-    transition: all .5s ease;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+    color: var(--brand);
+    background: var(--surface-glass);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    box-shadow: var(--shadow-sm);
+    transition: color .2s ease, background .2s ease,
+                border-color .2s ease, transform .25s var(--ease);
+    /* Sube y baja despacio para sugerir "hay mas abajo" */
+    animation: nudgeDown 2.4s ease-in-out infinite;
+}
+@keyframes nudgeDown {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(6px); }
 }
 
-.scroll-down i:hover{
-    transform: translateY(-5px);
+.scroll-down i:hover {
+    color: #ffffff;
+    background: var(--brand);
+    border-color: var(--brand);
+    animation-play-state: paused; /* al apuntarla, se queda quieta */
 }
 
 
@@ -1038,9 +1055,14 @@ a {
 .btn { color: var(--brand); border: 1px solid var(--brand); background: var(--surface); }
 .btn:hover { background: var(--brand); color:#ffffff; border-color: var(--brand); }
 .btn.ghost { background:transparent; color: var(--brand); border-color: var(--brand); }
-/* Botón primario: más contraste (fondo oscuro) */
-.btn.primary { background:#21383d; color:#ffffff; border-color:#21383d; }
-.btn.primary:hover { background: var(--brand-strong); border-color: var(--brand-strong); color:#ffffff }
+/* Botón primario: el de más peso visual de la página.
+   Usa el color de marca para que destaque en los dos temas
+   (antes era un verde oscuro fijo, casi invisible en modo oscuro). */
+.btn.primary { background: var(--brand); color:#ffffff; border-color: var(--brand); font-weight: 600; }
+.btn.primary:hover { background: var(--brand-strong); border-color: var(--brand-strong); color:#ffffff; }
+/* En oscuro el azul de marca es claro, así que el texto va oscuro */
+[data-theme="dark"] .btn.primary,
+[data-theme="dark"] .btn.primary:hover { color: #0b1220; }
 
 /* Botón naranja: usado para "Show demo" en Programming */
 .btn.orange {  border-color:#f97316; color:#f97316; }
@@ -1183,16 +1205,87 @@ body { background: transparent; }
 .btn { transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .15s var(--ease), box-shadow .2s var(--ease); }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37,99,235,0.18); }
 
-/* Nombre del hero con degradado de color + animación de entrada */
+/* ------------------------------------------------------------
+   NOMBRE DE LA PORTADA
+   ------------------------------------------------------------
+   Tres cosas a la vez:
+
+   1) Degradado como color de letra.
+      background-clip:text recorta el degradado con la forma de
+      las letras, y text-fill-color:transparent quita el color
+      normal para que se vea el degradado por debajo.
+
+   2) Brillo que recorre el nombre.
+      El degradado es el DOBLE de ancho que el texto
+      (background-size: 200%). Al mover su posicion de lado a
+      lado, parece que una luz pasa por encima de las letras.
+
+   3) Entrada tipo cortina.
+      clip-path: inset(0 100% 0 0) recorta el 100% por la
+      derecha (invisible). Al animarlo a 0, el nombre se
+      descubre de izquierda a derecha.
+   ------------------------------------------------------------ */
 .hero-card h1 {
-  background: linear-gradient(90deg, #2563EB 0%, #06B6D4 100%);
+  background: linear-gradient(
+    100deg,
+    var(--brand) 0%,
+    #06b6d4 30%,
+    #8b5cf6 50%,
+    #06b6d4 70%,
+    var(--brand) 100%
+  );
+  background-size: 220% 100%;
+  background-position: 0% 50%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  /* Primero se descubre, luego el brillo empieza a pasearse */
+  animation:
+    nameReveal .95s cubic-bezier(.22, 1, .36, 1) .15s both,
+    nameShine 7s ease-in-out 1.2s infinite;
 }
-@keyframes heroIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-.hero-card { animation: heroIn .7s var(--ease) both; }
+@keyframes nameReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes nameShine {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* La rayita bajo el nombre crece despues de la cortina */
+.hero-card h1::after { animation: underlineGrow .5s var(--ease) 1s both; }
+@keyframes underlineGrow { from { width: 0; opacity: 0; } to { width: 64px; opacity: 1; } }
+
+/* Linea del rol: pequena, en mayusculas y con letras separadas.
+   Ese contraste con el nombre grande es lo que da aire editorial. */
+.hero-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+/* ------------------------------------------------------------
+   ENTRADA ESCALONADA DE LA PORTADA
+   Antes toda la tarjeta aparecia de golpe. Ahora cada bloque
+   entra un poco despues que el anterior, lo que guia la vista
+   de arriba a abajo: rol -> nombre -> texto -> botones.
+   ------------------------------------------------------------ */
+@keyframes heroIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+.hero-card { animation: cardIn .8s var(--ease) both; }
+@keyframes cardIn { from { opacity: 0; transform: translateY(24px) scale(.985); } to { opacity: 1; transform: none; } }
+
+.hero-card > .hero-eyebrow { animation: heroIn .6s var(--ease) .1s both; }
+.hero-card > p:not(.hero-eyebrow) { animation: heroIn .6s var(--ease) .55s both; }
+.hero-card > .hero-ctas { animation: heroIn .6s var(--ease) .7s both; }
+.hero-card > .hero-social { animation: heroIn .6s var(--ease) .85s both; }
 
 /* Fila de iconos sociales dentro de la tarjeta del hero */
 .hero-social { display: flex; justify-content: center; gap: 12px; margin-top: 18px; }
@@ -1521,3 +1614,73 @@ header { view-transition-name: site-header; }
 
 /* Nota: la barra se posiciona respecto al header, que ya es
    position:fixed (definido en la seccion del HEADER). */
+
+
+/* ============================================================
+   PORTADA: PROFUNDIDAD Y TEXTURA
+   ------------------------------------------------------------
+   Dos capas decorativas dentro del hero:
+
+   ::before -> dos manchas de color grandes y difusas que se
+               desplazan muy despacio. Dan la sensacion de que
+               el fondo "respira" en vez de ser plano.
+
+   ::after  -> una capa de grano. Es ruido generado con un
+               filtro SVG (no es una imagen descargada, va
+               escrito aqui mismo). El grano rompe la
+               limpieza excesiva de los degradados y da un
+               acabado mas de revista impresa.
+
+   Las dos llevan pointer-events:none para no estorbar a los
+   clics de los botones que quedan encima.
+   ============================================================ */
+#home-hero { position: relative; overflow: hidden; isolation: isolate; }
+
+#home-hero::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side, rgba(37, 99, 235, 0.22), transparent 70%) 18% 28% / 46% 46% no-repeat,
+    radial-gradient(closest-side, rgba(139, 92, 246, 0.18), transparent 70%) 82% 62% / 42% 42% no-repeat;
+  filter: blur(28px);
+  animation: blobDrift 24s ease-in-out infinite alternate;
+}
+@keyframes blobDrift {
+  from { transform: translate3d(-2%, -1%, 0) scale(1); }
+  to   { transform: translate3d(3%, 2%, 0) scale(1.12); }
+}
+
+[data-theme="dark"] #home-hero::before {
+  background:
+    radial-gradient(closest-side, rgba(96, 165, 250, 0.26), transparent 70%) 18% 28% / 46% 46% no-repeat,
+    radial-gradient(closest-side, rgba(167, 139, 250, 0.22), transparent 70%) 82% 62% / 42% 42% no-repeat;
+}
+
+#home-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .42;
+  /* Ruido "fractalNoise" generado por el propio navegador a
+     partir de este SVG escrito aqui mismo (no se descarga nada) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] #home-hero::after { opacity: .26; }
+
+/* Sin movimiento si el sistema lo pide */
+@media (prefers-reduced-motion: reduce) {
+  #home-hero::before { animation: none; }
+  .scroll-down i { animation: none; }
+  .hero-card h1 { animation: none; clip-path: none; }
+  .hero-card h1::after { animation: none; }
+  .hero-card,
+  .hero-card > .hero-eyebrow,
+  .hero-card > p:not(.hero-eyebrow),
+  .hero-card > .hero-ctas,
+  .hero-card > .hero-social { animation: none; }
+}
