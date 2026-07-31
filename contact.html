@@ -1,69 +1,84 @@
 <!DOCTYPE html>
+<!--
+  ============================================================
+  PÁGINA DE CONTACTO (contact.html)
+  ------------------------------------------------------------
+  ¿Qué es?  Formulario y datos para escribirte.
+  ¿Para qué? Mostrar email/teléfono/redes y un formulario.
+             Los datos reales salen de data/contact.json
+             (contact.js los carga y los pinta aquí).
+  ============================================================
+-->
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>JASG | Contact</title>
+  <title>Contacto — Jonathan Sandoval</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ponte en contacto con Jonathan Sandoval, Product Design Engineer.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contacto — Jonathan Sandoval">
+  <meta property="og:description" content="Ponte en contacto con Jonathan Sandoval, Product Design Engineer.">
+  <meta property="og:url" content="https://jasgidp.github.io/contact.html">
+  <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
   <link rel="shortcut icon" href="favicon.png">
   <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 <body>
-  <header class="header">
-    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
-    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
-    <ul class="navlist" id="primary-nav">
-      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
-      <li><a href="about.html" data-i18n="nav.about">About</a></li>
-      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
-      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
-      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
-      <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
-    </ul>
-    <div class="lang-switcher">
-      <button data-lang="es">ES</button>
-      <button data-lang="en">EN</button>
-      <button data-lang="pt">PT</button>
-    </div>
-  </header>
+  <!-- Menú compartido -->
+  <div id="site-header"></div>
 
+  <!-- Video decorativo de fondo -->
   <video autoplay muted loop class="video-bg">
     <source src="background.mp4" type="video/mp4">
   </video>
 
-  <main class="page" style="padding-top:120px;">
+  <main class="page">
     <section class="contact-section">
-      <!-- Header card: compact and elegant -->
+
+      <!-- Cabecera: título + frases (las frases las rellena contact.js) -->
       <div class="contact-header">
         <div class="title-wrap">
           <i class="ri-mail-line timeline-icon" aria-hidden="true"></i>
           <h1 data-i18n="contact.title">Contact</h1>
         </div>
+        <!-- ids usados por contact.js para insertar textos desde el JSON -->
         <p id="contact-headline" class="contact-headline"></p>
         <p id="contact-subheadline" class="contact-subheadline"></p>
       </div>
 
-      <!-- Modern split layout: left stack (info + socials), right (form) -->
+      <!--
+        Layout en dos columnas (en desktop):
+        izquierda = datos + redes | derecha = formulario
+      -->
       <div class="contact-grid contact-modern">
         <div class="contact-stack">
+          <!-- Tarjeta con email, teléfono, ubicación, etc. (llena contact.js) -->
           <div class="glass-card contact-info-card card-accent">
             <ul id="contact-info" class="contact-facts" aria-label="Contact details"></ul>
             <div class="contact-actions">
+              <!-- El href mailto: también lo arma contact.js con el email del JSON -->
               <a id="email-cta" class="btn" href="#" data-i18n="contact.emailCta">Send Email</a>
             </div>
           </div>
 
+          <!-- Tarjeta de redes sociales (llena contact.js) -->
           <div class="glass-card contact-socials-card card-accent">
             <h3 class="contact-socials-title" data-i18n="contact.info.follow">Follow</h3>
             <div id="contact-socials" class="contact-socials" aria-label="Social media"></div>
           </div>
         </div>
 
+        <!-- Formulario de mensaje -->
         <div class="glass-card contact-form-card card-accent">
           <h2 class="form-title" data-i18n="contact.form.title">Send a message</h2>
+          <!--
+            novalidate: desactiva la validación nativa del navegador
+            porque contact.js valida a mano (nombre, email, mensaje).
+          -->
           <form id="contact-form" novalidate>
+            <!-- Fila de dos campos: nombre y email -->
             <div class="form-row-two">
               <div class="form-row">
                 <label for="name" data-i18n="contact.form.name">Name</label>
@@ -85,6 +100,10 @@
             <div class="form-actions">
               <button type="submit" class="btn" data-i18n="contact.form.send">Send</button>
             </div>
+            <!--
+              Mensaje de éxito/error.
+              role="status" + aria-live = lectores de pantalla anuncian cambios.
+            -->
             <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
           </form>
         </div>
@@ -92,7 +111,10 @@
     </section>
   </main>
 
+  <script src="analytics.js" defer></script>
+  <script src="partials/header.js" defer></script>
   <script src="i18n.js" defer></script>
+  <!-- Lógica específica: cargar JSON, pintar datos y validar el formulario -->
   <script src="contact.js" defer></script>
   <script src="script.js" defer></script>
 </body>

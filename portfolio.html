@@ -1,64 +1,64 @@
 <!DOCTYPE html>
+<!--
+  ============================================================
+  PÁGINA PORTAFOLIO (portfolio.html)
+  ------------------------------------------------------------
+  ¿Qué es?  Galería de proyectos (diseño, ingeniería, software…).
+  ¿Para qué? Buscar y filtrar proyectos. Al hacer clic en una
+             tarjeta se abre un panel con todos los detalles.
+             Los proyectos viven en data/projects.json y
+             projects.js los dibuja en #projects-container.
+  ============================================================
+-->
 <html lang="en">
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <!-- Titulo de la web -->
-    <title>JASG</title>
+    <title>Portafolio — Jonathan Sandoval</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="description" content="Portafolio de proyectos de Jonathan Sandoval: ingeniería, software, diseño gráfico, experiencia e investigación.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Portafolio — Jonathan Sandoval">
+    <meta property="og:description" content="Proyectos de ingeniería, software, diseño gráfico, experiencia e investigación.">
+    <meta property="og:url" content="https://jasgidp.github.io/portfolio.html">
+    <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
     <link rel="shortcut icon" href="favicon.png">
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 
-    <!-- https://boxicons.com/ -->
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-  
-    <!-- https://remixicon.com/ -->
+    <!-- Iconos Remix Icon -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
-  
-  
-  
-  
-    
+
+    <!-- Fuentes Google (Montserrat + Open Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
       rel="stylesheet">
-  
+
 </head>
 <body>
-  <header class="header">
-    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
-    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
-    
-    <ul class="navlist" id="primary-nav">
-      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
-      <li><a href="about.html" data-i18n="nav.about">About</a></li>
-      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
-      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
-      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
-  <!-- Programming removed from header navigation -->
-  <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
-    </ul>
+  <!-- Menú compartido -->
+  <div id="site-header"></div>
 
-    <div class="lang-switcher">
-      <button data-lang="es">ES</button>
-      <button data-lang="en">EN</button>
-      <button data-lang="pt">PT</button>
-    </div>
-  </header>
-   <video autoplay muted loop class="video-bg">
+  <!-- Video de fondo -->
+  <video autoplay muted loop class="video-bg">
     <source src="background.mp4" type="video/mp4">
   </video>
 
-  <main style="padding-top:120px;">
+  <main class="page">
     <h1 data-i18n="portfolio.title" class="timeline-title">Portfolio</h1>
+
+    <!-- Controles: buscador + filtros por categoría -->
     <section class="timeline-controls" aria-label="Portfolio controls">
-      <!-- Search first -->
+      <!-- Buscador: projects.js escucha lo que escribes y filtra -->
       <div class="search-wrap">
         <i class="ri-search-line" aria-hidden="true"></i>
         <input id="timeline-search" type="search" placeholder="Search projects..." aria-label="Search projects" />
       </div>
-      <!-- Filters below search -->
+
+      <!--
+        Filtros: cada botón tiene data-filter="categoría".
+        projects.js marca el activo y muestra solo esa categoría.
+      -->
       <nav class="filters group-chips" aria-label="Project filters">
         <button class="chip active" data-filter="all"><i class="ri-apps-2-line" aria-hidden="true"></i><span data-i18n="filters.all">All</span></button>
         <button class="chip" data-filter="graphic"><i class="ri-brush-line" aria-hidden="true"></i><span data-i18n="filters.graphic">Graphic Design</span></button>
@@ -68,21 +68,36 @@
         <button class="chip" data-filter="software"><i class="ri-code-box-line" aria-hidden="true"></i><span data-i18n="filters.software">Software</span></button>
         <button class="chip" data-filter="design"><i class="ri-shape-2-line" aria-hidden="true"></i><span data-i18n="filters.design">Design</span></button>
       </nav>
+
+      <!-- Aviso que aparece cuando eliges el filtro "software" -->
       <p id="software-hint" class="hint" hidden>
         <i class="ri-information-line" aria-hidden="true"></i>
         <span data-i18n="portfolio.softwareHint">Extra button for programming portfolio is located below.</span>
       </p>
-      
     </section>
-<div id="software-extra" class="software-extra" hidden>
-        <a href="programming.html" class="btn"><i class="ri-code-s-slash-line" aria-hidden="true"></i><span data-i18n="portfolio.programmingBtn">Programming Portfolio</span></a>
-      </div>
+
+    <!--
+      Botón extra hacia programming.html.
+      Solo se muestra cuando el filtro activo es "software"
+      (projects.js controla el atributo hidden).
+    -->
+    <div id="software-extra" class="software-extra" hidden>
+      <a href="programming.html" class="btn"><i class="ri-code-s-slash-line" aria-hidden="true"></i><span data-i18n="portfolio.programmingBtn">Programming Portfolio</span></a>
+    </div>
+
+    <!--
+      Contenedor vacío: projects.js inserta aquí las tarjetas.
+      aria-live="polite" avisa a lectores de pantalla cuando cambia.
+    -->
     <section>
       <div id="projects-container" class="skills-grid" aria-live="polite"></div>
     </section>
   </main>
 
+  <script src="analytics.js" defer></script>
+  <script src="partials/header.js" defer></script>
   <script src="i18n.js" defer></script>
+  <!-- Carga y dibuja los proyectos desde data/projects.json -->
   <script src="projects.js" defer></script>
   <script src="script.js" defer></script>
   <script>

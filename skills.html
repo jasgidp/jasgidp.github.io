@@ -1,52 +1,56 @@
 <!DOCTYPE html>
+<!--
+  ============================================================
+  PÁGINA HABILIDADES (skills.html)
+  ------------------------------------------------------------
+  ¿Qué es?  Catálogo de skills agrupadas (lenguajes, herramientas…).
+  ¿Para qué? Buscar y filtrar por grupo. Al hacer clic en una
+             skill con detalle, se despliega descripción y docs.
+             Los datos están en data/skills.json (skills.js).
+  ============================================================
+-->
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>JASG | Skills</title>
+  <title>Habilidades — Jonathan Sandoval</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Habilidades de Jonathan Sandoval: programación y datos, desarrollo web, herramientas, diseño y visualización, idiomas y más.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Habilidades — Jonathan Sandoval">
+  <meta property="og:description" content="Programación y datos, herramientas, diseño y visualización, idiomas y más.">
+  <meta property="og:url" content="https://jasgidp.github.io/skills.html">
+  <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
   <link rel="shortcut icon" href="favicon.png">
   <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 <body>
-  <header class="header">
-    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
-    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
-    <ul class="navlist" id="primary-nav">
-      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
-      <li><a href="#" data-i18n="nav.about">About</a></li>
-      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
-      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
-      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
-  <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
-    </ul>
-    <div class="lang-switcher">
-      <button data-lang="es">ES</button>
-      <button data-lang="en">EN</button>
-      <button data-lang="pt">PT</button>
-    </div>
-  </header>
- <video autoplay muted loop class="video-bg">
+  <div id="site-header"></div>
+
+  <video autoplay muted loop class="video-bg">
     <source src="background.mp4" type="video/mp4">
   </video>
-  <main class="skills-page" style="padding-top:120px;">
+
+  <main class="skills-page page">
     <h1 data-i18n="skills.title" class="skills-title">Skills</h1>
 
-    <!-- Controls: search + group chips (populated by JS) -->
+    <!-- Controles: buscador + chips de grupo (skills.js crea los chips) -->
     <section class="skills-controls" aria-label="Skills controls">
       <div class="search-wrap">
         <i class="ri-search-line" aria-hidden="true"></i>
         <input id="skill-search" type="search" placeholder="Search skills..." aria-label="Search skills" />
       </div>
+      <!-- Vacío a propósito: skills.js genera un botón por cada grupo -->
       <nav class="group-chips" id="group-chips" aria-label="Skill groups"></nav>
     </section>
 
-    <!-- Grid container -->
+    <!-- Vacío a propósito: skills.js dibuja las tarjetas de habilidades -->
     <section id="skills-container" class="skills-grid" aria-live="polite"></section>
   </main>
 
+  <script src="analytics.js" defer></script>
+  <script src="partials/header.js" defer></script>
   <script src="i18n.js" defer></script>
   <script src="skills.js" defer></script>
   <script src="script.js" defer></script>

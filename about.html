@@ -1,50 +1,69 @@
 <!DOCTYPE html>
+<!--
+  ============================================================
+  PÁGINA SOBRE MÍ (about.html)
+  ------------------------------------------------------------
+  ¿Qué es?  Página de biografía personal/profesional.
+  ¿Para qué? Contar quién eres, fortalezas, datos rápidos
+             (ubicación, idiomas) y enlaces a CV / portafolio / contacto.
+  ============================================================
+-->
 <html lang="es">
 <head>
+  <!-- Metadatos básicos: charset, título, SEO y vista previa en redes -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>JASG | About</title>
+  <title>Sobre mí — Jonathan Sandoval</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sobre Jonathan Sandoval: Product Design Engineer con experiencia en automatización con Python, monitoreo con Grafana y un perfil multidisciplinar en ingeniería, diseño e investigación.">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Sobre mí — Jonathan Sandoval">
+  <meta property="og:description" content="Product Design Engineer con perfil multidisciplinar en ingeniería, diseño e investigación.">
+  <meta property="og:url" content="https://jasgidp.github.io/about.html">
+  <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
   <link rel="shortcut icon" href="favicon.png">
+  <!-- Estilos e iconos compartidos con el resto del sitio -->
   <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 <body>
-  <header class="header">
-    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
-    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
-    <ul class="navlist" id="primary-nav">
-      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
-      <li><a href="about.html" data-i18n="nav.about">About</a></li>
-      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
-      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
-      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
-  <!-- Programming removed from header navigation -->
-  <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
-    </ul>
-    <div class="lang-switcher">
-      <button data-lang="es">ES</button>
-      <button data-lang="en">EN</button>
-      <button data-lang="pt">PT</button>
-    </div>
-  </header>
- <video autoplay muted loop class="video-bg">
+  <!-- Menú del sitio (inyectado por partials/header.js) -->
+  <div id="site-header"></div>
+
+  <!-- Video de fondo a pantalla completa (decorativo; z-index negativo en CSS) -->
+  <video autoplay muted loop class="video-bg">
     <source src="background.mp4" type="video/mp4">
   </video>
+
+  <!--
+    <main> = contenido principal de la página.
+    class="page" da margen superior para no quedar debajo del menú fijo.
+  -->
   <main class="page">
     <section class="about-section">
+      <!-- Tarjeta con foto + texto (layout en dos columnas vía CSS) -->
       <div class="hero-card about-card">
         <div class="about-grid">
+
+          <!-- Columna izquierda: foto de perfil -->
           <div class="about-photo">
             <img src="foto.jpg" alt="Jonathan Sandoval headshot" />
           </div>
+
+          <!-- Columna derecha: biografía y datos -->
           <div class="about-content">
+            <!-- Título traducible -->
             <h1 data-i18n="about.title">About</h1>
+
+            <!-- Biografía larga (también traducible) -->
             <p class="about-bio" data-i18n="about.bio">
               Product Design Engineer and Streaming Specialist with hands-on experience in live support, Python automation, and Grafana monitoring. Master’s in Engineering student (sustainability and software development). I’ve led data and internal tooling projects at Genius Sports, plus work across graphic design, renewable energy research, and interactive experiences. I focus on useful, measurable, and well-designed solutions for users and technical teams.
             </p>
 
+            <!--
+              Chips = etiquetas visuales de áreas de foco.
+              Son decorativas aquí (no filtran nada); en portfolio sí filtran.
+            -->
             <div class="group-chips about-chips" aria-label="Focus areas">
               <span class="chip" data-filter="engineering" data-i18n="filters.engineering">Engineering</span>
               <span class="chip" data-filter="software" data-i18n="filters.software">Software</span>
@@ -53,6 +72,7 @@
               <span class="chip" data-filter="design" data-i18n="filters.design">Design</span>
             </div>
 
+            <!-- Lista de logros / puntos fuertes -->
             <h3 class="about-subtitle" data-i18n="about.highlightsTitle">Highlights</h3>
             <ul class="about-highlights">
               <li data-i18n="about.highlights.0">Python automation for operations and tooling</li>
@@ -62,6 +82,7 @@
               <li data-i18n="about.highlights.4">Multidisciplinary background: design, research, engineering</li>
             </ul>
 
+            <!-- Datos rápidos: ubicación, idiomas, intereses -->
             <h3 class="about-subtitle" data-i18n="about.factsTitle">Quick facts</h3>
             <div class="about-facts" role="list">
               <div class="fact" role="listitem">
@@ -77,14 +98,14 @@
                 <span class="value" data-i18n="about.facts.interestsValue">Data, design systems, automation</span>
               </div>
 
+            <!-- Botones de acción: CV, portafolio y contacto -->
             <div class="hero-ctas about-ctas">
               <a class="btn" href="docs/foto.jpg" download data-i18n="hero.ctaCV">Download CV</a>
-              </div>
-             <div class="hero-ctas about-ctas">
+            </div>
+            <div class="hero-ctas about-ctas">
               <a class="btn" href="portfolio.html" data-i18n="hero.ctaPortfolio">View Portfolio</a>
-
-             </div>
-               <div class="hero-ctas about-ctas">
+            </div>
+            <div class="hero-ctas about-ctas">
               <a class="btn" href="contact.html" data-i18n="hero.ctaContact">Contact</a>
             </div>
           </div>
@@ -93,9 +114,13 @@
     </section>
   </main>
 
+  <!-- Scripts compartidos: analíticas, menú, idiomas y menú móvil -->
+  <script src="analytics.js" defer></script>
+  <script src="partials/header.js" defer></script>
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
   <script>
+    // Cuando el usuario cambia de idioma, reaplicar traducciones
     document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
   </script>
 </body>

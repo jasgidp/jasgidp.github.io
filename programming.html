@@ -1,23 +1,31 @@
 <!DOCTYPE html>
+<!--
+  ============================================================
+  PÁGINA PROGRAMACIÓN (programming.html)
+  ------------------------------------------------------------
+  ¿Qué es?  Portafolio de proyectos de código + repos de GitHub.
+  ¿Para qué?
+    1) Lista curada (data/code-projects.json) con demos en vivo.
+    2) Todos tus repos públicos de GitHub (github-repos.js).
+  ============================================================
+-->
 <html lang="en">
 <head>
   <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <!-- Titulo de la web -->
-    <title>JASG</title>
+    <title>Programación — Jonathan Sandoval</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="description" content="Proyectos de software y repositorios de código de Jonathan Sandoval, con demos en vivo y todos los repos públicos de GitHub.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Programación — Jonathan Sandoval">
+    <meta property="og:description" content="Proyectos de software con demos en vivo y repositorios de GitHub.">
+    <meta property="og:url" content="https://jasgidp.github.io/programming.html">
+    <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
     <link rel="shortcut icon" href="favicon.png">
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 
-    <!-- https://boxicons.com/ -->
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-  
-    <!-- https://remixicon.com/ -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
-  
-  
-  
-  
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
@@ -26,87 +34,48 @@
 
 <body>
 
-  <header class="header">
-    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
+  <div id="site-header"></div>
 
-    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
-
-
-    <ul class="navlist" id="primary-nav">
-      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
-      <li><a href="#" data-i18n="nav.about">About</a></li>
-      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
-      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
-      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
-      <!-- Programming removed from header navigation -->
-  <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
-
-    </ul>
-
-    <div class="lang-switcher">
-      <button data-lang="es">ES</button>
-      <button data-lang="en">EN</button>
-      <button data-lang="pt">PT</button>
-    </div>
-  </header>
- <video autoplay muted loop class="video-bg">
+  <video autoplay muted loop class="video-bg">
     <source src="background.mp4" type="video/mp4">
   </video>
-<main class="page" style="padding-top:120px;">
-  <section class="about-section">
+
+<main class="page">
+  <section class="prog-section">
       <h1 class="timeline-title" data-i18n="programming.title">Programming Portfolio</h1>
-      <!-- Search controls -->
+
+      <!-- Buscador de proyectos curados (programming.js lo usa) -->
       <section class="timeline-controls" aria-label="Programming controls">
         <div class="search-wrap">
           <i class="ri-search-line" aria-hidden="true"></i>
-          <input id="timeline-search" type="search" placeholder="Search projects..." aria-label="Search programming projects" />
+          <input id="programming-search" type="search" placeholder="Search projects..." aria-label="Search programming projects" />
         </div>
       </section>
 
-        <p class="about-bio" data-i18n="programming.intro">Selected software projects with live demos and code repositories. Use the button to toggle the live preview.</p>
+      <p class="prog-intro" data-i18n="programming.intro">Selected software projects with live demos and code repositories. Use the button to toggle the live preview.</p>
 
+      <!--
+        Lista vacía: programming.js inserta cada proyecto como <li>.
+        El botón "Show demo" lo maneja script.js (muestra/oculta el iframe).
+      -->
+      <ul class="programming-list" aria-live="polite"></ul>
 
-      <ul class="programming-list">
-        <!-- Project 1 -->
-        <li class="project-item">
-          <h2>Project Form Validation</h2>
-          <p class="description-project"></p>
-          <a class="btn" href="https://github.com/jasgidp/Validacion-formulario" target="_blank" rel="noopener">Repo</a>
-          <button class="btn orange toggle-preview"><i class="ri-eye-line" aria-hidden="true"></i><span data-i18n="programming.preview">Show demo</span></button>
-          <iframe class="iframe" src="https://form-validator-jasg.netlify.app/" width="100%" height="900" style="display: none; border:1px solid #e5e7eb; border-radius: 12px;"></iframe>
-        </li>
-
-        <!-- Project 2 -->
-        <li class="project-item">
-          <h2>Project Login</h2>
-          <p class="description-project"></p>
-          <a class="btn" href="https://github.com/jasgidp/Login-page/blob/main/style.css" target="_blank" rel="noopener">Repo</a>
-          <button class="btn orange toggle-preview"><i class="ri-eye-line" aria-hidden="true"></i><span data-i18n="programming.preview">Show demo</span></button>
-          <iframe class="iframe" src="https://login-jasg.netlify.app/" width="100%" height="400" style="display: none; border:1px solid #e5e7eb; border-radius: 12px;"></iframe>
-        </li>
-
-        <!-- Project 3 -->
-        <li class="project-item">
-          <h2>Project Weather App</h2>
-          <p class="description-project"></p>
-          <a class="btn" href="https://github.com/jasgidp/weather-app/tree/main" target="_blank" rel="noopener">Repo</a>
-          <button class="btn orange toggle-preview"><i class="ri-eye-line" aria-hidden="true"></i><span data-i18n="programming.preview">Show demo</span></button>
-          <iframe class="iframe" src="https://weather-app-jasg.netlify.app/" width="100%" height="400" style="display: none; border:1px solid #e5e7eb; border-radius: 12px;"></iframe>
-        </li>
-
-        <!-- Project 4 -->
-        <li class="project-item">
-          <h2>Project jasg Social Network Draft</h2>
-          <p class="description-project"></p>
-          <a class="btn" href="https://github.com/jasgidp/jasg-social-network-draft" target="_blank" rel="noopener">Repo</a>
-          <button class="btn orange toggle-preview"><i class="ri-eye-line" aria-hidden="true"></i><span data-i18n="programming.preview">Show demo</span></button>
-          <iframe class="iframe" src="https://jasg-social-network-draft.netlify.app/" width="100%" height="400" style="display: none; border:1px solid #e5e7eb; border-radius: 12px;"></iframe>
-        </li>
-      </ul>
+      <!-- Sección automática de repositorios públicos de GitHub -->
+      <h2 class="repos-title" data-i18n="programming.reposTitle">Repositorios de GitHub</h2>
+      <p class="prog-intro" data-i18n="programming.reposIntro">Todos mis repositorios públicos, actualizados automáticamente desde GitHub.</p>
+      <!-- Contenedor vacío: github-repos.js pinta las tarjetas aquí -->
+      <div id="github-repos" class="projects-grid" aria-live="polite"></div>
   </section>
 </main>
 
+<script src="analytics.js" defer></script>
+<script src="partials/header.js" defer></script>
 <script src="i18n.js" defer></script>
+<!-- Proyectos curados desde code-projects.json -->
+<script src="programming.js" defer></script>
+<!-- Repos públicos desde la API de GitHub -->
+<script src="github-repos.js" defer></script>
+<!-- Toggle del demo iframe + menú móvil -->
 <script src="script.js" defer></script>
 <script>
   document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });

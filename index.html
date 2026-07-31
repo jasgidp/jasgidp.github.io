@@ -1,22 +1,72 @@
 <!DOCTYPE html>
+<!--
+  ============================================================
+  PÁGINA DE INICIO (index.html)
+  ------------------------------------------------------------
+  ¿Qué es?  La primera página que ve el visitante del portafolio.
+  ¿Para qué? Presenta quién eres, un resumen corto y botones
+             para ir a CV, portafolio, habilidades y trayectoria.
+
+  Cómo se arma la página:
+  1) HTML  → estructura (títulos, botones, enlaces).
+  2) CSS   → main.css (colores, tamaños, animaciones).
+  3) JS    → header, idiomas, analíticas y efectos.
+  ============================================================
+-->
 <html>
 
 <head>
+  <!--
+    HEAD = información "invisible" para el navegador y buscadores.
+    No se ve en la página, pero sirve para título, SEO, redes sociales
+    y para cargar estilos/fuentes/iconos.
+  -->
+
+  <!-- Codificación de caracteres: permite tildes, ñ, etc. -->
   <meta charset='utf-8'>
+
+  <!-- Compatibilidad con Internet Explorer antiguo -->
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <!-- Titulo de la web -->
-  <title>JASG</title>
+
+  <!-- Título que aparece en la pestaña del navegador -->
+  <title>Jonathan Sandoval — Product Design Engineer</title>
+
+  <!--
+    Viewport: hace que la página se vea bien en celulares.
+    Sin esto, el móvil mostraría la versión de escritorio en miniatura.
+  -->
   <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+  <!-- Descripción corta para Google / buscadores -->
+  <meta name="description" content="Portafolio de Jonathan Sandoval, Product Design Engineer y especialista en streaming. Proyectos de ingeniería, software, diseño e investigación.">
+
+  <!--
+    Open Graph (og:*) = cómo se ve el enlace al compartirlo en
+    Facebook, LinkedIn, WhatsApp, etc. (título, texto e imagen).
+  -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jonathan Sandoval — Product Design Engineer">
+  <meta property="og:description" content="Product Design Engineer y especialista en streaming. Proyectos de ingeniería, software, diseño e investigación.">
+  <meta property="og:url" content="https://jasgidp.github.io/">
+  <meta property="og:image" content="https://jasgidp.github.io/HOme.png">
+
+  <!-- Twitter/X: tipo de vista previa grande con imagen -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Icono pequeño de la pestaña del navegador -->
   <link rel="shortcut icon" href="favicon.png">
+
+  <!-- Hoja de estilos principal del sitio (colores, layout, tipografía) -->
   <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 
-  <!-- https://boxicons.com/ -->
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
+  <!-- Iconos Remix Icon (Instagram, GitHub, flechas, etc.) desde CDN -->
   <!-- https://remixicon.com/ -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
 
-
+  <!--
+    Google Fonts: Montserrat (títulos) y Open Sans (texto).
+    preconnect acelera la conexión a fonts.googleapis.com.
+  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -25,85 +75,106 @@
 
 </head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-29TMGRLTZK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-29TMGRLTZK');
-</script>
+<!--
+  analytics.js carga Google Analytics para medir visitas.
+  "defer" = se ejecuta después de leer el HTML, sin bloquear la página.
+-->
+<script src="analytics.js" defer></script>
 
 <body>
+  <!--
+    BODY = todo lo que el usuario VE.
+    Aquí va el menú, el hero (presentación) y los scripts.
+  -->
 
-  <!-- Esta sección es la cabecera de la pagina web -->
-  <header class="header">
-    <a href="index.html" class="logo" aria-label="Home"><img src="HOme.png" alt="JASG logo"></a>
+  <!--
+    Contenedor vacío donde partials/header.js inserta el menú
+    (logo, enlaces, selector de idioma). Así el menú es igual
+    en todas las páginas sin copiarlo a mano en cada HTML.
+  -->
+  <div id="site-header"></div>
 
-    <div class='bx bx-menu' id="menu-icon" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"></div>
-
-    <ul class="navlist" id="primary-nav">
-      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
-      <li><a href="about.html" data-i18n="nav.about">About</a></li>
-      <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
-      <li><a href="skills.html" data-i18n="nav.skills">Skills</a></li>
-      <li><a href="timeline.html" data-i18n="nav.timeline">Timeline</a></li>
-  <!-- Programming removed from header navigation -->
-  <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
-    </ul>
-
-    <div class="lang-switcher">
-      <button data-lang="es" aria-label="Cambiar a español">ES</button>
-      <button data-lang="en" aria-label="Switch to English">EN</button>
-      <button data-lang="pt" aria-label="Mudar para português">PT</button>
-    </div>
-  </header>
-
-
+  <!--
+    HERO = sección principal a pantalla completa.
+    Contiene video de fondo, nombre, descripción y botones de acción.
+  -->
   <section id="home-hero" class="hero">
 
-  
-
     <div class="hero-text">
-     
+      <!-- Tarjeta de cristal (glass) con el contenido de presentación -->
       <div class="hero-card">
-         
- <video autoplay muted loop class="video-bg">
-    <source src="background.mp4" type="video/mp4">
-  </video>
+
+        <!--
+          Video de fondo:
+          - autoplay: empieza solo
+          - muted: sin sonido (los navegadores lo exigen para autoplay)
+          - loop: se repite infinito
+        -->
+        <video autoplay muted loop class="video-bg">
+          <source src="background.mp4" type="video/mp4">
+        </video>
+
+        <!--
+          data-i18n="...": clave de traducción.
+          i18n.js reemplaza este texto según el idioma (ES / EN / PT).
+        -->
         <h5 data-i18n="hero.role">Product Design Engineer · Streaming Engineer Specialist · Master’s Student</h5>
         <h4>Product Design Engineer</h4>
+        <!-- Nombre: el elemento más importante visualmente de la página -->
         <h1>Jonathan Sandoval</h1>
         <p id="hero-blurb" data-i18n="hero.blurb">Product Design Engineer and Streaming software engineering with hands-on experience in live support, Python automation, and Grafana monitoring. Master’s in Engineering student and software development.</p>
+
+        <!-- Grupo de botones (CTAs = Call To Action / llamadas a la acción) -->
         <div class="hero-ctas">
+          <!-- download = el navegador descarga el archivo en lugar de abrirlo -->
           <a href="docs/foto.jpg" download class="btn primary" data-i18n="hero.ctaCV">Download CV</a>
           <a href="portfolio.html" class="btn ghost"><i class="ri-play-fill" aria-hidden="true"></i><span data-i18n="hero.ctaPortfolio">View Portfolio</span></a>
           <a href="skills.html" class="btn ghost"><i class="ri-rocket-2-line" aria-hidden="true"></i><span data-i18n="hero.ctaSkills">View Skills</span></a>
           <a href="timeline.html" class="btn ghost"><i class="ri-timeline-view" aria-hidden="true"></i><span data-i18n="hero.ctaTimeline">View Timeline</span></a>
         </div>
+
+        <!--
+          Enlaces a redes sociales.
+          target="_blank" = abre en pestaña nueva.
+          rel="noopener" = seguridad al abrir enlaces externos.
+          aria-label = texto para lectores de pantalla (accesibilidad).
+        -->
+        <div class="hero-social" aria-label="Social links">
+          <a href="https://instagram.com/your-profile" target="_blank" rel="noopener" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+          <a href="https://youtube.com/@your-channel" target="_blank" rel="noopener" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+          <a href="https://github.com/jasgidp" target="_blank" rel="noopener" aria-label="GitHub"><i class="ri-github-fill"></i></a>
+        </div>
       </div>
     </div>
 
-   
   </section>
 
-  <div class="icons" aria-label="Social links">
-    <a href="https://instagram.com/your-profile" target="_blank" rel="noopener" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
-    <a href="https://youtube.com/@your-channel" target="_blank" rel="noopener" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
-    <a href="https://github.com/your-username" target="_blank" rel="noopener" aria-label="GitHub"><i class="ri-github-fill"></i></a>
-  </div>
-
-
+  <!-- Flecha decorativa que sugiere "sigue bajando" (en móvil se oculta con CSS) -->
   <div class="scroll-down">
     <a href="#"><i class="ri-arrow-down-s-fill"></i></a>
   </div>
 
-  <!-- Use https for ScrollReveal to avoid mixed content issues -->
+  <!--
+    SCRIPTS al final del body: así el HTML ya existe cuando el JS corre.
+    Orden importa: header → i18n → script general.
+  -->
+  <!-- Librería ScrollReveal: anima elementos al aparecer al hacer scroll -->
   <script src="https://unpkg.com/scrollreveal"></script>
+  <!-- Inserta el menú compartido -->
+  <script src="partials/header.js" defer></script>
+  <!-- Sistema de idiomas (ES / EN / PT) -->
   <script src="i18n.js" defer></script>
+  <!-- Menú móvil + animaciones de entrada -->
   <script src="script.js" defer></script>
+
   <script>
-    // Auto-hide hero image overlay after 10 seconds
+    /*
+      Script pequeño solo de esta página:
+      1) Después de 10 segundos, oculta la imagen grande de overlay del hero
+         (clase CSS "hide-image") para dejar ver el contenido con claridad.
+      2) Cuando cambia el idioma (evento i18n:updated), vuelve a aplicar
+         las traducciones a toda la página.
+    */
     window.addEventListener('load', () => {
       setTimeout(() => {
         const hero = document.getElementById('home-hero');
