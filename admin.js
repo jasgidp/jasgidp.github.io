@@ -125,21 +125,54 @@
   function showPanel() { $('login-view').hidden = true; $('panel-view').hidden = false; }
 
   /* ============================================================
-     CARGA DE DATOS
-     Lee los 4 JSON del repo (o locales en preview) y los guarda
-     en "store" junto con su "sha" (necesario para poder sobrescribir
-     el archivo después en GitHub).
+     CARGA DE DATOS (híbrida)
+     1) El contenido se lee del sitio desplegado (./data/*.json),
+        igual que el preview → siempre funciona en GitHub Pages.
+     2) El "sha" se pide a la API de GitHub (hace falta para Guardar).
+     Así un fallo de red/CORS al bajar el JSON no deja el panel vacío.
      ============================================================ */
+  async function loadLocalFiles() {
+    for (const key of Object.keys(FILES)) {
+      const res = await fetch('./' + FILES[key] + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!res.ok) throw new Error(`No se pudo leer ${FILES[key]} (${res.status})`);
+      store[key] = { data: await res.json(), sha: store[key]?.sha || null };
+    }
+  }
+
+  async function loadShasFromGitHub() {
+    const errors = [];
+    for (const key of Object.keys(FILES)) {
+      try {
+        const meta = await G.getFileMeta(FILES[key]);
+        store[key].sha = meta.sha;
+      } catch (err) {
+        errors.push(`${FILES[key]}: ${err.message}`);
+      }
+    }
+    return errors;
+  }
+
   async function loadAll() {
     setStatus($('save-status'), 'Cargando datos…', 'working');
     try {
-      for (const key of Object.keys(FILES)) {
-        const { data, sha } = await G.getFile(FILES[key]);
-        store[key] = { data, sha };
-      }
+      // Siempre carga local primero (mismo origen → no CORS)
+      await loadLocalFiles();
       normalizeProjects();
       renderActive();
-      setStatus($('save-status'), '', '');
+
+      // Luego intenta obtener los sha para poder guardar
+      const shaErrors = await loadShasFromGitHub();
+      if (shaErrors.length) {
+        setStatus(
+          $('save-status'),
+          'Datos cargados, pero no se pudo leer el sha en GitHub (Guardar puede fallar). ' +
+          shaErrors[0],
+          'error'
+        );
+      } else {
+        setStatus($('save-status'), '', '');
+      }
+      updateSaveState();
     } catch (err) {
       setStatus($('save-status'), 'Error cargando datos: ' + err.message, 'error');
     }
@@ -562,6 +595,13 @@
     setStatus($('save-status'), 'Guardando en GitHub…', 'working');
     try {
       const path = FILES[activeTab];
+      // Si no tenemos sha (la carga desde API falló), lo pedimos ahora
+      if (!store[activeTab].sha) {
+        try {
+          const meta = await G.getFileMeta(path);
+          store[activeTab].sha = meta.sha;
+        } catch (_) { /* archivo nuevo: put sin sha lo crea */ }
+      }
       const res = await G.putFile(path, getSaveData(activeTab), `Update ${path} via admin panel`, store[activeTab].sha);
       store[activeTab].sha = res.content.sha;
       dirty[activeTab] = false;
