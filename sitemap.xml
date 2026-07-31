@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================
+  sitemap.xml — Mapa del sitio para buscadores
+  ------------------------------------------------------------
+  ¿Qué es?
+  Una lista de las URLs públicas importantes del sitio.
+  Google/Bing la usan para descubrir y priorizar páginas.
+
+  Cada <url> tiene:
+  - loc:        dirección completa de la página
+  - lastmod:    última modificación (AAAA-MM-DD)
+  - changefreq: cada cuánto suele cambiar (opcional, pista)
+  - priority:   importancia relativa 0.0–1.0 (1.0 = la más importante)
+
+  ¿Por qué está aquí?
+  Ayuda al SEO: los buscadores encuentran todas tus páginas
+  aunque no haya muchos enlaces externos todavía.
+
+  Nota: admin.html NO está en este mapa (es privado).
+  ============================================================
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://jasgidp.github.io/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://jasgidp.github.io/about.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jasgidp.github.io/portfolio.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://jasgidp.github.io/programming.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jasgidp.github.io/skills.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jasgidp.github.io/timeline.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jasgidp.github.io/contact.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
