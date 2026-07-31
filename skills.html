@@ -24,6 +24,18 @@
   <link rel="shortcut icon" href="favicon.png">
   <link rel="stylesheet" href="css/main.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
+  <!--
+    Google Fonts: Montserrat (títulos) y Open Sans (texto).
+    preconnect acelera la conexión con el servidor de fuentes.
+    display=swap: muestra una fuente del sistema mientras cargan,
+    para que el texto nunca quede invisible.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
+
   <!-- Tema claro/oscuro. SIN "defer": debe aplicarse antes de dibujar
        la pagina para evitar un parpadeo de color al cargar. -->
   <script src="js/theme.js"></script>
@@ -61,5 +73,7 @@
   <script src="js/i18n.js" defer></script>
   <script src="js/skills.js" defer></script>
   <script src="js/script.js" defer></script>
+  <!-- Brillo que sigue al cursor en las tarjetas -->
+  <script src="js/interactions.js" defer></script>
 </body>
 </html>

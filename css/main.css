@@ -32,7 +32,6 @@
   ============================================================
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap');
 
 /* ============================================================
    TOKENS DE DISENO (variables CSS)
@@ -47,6 +46,14 @@
    ============================================================ */
 :root {
   color-scheme: light;
+
+  /* Tipografia
+     --font-display: para titulos (Montserrat, mas caracter)
+     --font-sans: para texto corrido (Open Sans, mas legible)
+     Los "fallback" del final son fuentes del sistema: se usan
+     mientras cargan las de Google, para que no haya salto raro. */
+  --font-display: 'Montserrat', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Open Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Superficies */
   --bg: #ffffff;
@@ -76,21 +83,20 @@
   --shadow-lg: 0 14px 30px rgba(15, 23, 42, 0.13);
 
   /* Fondo del hero (malla de degradados) */
-  --mesh-1: #eef2ff;
-  --mesh-2: #e0f2fe;
-  --mesh-3: #f8fafc;
-  --mesh-4: #ffffff;
+  --mesh-1: rgba(224, 231, 255, 0.75);
+  --mesh-2: rgba(207, 238, 254, 0.7);
+  --mesh-3: rgba(248, 250, 252, 0.6);
 
-  /* Intensidad del video de fondo */
-  --video-opacity: 1;
+  /* Intensidad del video de fondo y del velo que lo cubre */
+  --video-opacity: 0.85;
   --video-filter: none;
+  --page-veil: rgba(255, 255, 255, 0.74);
 
   /* Cristal del header y del menu movil */
   --header-bg: rgba(255, 255, 255, 0.9);
   --menu-bg: rgba(255, 255, 255, 0.96);
 
-  /* Hero: velo sobre el video y tarjeta de cristal */
-  --hero-veil: rgba(255, 255, 255, 0.55);
+  /* Tarjeta de cristal del hero */
   --hero-card-bg: rgba(255, 255, 255, 0.32);
   --hero-card-border: rgba(255, 255, 255, 0.5);
 }
@@ -126,19 +132,18 @@
   --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.55);
 
-  --mesh-1: #131f3a;
-  --mesh-2: #0f2233;
-  --mesh-3: #0d1526;
-  --mesh-4: #0b1220;
+  --mesh-1: rgba(35, 56, 105, 0.55);
+  --mesh-2: rgba(15, 52, 82, 0.5);
+  --mesh-3: rgba(13, 21, 38, 0.5);
 
-  /* El video de fondo es blanco: lo invertimos para que sea oscuro */
-  --video-opacity: 0.5;
+  /* El video es blanco: lo invertimos para que quede oscuro */
+  --video-opacity: 0.55;
   --video-filter: invert(1) hue-rotate(180deg);
+  --page-veil: rgba(11, 18, 32, 0.78);
 
   --header-bg: rgba(11, 18, 32, 0.82);
   --menu-bg: rgba(15, 23, 40, 0.97);
 
-  --hero-veil: rgba(11, 18, 32, 0.62);
   --hero-card-bg: rgba(19, 28, 46, 0.55);
   --hero-card-border: rgba(148, 163, 184, 0.22);
 }
@@ -159,10 +164,34 @@ body { background: var(--bg); color: var(--text); }
     padding: 0;
     margin: 0;
     box-sizing: border-box; /* el ancho incluye padding + borde */
-    font-family: 'Lato', sans-serif; /* tipografía por defecto */
     list-style: none; /* sin viñetas en <ul>/<ol> */
     text-decoration: none; /* sin subrayado en enlaces */
 }
+
+/* ------------------------------------------------------------
+   TIPOGRAFIA
+   Antes la fuente se ponia en "*" con la variante CURSIVA de
+   Lato, asi que TODO el sitio salia inclinado. Ahora el texto
+   usa Open Sans (redonda) y los titulos Montserrat.
+   ------------------------------------------------------------ */
+body {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Titulos con la fuente de display y un poco menos de espaciado */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+/* Los controles de formulario no heredan la fuente por defecto:
+   con "font: inherit" se ven igual que el resto del texto. */
+button, input, textarea, select { font: inherit; color: inherit; }
 
 
 h1{
@@ -200,7 +229,7 @@ header {
     font-size: 30px;
     font-weight: 500;
     color: var(--text-strong);
-    font-family: "Montserrat", serif;
+    font-family: var(--font-display);
 
 
 }
@@ -307,7 +336,7 @@ header {
 }
 
 .hero-text h1{
-    font-family: "Montserrat", serif;
+    font-family: var(--font-display);
     font-size: 38px;
     font-weight: 600;
     margin: 0 0 45px;
@@ -931,12 +960,7 @@ a {
   grid-template-columns: 1fr;
   place-items: center;
   padding: 140px 16px 64px;
-  background: var(--surface);
-}
-/* Velo sobre el video para que el texto siempre tenga contraste.
-   En tema claro aclara; en oscuro oscurece (lo decide --hero-veil). */
-#home-hero::after {
-  content:""; position:absolute; inset:0; background: var(--hero-veil);
+  background: transparent; /* deja ver el video + velo globales */
 }
 #home-hero .hero-text { position: relative; z-index: 1; width: 100%; max-width: 900px; display:flex; justify-content:center; }
 #home-hero .hero-card {
@@ -999,11 +1023,13 @@ a {
 
 
 /* Fondo "mesh" (varios degradados radiales suaves) */
+/* Manchas de color suaves sobre el video, solo en la portada.
+   Terminan en "transparent" para no tapar la textura del video. */
 #home-hero.hero {
   background:
-    radial-gradient(900px 450px at 10% 10%, var(--mesh-1) 0%, transparent 60%),
-    radial-gradient(800px 400px at 90% 20%, var(--mesh-2) 0%, transparent 55%),
-    radial-gradient(700px 350px at 50% 100%, var(--mesh-3) 0%, var(--mesh-4) 60%);
+    radial-gradient(900px 450px at 10% 10%, var(--mesh-1) 0%, transparent 62%),
+    radial-gradient(800px 400px at 90% 20%, var(--mesh-2) 0%, transparent 58%),
+    radial-gradient(700px 350px at 50% 100%, var(--mesh-3) 0%, transparent 62%);
 }
 
 /* Tema de botones .btn (azul). Variantes: .primary, .ghost, .orange */
@@ -1081,21 +1107,41 @@ body, html {
             overflow-x: hidden;
             overflow-y: auto;
         }
-/* Video de fondo a pantalla completa.
-   z-index:-1 lo manda DETRÁS de todo el contenido.
-   object-fit:cover rellena sin deformar (recorta si hace falta). */
+/* ------------------------------------------------------------
+   FONDO DE PAGINA (tres capas, de atras hacia adelante)
+
+     1. html            -> color base del tema
+     2. .video-bg       -> video fijo, z-index -2
+     3. body::before    -> velo translucido, z-index -1
+     4. el contenido    -> encima de todo
+
+   El velo es la clave: deja ver la textura del video pero
+   garantiza que el texto siempre tenga contraste suficiente.
+   ------------------------------------------------------------ */
 .video-bg {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    z-index: -1;
+    object-fit: cover; /* rellena sin deformar (recorta si hace falta) */
+    z-index: -2;
     opacity: var(--video-opacity);
     filter: var(--video-filter);
     transition: opacity .4s ease, filter .4s ease;
 }
+
+/* Velo entre el video y el contenido */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--page-veil);
+    pointer-events: none;
+}
+
+/* El fondo lo pinta html; body queda transparente para ver el video */
+body { background: transparent; }
 
 /* ============================================================
    13) CAPA DE POLISH (detalles visuales finales)
@@ -1216,3 +1262,143 @@ body, html {
 
 /* Los iframes de demos suelen ser claros: suavizamos el borde */
 [data-theme="dark"] iframe { border-color: var(--border); }
+
+
+/* ============================================================
+   SPOTLIGHT: un brillo que sigue al cursor sobre las tarjetas
+   ------------------------------------------------------------
+   La idea: cada tarjeta dibuja un degradado circular (radial)
+   centrado en la posicion del cursor. js/interactions.js solo
+   actualiza dos variables, --mx y --my, con esa posicion.
+
+   Se usa una capa de background-image (no un pseudo-elemento)
+   porque las imagenes de fondo se pintan encima del color de
+   fondo pero DEBAJO del texto. Asi el brillo nunca tapa el
+   contenido y no hay que pelear con z-index.
+
+   @property registra --spot-alpha como un numero de verdad.
+   Sin esto, el navegador no sabria como interpolar el valor y
+   el brillo apareceria de golpe en vez de con un fundido.
+   ============================================================ */
+@property --spot-alpha {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+:root {
+  /* Color del brillo (RGB sin envolver, para poder meterle alfa) */
+  --spot-rgb: 37, 99, 235;
+  --spot-size: 260px;
+}
+[data-theme="dark"] {
+  /* En oscuro el brillo debe ser mas claro que el fondo */
+  --spot-rgb: 148, 190, 255;
+}
+
+.skill-card,
+.timeline-card,
+.repo-card,
+.glass-card,
+.fact,
+.prog-card {
+  /* Capa del brillo. Empieza invisible (--spot-alpha: 0). */
+  background-image: radial-gradient(
+    var(--spot-size) circle at var(--mx, 50%) var(--my, -20%),
+    rgba(var(--spot-rgb), var(--spot-alpha)),
+    transparent 72%
+  );
+  transition: --spot-alpha .35s ease,
+              transform .25s var(--ease, ease),
+              box-shadow .25s var(--ease, ease),
+              border-color .25s ease;
+}
+
+/* Al pasar el cursor: se enciende el brillo y la tarjeta se eleva */
+.skill-card:hover,
+.timeline-card:hover,
+.repo-card:hover,
+.glass-card:hover,
+.fact:hover,
+.prog-card:hover {
+  --spot-alpha: 0.13;
+  border-color: rgba(var(--spot-rgb), 0.45);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Las tarjetas de proyecto ya usan background-image para su foto
+   o degradado, asi que aqui el brillo va en ::after.
+   z-index 0 lo deja por debajo de .project-overlay (z-index 1). */
+.project-tile { isolation: isolate; }
+.project-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    var(--spot-size) circle at var(--mx, 50%) var(--my, -20%),
+    rgba(255, 255, 255, var(--spot-alpha)),
+    transparent 70%
+  );
+  transition: --spot-alpha .35s ease;
+}
+.project-tile:hover::after { --spot-alpha: 0.28; }
+.project-tile .project-overlay { z-index: 1; }
+
+/* ------------------------------------------------------------
+   MICRO-INTERACCIONES
+   Detalles pequenos que hacen que el sitio se sienta "solido".
+   ------------------------------------------------------------ */
+
+/* Al pulsar, el boton se hunde un pixel: da sensacion de tacto */
+.btn:active,
+.theme-toggle:active,
+.lang-switcher button:active { transform: translateY(1px) scale(.99); }
+
+.btn {
+  transition: background .2s var(--ease, ease), color .2s var(--ease, ease),
+              border-color .2s var(--ease, ease), transform .12s ease,
+              box-shadow .2s var(--ease, ease);
+}
+.btn:hover { box-shadow: 0 6px 16px rgba(var(--spot-rgb), 0.22); }
+
+/* Anillo de foco visible al navegar con teclado (accesibilidad).
+   :focus-visible solo aparece con el teclado, no al hacer clic. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Titulos: evita que quede una palabra sola en la ultima linea */
+h1, h2, h3, .project-title, .section-header { text-wrap: balance; }
+/* Parrafos: evita palabras huerfanas al final */
+p, li { text-wrap: pretty; }
+
+/* Seleccion de texto con el color de marca */
+::selection { background: rgba(var(--spot-rgb), 0.22); color: var(--text-strong); }
+
+/* Barra de scroll acorde al tema (WebKit) */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--surface-2); }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+  border: 3px solid var(--surface-2);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* Si el sistema pide menos movimiento, apagamos el spotlight */
+@media (prefers-reduced-motion: reduce) {
+  .skill-card, .timeline-card, .repo-card, .glass-card, .fact, .prog-card {
+    background-image: none;
+    transition: none;
+  }
+  .project-tile::after { display: none; }
+}
