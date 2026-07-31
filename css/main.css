@@ -181,61 +181,6 @@ header {
     line-height: 1.9;
 }
 
-.hero-text a {
-    display: inline-block;
-    background-color: #4d4d4d;
-    color: #f0f0e8;
-    border: 1px solid transparent;
-    padding: 15px 30px;
-    line-height: 1.4;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 30px;
-    text-transform: uppercase;
-    transition: all .5s ease;
-}
-
-.hero-text a:hover {
-    background-color: transparent;
-    border: 1px solid white;
-    transform: translateX(8px);
-    color: #0d252d;
-
-}
-
-
-
-.hero-text a.videos{
-    background-color: transparent;
-    border: 1px solid white;
-    margin-left:  20px;
-    color: #0d252d;
-
-}
-
-.hero-text a.videos i{
-    vertical-align: middle;
-    margin-right: 5px;
-}
-.icons {
-    position: absolute;
-    top: 50vh;
-    padding: 0 3%;
-    transform: translateY(-50%);
-}
-
-.icons i {
-    display: block;
-    margin: 26px 0;
-    font-size: 24px;
-    transition: all 0.5s ease;
-    color: #2563EB;
-}
-
-.icons i:hover{
-    color: #4d4d4d;
-    transform: translateY(-5px);
-}
 
 .scroll-down {
     position: absolute;
@@ -259,43 +204,18 @@ header {
 }
 
 
-
 section{
     padding: 0 8% ;
 }
 
-.programming{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10%;
-}
 
-.contenedor {
-    background-image: url('../assets/img/brand/HOme.png');
-    font-family: "Montserrat", serif;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-
-}
-
-#title,
-#subtitle {
-    color: rgb(255, 255, 255);
-    margin-top: 50px;
-    background-color: rgb(27, 27, 71);
-
-}
-
+/* Encabezado h2 por defecto (antes era aliceblue: invisible sobre blanco) */
 h2 {
-    color: aliceblue;
-    font-weight: bold;
+    color: var(--text-strong, #0d252d);
+    font-weight: 600;
     text-align: center;
-    margin-top: 10px; 
-    padding: 5px;   
+    margin-top: 10px;
+    padding: 5px;
 }
 .programming-list{
     padding-top: 10px;
@@ -345,52 +265,23 @@ h2 {
 
 
 }
-.project-item h3 { color: #ffffff; margin-bottom: 6px; text-align: center; }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
-.tag { background: #f0f0e8; color: #0d252d; border-radius: 12px; padding: 2px 8px; font-size: 12px; }
-.actions { display: flex; gap: 8px; justify-content: center; margin-top: 8px; }
 
-.description-project{
-    color: aliceblue;
-    transition: all .5s ease;
+.description-project {
+    color: var(--text, #0f172a);
+    transition: color .3s ease;
     padding: 10px;
 }
-a{
-    color: aliceblue;
-     border-bottom-width: 5px;
-     border-bottom-color: #f0f0e8;
+/* Enlaces por defecto (antes eran aliceblue: ilegibles sobre blanco) */
+a {
+    color: var(--brand, #2563EB);
+    text-decoration: none;
 }
 
-
-.show-hide{
-    cursor: pointer;
-    position: relative;
-    top: -10px;
-    float: right;
-    border: 1px solid transparent;
-    transition: all .5s ease;
-
-}
-
-
-
-.show-hide:hover{
-    border-bottom: 1px solid rgb(255, 255, 255);
-}
 
 /* ------------------------------------------------------------
    5) TIMELINE — estilos legacy (versión oscura antigua)
    Más abajo hay una versión moderna (.timeline-card, etc.).
    ------------------------------------------------------------ */
-.timeline-section { color: #f0f0e8; margin: 16px auto; width: 90%; }
-.timeline-section h2 { color: #f0f0e8; margin: 8px 0; text-align: center; }
-.timeline-list { list-style: none; padding: 0; display: grid; gap: 12px; }
-.timeline-item { background: rgba(2,23,25,0.8); border: 1px solid rgba(240,240,232,0.2); border-radius: 12px; padding: 12px; }
-.timeline-item h3 { color: #ffffff; font-size: 18px; margin-bottom: 6px; }
-.timeline-item .org { color: #f2c14e; }
-.timeline-item .dates { color: #cbd5e1; font-size: 12px; }
-.timeline-item .bullets { margin: 6px 18px; }
-.timeline-item .bullets li { color: #f0f0e8; margin: 4px 0; }
 
 
 /* ------------------------------------------------------------
@@ -793,26 +684,6 @@ a{
         font-size: 70%;
     }
 
-    /* Iconos sociales en móvil: botones circulares fijos abajo */
-    .icons{
-        position: fixed;
-        top: auto; /* reset desktop top:50vh so bottom pins correctly */
-        bottom: calc(12px + env(safe-area-inset-bottom, 0));
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 10px;
-        padding: 0;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        z-index: 9;
-    }
-    .icons a { display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:9999px; background:#ffffff; border:1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .icons a:hover { background:#2563EB; border-color:#2563EB; }
-    .icons i { color:#2563EB; margin:0; font-size:20px; }
-    .icons a:hover i { color:#ffffff; }
-
     .scroll-down{ display: none; }
 }
 
@@ -889,7 +760,6 @@ a{
 
     /* Dim background and hide social icons when menu is open */
     body.menu-open::before { content:""; position: fixed; inset:0; background: rgba(30,58,138,0.08); -webkit-backdrop-filter: blur(1px); backdrop-filter: blur(1px); z-index: 8; }
-    body.menu-open .icons { display:none; }
 }
 
 
@@ -982,19 +852,6 @@ a{
 /* Capa oscura detrás del contenido del hero */
 #home-hero::after { z-index: 0; }
 
-/* Overlay con assets/img/brand/HOme.png: se oculta al hover o con clase .hide-image
-   (index.html la añade a los 10 segundos) */
-#home-hero::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: url('../assets/img/brand/HOme.png') center/cover no-repeat;
-  z-index: 2;
-  opacity: 1;
-  transition: opacity .7s ease, visibility .7s ease;
-  pointer-events: none;
-}
-#home-hero.hide-image::before,
-#home-hero:hover::before { opacity: 0; visibility: hidden; }
 
 /* Fondo "mesh" (varios degradados radiales suaves) */
 #home-hero.hero {
@@ -1045,7 +902,6 @@ a{
 
 /* Espaciado del buscador en Programming */
 .page .skills-controls { margin-bottom: 8px; }
-
 
 
 /* Contenedor e intro de la página Programming */
@@ -1169,10 +1025,6 @@ body, html {
 .project-tile.no-image[data-category="design"]      { background-image: linear-gradient(135deg, var(--cat-design), #c4b5fd); }
 .project-tile.no-image::before { background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0) 60%); }
 
-/* En móvil ocultamos el overlay decorativo del hero (más limpio) */
-@media (max-width: 768px) {
-  #home-hero::before { display: none; }
-}
 
 /* Accesibilidad: si el SO pide menos movimiento, apagamos animaciones */
 @media (prefers-reduced-motion: reduce) {

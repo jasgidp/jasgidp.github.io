@@ -110,9 +110,13 @@
           - muted: sin sonido (los navegadores lo exigen para autoplay)
           - loop: se repite infinito
         -->
-        <video autoplay muted loop class="video-bg">
-          <source src="assets/video/background.mp4" type="video/mp4">
-        </video>
+        <video class="video-bg" autoplay muted loop playsinline
+         poster="assets/img/brand/background-poster.jpg"
+         aria-hidden="true" tabindex="-1" disablepictureinpicture>
+    <!-- WebM primero: pesa menos. Si el navegador no lo soporta, usa el MP4. -->
+    <source src="assets/video/background.webm" type="video/webm">
+    <source src="assets/video/background.mp4" type="video/mp4">
+  </video>
 
         <!--
           data-i18n="...": clave de traducción.
@@ -168,19 +172,7 @@
   <script src="js/script.js" defer></script>
 
   <script>
-    /*
-      Script pequeño solo de esta página:
-      1) Después de 10 segundos, oculta la imagen grande de overlay del hero
-         (clase CSS "hide-image") para dejar ver el contenido con claridad.
-      2) Cuando cambia el idioma (evento i18n:updated), vuelve a aplicar
-         las traducciones a toda la página.
-    */
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const hero = document.getElementById('home-hero');
-        if (hero) hero.classList.add('hide-image');
-      }, 10000);
-    });
+    // Al cambiar de idioma, volver a aplicar las traducciones a toda la página.
     document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
   </script>
 
