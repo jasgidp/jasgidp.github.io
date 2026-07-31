@@ -69,5 +69,27 @@
     "preview": "Ver demo",
     "hide": "Ocultar demo"
   },
-  "contact": { "title": "Contacto", "emailCta": "Enviar correo" }
+  "contact": {
+    "title": "Contacto",
+    "emailCta": "Enviar correo",
+    "info": {
+      "email": "Correo",
+      "phone": "Teléfono",
+      "location": "Ubicación",
+      "address": "Dirección",
+      "availability": "Disponibilidad",
+      "follow": "Sígueme"
+    },
+    "form": {
+      "title": "Enviar un mensaje",
+      "name": "Nombre",
+      "email": "Correo",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "send": "Enviar",
+      "success": "¡Gracias! Tu mensaje fue enviado (demo).",
+      "error": "Por favor completa los campos obligatorios.",
+      "invalidEmail": "Ingresa un correo válido."
+    }
+  }
 }

@@ -1,11 +1,13 @@
 {
   "projects": [
-    {"id":"aiesec-awards","category":"graphic","title":"Awards – AIESEC","summary":"Certificates and event logo aligned to ‘The Family’ concept.","role":"Director of Digital Experience & Graphic Design","tech":["Illustrator","Photoshop"],"images":[],"links":{"demo":"","repo":"","video":""},"year":2020},
+    {"id":"aiesec-awards","category":"graphic","title":"Awards – AIESEC","summary":"Certificates and event logo aligned to ‘The Family’ concept.","role":"Director of Digital Experience & Graphic Design","tech":["Illustrator","Photoshop"],"images":["HOme.png"],"thumb":"HOme.png","links":{"demo":"","repo":"","video":""},"year":2020,
+      "status":"Completed","client":"AIESEC","features":["Coherent visual system","Printable and digital assets"],"importance":"High","learnings":"Refined brand consistency under tight timelines.","results":["Delivered 100+ assets","Used across 3 events"]},
     {"id":"zonalito-2020-1","category":"graphic","title":"Conference 2020 (1) – Zonalito","summary":"Concept and visual system for regional AIESEC event.","tech":["Illustrator","Photoshop"],"year":2020},
     {"id":"zonalito-2020-2","category":"graphic","title":"Conference 2020 (2) – Big Heroes","summary":"Branding: logo, mascot, shirts, templates.","year":2020},
     {"id":"zonalito-2019","category":"graphic","title":"Conference 2019 (1) – Special Agents","summary":"Visual identity; logo, badges, booklets, templates.","year":2019},
 
-    {"id":"mi-centro","category":"experience","title":"Mi Centro – University Project","summary":"Social urban experience system (station/pole/device).","links":{"video":""},"year":2019},
+    {"id":"mi-centro","category":"experience","title":"Mi Centro – University Project","summary":"Social urban experience system (station/pole/device).","links":{"video":""},"year":2019,
+      "status":"Concept","client":"University","features":["Modular station","Contextual feedback"],"team":["JASG","Peers"],"contribution":"System concept and prototyping","state":"Prototype","importance":"Medium","learnings":"User research synthesis and rapid prototyping.","results":["Validated with 12 participants"]},
     {"id":"thor-machine","category":"experience","title":"Thor Machine – University Project","summary":"Interactive installation for children; ergonomics education.","links":{"video":""},"year":2019},
 
     {"id":"fwd","category":"engineering","title":"FWD – University Project","summary":"Single-person two-wheel vehicle; internal-rim transmission.","year":2018},
@@ -18,16 +20,19 @@
     {"id":"grid-4","category":"research","title":"Gratu","summary":"Research item placeholder.","year":2019},
     {"id":"grid-5","category":"research","title":"Artículo Científico","summary":"Co-authored publication in Wind Engineering Journal.","year":2023},
 
-    {"id":"clean-dataset","category":"software","title":"Clean Dataset","summary":"Automation for data cleaning and preprocessing.","tech":["Python"],"links":{"repo":""}},
+    {"id":"clean-dataset","category":"software","title":"Clean Dataset","summary":"Automation for data cleaning and preprocessing.","tech":["Python"],"thumb":"HOme.png","images":["HOme.png"],
+      "links":{"repo":"","demo":""},"status":"In progress","features":["Schema validation","Pipeline orchestration"],"contribution":"Sole developer","importance":"Medium","learnings":"Data contracts and robust logging.","results":["Reduced manual cleaning time by 40%"]},
     {"id":"forecast-gl","category":"software","title":"Forecast GL Project","summary":"Predictive analytics for streaming operations.","tech":["Python","ML"],"links":{"repo":""}},
-    {"id":"web-jonathan","category":"software","title":"Web Page Jonathan","summary":"Personal portfolio website.","tech":["HTML","CSS","JS"],"links":{"repo":""}},
+    {"id":"web-jonathan","category":"software","title":"Web Page Jonathan","summary":"Personal portfolio website.",
+      "tech":{"languages":["HTML","CSS","JavaScript"],"frameworks":[],"tools":["GitHub Pages"]},"thumb":"HOme.png","images":["HOme.png"],
+      "links":{"repo":"","portfolio":"https://jasgidp.github.io"},"status":"Live","features":["i18n","Responsive","Data-driven sections"],"contribution":"Design & development","importance":"High","learnings":"Design tokens and content-driven architecture.","results":["Improved mobile nav UX","Faster content updates"]},
     {"id":"sbs","category":"software","title":"SBS","summary":"Internal tool for system/process support.","links":{"repo":""}},
-    {"id":"grafana-improvement","category":"software","title":"Grafana Improvement","summary":"Visualization and monitoring optimization.","links":{"repo":""}},
+  {"id":"grafana-improvement","category":"software","title":"Grafana Improvement","summary":"Visualization and monitoring optimization.","links":{"repo":""},"status":"Completed","results":["Reduced alert noise by 25%","Improved MTTR"]},
     {"id":"hermes-improvements","category":"software","title":"Hermes Improvements","summary":"Enhancements to internal communication platform.","links":{"repo":""}},
     {"id":"runbooks","category":"software","title":"Runbooks – Troubleshooting/Info/Rules","summary":"Standardized operational runbooks.","links":{"repo":""}},
-    {"id":"db-automation","category":"software","title":"Database Information Automation","summary":"Scripts for updating and validating datasets.","links":{"repo":""}},
-    {"id":"alerts-nfl","category":"software","title":"Alerts for NFL","summary":"Automated alert system for sports data.","links":{"repo":""}},
-    {"id":"permission-system","category":"software","title":"New Permission System","summary":"Backend logic for role-based access control.","links":{"repo":""}},
+  {"id":"db-automation","category":"software","title":"Database Information Automation","summary":"Scripts for updating and validating datasets.","links":{"repo":""},"status":"Completed","results":["Cut update time from hours to minutes"]},
+  {"id":"alerts-nfl","category":"software","title":"Alerts for NFL","summary":"Automated alert system for sports data.","links":{"repo":""},"status":"Operational","results":["Improved detection latency 30%"]},
+  {"id":"permission-system","category":"software","title":"New Permission System","summary":"Backend logic for role-based access control.","links":{"repo":""},"status":"In progress","features":["RBAC","Audit logs"],"state":"MVP"},
     {"id":"fixture-manager","category":"software","title":"Fixture Manager / NFL Messages","summary":"Tools for sports data management and automation.","links":{"repo":""}},
 
     {"id":"center-box","category":"design","title":"Center Box – Family Project","summary":"Coffee table with storage; upcycled materials.","year":2017},

@@ -69,5 +69,27 @@
     "preview": "Show demo",
     "hide": "Hide demo"
   },
-  "contact": { "title": "Contact", "emailCta": "Send Email" }
+  "contact": {
+    "title": "Contact",
+    "emailCta": "Send Email",
+    "info": {
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "address": "Address",
+      "availability": "Availability",
+      "follow": "Follow"
+    },
+    "form": {
+      "title": "Send a message",
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send",
+      "success": "Thanks! Your message was sent (demo).",
+      "error": "Please fill in all required fields.",
+      "invalidEmail": "Please enter a valid email."
+    }
+  }
 }

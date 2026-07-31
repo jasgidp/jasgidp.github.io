@@ -69,5 +69,27 @@
     "preview": "Ver demo",
     "hide": "Ocultar demo"
   },
-  "contact": { "title": "Contato", "emailCta": "Enviar email" }
+  "contact": {
+    "title": "Contato",
+    "emailCta": "Enviar email",
+    "info": {
+      "email": "Email",
+      "phone": "Telefone",
+      "location": "Localização",
+      "address": "Endereço",
+      "availability": "Disponibilidade",
+      "follow": "Siga"
+    },
+    "form": {
+      "title": "Enviar uma mensagem",
+      "name": "Nome",
+      "email": "Email",
+      "subject": "Assunto",
+      "message": "Mensagem",
+      "send": "Enviar",
+      "success": "Obrigado! Sua mensagem foi enviada (demo).",
+      "error": "Preencha os campos obrigatórios.",
+      "invalidEmail": "Insira um email válido."
+    }
+  }
 }

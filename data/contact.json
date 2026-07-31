@@ -1,0 +1,20 @@
+{
+  "headline": "Let's work together",
+  "subheadline": "Open to freelance, internships, and full‑time roles.",
+  "email": "hello@example.com",
+  "phone": "+1 (555) 123-4567",
+  "location": "Medellín, Colombia",
+  "address": "Cra. 123 #45-67, Medellín",
+  "availability": "Usually replies within 1–2 days.",
+  "socials": [
+    { "name": "LinkedIn", "url": "https://linkedin.com/in/yourprofile", "icon": "ri-linkedin-box-fill" },
+    { "name": "GitHub", "url": "https://github.com/your-username", "icon": "ri-github-fill" },
+    { "name": "Instagram", "url": "https://instagram.com/your-profile", "icon": "ri-instagram-line" }
+  ],
+  "form": {
+    "enabled": true,
+    "to": "hello@example.com",
+    "subject": "New message from portfolio",
+    "demo": true
+  }
+}
