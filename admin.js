@@ -98,27 +98,55 @@
 
   /* ============================================================
      LOGIN
-     Valida el token con GitHub (getUser). Solo deja entrar si el
-     usuario autenticado es el dueño del repo (OWNER). Si no, borra
-     el token y muestra error. Así nadie más puede editar tu sitio.
+     1) Intenta validar el token con GitHub (/user).
+     2) Si la red/CORS falla pero el token tiene forma válida,
+        entra igual, carga datos locales y deja guardar después.
+     3) Si el token es de otro usuario → rechazo.
      ============================================================ */
+  function looksLikeToken(t) {
+    return /^(github_pat_|ghp_|gho_|ghu_|ghs_)[A-Za-z0-9_]+/.test((t || '').trim());
+  }
+
   async function tryLogin(token) {
+    previewMode = false;
     G.setToken(token);
+    showLogin(); // por si fallamos a mitad, el mensaje se ve en el login
+    setStatus($('login-status'), 'Validando token…', 'working');
+
+    let user = null;
     try {
-      const user = await G.getUser();
-      if (user.login && user.login.toLowerCase() !== G.OWNER.toLowerCase()) {
-        setStatus($('login-status'),
-          `Token de @${user.login}. Necesitas un token de @${G.OWNER} con escritura en el repo.`, 'error');
-        G.clearToken();
+      user = await G.getUser();
+    } catch (err) {
+      // Red/CORS: no bloqueamos el panel; los datos salen del sitio
+      if (looksLikeToken(token) && /api\.github\.com|Failed to fetch|NetworkError|Load failed|CORS/i.test(err.message)) {
+        $('whoami').textContent = '(token guardado · API no respondió al validar)';
+        showPanel();
+        await loadAll();
+        setStatus(
+          $('save-status'),
+          'No se pudo validar el token contra GitHub ahora. Puedes editar; al Guardar se reintentará. ' + err.message,
+          'working'
+        );
         return;
       }
-      $('whoami').textContent = `@${user.login}`;
-      showPanel();
-      await loadAll();
-    } catch (err) {
       setStatus($('login-status'), 'Token inválido o sin permisos: ' + err.message, 'error');
       G.clearToken();
+      showLogin();
+      return;
     }
+
+    if (user.login && user.login.toLowerCase() !== G.OWNER.toLowerCase()) {
+      setStatus($('login-status'),
+        `Token de @${user.login}. Necesitas un token de @${G.OWNER} con escritura en el repo.`, 'error');
+      G.clearToken();
+      showLogin();
+      return;
+    }
+
+    $('whoami').textContent = `@${user.login}`;
+    setStatus($('login-status'), '', '');
+    showPanel();
+    await loadAll();
   }
 
   function showLogin() { $('login-view').hidden = false; $('panel-view').hidden = true; }
@@ -141,34 +169,35 @@
 
   async function loadShasFromGitHub() {
     const errors = [];
-    for (const key of Object.keys(FILES)) {
+    // En paralelo (más rápido) y sin tumbar la UI si uno falla
+    await Promise.all(Object.keys(FILES).map(async (key) => {
       try {
         const meta = await G.getFileMeta(FILES[key]);
-        store[key].sha = meta.sha;
+        if (store[key]) store[key].sha = meta.sha;
       } catch (err) {
         errors.push(`${FILES[key]}: ${err.message}`);
       }
-    }
+    }));
     return errors;
   }
 
   async function loadAll() {
     setStatus($('save-status'), 'Cargando datos…', 'working');
     try {
-      // Siempre carga local primero (mismo origen → no CORS)
       await loadLocalFiles();
       normalizeProjects();
       renderActive();
 
-      // Luego intenta obtener los sha para poder guardar
+      // Los sha se piden en segundo plano; la UI ya es usable
       const shaErrors = await loadShasFromGitHub();
-      if (shaErrors.length) {
+      if (shaErrors.length === Object.keys(FILES).length) {
         setStatus(
           $('save-status'),
-          'Datos cargados, pero no se pudo leer el sha en GitHub (Guardar puede fallar). ' +
-          shaErrors[0],
-          'error'
+          'Datos listos. GitHub no devolvió sha ahora; al Guardar se pedirá de nuevo. ' + shaErrors[0],
+          'working'
         );
+      } else if (shaErrors.length) {
+        setStatus($('save-status'), 'Datos listos (algunos sha pendientes). ' + shaErrors[0], 'working');
       } else {
         setStatus($('save-status'), '', '');
       }
