@@ -1,23 +1,55 @@
+/*
+  ============================================================
+  projects.js — Galería del Portafolio
+  ------------------------------------------------------------
+  ¿Qué hace?
+  1) Carga data/projects.json.
+  2) Dibuja tarjetas (tiles) en #projects-container.
+  3) Filtra por categoría (botones .filters) y por buscador.
+  4) Al hacer clic en una tarjeta, inserta debajo un panel
+     con todos los detalles (descripción, tech, galería…).
+
+  ¿Por qué?
+  Separar datos (JSON) de la presentación (HTML generado)
+  permite editar proyectos desde el panel admin sin tocar código.
+  ============================================================
+*/
 (async () => {
   const container = document.getElementById('projects-container');
+  // En portfolio.html el buscador se llama timeline-search (reutilizado)
   const searchInput = document.getElementById('projects-search') || document.getElementById('timeline-search');
   const softwareExtra = document.getElementById('software-extra');
-  if (!container) return;
+  if (!container) return; // solo corre en portfolio.html
 
   try {
     const res = await fetch('./data/projects.json');
     const { projects } = await res.json();
 
+    // Estado de la UI: filtro activo + texto de búsqueda
     const state = { filter: 'all', q: '' };
-    let openPanel = null; // tracks the currently open details panel element
-    let openProjectId = null;
+    let openPanel = null;     // panel de detalles abierto ahora mismo
+    let openProjectId = null; // id del proyecto abierto (para toggle)
 
+    // Normaliza texto a minúsculas para buscar sin importar mayúsculas
     function normalize(s){ return (s||'').toString().toLowerCase(); }
-    function sortByYear(arr){ return arr.slice().sort((a,b)=> (b.year||0) - (a.year||0)); }
+
+    // Orden: primero por campo "order" (menor = primero);
+    // si no hay order, ordena por año (más reciente primero).
+    function sortProjects(arr){
+      return arr.slice().sort((a,b)=>{
+        const ao = Number.isFinite(a.order) ? a.order : Infinity;
+        const bo = Number.isFinite(b.order) ? b.order : Infinity;
+        if (ao !== bo) return ao - bo;
+        return (b.year||0) - (a.year||0);
+      });
+    }
+
+    // ¿Este proyecto debe mostrarse con el filtro/búsqueda actuales?
     function matches(p){
+      if (p.visible === false) return false; // ocultos a propósito
       if (state.filter !== 'all' && p.category !== state.filter) return false;
       if (!state.q) return true;
-      // Flatten tech whether it's an array or an object with groups
+      // Las tecnologías pueden ser un array o un objeto agrupado
       let techText = '';
       if (Array.isArray(p.tech)) techText = p.tech.join(' ');
       else if (p.tech && typeof p.tech === 'object') {
@@ -31,20 +63,25 @@
       return hay.includes(state.q);
     }
 
+    // Muestra el botón hacia programming.html solo si el filtro es "software"
     function toggleSoftwareExtra(){
       if (!softwareExtra) return;
       if (state.filter === 'software') softwareExtra.hidden = false; else softwareExtra.hidden = true;
     }
 
+    // Dibuja (o re-dibuja) todas las tarjetas visibles
     function render(){
-      const items = sortByYear(projects.filter(matches));
+      const items = sortProjects(projects.filter(matches));
       if (!items.length) { container.innerHTML = '<p class="empty-state">No projects found.</p>'; toggleSoftwareExtra(); return; }
 
       container.innerHTML = items.map(p => {
-        const thumb = p.thumb || (Array.isArray(p.images) && p.images[0]) || '';
-        const bgStyle = thumb ? ` style="background-image:url('${thumb}')"` : '';
+        const raw = p.thumb || (Array.isArray(p.images) && p.images[0]) || '';
+        // Si la imagen es el logo genérico, usamos un degradado CSS en su lugar
+        const isPlaceholder = !raw || /(^|\/)HOme\.png$/i.test(raw);
+        const bgStyle = isPlaceholder ? '' : ` style="background-image:url('${raw}')"`;
+        const cls = isPlaceholder ? ' no-image' : '';
         return `
-          <article class="project-card project-tile" data-category="${p.category}" data-id="${p.id}"${bgStyle} tabindex="0" aria-label="View ${p.title} details">
+          <article class="project-card project-tile${cls}" data-category="${p.category}" data-id="${p.id}"${bgStyle} tabindex="0" aria-label="View ${p.title} details">
             <div class="project-overlay">
               <h3 class="project-title">${p.title}</h3>
               ${p.year ? `<span class="project-year">${p.year}</span>` : ''}
@@ -52,16 +89,20 @@
           </article>`;
       }).join('');
 
-      // Reset any open panel after re-render
+      // Al re-renderizar, cualquier panel abierto desaparece
       openPanel = null;
       openProjectId = null;
       toggleSoftwareExtra();
       if (window.applyI18n) window.applyI18n(document);
     }
 
-    // Build the full details panel for a project
+    /* ------------------------------------------------------------
+       PANEL DE DETALLES
+       Se crea al hacer clic en una tarjeta e inserta debajo de ella.
+       Contiene descripción, meta, tecnologías, features, galería…
+       ------------------------------------------------------------ */
     function buildDetailsPanel(p){
-      // Tech: build chips from flat or grouped
+      // Chips de tecnologías (soporta array plano o agrupado)
       const techChips = (() => {
         if (!p.tech) return '';
         const flat = Array.isArray(p.tech) ? p.tech : [
@@ -96,11 +137,11 @@
       const results = (p.results||[]).map(r => `<li>${r}</li>`).join('');
       const gallery = (Array.isArray(p.images)? p.images.slice(0,6) : []).map(src => `<img src="${src}" alt="${p.title} screenshot">`).join('');
 
-  const panel = document.createElement('div');
+      const panel = document.createElement('div');
       panel.className = 'project-details-panel';
       panel.setAttribute('role','region');
       panel.setAttribute('aria-label', `Detalles de ${p.title}`);
-  if (p.category) panel.setAttribute('data-category', p.category);
+      if (p.category) panel.setAttribute('data-category', p.category);
       panel.innerHTML = `
         <div class="project-details-header">
           <div class="project-details-title">
@@ -129,30 +170,31 @@
       return panel;
     }
 
-    // Handle click on tiles to open/close the inline panel
+    // Clic en una tarjeta: abrir/cerrar su panel de detalles
     container.addEventListener('click', (e) => {
       const card = e.target.closest('.project-tile');
       if (!card) return;
       const projectId = card.getAttribute('data-id');
+      // Cerrar el panel anterior si había uno
       if (openPanel) {
         openPanel.remove();
         openPanel = null;
       }
-      if (openProjectId === projectId) { // toggle off if same
+      // Si clicaste la misma tarjeta otra vez → solo cerrar (toggle)
+      if (openProjectId === projectId) {
         openProjectId = null;
         return;
       }
       const p = projects.find(pp => pp.id === projectId);
       if (!p) return;
       const panel = buildDetailsPanel(p);
-      card.insertAdjacentElement('afterend', panel);
+      card.insertAdjacentElement('afterend', panel); // justo debajo de la tarjeta
       openPanel = panel;
       openProjectId = projectId;
-      // Optional: ensure the panel is in view
       setTimeout(() => panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 0);
     });
 
-    // Keyboard accessibility: open on Enter/Space
+    // Teclado: Enter o Espacio abren el panel (accesibilidad)
     container.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       const card = e.target.closest('.project-tile');
@@ -161,18 +203,19 @@
       card.click();
     });
 
+    // Clics en los botones de filtro
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('.filters [data-filter]');
       if (!btn) return;
       document.querySelectorAll('.filters [data-filter]').forEach(b => b.classList.toggle('active', b === btn));
-      // update state and re-render
       const filter = btn.getAttribute('data-filter');
       if (state.filter !== filter) { state.filter = filter; render(); }
     });
 
+    // Cada tecla en el buscador re-filtra
     if (searchInput) searchInput.addEventListener('input', (e) => { state.q = normalize(e.target.value); render(); });
 
-    render();
+    render(); // primer dibujado
   } catch (err) {
     console.error('Failed to load projects', err);
     container.innerHTML = '<p style="padding:12px;">Projects could not load. Please serve the site with a local server or open the deployed GitHub Pages site.</p>';
