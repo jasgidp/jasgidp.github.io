@@ -68,6 +68,13 @@
           <button data-lang="pt" aria-label="Mudar para português">PT</button>
         </div>
       </div>
+
+      <!--
+        Barra de progreso de lectura. No lleva JavaScript:
+        css/main.css la anima ligada al scroll de la pagina.
+        aria-hidden porque es puramente decorativa.
+      -->
+      <div class="scroll-progress" aria-hidden="true"></div>
     </header>`;
 
   // Insertamos el header en el punto de montaje

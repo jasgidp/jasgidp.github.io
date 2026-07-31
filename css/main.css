@@ -904,7 +904,7 @@ a {
         transition: right 0.5s ease-out; /* animación suave al abrir/cerrar */
         position: absolute;
     }
-    .navlist::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, #2563EB, #60A5FA); }
+    .navlist::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, var(--brand), var(--brand-light)); }
     
     .navlist.open {
         right: 0;
@@ -932,7 +932,9 @@ a {
     .btn.ghost { background:transparent; color: var(--brand); border-color: var(--brand); }
 
     /* Dim background and hide social icons when menu is open */
-    body.menu-open::before { content:""; position: fixed; inset:0; background: rgba(30,58,138,0.08); -webkit-backdrop-filter: blur(1px); backdrop-filter: blur(1px); z-index: 8; }
+    /* Atenua la pagina cuando el menu esta abierto.
+       Va en ::after porque ::before lo ocupa el velo del fondo. */
+    body.menu-open::after { content:""; position: fixed; inset:0; background: rgba(30,58,138,0.10); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); z-index: 8; }
 }
 
 
@@ -1376,9 +1378,10 @@ select:focus-visible,
   border-radius: 6px;
 }
 
-/* Titulos: evita que quede una palabra sola en la ultima linea */
-h1, h2, h3, .project-title, .section-header { text-wrap: balance; }
-/* Parrafos: evita palabras huerfanas al final */
+/* Titulos grandes: reparte las lineas para que queden parejas.
+   Solo en h1/h2: en titulos de tarjeta (h3) provoca cortes raros. */
+h1, h2 { text-wrap: balance; }
+/* Parrafos: evita que la ultima linea quede con una sola palabra */
 p, li { text-wrap: pretty; }
 
 /* Seleccion de texto con el color de marca */
@@ -1402,3 +1405,119 @@ p, li { text-wrap: pretty; }
   }
   .project-tile::after { display: none; }
 }
+
+
+/* ============================================================
+   TRANSICIONES ENTRE PAGINAS (View Transitions API)
+   ------------------------------------------------------------
+   Este sitio son varios archivos HTML separados. Normalmente,
+   al pulsar un enlace el navegador muestra un parpadeo blanco
+   mientras carga la pagina nueva.
+
+   Con esta regla, el navegador hace un fundido entre la pagina
+   vieja y la nueva por su cuenta. No hace falta JavaScript ni
+   convertir el sitio en una SPA.
+
+   Los navegadores que no lo soportan simplemente ignoran la
+   regla y navegan como siempre: nada se rompe.
+   ============================================================ */
+@view-transition {
+  navigation: auto;
+}
+
+/* Duracion y curva del fundido entre paginas */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .32s;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* El header no debe desaparecer y volver: se mantiene fijo
+   durante la transicion, como en una app nativa.
+   view-transition-name le da identidad propia para que el
+   navegador lo reconozca como "el mismo elemento" en las dos
+   paginas y lo anime de forma continua. */
+header { view-transition-name: site-header; }
+.video-bg { view-transition-name: page-backdrop; }
+
+/* Si el usuario pide menos movimiento, sin transicion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}
+
+
+/* ============================================================
+   ANIMACIONES LIGADAS AL SCROLL (CSS puro, sin librerias)
+   ------------------------------------------------------------
+   animation-timeline: view() conecta el avance de la animacion
+   con la entrada del elemento en pantalla. El navegador lo
+   calcula en su hilo de composicion, asi que va mas fino que
+   hacerlo con JavaScript.
+
+   Todo va dentro de @supports: los navegadores que aun no lo
+   implementan (Safari, Firefox) muestran el contenido normal,
+   visible desde el principio. Nunca queda nada oculto.
+
+   Se animan "opacity" y "translate", NO "transform", porque
+   las tarjetas usan transform en :hover. Al ser propiedades
+   distintas, se combinan en vez de pelearse.
+   ============================================================ */
+@keyframes revealUp {
+  from { opacity: 0; translate: 0 22px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .skill-card,
+    .repo-card,
+    .project-tile,
+    .glass-card,
+    .about-section,
+    .prog-section,
+    .contact-section,
+    .project-details-panel {
+      animation: revealUp linear both;
+      animation-timeline: view();
+      /* Empieza cuando asoma un 8% y acaba cuando lleva un 28%
+         recorrido: la animacion termina pronto y el contenido
+         queda quieto mientras se lee. */
+      animation-range: entry 8% cover 28%;
+    }
+  }
+}
+
+
+/* ============================================================
+   BARRA DE PROGRESO DE LECTURA
+   ------------------------------------------------------------
+   La linea de color bajo el header que avanza segun bajas.
+   animation-timeline: scroll() la ata al scroll de la pagina:
+   0% arriba, 100% al final. Sin JavaScript.
+   ============================================================ */
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 3px;
+  width: 100%;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--brand), var(--brand-light));
+  scale: 0 1; /* invisible mientras no haya scroll */
+  border-radius: 0 3px 3px 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      animation: growProgress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+@keyframes growProgress { from { scale: 0 1; } to { scale: 1 1; } }
+
+/* Nota: la barra se posiciona respecto al header, que ya es
+   position:fixed (definido en la seccion del HEADER). */

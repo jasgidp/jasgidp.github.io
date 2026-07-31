@@ -94,13 +94,14 @@ document.addEventListener('click', (e) => {
 })();
 
 /* ------------------------------------------------------------
-   3) ANIMACIONES DE ENTRADA (ScrollReveal)
-   Solo corre si la librería se cargó en el HTML
-   (<script src="https://unpkg.com/scrollreveal">).
-   Hace que .hero-text y .scroll-down aparezcan con un fade suave.
+   NOTA SOBRE LAS ANIMACIONES
+   Antes aquí se usaba la librería ScrollReveal (descargada de
+   internet) solo para animar dos elementos del hero.
+
+   Ahora esas animaciones están en css/main.css:
+   - la entrada del hero con @keyframes
+   - las apariciones al bajar con animation-timeline: view()
+
+   Hacerlo en CSS ahorra una descarga externa y el navegador lo
+   ejecuta de forma más eficiente que con JavaScript.
    ------------------------------------------------------------ */
-if (window.ScrollReveal) {
-  const sr = ScrollReveal({ distance: '60px', duration: 800, delay: 200, reset: false });
-  sr.reveal('.hero-text', { delay: 200, origin: 'top' });
-  sr.reveal('.scroll-down', { delay: 800, origin: 'top' });
-}
