@@ -1,10 +1,116 @@
 {
+  "_documentacion": "Habilidades agrupadas (página Skills). Lo lee skills.js. groups[]: name (clave), emoji, label {es,en,pt}, items[]. Cada item puede ser un string (\"Python\") o un objeto {name, description, docs:[{label,url}]}.",
   "groups": [
-    { "name": "programmingData", "emoji": "💻📊", "label": {"en":"Programming & Data","es":"Programación y Datos","pt":"Programação e Dados"}, "items": ["Python","Pandas","SQL","JSON","APIs","Grafana","Jupyter Notebooks"] },
-    { "name": "web", "emoji": "🌐", "label": {"en":"Web Development","es":"Desarrollo Web","pt":"Desenvolvimento Web"}, "items": ["HTML","CSS"] },
-    { "name": "toolsPlatforms", "emoji": "🛠️", "label": {"en":"Tools & Platforms","es":"Herramientas y Plataformas","pt":"Ferramentas e Plataformas"}, "items": ["GitHub","GitLab","Jira","Confluence","Docker","Linux","Hasura","AWS (EC2, S3, MediaConnect)"] },
-    { "name": "designVisualization", "emoji": "🎨", "label": {"en":"Design & Visualization","es":"Diseño y Visualización","pt":"Design e Visualização"}, "items": ["Illustrator","Photoshop","After Effects","Lightroom","Creo","Fusion","Rhino","Electronic Prototyping"] },
-    { "name": "softSkills", "emoji": "🤝", "label": {"en":"Soft Skills","es":"Habilidades Blandas","pt":"Habilidades Sociais"}, "items": ["Leadership","Adaptability","Teamwork","Critical Thinking","Project Management","Research","Planning","Working under pressure"] },
-    { "name": "languages", "emoji": "🌍", "label": {"en":"Languages","es":"Idiomas","pt":"Idiomas"}, "items": ["Spanish (Native)","English (Advanced)","Portuguese (Intermediate)"] }
+    {
+      "name": "programmingData",
+      "emoji": "💻📊",
+      "label": {
+        "en": "Programming & Data",
+        "es": "Programación y Datos",
+        "pt": "Programação e Dados"
+      },
+      "items": [
+        {
+          "name": "Python",
+          "description": "Lenguaje principal para automatización, análisis de datos y scripting de operaciones.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://docs.python.org/3/"
+            }
+          ]
+        },
+        "Pandas",
+        "SQL",
+        "JSON",
+        "APIs",
+        "Grafana",
+        "Jupyter Notebooks"
+      ]
+    },
+    {
+      "name": "web",
+      "emoji": "🌐",
+      "label": {
+        "en": "Web Development",
+        "es": "Desarrollo Web",
+        "pt": "Desenvolvimento Web"
+      },
+      "items": [
+        "HTML",
+        "CSS"
+      ]
+    },
+    {
+      "name": "toolsPlatforms",
+      "emoji": "🛠️",
+      "label": {
+        "en": "Tools & Platforms",
+        "es": "Herramientas y Plataformas",
+        "pt": "Ferramentas e Plataformas"
+      },
+      "items": [
+        "GitHub",
+        "GitLab",
+        "Jira",
+        "Confluence",
+        "Docker",
+        "Linux",
+        "Hasura",
+        "AWS (EC2, S3, MediaConnect)"
+      ]
+    },
+    {
+      "name": "designVisualization",
+      "emoji": "🎨",
+      "label": {
+        "en": "Design & Visualization",
+        "es": "Diseño y Visualización",
+        "pt": "Design e Visualização"
+      },
+      "items": [
+        "Illustrator",
+        "Photoshop",
+        "After Effects",
+        "Lightroom",
+        "Creo",
+        "Fusion",
+        "Rhino",
+        "Electronic Prototyping"
+      ]
+    },
+    {
+      "name": "softSkills",
+      "emoji": "🤝",
+      "label": {
+        "en": "Soft Skills",
+        "es": "Habilidades Blandas",
+        "pt": "Habilidades Sociais"
+      },
+      "items": [
+        "Leadership",
+        "Adaptability",
+        "Teamwork",
+        "Critical Thinking",
+        "Project Management",
+        "Research",
+        "Planning",
+        "Working under pressure"
+      ]
+    },
+    {
+      "name": "languages",
+      "emoji": "🌍",
+      "label": {
+        "en": "Languages",
+        "es": "Idiomas",
+        "pt": "Idiomas"
+      },
+      "items": [
+        "Spanish (Native)",
+        "English (Advanced)",
+        "Portuguese (Intermediate)"
+      ]
+    }
   ]
 }

@@ -1,4 +1,5 @@
 {
+  "_documentacion": "Archivo de datos de la página Contacto. Lo lee contact.js. Campos: headline/subheadline (textos de cabecera), email, phone, location, address, availability, socials (lista de {name,url,icon}), form (asunto del mailto). Edita este archivo para cambiar tu email o redes sin tocar el HTML.",
   "headline": "Let's work together",
   "subheadline": "Open to freelance, internships, and full‑time roles.",
   "email": "hello@example.com",
@@ -7,9 +8,21 @@
   "address": "Cra. 123 #45-67, Medellín",
   "availability": "Usually replies within 1–2 days.",
   "socials": [
-    { "name": "LinkedIn", "url": "https://linkedin.com/in/yourprofile", "icon": "ri-linkedin-box-fill" },
-    { "name": "GitHub", "url": "https://github.com/your-username", "icon": "ri-github-fill" },
-    { "name": "Instagram", "url": "https://instagram.com/your-profile", "icon": "ri-instagram-line" }
+    {
+      "name": "LinkedIn",
+      "url": "https://linkedin.com/in/yourprofile",
+      "icon": "ri-linkedin-box-fill"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://github.com/your-username",
+      "icon": "ri-github-fill"
+    },
+    {
+      "name": "Instagram",
+      "url": "https://instagram.com/your-profile",
+      "icon": "ri-instagram-line"
+    }
   ],
   "form": {
     "enabled": true,

@@ -1,0 +1,37 @@
+{
+  "_documentacion": "Proyectos de código curados (página Programming). Lo lee programming.js. Cada proyecto: id, title, description, repo (URL), demo (URL opcional), demoHeight (altura del iframe en px).",
+  "projects": [
+    {
+      "id": "form-validation",
+      "title": "Project Form Validation",
+      "description": "Client-side form validation with real-time feedback.",
+      "repo": "https://github.com/jasgidp/Validacion-formulario",
+      "demo": "https://form-validator-jasg.netlify.app/",
+      "demoHeight": 900
+    },
+    {
+      "id": "login-page",
+      "title": "Project Login",
+      "description": "Responsive login page layout and styling.",
+      "repo": "https://github.com/jasgidp/Login-page/blob/main/style.css",
+      "demo": "https://login-jasg.netlify.app/",
+      "demoHeight": 400
+    },
+    {
+      "id": "weather-app",
+      "title": "Project Weather App",
+      "description": "Weather lookup app consuming a public weather API.",
+      "repo": "https://github.com/jasgidp/weather-app/tree/main",
+      "demo": "https://weather-app-jasg.netlify.app/",
+      "demoHeight": 400
+    },
+    {
+      "id": "social-network-draft",
+      "title": "Project jasg Social Network Draft",
+      "description": "Early draft of a social network UI.",
+      "repo": "https://github.com/jasgidp/jasg-social-network-draft",
+      "demo": "https://jasg-social-network-draft.netlify.app/",
+      "demoHeight": 400
+    }
+  ]
+}

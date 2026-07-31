@@ -1,0 +1,9 @@
+{
+  "_documentacion": "Configuración de qué repos mostrar en Programming. Lo lee github-repos.js. hideForks: ocultar forks. hideArchived: ocultar archivados. exclude: nombres a ocultar. featured: nombres a mostrar primero (en ese orden).",
+  "hideForks": true,
+  "hideArchived": false,
+  "exclude": [
+    "jasgidp.github.io"
+  ],
+  "featured": []
+}
