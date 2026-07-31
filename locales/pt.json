@@ -1,4 +1,5 @@
 {
+  "_documentacion": "Traducciones en PORTUGUÉS. Misma estructura de claves que es.json y en.json. Lo carga i18n.js cuando eliges PT.",
   "nav": {
     "home": "Início",
     "portfolio": "Portfólio",
@@ -53,7 +54,9 @@
       "interestsValue": "Dados, design systems, automação"
     }
   },
-  "skills": { "title": "Habilidades" },
+  "skills": {
+    "title": "Habilidades"
+  },
   "timeline": {
     "title": "Linha do Tempo",
     "work": "Experiência Profissional",
@@ -67,7 +70,10 @@
     "title": "Portfólio de Programação",
     "intro": "Projetos de software selecionados com demos e repositórios. Use o botão para alternar a pré-visualização.",
     "preview": "Ver demo",
-    "hide": "Ocultar demo"
+    "hide": "Ocultar demo",
+    "repo": "Repo",
+    "reposTitle": "Repositórios do GitHub",
+    "reposIntro": "Todos os meus repositórios públicos, atualizados automaticamente do GitHub."
   },
   "contact": {
     "title": "Contato",

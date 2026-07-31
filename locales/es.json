@@ -1,4 +1,5 @@
 {
+  "_documentacion": "Traducciones en ESPAÑOL. Lo carga i18n.js cuando eliges ES. Las claves (ej. nav.home) coinciden con data-i18n=\"nav.home\" en el HTML. Si añades un texto nuevo al HTML, crea aquí su clave y también en en.json y pt.json.",
   "nav": {
     "home": "Inicio",
     "portfolio": "Portafolio",
@@ -53,7 +54,9 @@
       "interestsValue": "Datos, design systems, automatización"
     }
   },
-  "skills": { "title": "Habilidades" },
+  "skills": {
+    "title": "Habilidades"
+  },
   "timeline": {
     "title": "Cronología",
     "work": "Experiencia Laboral",
@@ -67,7 +70,10 @@
     "title": "Portafolio de Programación",
     "intro": "Proyectos de software con demos en vivo y repositorios. Usa el botón para mostrar/ocultar la vista previa.",
     "preview": "Ver demo",
-    "hide": "Ocultar demo"
+    "hide": "Ocultar demo",
+    "repo": "Repo",
+    "reposTitle": "Repositorios de GitHub",
+    "reposIntro": "Todos mis repositorios públicos, actualizados automáticamente desde GitHub."
   },
   "contact": {
     "title": "Contacto",
