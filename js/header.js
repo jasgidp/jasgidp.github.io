@@ -50,11 +50,23 @@
         }).join('')}
       </ul>
 
-      <!-- Botones de idioma: i18n.js escucha los clics en [data-lang] -->
-      <div class="lang-switcher">
-        <button data-lang="es" aria-label="Cambiar a español">ES</button>
-        <button data-lang="en" aria-label="Switch to English">EN</button>
-        <button data-lang="pt" aria-label="Mudar para português">PT</button>
+      <!-- Acciones del header: tema + idioma -->
+      <div class="header-actions">
+        <!--
+          Botón de modo claro/oscuro. js/theme.js escucha los clics
+          en [data-theme-toggle] y le pone el icono correcto (sol o luna).
+        -->
+        <button class="theme-toggle" data-theme-toggle type="button"
+                aria-pressed="false" aria-label="Cambiar tema" title="Cambiar tema">
+          <i class="ri-moon-line" aria-hidden="true"></i>
+        </button>
+
+        <!-- Botones de idioma: i18n.js escucha los clics en [data-lang] -->
+        <div class="lang-switcher">
+          <button data-lang="es" aria-label="Cambiar a español">ES</button>
+          <button data-lang="en" aria-label="Switch to English">EN</button>
+          <button data-lang="pt" aria-label="Mudar para português">PT</button>
+        </div>
       </div>
     </header>`;
 
