@@ -151,7 +151,7 @@
   }
 
   try {
-    const res = await fetch('./data/timeline.json');
+    const res = await fetch('./data/timeline.json?t=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP '+res.status);
     const json = await res.json();
     data = { ...data, ...json };

@@ -71,12 +71,23 @@
     el.className = 'admin-status' + (kind ? ' ' + kind : '');
   }
   function markDirty() { if (previewMode) return; dirty[activeTab] = true; updateSaveState(); }
+  // Actualiza solo el botón Guardar. NO pisa mensajes de éxito/error del save.
   function updateSaveState() {
     const btn = $('save-btn');
-    if (previewMode) { btn.disabled = true; setStatus($('save-status'), 'Modo preview: inicia sesión para guardar', 'working'); return; }
+    if (previewMode) {
+      btn.disabled = true;
+      const st = $('save-status');
+      if (!st.classList.contains('success') && !st.classList.contains('error')) {
+        setStatus(st, 'Modo preview: inicia sesión para guardar', 'working');
+      }
+      return;
+    }
     btn.disabled = !dirty[activeTab] || !store[activeTab];
-    if (dirty[activeTab]) setStatus($('save-status'), 'Cambios sin guardar', 'working');
-    else setStatus($('save-status'), '', '');
+    const st = $('save-status');
+    // Solo muestra "Cambios sin guardar" si no hay un mensaje final de save
+    if (dirty[activeTab] && !st.classList.contains('success') && !st.classList.contains('error')) {
+      setStatus(st, 'Cambios sin guardar', 'working');
+    }
   }
 
   // Read-only preview using the deployed/local JSON (no token needed)
@@ -619,22 +630,63 @@
   }
 
   async function save() {
-    if (!dirty[activeTab]) return;
+    if (previewMode) {
+      setStatus($('save-status'), 'Estás en preview (solo lectura). Entra con tu token para guardar.', 'error');
+      return;
+    }
+    if (!dirty[activeTab]) {
+      setStatus($('save-status'), 'No hay cambios pendientes en esta pestaña.', 'working');
+      return;
+    }
+    if (!G.hasToken()) {
+      setStatus($('save-status'), 'No hay token. Sal y vuelve a iniciar sesión.', 'error');
+      return;
+    }
+
     const btn = $('save-btn'); btn.disabled = true;
     setStatus($('save-status'), 'Guardando en GitHub…', 'working');
+    const path = FILES[activeTab];
+    const payload = getSaveData(activeTab);
+
     try {
-      const path = FILES[activeTab];
-      // Si no tenemos sha (la carga desde API falló), lo pedimos ahora
-      if (!store[activeTab].sha) {
-        try {
+      // Siempre pedimos el sha fresco justo antes de escribir
+      let sha = store[activeTab].sha;
+      try {
+        const meta = await G.getFileMeta(path);
+        sha = meta.sha;
+        store[activeTab].sha = sha;
+      } catch (metaErr) {
+        // Si no podemos leer sha y el archivo existe, el PUT fallará con mensaje claro
+        console.warn('No se pudo refrescar sha:', metaErr);
+      }
+
+      let res;
+      try {
+        res = await G.putFile(path, payload, `Update ${path} via admin panel`, sha);
+      } catch (putErr) {
+        // Conflicto de sha: reintentar una vez con sha nuevo
+        if (/409|422|sha/i.test(putErr.message)) {
           const meta = await G.getFileMeta(path);
           store[activeTab].sha = meta.sha;
-        } catch (_) { /* archivo nuevo: put sin sha lo crea */ }
+          res = await G.putFile(path, payload, `Update ${path} via admin panel`, meta.sha);
+        } else {
+          throw putErr;
+        }
       }
-      const res = await G.putFile(path, getSaveData(activeTab), `Update ${path} via admin panel`, store[activeTab].sha);
-      store[activeTab].sha = res.content.sha;
+
+      store[activeTab].sha = res.content?.sha || store[activeTab].sha;
       dirty[activeTab] = false;
-      setStatus($('save-status'), '✓ Guardado. El sitio se actualizará en ~1-2 min.', 'success');
+      const commitUrl = res.commit?.html_url
+        || `https://github.com/${G.OWNER}/${G.REPO}/blob/main/${path}`;
+      setStatus(
+        $('save-status'),
+        '✓ Guardado en GitHub. En 1–2 min abre el sitio y recarga fuerte (Cmd+Shift+R).',
+        'success'
+      );
+      // Enlace al commit para que se vea que sí se subió
+      const st = $('save-status');
+      st.innerHTML = '✓ Guardado. <a href="' + commitUrl + '" target="_blank" rel="noopener">Ver en GitHub</a> · Espera ~1–2 min y recarga el sitio (Cmd+Shift+R).';
+      st.className = 'admin-status success';
     } catch (err) {
       setStatus($('save-status'), 'Error al guardar: ' + err.message, 'error');
     } finally {

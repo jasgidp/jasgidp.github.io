@@ -18,7 +18,7 @@
   // Descarga data/contact.json y luego llama a render()
   async function loadData() {
     try {
-      const res = await fetch('data/contact.json');
+      const res = await fetch('data/contact.json?t=' + Date.now(), { cache: 'no-store' });
       if (!res.ok) throw new Error('Failed to load contact.json');
       contactData = await res.json();
       render();

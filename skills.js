@@ -104,7 +104,7 @@
 
   // Carga inicial
   try {
-    const res = await fetch('./data/skills.json');
+    const res = await fetch('./data/skills.json?t=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     groups = data.groups || [];

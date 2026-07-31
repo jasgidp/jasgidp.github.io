@@ -22,7 +22,7 @@
   if (!container) return; // solo corre en portfolio.html
 
   try {
-    const res = await fetch('./data/projects.json');
+    const res = await fetch('./data/projects.json?t=' + Date.now(), { cache: 'no-store' });
     const { projects } = await res.json();
 
     // Estado de la UI: filtro activo + texto de búsqueda

@@ -51,7 +51,7 @@
 
   // Carga el JSON y pinta la lista
   try {
-    const res = await fetch('./data/code-projects.json');
+    const res = await fetch('./data/code-projects.json?t=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const { projects } = await res.json();
     list.innerHTML = (projects || []).map(itemHTML).join('');
