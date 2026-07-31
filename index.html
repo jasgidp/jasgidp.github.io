@@ -96,6 +96,22 @@
     en todas las páginas sin copiarlo a mano en cada HTML.
   -->
   <div id="site-header"></div>
+  <!--
+    Video de fondo de toda la pagina (decorativo).
+    - autoplay + muted + loop: se reproduce solo, en silencio y en bucle
+      (los navegadores exigen "muted" para permitir autoplay)
+    - playsinline: en iPhone evita que se abra a pantalla completa
+    - poster: imagen que se ve al instante mientras carga el video
+    - aria-hidden: los lectores de pantalla lo ignoran (no aporta info)
+  -->
+  <video class="video-bg" autoplay muted loop playsinline
+         poster="assets/img/brand/background-poster.jpg"
+         aria-hidden="true" tabindex="-1" disablepictureinpicture>
+    <!-- WebM primero: pesa menos. Si el navegador no lo soporta, usa el MP4. -->
+    <source src="assets/video/background.webm" type="video/webm">
+    <source src="assets/video/background.mp4" type="video/mp4">
+  </video>
+
 
   <!--
     HERO = sección principal a pantalla completa.
@@ -107,19 +123,6 @@
       <!-- Tarjeta de cristal (glass) con el contenido de presentación -->
       <div class="hero-card">
 
-        <!--
-          Video de fondo:
-          - autoplay: empieza solo
-          - muted: sin sonido (los navegadores lo exigen para autoplay)
-          - loop: se repite infinito
-        -->
-        <video class="video-bg" autoplay muted loop playsinline
-         poster="assets/img/brand/background-poster.jpg"
-         aria-hidden="true" tabindex="-1" disablepictureinpicture>
-    <!-- WebM primero: pesa menos. Si el navegador no lo soporta, usa el MP4. -->
-    <source src="assets/video/background.webm" type="video/webm">
-    <source src="assets/video/background.mp4" type="video/mp4">
-  </video>
 
         <!--
           data-i18n="...": clave de traducción.
@@ -173,6 +176,8 @@
   <script src="js/i18n.js" defer></script>
   <!-- Menú móvil + animaciones de entrada -->
   <script src="js/script.js" defer></script>
+  <!-- Brillo que sigue al cursor en las tarjetas -->
+  <script src="js/interactions.js" defer></script>
 
   <script>
     // Al cambiar de idioma, volver a aplicar las traducciones a toda la página.
