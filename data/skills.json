@@ -20,7 +20,10 @@
             }
           ]
         },
-        "Pandas",
+        {
+          "name": "Pandas",
+          "description": "Test"
+        },
         "SQL",
         "JSON",
         "APIs",
