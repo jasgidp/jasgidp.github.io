@@ -1,16 +1,53 @@
+/*
+  ============================================================
+  main.css — Estilos principales del portafolio público
+  ------------------------------------------------------------
+  ¿Qué es CSS?
+  Un archivo de "instrucciones de estilo": colores, tamaños,
+  márgenes, tipografías y cómo se ve en móvil vs escritorio.
+  El HTML dice QUÉ hay; este archivo dice CÓMO se ve.
+
+  ¿Por qué un solo main.css?
+  Todas las páginas públicas (inicio, about, portfolio, etc.)
+  comparten la misma identidad visual. Cambias aquí y se
+  actualiza en todo el sitio.
+
+  Mapa del archivo (busca estos títulos):
+  1) Reset y tipografía base
+  2) Header / menú / idiomas
+  3) Hero (portada de inicio)
+  4) Programación + filtros
+  5) Timeline (cronología)
+  6) Skills (habilidades)
+  7) Colores por categoría de proyecto
+  8) Tarjetas y panel de detalles del portafolio
+  9) Contacto
+  10) Media queries (adaptación a móvil/tablet)
+  11) About + refinamientos del hero
+  12) Repos de GitHub
+  13) Capa de polish (sombras, animaciones, accesibilidad)
+
+  Tip: "@media (max-width: …)" = reglas que SOLO aplican
+  cuando la pantalla es más estrecha que ese número de píxeles.
+  ============================================================
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap');
 
 
+/* ------------------------------------------------------------
+   1) RESET GLOBAL
+   Quitamos márgenes/paddings por defecto del navegador para
+   partir de cero. box-sizing:border-box hace que width incluya
+   padding y borde (evita que las cajas "se desborden").
+   ------------------------------------------------------------ */
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
-    /*para que no se desborde*/
-    font-family: 'Lato', sans-serif;
-    list-style: none;
-    /*para que no se muestre los puntosla lista*/
-    text-decoration: none;
-    /*para que no se muestre la linea debajo de los enlaces*/
+    box-sizing: border-box; /* el ancho incluye padding + borde */
+    font-family: 'Lato', sans-serif; /* tipografía por defecto */
+    list-style: none; /* sin viñetas en <ul>/<ol> */
+    text-decoration: none; /* sin subrayado en enlaces */
 }
 
 
@@ -20,6 +57,11 @@ h1{
     font-weight: 600;
 }
 
+/* ------------------------------------------------------------
+   2) HEADER (menú superior)
+   position:fixed = se queda pegado arriba al hacer scroll.
+   backdrop-filter = efecto cristal (vidrio esmerilado).
+   ------------------------------------------------------------ */
 header {
     color: #1f2937;
     position: fixed;
@@ -72,19 +114,19 @@ header {
 }
 .navlist a.active { color:#1e40af; background:#EFF6FF; }
 
-/* Language switcher */
+/* Selector de idioma ES / EN / PT (botones del header) */
 .lang-switcher { display: flex; gap: 6px; margin-left: 12px; }
 .lang-switcher button { background: transparent; color: #1f2937; border: 1px solid #cbd5e1; border-radius: 4px; padding: 2px 6px; font-size: 12px; cursor: pointer; }
 .lang-switcher button:hover { background:#2563EB; color:#ffffff; border-color:#2563EB; }
 
 
+/* Icono ☰ del menú móvil: oculto en desktop (display:none),
+   visible en pantallas pequeñas (ver @media más abajo). */
 #menu-icon {
     font-size: 35px;
-    z-index: 101;
-    /* para que este sobre el header */
-    cursor: pointer;
+    z-index: 101; /* por encima del resto del header */
+    cursor: pointer; /* manito al pasar el mouse */
     display: none;
-    /* para que aparezca la manito cuando ponemos el mouse encima */
 }
 
 #menu-toggle {
@@ -97,11 +139,17 @@ header {
     /* para que no se le pueda hacer click*/
 }
 
+/* ------------------------------------------------------------
+   3) HERO (portada de inicio)
+   min-height:100vh = ocupa al menos toda la altura de la ventana.
+   En desktop usa 2 columnas; en móvil pasa a 1 (ver @media).
+   ------------------------------------------------------------ */
 .hero {
     height: 100%;
     width: 100%;
     min-height: 100vh;
-    background: #ffffff; /* fondo de color gradiente */    position: relative;
+    background: #ffffff;
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
@@ -132,20 +180,6 @@ header {
     margin-bottom: 40px;
     line-height: 1.9;
 }
-
-.hero-image img{
-    width: 400px;
-    margin: 10% 0 0 10%;
-    height: auto;
-    transition: all 5s linear; /* esto hace que la transición sea lineal */
-}
-
-.hero-image img:hover {
-    width: 450px;
-    opacity: 0.6;
-}
-
-
 
 .hero-text a {
     display: inline-block;
@@ -275,20 +309,24 @@ h2 {
     
 }
 .programming-list p { color: #f0f0e8; }
-/* filter buttons */
+/* ------------------------------------------------------------
+   4) FILTROS Y LISTA DE PROGRAMACIÓN
+   Botones tipo "chip" para filtrar proyectos por categoría.
+   ------------------------------------------------------------ */
 .filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 16px auto; }
 .filters button { background: transparent; color: #f0f0e8; border: 1px solid #f0f0e8; border-radius: 16px; padding: 6px 12px; cursor: pointer; }
 .filters button.active, .filters button:hover { background: #f0f0e8; color: #0d252d; }
 
-/* Improve chips with icons */
+/* Chips con icono + texto alineados */
 .group-chips .chip { display:inline-flex; align-items:center; gap:6px; }
 .group-chips .chip i { font-size:16px; line-height:1; }
 
-/* Container shown only for software filter */
+/* Contenedor del botón extra "Programming Portfolio"
+   (JS lo muestra solo cuando el filtro es "software") */
 .software-extra { display:flex; justify-content:center; align-items:center; gap:8px; }
 .software-extra .btn { margin: 4px 0; }
 
-/* Programming page (light) overrides */
+/* Overrides claros para la lista de proyectos de código */
 .programming-list { background:#ffffff; border:1px solid #e5e7eb; width: 100%; max-width: 1100px; padding: 8px 12px; }
 .programming-list .project-item { width: 100%; align-items: stretch; border-bottom: 1px solid #e5e7eb; }
 .programming-list .project-item:last-child { border-bottom: none; }
@@ -340,7 +378,10 @@ a{
     border-bottom: 1px solid rgb(255, 255, 255);
 }
 
-/* Timeline styles */
+/* ------------------------------------------------------------
+   5) TIMELINE — estilos legacy (versión oscura antigua)
+   Más abajo hay una versión moderna (.timeline-card, etc.).
+   ------------------------------------------------------------ */
 .timeline-section { color: #f0f0e8; margin: 16px auto; width: 90%; }
 .timeline-section h2 { color: #f0f0e8; margin: 8px 0; text-align: center; }
 .timeline-list { list-style: none; padding: 0; display: grid; gap: 12px; }
@@ -352,7 +393,11 @@ a{
 .timeline-item .bullets li { color: #f0f0e8; margin: 4px 0; }
 
 
-/* Skills page */
+/* ------------------------------------------------------------
+   6) SKILLS (habilidades)
+   Buscador + chips de grupo + rejilla de tarjetas.
+   Las skills con detalle (.has-detail) se expanden al clic.
+   ------------------------------------------------------------ */
 .skills-title { text-align:center; margin: 12px 0 8px; color:#291f44; }
 .skills-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; margin: 8px auto 16px; max-width: 960px; }
 .search-wrap { position:relative; }
@@ -368,8 +413,22 @@ a{
 .skill-card h3 { color:#0d252d; margin-bottom:8px; font-size: 16px; }
 .skill-tags { display:flex; flex-wrap: wrap; gap: 6px; }
 .skill-tags .tag { background:#f4f6f8; color:#0d252d; border:1px solid #e5e7eb; border-radius: 12px; padding: 2px 8px; font-size: 12px; }
+.skill-tags .tag.has-detail { cursor:pointer; display:inline-flex; align-items:center; gap:3px; }
+.skill-tags .tag.has-detail:hover { border-color:#2563EB; color:#1e40af; }
+.skill-tags .tag .skill-caret { font-size:14px; line-height:1; transition: transform .2s ease; }
+.skill-tags .tag.open { flex-basis:100%; flex-direction:column; align-items:flex-start; background:#fff; border-color:#2563EB; padding:8px 10px; }
+.skill-tags .tag.open .skill-caret { transform: rotate(180deg); }
+.skill-detail { width:100%; margin-top:6px; }
+.skill-desc { color:#0f172a; font-size:13px; line-height:1.6; margin:0 0 6px; font-family:inherit; }
+.skill-docs { display:flex; flex-wrap:wrap; gap:6px; }
+.skill-doc { display:inline-flex; align-items:center; gap:5px; font-size:12px; color:#1e40af; background:#EFF6FF; border:1px solid #DBEAFE; border-radius:8px; padding:4px 8px; border-bottom-color:#DBEAFE; }
+.skill-doc:hover { background:#DBEAFE; }
 
-/* Timeline UI */
+/* ------------------------------------------------------------
+   5b) TIMELINE UI moderna
+   Línea vertical central + tarjetas a izquierda/derecha.
+   En móvil la línea se mueve a la izquierda (ver @media).
+   ------------------------------------------------------------ */
 .timeline-title { text-align:center; margin: 12px 0 8px; color:#291f44; }
 .timeline-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; margin: 8px auto 16px; max-width: 960px; }
 .tabs { display:flex; gap:8px; flex-wrap:wrap; }
@@ -394,7 +453,11 @@ a{
 .timeline-item .bullets li { color:#0f172a; margin: 4px 0; }
 
 
-/* Portfolio category colors */
+/* ------------------------------------------------------------
+   7) COLORES POR CATEGORÍA
+   Variables CSS (:root) reutilizadas en chips, bordes y puntos.
+   Cambiar aquí un color lo actualiza en todo el portafolio.
+   ------------------------------------------------------------ */
 :root {
   --cat-graphic: #EA4C89;     /* pink */
   --cat-experience: #F59E0B;  /* amber */
@@ -404,7 +467,7 @@ a{
   --cat-design: #8B5CF6;      /* violet */
 }
 
-/* Chips colored by category */
+/* Cada chip de filtro toma el color de su categoría */
 .group-chips .chip[data-filter="graphic"] { border-color: var(--cat-graphic); color: var(--cat-graphic); }
 .group-chips .chip[data-filter="graphic"].active, .group-chips .chip[data-filter="graphic"]:hover { background: var(--cat-graphic); color:#fff; }
 
@@ -423,7 +486,7 @@ a{
 .group-chips .chip[data-filter="design"] { border-color: var(--cat-design); color: var(--cat-design); }
 .group-chips .chip[data-filter="design"].active, .group-chips .chip[data-filter="design"]:hover { background: var(--cat-design); color:#fff; }
 
-/* Project cards colored accents by category */
+/* Barra de color a la izquierda de cada tarjeta según categoría */
 .project-card[data-category="graphic"] { border-left: 4px solid var(--cat-graphic); }
 .project-card[data-category="experience"] { border-left: 4px solid var(--cat-experience); }
 .project-card[data-category="engineering"] { border-left: 4px solid var(--cat-engineering); }
@@ -431,7 +494,7 @@ a{
 .project-card[data-category="software"] { border-left: 4px solid var(--cat-software); }
 .project-card[data-category="design"] { border-left: 4px solid var(--cat-design); }
 
-/* Colored dot before title */
+/* Puntito de color delante del título del proyecto */
 .project-card[data-category] .project-title::before { content:""; display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; vertical-align:middle; }
 .project-card[data-category="graphic"] .project-title::before { background: var(--cat-graphic); }
 .project-card[data-category="experience"] .project-title::before { background: var(--cat-experience); }
@@ -440,35 +503,38 @@ a{
 .project-card[data-category="software"] .project-title::before { background: var(--cat-software); }
 .project-card[data-category="design"] .project-title::before { background: var(--cat-design); }
 
-/* Projects controls */
+/* ------------------------------------------------------------
+   8) PORTAFOLIO: controles, rejilla, tiles y panel de detalles
+   ------------------------------------------------------------ */
 .portfolio-controls {display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; margin: 8px auto 16px; max-width: 960px; }
 .portfolio-controls .filters { margin: 0; }
 
-/* Projects grid */
+/* Rejilla responsive: tantas columnas como quepan (≥260px c/u) */
 .projects-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:16px; padding: 0 16px; max-width: 1100px; margin: 0 auto 48px; }
 
-/* Project cards (tile + panel) */
-/* Base card (kept for legacy) */
+/* Tarjeta base (borde, sombra, hover que "levanta" la card) */
+/* Estilo base de .project-card (compatible con versiones previas) */
 .project-card { border:1px solid #e5e7eb; border-radius:12px; overflow:hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: transform .2s ease, box-shadow .2s ease; }
 .project-card:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
 
-/* Image tile: restores the simple visual structure with original height */
+/* TILE: miniatura con imagen de fondo + degradado oscuro + título */
 .project-tile { position: relative; background:#f4f6f8 center/cover no-repeat; height:160px; cursor: pointer; display:block; }
 .project-tile::before { content:""; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 45%, rgba(0,0,0,0)); }
 .project-overlay { position:absolute; left:0; right:0; bottom:0; padding:10px 12px; display:flex; align-items:baseline; justify-content:space-between; gap:10px; color:#fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
 .project-overlay .project-title { color:#fff; font-size:16px; font-weight:600; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .project-overlay .project-year { color:#e5e7eb; font-size:12px; font-weight:500; }
-/* remove category left color bar on tiles */
+/* En tiles no queremos la barra lateral de color (solo en cards legacy) */
 .project-tile[data-category] { border-left-width: 0 !important; }
 
-/* Full-width details panel inserted below the selected tile */
+/* PANEL DE DETALLES: ocupa todo el ancho de la rejilla (grid-column:1/-1)
+   y se inserta debajo de la tarjeta clicada (lo hace projects.js) */
 .project-details-panel { grid-column: 1 / -1; margin: 12px 0 24px; padding: 20px; border-radius: 16px; background: rgba(255,255,255,0.6); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(226,232,240,0.8); box-shadow: 0 10px 24px rgba(15,23,42,0.08); color: #0f172a; 
     /* default accent (engineering blue) */
     --accent-1: #2563EB; /* primary */
     --accent-2: #60A5FA; /* light */
     --btn-bg: #EFF6FF; --btn-border: #DBEAFE; --btn-color: #1e3a8a;
 }
-/* header */
+/* Cabecera del panel de detalles (título + badges) */
 .project-details-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
 .project-details-title { display:flex; align-items:baseline; gap:8px; }
 .project-details-title h3 { font-size:18px; font-weight:600; color:#0f172a; margin:0; }
@@ -476,7 +542,7 @@ a{
 .project-details-panel .project-badges { display:flex; flex-wrap:wrap; gap:6px; }
 .badge--status { background:#ecfdf5; border:1px solid #d1fae5; color:#065f46; }
 .badge--importance { background:#fff7ed; border:1px solid #ffedd5; color:#9a3412; }
-/* sections layout */
+/* Cuerpo del panel: en desktop 2 columnas, en móvil 1 */
 .project-details-panel .project-sections { display:grid; grid-template-columns: 1fr; gap:16px; margin-top:12px; }
 @media (min-width: 900px){ .project-details-panel .project-sections { grid-template-columns: 1.1fr 0.9fr; } }
 .section { background: rgba(255,255,255,0.55); border: 1px solid rgba(226,232,240,0.8); border-radius: 12px; padding: 14px; }
@@ -484,24 +550,24 @@ a{
 .section-header h4 { font-size:14px; font-weight:600; color:#0f172a; margin:0; position:relative; }
 .section-header h4::after { content:""; display:block; height:2px; width:48px; margin-top:6px; background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); border-radius:999px; }
 .project-summary { color:#0f172a; font-size: 14px; margin: 6px 0; }
-/* meta grid */
+/* Cuadrícula de metadatos (cliente, equipo, estado…) */
 .meta-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
 @media (max-width: 640px){ .meta-grid { grid-template-columns: 1fr; } }
 .meta-item label { display:block; font-size:12px; color:#475569; margin-bottom:2px; }
 .meta-item .value { font-size:14px; color:#0f172a; font-weight:500; }
-/* chips */
+/* Chips de tecnologías dentro del panel */
 .chips { display:flex; flex-wrap:wrap; gap:8px; }
 .chip { padding:4px 10px; border-radius:999px; font-size:12px; background:#f1f5f9; color:#0f172a; border:1px solid #e2e8f0; }
-/* gallery */
+/* Galería de capturas (hasta 6 imágenes) */
 .project-details-panel .gallery { display:grid; gap:10px; grid-template-columns: repeat(2, minmax(0,1fr)); }
 @media (min-width: 900px){ .project-details-panel .gallery { grid-template-columns: repeat(3, minmax(0,1fr)); } }
 .project-details-panel .gallery img { width:100%; height:120px; object-fit:cover; border-radius:10px; border:1px solid #e2e8f0; background:#fff; }
-/* links */
+/* Botones de enlaces (Demo, Repo, Video…) */
 .link-buttons { display:flex; flex-wrap:wrap; gap:8px; }
 .link-buttons a { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:10px; font-size:13px; color:var(--btn-color); background:var(--btn-bg); border:1px solid var(--btn-border); }
 .link-buttons a:hover { filter: brightness(0.97); }
 
-/* Category-based accent overrides for panel */
+/* El panel cambia su color de acento según data-category */
 .project-details-panel[data-category="graphic"] {
     --accent-1: var(--cat-graphic); --accent-2: #f472b6; /* pink range */
     --btn-bg:#fdf2f8; --btn-border:#fbcfe8; --btn-color:#9d174d;
@@ -527,11 +593,11 @@ a{
     --btn-bg:#f5f3ff; --btn-border:#ddd6fe; --btn-color:#5b21b6;
 }
 
-/* Reuse tags/badges */
+/* Badges reutilizables (categoría, estado, importancia) */
 .tag { background:#f4f6f8; color:#0d252d; border:1px solid #e5e7eb; border-radius: 12px; padding: 2px 8px; font-size: 12px; }
 .actions { display:flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
 
-/* Enhanced project details layout */
+/* Layout mejorado del panel (espaciado de secciones) */
 .project-media { width:100%; height:180px; object-fit:cover; background:#f4f6f8; }
 .project-badges { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
 .badge { display:inline-flex; align-items:center; gap:6px; padding:2px 8px; border:1px solid #e5e7eb; border-radius:999px; font-size:12px; color:#0d252d; background:#ffffff; }
@@ -557,55 +623,59 @@ a{
     .project-meta { grid-template-columns: 1fr; }
 }
 
-/* Empty state */
+/* Mensaje cuando no hay resultados de búsqueda/filtro */
 .empty-state { text-align:center; color:#64748b; padding: 12px; }
 
-/* Neutralize left/right alternation */
+/* Anula el zigzag izquierda/derecha antiguo de la timeline */
 .timeline .timeline-item.left, .timeline .timeline-item.right { grid-column: 1 !important; }
 
-/* Reveal animation */
+/* Animación: .reveal empieza invisible; .visible lo muestra
+   (timeline.js añade .visible con IntersectionObserver) */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* Title with icon */
+/* Título de entrada con icono a la izquierda */
 .title-wrap { display:flex; align-items:center; gap:8px; }
 .timeline-icon { color:#28536B; font-size:18px; }
 
-/* Visually hidden for a11y */
+/* Texto invisible visualmente pero leído por lectores de pantalla */
 .visually-hidden { position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px, 1px, 1px, 1px); white-space: nowrap; }
 
-/* Search input on timeline */
+/* Estilo del input de búsqueda en timeline */
 #timeline-search { padding:10px 12px 10px 34px; border:1px solid #cbd5e1; border-radius:8px; min-width: 260px; }
 
-/* Timeline refinements */
+/* Ajustes finos de la cronología */
 .timeline .timeline-item { background: transparent; border: none; padding: 0; }
 .timeline .timeline-list { grid-template-columns: repeat(2, 1fr); }
 
-/* Timeline desktop readability improvements */
+/* Mejoras de lectura en escritorio (línea central, puntos) */
 .timeline { max-width: 1200px; }
 .timeline .timeline-list { grid-template-columns: 1fr 1fr; gap: 24px 28px; }
 .timeline .timeline-item { width: 100%; max-width: 560px; }
 .timeline .timeline-item.left { grid-column: 1; justify-self: end; }
 .timeline .timeline-item.right { grid-column: 2; justify-self: start; }
 
-/* anchor dots to center line */
+/* Puntos anclados a la línea central de la timeline */
 .timeline .timeline-item { position: relative; }
 .timeline .timeline-item.left::after,
 .timeline .timeline-item.right::after { content: ""; position: absolute; top: 26px; width: 12px; height: 12px; background: #28536B; border: 2px solid #ffffff; border-radius: 50%; box-shadow: 0 0 0 2px #e5e7eb; }
 .timeline .timeline-item.left::after { right: -20px; }
 .timeline .timeline-item.right::after { left: -20px; }
 
-/* slightly larger titles on desktop */
+/* Títulos un poco más grandes en pantallas anchas */
 @media (min-width: 1000px){
   .timeline-header h3 { font-size: 18px; }
   .timeline-card { padding: 16px 18px; }
 }
 
-/* Contact page */
+/* ------------------------------------------------------------
+   9) CONTACTO
+   Grid de 2 columnas (info + formulario), tarjetas glass.
+   ------------------------------------------------------------ */
 .contact-grid { display:grid; grid-template-columns: 1fr; gap:20px; max-width:1100px; margin: 0 auto; padding: 0 16px; }
 @media (min-width: 900px){ .contact-grid { grid-template-columns: 1fr 1fr; } }
 
-/* Elegant glassy cards matching site style */
+/* Tarjetas "glass" (fondo semitransparente + blur) */
 .glass-card {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -635,12 +705,12 @@ a{
 .contact-headline { color:#0d252d; font-weight:500; margin: 6px 0; }
 .contact-subheadline { color:#475569; margin-bottom: 6px; }
 
-/* Centered, text-width accent for Contact title */
+/* Acento decorativo bajo el título de Contacto */
 .contact-header.card-accent::before { display: none; }
 .contact-header .title-wrap { justify-content: center; }
-/* Title: keep only a subtle underline to match theme */
+/* Subrayado sutil del título */
 .contact-header .title-wrap h1 { position: relative; display: inline-block; padding-bottom: 8px; background: transparent; box-shadow: none; border: none; }
-/* Thinner underline, centered and matching text width */
+/* Subrayado más fino, centrado al ancho del texto */
 .contact-header .title-wrap h1::after {
     content:"";
     position:absolute;
@@ -650,14 +720,14 @@ a{
     background: linear-gradient(90deg, #2563EB, #60A5FA);
 }
 
-/* Subheadline: back to clean text, the panel provides the integration */
+/* Subtítulo limpio (sin caja extra) */
 .contact-header .contact-subheadline { display:block; margin-top: 4px; background: transparent; box-shadow: none; border: none; }
 
 .contact-modern { align-items: start; }
 .contact-stack { display:grid; gap:16px; }
 .contact-info-card, .contact-socials-card, .contact-form-card { padding-top: 20px; }
 
-/* Info list refined */
+/* Lista de datos de contacto (email, teléfono…) */
 .contact-facts { list-style:none; padding:0; margin: 6px 0 10px; display:grid; gap:10px; }
 .contact-fact { display:flex; gap:10px; align-items:center; padding-bottom: 6px; border-bottom: 1px dashed #e5e7eb; }
 .contact-fact:last-child { border-bottom: none; }
@@ -669,7 +739,7 @@ a{
 .social-link { display:inline-flex; align-items:center; gap:6px; border:1px solid #e5e7eb; border-radius:999px; padding:6px 12px; color:#0d252d; background:#fff; }
 .social-link:hover { background:#2563EB; color:#fff; border-color:#2563EB; }
 
-/* Form card */
+/* Estilos del formulario (labels, inputs, estados success/error) */
 .form-title { color:#291f44; margin-bottom: 8px; }
 .form-row { display:flex; flex-direction:column; gap:6px; margin: 8px 0; }
 .form-row label { color:#0d252d; font-weight:500; font-size: 14px; }
@@ -679,11 +749,15 @@ a{
 .form-status.success { color:#16a34a; }
 .form-status.error { color:#dc2626; }
 
-/* Two-column first row (name/email) on desktop */
+/* Nombre + email en dos columnas en desktop */
 .form-row-two { display:grid; gap: 12px; grid-template-columns: 1fr; }
 @media (min-width: 900px){ .form-row-two { grid-template-columns: 1fr 1fr; } }
 
-/* Mobile overrides: single column, dot aligned to left line */
+/* ------------------------------------------------------------
+   10) MEDIA QUERIES — adaptación a pantallas pequeñas
+   Cuando el ancho baja de X píxeles, cambian layout y menú.
+   ------------------------------------------------------------ */
+/* Móvil: timeline en una columna, punto alineado a la izquierda */
 @media (max-width: 700px){
   .timeline .timeline-item { max-width: 100%; justify-self: stretch; }
   .timeline .timeline-item.left, .timeline .timeline-item.right { grid-column: 1; }
@@ -719,9 +793,10 @@ a{
         font-size: 70%;
     }
 
-    /* Mobile social icons: compact circular buttons, no large oval */
+    /* Iconos sociales en móvil: botones circulares fijos abajo */
     .icons{
         position: fixed;
+        top: auto; /* reset desktop top:50vh so bottom pins correctly */
         bottom: calc(12px + env(safe-area-inset-bottom, 0));
         left: 50%;
         transform: translateX(-50%);
@@ -773,7 +848,7 @@ a{
         right: -100%;
         width: min(84vw, 360px);
         height: 100vh;
-        background-color: rgba(255,255,255,0.96); /* updated mobile menu background */
+        background-color: rgba(255,255,255,0.96); /* menú móvil semitransparente */
         -webkit-backdrop-filter: blur(12px);
         backdrop-filter: blur(12px);
         box-shadow: -8px 0 24px rgba(0,0,0,0.08);
@@ -782,7 +857,7 @@ a{
         flex-direction: column;
         align-items: center;
         padding: 30px 20px;
-        transition: right 0.5s ease-out; /* Definir solo la transición de 'right' para que sea suave */
+        transition: right 0.5s ease-out; /* animación suave al abrir/cerrar */
         position: absolute;
     }
     .navlist::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg, #2563EB, #60A5FA); }
@@ -798,7 +873,7 @@ a{
         width: 100%;
         margin: 6px 0;
         padding: 10px 14px;
-        color: #0d252d; /* ensure readable on white */
+        color: #0d252d; /* texto legible sobre fondo blanco */
         border-radius: 10px;
         transition: background .2s ease, color .2s ease;
     }
@@ -831,7 +906,10 @@ a{
     }
 }
 
-/* Home hero with background image and glass card */
+/* ------------------------------------------------------------
+   11) HERO DE INICIO + PÁGINA ABOUT
+   Overlay de imagen que se desvanece, tarjeta glass, mesh animado.
+   ------------------------------------------------------------ */
 #home-hero.hero {
   position: relative;
   min-height: calc(100vh - 80px);
@@ -866,14 +944,14 @@ a{
 .btn:hover { background:#0d252d; }
 .btn.ghost { background:transparent; color:#2563EB; border-color:#2563EB; }
 
-/* remove old right image grow */
+/* (legado) ya no crece la imagen derecha del hero */
 .hero-image { display:none; }
 
 @media (max-width: 680px){
   .hero-card h1 { font-size: 32px; }
 }
 
-/* About page */
+/* Página About: grid foto + bio, chips y datos rápidos */
 .page { padding-top: 120px; }
 .about-section { padding: 16px; display:flex; justify-content:center; }
 .about-card { width: 100%; max-width: 1100px; }
@@ -897,14 +975,15 @@ a{
   .about-facts { grid-template-columns: 1fr; }
 }
 
-/* Home hero refinements */
+/* Refinamientos del hero de inicio */
 .hero-badges { display:flex; flex-wrap:wrap; gap:8px; margin: 6px 0 14px; justify-content: center; }
 
 
-/* Dark overlay sits behind content */
+/* Capa oscura detrás del contenido del hero */
 #home-hero::after { z-index: 0; }
 
-/* Image overlay layer that fades out on hover or when class applied */
+/* Overlay con HOme.png: se oculta al hover o con clase .hide-image
+   (index.html la añade a los 10 segundos) */
 #home-hero::before {
   content: "";
   position: absolute; inset: 0;
@@ -917,7 +996,7 @@ a{
 #home-hero.hide-image::before,
 #home-hero:hover::before { opacity: 0; visibility: hidden; }
 
-/* Elegant mesh background for home hero */
+/* Fondo "mesh" (varios degradados radiales suaves) */
 #home-hero.hero {
   background:
     radial-gradient(900px 450px at 10% 10%, #EEF2FF 0%, rgba(238,242,255,0) 60%),
@@ -925,19 +1004,19 @@ a{
     radial-gradient(700px 350px at 50% 100%, #F8FAFC 0%, #FFFFFF 60%);
 }
 
-/* Button theme: blue text and hover */
+/* Tema de botones .btn (azul). Variantes: .primary, .ghost, .orange */
 .btn { color:#2563EB; border:1px solid #2563EB; background:#ffffff; }
 .btn:hover { background:#2563EB; color:#ffffff; border-color:#2563EB; }
 .btn.ghost { background:transparent; color:#2563EB; border-color:#2563EB; }
-/* Keep primary stronger */
+/* Botón primario: más contraste (fondo oscuro) */
 .btn.primary { background:#21383d; color:#ffffff; border-color:#21383d; }
 .btn.primary:hover { background:#1e40af; border-color:#1e40af; color:#ffffff }
 
-/* Orange button for preview */
+/* Botón naranja: usado para "Show demo" en Programming */
 .btn.orange {  border-color:#f97316; color:#f97316; }
 .btn.orange:hover { background:#ea580c; border-color:#ea580c; color:#ffffff; }
 
-/* Programming grid: two columns on desktop */
+/* Lista de programming: 1 col en móvil, 2 en desktop ≥900px */
 .programming-list { display:grid; grid-template-columns: 1fr; gap:12px; }
 .programming-list .project-item { display:flex; flex-direction: column; gap:8px; padding:12px; border-radius:12px; }
 
@@ -945,7 +1024,7 @@ a{
   .programming-list { grid-template-columns: 1fr 1fr; }
 }
 
-/* Enlarged search inputs across pages */
+/* Inputs de búsqueda más grandes y cómodos en todas las páginas */
 .skills-controls .search-wrap input,
 .timeline-controls .search-wrap input,
 #projects-search,
@@ -959,15 +1038,40 @@ a{
 }
 .skills-controls .search-wrap { min-width: 280px; }
 
-/* Ensure search appears above chips/tabs visually spaced */
+/* El buscador va arriba; chips/tabs debajo (order flex) */
 .skills-controls .search-wrap { order: 0; }
 .skills-controls .group-chips,
 .timeline-controls .tabs { order: 1; }
 
-/* Programming page search spacing */
+/* Espaciado del buscador en Programming */
 .page .skills-controls { margin-bottom: 8px; }
 
 
+
+/* Contenedor e intro de la página Programming */
+.prog-section { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.prog-intro { color:#0f172a; line-height:1.8; text-align:center; max-width:70ch; margin: 8px auto 16px; }
+.prog-section .programming-list { margin: 0 auto 8px; }
+
+/* ------------------------------------------------------------
+   12) TARJETAS DE REPOS DE GITHUB
+   Las genera github-repos.js; aquí solo el aspecto visual.
+   ------------------------------------------------------------ */
+.repos-title { text-align:center; margin: 32px 0 4px; color:#291f44; }
+.repo-card { background:#ffffff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,0.04); transition: transform .2s ease, box-shadow .2s ease; display:flex; flex-direction:column; gap:8px; border-left:4px solid var(--cat-engineering); }
+.repo-card:hover { transform: translateY(-4px); box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+.repo-card-head { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.repo-card-head h3 { font-size:16px; margin:0; }
+.repo-card-head h3 a { color:#0d252d; border-bottom:none; }
+.repo-card-head h3 a:hover { color:#2563EB; }
+.repo-stars { display:inline-flex; align-items:center; gap:4px; font-size:12px; color:#92400e; background:#fef3c7; border:1px solid #fde68a; border-radius:999px; padding:2px 8px; }
+.repo-desc { color:#0f172a; font-size:13px; line-height:1.6; margin:0; flex:1; }
+.repo-meta { display:flex; flex-wrap:wrap; gap:12px; font-size:12px; color:#64748b; }
+.repo-lang { display:inline-flex; align-items:center; gap:5px; }
+.repo-dot { width:10px; height:10px; border-radius:50%; background:var(--cat-engineering); display:inline-block; }
+.repo-updated { display:inline-flex; align-items:center; gap:4px; }
+.repo-links { display:flex; gap:8px; flex-wrap:wrap; }
+.repo-links .btn { font-size:13px; padding:6px 12px; display:inline-flex; align-items:center; gap:6px; }
 
 body, html {
             margin: 0;
@@ -976,6 +1080,9 @@ body, html {
             overflow-x: hidden;
             overflow-y: auto;
         }
+/* Video de fondo a pantalla completa.
+   z-index:-1 lo manda DETRÁS de todo el contenido.
+   object-fit:cover rellena sin deformar (recorta si hace falta). */
 .video-bg {
     position: fixed;
     top: 0;
@@ -984,4 +1091,92 @@ body, html {
     height: 100%;
     object-fit: cover;
     z-index: -1;
+}
+
+/* ============================================================
+   13) CAPA DE POLISH (detalles visuales finales)
+   Tokens reutilizables (radio, sombra, easing) + micro-interacciones
+   (hover lift, animación del hero, mesh drift).
+   prefers-reduced-motion: respeta a quien prefiere menos animación.
+   ============================================================ */
+:root {
+  --radius-card: 16px;
+  --shadow-card: 0 4px 16px rgba(15,23,42,0.06);
+  --shadow-card-hover: 0 14px 30px rgba(15,23,42,0.13);
+  --border-card: 1px solid rgba(226,232,240,0.9);
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+/* Misma sombra/radio en todas las tarjetas del sitio */
+.skill-card,
+.project-card,
+.timeline-card,
+.repo-card,
+.glass-card,
+.project-details-panel {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: transform .28s var(--ease), box-shadow .28s var(--ease);
+}
+/* Al pasar el mouse, la tarjeta sube un poco (lift) */
+.skill-card:hover,
+.project-card:hover,
+.timeline-card:hover,
+.repo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Botones también se elevan un poco al hover */
+.btn { transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .15s var(--ease), box-shadow .2s var(--ease); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37,99,235,0.18); }
+
+/* Nombre del hero con degradado de color + animación de entrada */
+.hero-card h1 {
+  background: linear-gradient(90deg, #2563EB 0%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+@keyframes heroIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+.hero-card { animation: heroIn .7s var(--ease) both; }
+
+/* Fila de iconos sociales dentro de la tarjeta del hero */
+.hero-social { display: flex; justify-content: center; gap: 12px; margin-top: 18px; }
+.hero-social a {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 9999px;
+  background: #ffffff; border: 1px solid #e5e7eb; color: #2563EB;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform .18s var(--ease), background .2s var(--ease), color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.hero-social a i { font-size: 20px; }
+.hero-social a:hover { transform: translateY(-3px); background: #2563EB; color: #ffffff; border-color: #2563EB; box-shadow: 0 8px 18px rgba(37,99,235,0.28); }
+
+/* El fondo mesh se mueve muy despacio (18s) para dar vida */
+@keyframes meshDrift { 0% { background-position: 0% 0%, 100% 0%, 50% 100%; } 50% { background-position: 6% 4%, 94% 6%, 50% 96%; } 100% { background-position: 0% 0%, 100% 0%, 50% 100%; } }
+#home-hero.hero { background-size: 140% 140%, 140% 140%, 160% 160%; animation: meshDrift 18s ease-in-out infinite; }
+
+/* Si no hay imagen real: degradado del color de la categoría
+   (evita repetir el logo HOme.png en todas las tiles) */
+.project-tile.no-image { background-image: linear-gradient(135deg, #64748b, #94a3b8); }
+.project-tile.no-image[data-category="graphic"]     { background-image: linear-gradient(135deg, var(--cat-graphic), #f9a8d4); }
+.project-tile.no-image[data-category="experience"]  { background-image: linear-gradient(135deg, var(--cat-experience), #fcd34d); }
+.project-tile.no-image[data-category="engineering"] { background-image: linear-gradient(135deg, var(--cat-engineering), #93c5fd); }
+.project-tile.no-image[data-category="research"]    { background-image: linear-gradient(135deg, var(--cat-research), #67e8f9); }
+.project-tile.no-image[data-category="software"]    { background-image: linear-gradient(135deg, var(--cat-software), #6ee7b7); }
+.project-tile.no-image[data-category="design"]      { background-image: linear-gradient(135deg, var(--cat-design), #c4b5fd); }
+.project-tile.no-image::before { background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0) 60%); }
+
+/* En móvil ocultamos el overlay decorativo del hero (más limpio) */
+@media (max-width: 768px) {
+  #home-hero::before { display: none; }
+}
+
+/* Accesibilidad: si el SO pide menos movimiento, apagamos animaciones */
+@media (prefers-reduced-motion: reduce) {
+  #home-hero.hero { animation: none; }
+  .hero-card { animation: none; }
+  .skill-card, .project-card, .timeline-card, .repo-card, .btn { transition: none; }
 }
