@@ -2,7 +2,7 @@
   "_documentacion": "Trayectoria profesional (página Timeline). Lo lee timeline.js. Secciones: experience, research, leadership, education. Cada entrada: org, role, start (AAAA-MM), end (AAAA-MM o null = Presente), bullets (lista de logros).",
   "experience": [
     {
-      "org": "Genius Sports",
+      "org": "Genius Spor",
       "role": "Operational Engineer – Streaming Specialist",
       "start": "2023-10",
       "end": null,
