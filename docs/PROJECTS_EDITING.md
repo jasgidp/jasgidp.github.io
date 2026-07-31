@@ -33,6 +33,8 @@ This site reads projects from `data/projects.json`. You can edit that one file t
     }
 - thumb (string): path to a thumbnail image
 - images (array of strings): screenshots for the gallery
+- visible (boolean): set to `false` to hide a project from the public site without deleting it (default: shown)
+- order (number): manual ordering; lower numbers appear first. Projects without `order` fall back to sorting by `year` (newest first)
 - links (object): any of
   - demo: URL to a live demo
   - portfolio: URL to a portfolio detail page
@@ -95,3 +97,32 @@ Tip: put images in the repository (e.g. `img/` folder) and reference with relati
 - All new fields are optional and the site hides any empty section.
 - Tech can be an array or a grouped object. Grouped is clearer when you have many items.
 - For best results, provide at least: id, title, category, and (optionally) year.
+
+## Code projects (Programming page)
+
+The Programming page reads from `data/code-projects.json`. Each project supports:
+- id (string, required): unique slug
+- title (string, required)
+- description (string): short one-liner
+- repo (string): URL to the source code
+- demo (string): URL to a live demo (renders an embedded preview toggle)
+- demoHeight (number): iframe height in px for the demo preview (default 400)
+
+The public Programming page also lists all public GitHub repos automatically; `code-projects.json`
+is for curated projects that have a live demo you want to embed.
+
+## Skills (`data/skills.json`)
+
+Skills are organized in groups. Each group's `items` array accepts either a plain string
+or an object with a description and documentation links:
+
+```json
+{
+  "name": "Python",
+  "description": "What this skill is / how you use it.",
+  "docs": [{ "label": "Official docs", "url": "https://docs.python.org/3/" }]
+}
+```
+
+Plain strings still work (e.g. `"SQL"`); use the object form when you want a clickable
+skill that expands to show its description and study/documentation links.
