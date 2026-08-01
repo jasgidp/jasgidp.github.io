@@ -1,5 +1,5 @@
 {
-  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, y campos opcionales (status, client, features, results, learnings, team, contribution…). visible:false oculta el proyecto. order: número para ordenar a mano.",
+  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, tags (p.ej. [\"nuevo\"]), y campos opcionales (status, client, features). Imágenes en assets/img/projects/{category}/{id}/. visible:false oculta. order: menor = primero.",
   "projects": [
     {
       "id": "aiesec-awards",
@@ -12,9 +12,13 @@
         "Photoshop"
       ],
       "images": [
-        "assets/img/brand/HOme.png"
+        "assets/img/projects/graphic/aiesec-awards/thumb.jpg",
+        "assets/img/projects/graphic/aiesec-awards/01.jpg",
+        "assets/img/projects/graphic/aiesec-awards/02.jpg",
+        "assets/img/projects/graphic/aiesec-awards/03.jpg",
+        "assets/img/projects/graphic/aiesec-awards/04.jpg"
       ],
-      "thumb": "assets/img/brand/HOme.png",
+      "thumb": "assets/img/projects/graphic/aiesec-awards/thumb.jpg",
       "links": {
         "demo": "",
         "repo": "",
@@ -43,21 +47,45 @@
         "Illustrator",
         "Photoshop"
       ],
-      "year": 2020
+      "year": 2020,
+      "thumb": "assets/img/projects/graphic/zonalito-2020-1/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/zonalito-2020-1/thumb.jpg",
+        "assets/img/projects/graphic/zonalito-2020-1/01.jpg",
+        "assets/img/projects/graphic/zonalito-2020-1/02.jpg",
+        "assets/img/projects/graphic/zonalito-2020-1/03.jpg",
+        "assets/img/projects/graphic/zonalito-2020-1/04.jpg",
+        "assets/img/projects/graphic/zonalito-2020-1/05.jpg"
+      ]
     },
     {
       "id": "zonalito-2020-2",
       "category": "graphic",
       "title": "Conference 2020 (2) – Big Heroes",
       "summary": "Branding: logo, mascot, shirts, templates.",
-      "year": 2020
+      "year": 2020,
+      "thumb": "assets/img/projects/graphic/zonalito-2020-2/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/zonalito-2020-2/thumb.jpg",
+        "assets/img/projects/graphic/zonalito-2020-2/01.jpg",
+        "assets/img/projects/graphic/zonalito-2020-2/02.jpg",
+        "assets/img/projects/graphic/zonalito-2020-2/03.jpg",
+        "assets/img/projects/graphic/zonalito-2020-2/04.jpg",
+        "assets/img/projects/graphic/zonalito-2020-2/05.jpg"
+      ]
     },
     {
       "id": "zonalito-2019",
       "category": "graphic",
       "title": "Conference 2019 (1) – Special Agents",
       "summary": "Visual identity; logo, badges, booklets, templates.",
-      "year": 2019
+      "year": 2019,
+      "thumb": "assets/img/projects/graphic/zonalito-2019/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/zonalito-2019/thumb.jpg",
+        "assets/img/projects/graphic/zonalito-2019/01.jpg",
+        "assets/img/projects/graphic/zonalito-2019/02.jpg"
+      ]
     },
     {
       "id": "mi-centro",
@@ -84,6 +112,15 @@
       "learnings": "User research synthesis and rapid prototyping.",
       "results": [
         "Validated with 12 participants"
+      ],
+      "thumb": "assets/img/projects/experience/mi-centro/thumb.jpg",
+      "images": [
+        "assets/img/projects/experience/mi-centro/thumb.jpg",
+        "assets/img/projects/experience/mi-centro/01.jpg",
+        "assets/img/projects/experience/mi-centro/02.jpg",
+        "assets/img/projects/experience/mi-centro/03.jpg",
+        "assets/img/projects/experience/mi-centro/04.jpg",
+        "assets/img/projects/experience/mi-centro/05.jpg"
       ]
     },
     {
@@ -94,14 +131,32 @@
       "links": {
         "video": ""
       },
-      "year": 2019
+      "year": 2019,
+      "thumb": "assets/img/projects/experience/thor-machine/thumb.jpg",
+      "images": [
+        "assets/img/projects/experience/thor-machine/thumb.jpg",
+        "assets/img/projects/experience/thor-machine/01.jpg",
+        "assets/img/projects/experience/thor-machine/02.jpg",
+        "assets/img/projects/experience/thor-machine/03.jpg",
+        "assets/img/projects/experience/thor-machine/04.jpg",
+        "assets/img/projects/experience/thor-machine/05.jpg"
+      ]
     },
     {
       "id": "fwd",
       "category": "engineering",
       "title": "FWD – University Project",
       "summary": "Single-person two-wheel vehicle; internal-rim transmission.",
-      "year": 2018
+      "year": 2018,
+      "thumb": "assets/img/projects/engineering/fwd/thumb.jpg",
+      "images": [
+        "assets/img/projects/engineering/fwd/thumb.jpg",
+        "assets/img/projects/engineering/fwd/01.jpg",
+        "assets/img/projects/engineering/fwd/02.jpg",
+        "assets/img/projects/engineering/fwd/03.jpg",
+        "assets/img/projects/engineering/fwd/04.jpg",
+        "assets/img/projects/engineering/fwd/05.jpg"
+      ]
     },
     {
       "id": "joha",
@@ -125,7 +180,12 @@
       "category": "research",
       "title": "Comparación de Álabes – GRID",
       "summary": "Comparative study of blade profiles.",
-      "year": 2018
+      "year": 2018,
+      "thumb": "assets/img/projects/research/grid-1/thumb.jpg",
+      "images": [
+        "assets/img/projects/research/grid-1/thumb.jpg",
+        "assets/img/projects/research/grid-1/01.jpg"
+      ]
     },
     {
       "id": "grid-2",
@@ -139,7 +199,11 @@
       "category": "research",
       "title": "Viabilidad de Aerogenerador",
       "summary": "Feasibility analysis of a small wind turbine.",
-      "year": 2019
+      "year": 2019,
+      "thumb": "assets/img/projects/research/grid-3/thumb.jpg",
+      "images": [
+        "assets/img/projects/research/grid-3/thumb.jpg"
+      ]
     },
     {
       "id": "grid-4",
@@ -163,10 +227,8 @@
       "tech": [
         "Python"
       ],
-      "thumb": "assets/img/brand/HOme.png",
-      "images": [
-        "assets/img/brand/HOme.png"
-      ],
+      "thumb": "",
+      "images": [],
       "links": {
         "repo": "",
         "demo": ""
@@ -212,10 +274,8 @@
           "GitHub Pages"
         ]
       },
-      "thumb": "assets/img/brand/HOme.png",
-      "images": [
-        "assets/img/brand/HOme.png"
-      ],
+      "thumb": "",
+      "images": [],
       "links": {
         "repo": "",
         "portfolio": "https://jasgidp.github.io"
@@ -330,35 +390,77 @@
       "category": "design",
       "title": "Center Box – Family Project",
       "summary": "Coffee table with storage; upcycled materials.",
-      "year": 2017
+      "year": 2017,
+      "thumb": "assets/img/projects/design/center-box/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/center-box/thumb.jpg",
+        "assets/img/projects/design/center-box/01.jpg",
+        "assets/img/projects/design/center-box/02.jpg",
+        "assets/img/projects/design/center-box/03.jpg",
+        "assets/img/projects/design/center-box/04.jpg",
+        "assets/img/projects/design/center-box/05.jpg"
+      ]
     },
     {
       "id": "overlap",
       "category": "design",
       "title": "Overlap – University Project",
       "summary": "Conceptual model; mechanical systems and abstraction.",
-      "year": 2017
+      "year": 2017,
+      "thumb": "assets/img/projects/design/overlap/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/overlap/thumb.jpg",
+        "assets/img/projects/design/overlap/01.jpg",
+        "assets/img/projects/design/overlap/02.jpg",
+        "assets/img/projects/design/overlap/03.jpg",
+        "assets/img/projects/design/overlap/04.jpg",
+        "assets/img/projects/design/overlap/05.jpg"
+      ]
     },
     {
       "id": "diesel-chair",
       "category": "design",
       "title": "Diesel Chair – University Project",
       "summary": "Ergonomic chair inspired by Diesel brand.",
-      "year": 2017
+      "year": 2017,
+      "thumb": "assets/img/projects/design/diesel-chair/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/diesel-chair/thumb.jpg",
+        "assets/img/projects/design/diesel-chair/01.jpg",
+        "assets/img/projects/design/diesel-chair/02.jpg",
+        "assets/img/projects/design/diesel-chair/03.jpg",
+        "assets/img/projects/design/diesel-chair/04.jpg",
+        "assets/img/projects/design/diesel-chair/05.jpg"
+      ]
     },
     {
       "id": "stad",
       "category": "design",
       "title": "Stad – University Project",
       "summary": "Furniture inspired by Amsterdam and Delft Blue ceramics.",
-      "year": 2017
+      "year": 2017,
+      "thumb": "assets/img/projects/design/stad/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/stad/thumb.jpg",
+        "assets/img/projects/design/stad/01.jpg",
+        "assets/img/projects/design/stad/02.jpg",
+        "assets/img/projects/design/stad/03.jpg",
+        "assets/img/projects/design/stad/04.jpg",
+        "assets/img/projects/design/stad/05.jpg"
+      ]
     },
     {
       "id": "tengu",
       "category": "design",
       "title": "Tengu – University Project",
       "summary": "Sake bottle inspired by Tengu; 3D modeling and scanning.",
-      "year": 2017
+      "year": 2017,
+      "thumb": "assets/img/projects/design/tengu/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/tengu/thumb.jpg",
+        "assets/img/projects/design/tengu/01.jpg",
+        "assets/img/projects/design/tengu/02.jpg"
+      ]
     },
     {
       "id": "sd-sofa",
@@ -373,6 +475,732 @@
       "title": "3D Model Design – University Project",
       "summary": "Modeling of existing products using Creo.",
       "year": 2017
+    },
+    {
+      "id": "twist-lamp",
+      "category": "design",
+      "title": "Twist Lamp",
+      "summary": "Lámpara de mesa con geometría torsionada; modelado y prototipo.",
+      "year": 2018,
+      "tech": [
+        "Rhino",
+        "Prototipado"
+      ],
+      "thumb": "assets/img/projects/design/twist-lamp/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/twist-lamp/thumb.jpg",
+        "assets/img/projects/design/twist-lamp/01.jpg",
+        "assets/img/projects/design/twist-lamp/02.jpg",
+        "assets/img/projects/design/twist-lamp/03.jpg",
+        "assets/img/projects/design/twist-lamp/04.jpg",
+        "assets/img/projects/design/twist-lamp/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "perchero-arana",
+      "category": "design",
+      "title": "Perchero Araña",
+      "summary": "Perchero de pie con estructura radial; diseño y construcción.",
+      "year": 2018,
+      "tech": [
+        "Madera",
+        "Prototipado"
+      ],
+      "thumb": "assets/img/projects/design/perchero-arana/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/perchero-arana/thumb.jpg",
+        "assets/img/projects/design/perchero-arana/01.jpg",
+        "assets/img/projects/design/perchero-arana/02.jpg",
+        "assets/img/projects/design/perchero-arana/03.jpg",
+        "assets/img/projects/design/perchero-arana/04.jpg",
+        "assets/img/projects/design/perchero-arana/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "eslovensa",
+      "category": "design",
+      "title": "Eslovensa",
+      "summary": "Proyecto de diseño de producto / mobiliario.",
+      "year": 2018,
+      "tech": [
+        "Diseño industrial"
+      ],
+      "thumb": "assets/img/projects/design/eslovensa/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/eslovensa/thumb.jpg",
+        "assets/img/projects/design/eslovensa/01.jpg",
+        "assets/img/projects/design/eslovensa/02.jpg",
+        "assets/img/projects/design/eslovensa/03.jpg",
+        "assets/img/projects/design/eslovensa/04.jpg",
+        "assets/img/projects/design/eslovensa/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "control-headset",
+      "category": "design",
+      "title": "Control and Headset",
+      "summary": "Concepto de control y headset; modelado 3D.",
+      "year": 2017,
+      "tech": [
+        "Creo",
+        "Rhino"
+      ],
+      "thumb": "assets/img/projects/design/control-headset/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/control-headset/thumb.jpg",
+        "assets/img/projects/design/control-headset/01.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "premios-design",
+      "category": "design",
+      "title": "Premios – Piezas de diseño",
+      "summary": "Piezas y reconocimientos de diseño.",
+      "year": 2018,
+      "tech": [
+        "Diseño"
+      ],
+      "thumb": "assets/img/projects/design/premios-design/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/premios-design/thumb.jpg",
+        "assets/img/projects/design/premios-design/01.jpg",
+        "assets/img/projects/design/premios-design/02.jpg",
+        "assets/img/projects/design/premios-design/03.jpg",
+        "assets/img/projects/design/premios-design/04.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "open-mate",
+      "category": "design",
+      "title": "Open-Mate – Destapadores",
+      "summary": "Diseño freelance de destapadores; planos DXF y pieza final.",
+      "year": 2020,
+      "tech": [
+        "DXF",
+        "Fabricación"
+      ],
+      "thumb": "assets/img/projects/design/open-mate/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/open-mate/thumb.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true,
+      "client": "Freelance"
+    },
+    {
+      "id": "caja-de-gatos",
+      "category": "design",
+      "title": "Caja de gatos",
+      "summary": "Maker project: caja / mueble para gatos.",
+      "year": 2019,
+      "tech": [
+        "Maker",
+        "Madera"
+      ],
+      "thumb": "assets/img/projects/design/caja-de-gatos/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/caja-de-gatos/thumb.jpg",
+        "assets/img/projects/design/caja-de-gatos/01.jpg",
+        "assets/img/projects/design/caja-de-gatos/02.jpg",
+        "assets/img/projects/design/caja-de-gatos/03.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "viana",
+      "category": "design",
+      "title": "Viana",
+      "summary": "Proyecto maker / ilustración de personaje.",
+      "year": 2019,
+      "tech": [
+        "Ilustración",
+        "Maker"
+      ],
+      "thumb": "assets/img/projects/design/viana/thumb.jpg",
+      "images": [
+        "assets/img/projects/design/viana/thumb.jpg",
+        "assets/img/projects/design/viana/01.jpg",
+        "assets/img/projects/design/viana/02.jpg",
+        "assets/img/projects/design/viana/03.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "try-engine",
+      "category": "engineering",
+      "title": "TRY – Vehículo / motor",
+      "summary": "Exploración de ingeniería: vistas, proceso y componentes de motor.",
+      "year": 2019,
+      "tech": [
+        "Ingeniería",
+        "CAD"
+      ],
+      "thumb": "assets/img/projects/engineering/try-engine/thumb.jpg",
+      "images": [
+        "assets/img/projects/engineering/try-engine/thumb.jpg",
+        "assets/img/projects/engineering/try-engine/01.jpg",
+        "assets/img/projects/engineering/try-engine/02.jpg",
+        "assets/img/projects/engineering/try-engine/03.jpg",
+        "assets/img/projects/engineering/try-engine/04.jpg",
+        "assets/img/projects/engineering/try-engine/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "aero-social",
+      "category": "research",
+      "title": "Aero Social",
+      "summary": "Investigación sobre aerogeneración / impacto social.",
+      "year": 2019,
+      "tech": [
+        "Investigación"
+      ],
+      "thumb": "assets/img/projects/research/aero-social/thumb.jpg",
+      "images": [
+        "assets/img/projects/research/aero-social/thumb.jpg",
+        "assets/img/projects/research/aero-social/01.jpg",
+        "assets/img/projects/research/aero-social/02.jpg",
+        "assets/img/projects/research/aero-social/03.jpg",
+        "assets/img/projects/research/aero-social/04.jpg",
+        "assets/img/projects/research/aero-social/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "tensoestructuras",
+      "category": "research",
+      "title": "Tensoestructuras",
+      "summary": "Estudio y resultados de tensoestructuras.",
+      "year": 2019,
+      "tech": [
+        "Estructuras",
+        "Investigación"
+      ],
+      "thumb": "assets/img/projects/research/tensoestructuras/thumb.jpg",
+      "images": [
+        "assets/img/projects/research/tensoestructuras/thumb.jpg",
+        "assets/img/projects/research/tensoestructuras/01.jpg",
+        "assets/img/projects/research/tensoestructuras/02.jpg",
+        "assets/img/projects/research/tensoestructuras/03.jpg",
+        "assets/img/projects/research/tensoestructuras/04.jpg",
+        "assets/img/projects/research/tensoestructuras/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "ilustracion-game",
+      "category": "graphic",
+      "title": "Ilustraciones – Game",
+      "summary": "Serie de ilustraciones con estética gamer.",
+      "year": 2020,
+      "tech": [
+        "Illustrator",
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/ilustracion-game/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/ilustracion-game/thumb.jpg",
+        "assets/img/projects/graphic/ilustracion-game/01.jpg",
+        "assets/img/projects/graphic/ilustracion-game/02.jpg",
+        "assets/img/projects/graphic/ilustracion-game/03.jpg",
+        "assets/img/projects/graphic/ilustracion-game/04.jpg",
+        "assets/img/projects/graphic/ilustracion-game/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "ilustracion-kombi",
+      "category": "graphic",
+      "title": "Ilustraciones – Kombi",
+      "summary": "Ilustraciones inspiradas en la Volkswagen Kombi.",
+      "year": 2020,
+      "tech": [
+        "Illustrator",
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/ilustracion-kombi/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/ilustracion-kombi/thumb.jpg",
+        "assets/img/projects/graphic/ilustracion-kombi/01.jpg",
+        "assets/img/projects/graphic/ilustracion-kombi/02.jpg",
+        "assets/img/projects/graphic/ilustracion-kombi/03.jpg",
+        "assets/img/projects/graphic/ilustracion-kombi/04.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "ilustracion-liveseo",
+      "category": "graphic",
+      "title": "Ilustraciones – LiveSEO",
+      "summary": "Ilustraciones para marca LiveSEO.",
+      "year": 2020,
+      "tech": [
+        "Illustrator"
+      ],
+      "thumb": "assets/img/projects/graphic/ilustracion-liveseo/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/ilustracion-liveseo/thumb.jpg",
+        "assets/img/projects/graphic/ilustracion-liveseo/01.jpg",
+        "assets/img/projects/graphic/ilustracion-liveseo/02.jpg",
+        "assets/img/projects/graphic/ilustracion-liveseo/03.jpg",
+        "assets/img/projects/graphic/ilustracion-liveseo/04.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true,
+      "client": "LiveSEO"
+    },
+    {
+      "id": "ilustracion-minimalism",
+      "category": "graphic",
+      "title": "Ilustraciones – Minimalism",
+      "summary": "Serie de ilustraciones minimalistas.",
+      "year": 2020,
+      "tech": [
+        "Illustrator"
+      ],
+      "thumb": "assets/img/projects/graphic/ilustracion-minimalism/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/ilustracion-minimalism/thumb.jpg",
+        "assets/img/projects/graphic/ilustracion-minimalism/01.jpg",
+        "assets/img/projects/graphic/ilustracion-minimalism/02.jpg",
+        "assets/img/projects/graphic/ilustracion-minimalism/03.jpg",
+        "assets/img/projects/graphic/ilustracion-minimalism/04.jpg",
+        "assets/img/projects/graphic/ilustracion-minimalism/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "brand-estilistas",
+      "category": "graphic",
+      "title": "Estilistas de Corazones – Marca",
+      "summary": "Identidad visual y logo para Estilistas de Corazones.",
+      "year": 2021,
+      "tech": [
+        "Illustrator",
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/brand-estilistas/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/brand-estilistas/thumb.jpg",
+        "assets/img/projects/graphic/brand-estilistas/01.jpg",
+        "assets/img/projects/graphic/brand-estilistas/02.jpg",
+        "assets/img/projects/graphic/brand-estilistas/03.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "brand-evolucion",
+      "category": "graphic",
+      "title": "Evolución Tecnológica – Marca",
+      "summary": "Sistema de marca: isotipo, imagotipo y logotipo.",
+      "year": 2021,
+      "tech": [
+        "Illustrator"
+      ],
+      "thumb": "assets/img/projects/graphic/brand-evolucion/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/brand-evolucion/thumb.jpg",
+        "assets/img/projects/graphic/brand-evolucion/01.jpg",
+        "assets/img/projects/graphic/brand-evolucion/02.jpg",
+        "assets/img/projects/graphic/brand-evolucion/03.jpg",
+        "assets/img/projects/graphic/brand-evolucion/04.jpg",
+        "assets/img/projects/graphic/brand-evolucion/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "brand-jonathan",
+      "category": "graphic",
+      "title": "Marca personal – Jonathan Sandoval",
+      "summary": "Exploración de identidad visual personal.",
+      "year": 2021,
+      "tech": [
+        "Illustrator"
+      ],
+      "thumb": "assets/img/projects/graphic/brand-jonathan/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/brand-jonathan/thumb.jpg",
+        "assets/img/projects/graphic/brand-jonathan/01.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "brand-sbs",
+      "category": "graphic",
+      "title": "SBS – Imagen de marca",
+      "summary": "Identidad visual y piezas gráficas para SBS.",
+      "year": 2020,
+      "tech": [
+        "Illustrator",
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/brand-sbs/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/brand-sbs/thumb.jpg",
+        "assets/img/projects/graphic/brand-sbs/01.jpg",
+        "assets/img/projects/graphic/brand-sbs/02.jpg",
+        "assets/img/projects/graphic/brand-sbs/03.jpg",
+        "assets/img/projects/graphic/brand-sbs/04.jpg",
+        "assets/img/projects/graphic/brand-sbs/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "brand-via",
+      "category": "graphic",
+      "title": "VIA Ingeniería – Marca",
+      "summary": "Identidad visual, logos y aplicaciones para VIA Ingeniería.",
+      "year": 2021,
+      "tech": [
+        "Illustrator"
+      ],
+      "thumb": "assets/img/projects/graphic/brand-via/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/brand-via/thumb.jpg",
+        "assets/img/projects/graphic/brand-via/01.jpg",
+        "assets/img/projects/graphic/brand-via/02.jpg",
+        "assets/img/projects/graphic/brand-via/03.jpg",
+        "assets/img/projects/graphic/brand-via/04.jpg",
+        "assets/img/projects/graphic/brand-via/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true,
+      "client": "VIA Ingeniería"
+    },
+    {
+      "id": "pub-amigos-caninos",
+      "category": "graphic",
+      "title": "Publicidad – Amigos Caninos",
+      "summary": "Piezas publicitarias para Amigos Caninos.",
+      "year": 2020,
+      "tech": [
+        "Photoshop",
+        "Illustrator"
+      ],
+      "thumb": "assets/img/projects/graphic/pub-amigos-caninos/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/pub-amigos-caninos/thumb.jpg",
+        "assets/img/projects/graphic/pub-amigos-caninos/01.jpg",
+        "assets/img/projects/graphic/pub-amigos-caninos/02.jpg",
+        "assets/img/projects/graphic/pub-amigos-caninos/03.jpg",
+        "assets/img/projects/graphic/pub-amigos-caninos/04.jpg",
+        "assets/img/projects/graphic/pub-amigos-caninos/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "pub-atletas",
+      "category": "graphic",
+      "title": "Publicidad – Atletas Recordistas",
+      "summary": "Campaña gráfica para atletas recordistas.",
+      "year": 2020,
+      "tech": [
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/pub-atletas/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/pub-atletas/thumb.jpg",
+        "assets/img/projects/graphic/pub-atletas/01.jpg",
+        "assets/img/projects/graphic/pub-atletas/02.jpg",
+        "assets/img/projects/graphic/pub-atletas/03.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "pub-clases",
+      "category": "graphic",
+      "title": "Publicidad – Clases",
+      "summary": "Piezas promocionales para clases / formación.",
+      "year": 2020,
+      "tech": [
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/pub-clases/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/pub-clases/thumb.jpg",
+        "assets/img/projects/graphic/pub-clases/01.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "pub-conciertos",
+      "category": "graphic",
+      "title": "Publicidad – Conciertos",
+      "summary": "Piezas gráficas para conciertos y eventos musicales.",
+      "year": 2020,
+      "tech": [
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/pub-conciertos/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/pub-conciertos/thumb.jpg",
+        "assets/img/projects/graphic/pub-conciertos/01.jpg",
+        "assets/img/projects/graphic/pub-conciertos/02.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "pub-ivan-sports",
+      "category": "graphic",
+      "title": "Publicidad – Ivan Sports",
+      "summary": "Material publicitario para Ivan Sports.",
+      "year": 2020,
+      "tech": [
+        "Photoshop",
+        "Illustrator"
+      ],
+      "thumb": "assets/img/projects/graphic/pub-ivan-sports/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/pub-ivan-sports/thumb.jpg",
+        "assets/img/projects/graphic/pub-ivan-sports/01.jpg",
+        "assets/img/projects/graphic/pub-ivan-sports/02.jpg",
+        "assets/img/projects/graphic/pub-ivan-sports/03.jpg",
+        "assets/img/projects/graphic/pub-ivan-sports/04.jpg",
+        "assets/img/projects/graphic/pub-ivan-sports/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true,
+      "client": "Ivan Sports"
+    },
+    {
+      "id": "pub-maxifrio",
+      "category": "graphic",
+      "title": "Publicidad – MaxiFrio",
+      "summary": "Piezas publicitarias para MaxiFrio.",
+      "year": 2020,
+      "tech": [
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/pub-maxifrio/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/pub-maxifrio/thumb.jpg",
+        "assets/img/projects/graphic/pub-maxifrio/01.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true,
+      "client": "MaxiFrio"
+    },
+    {
+      "id": "pub-party",
+      "category": "graphic",
+      "title": "Publicidad – Party",
+      "summary": "Diseño gráfico para eventos / party.",
+      "year": 2020,
+      "tech": [
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/pub-party/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/pub-party/thumb.jpg",
+        "assets/img/projects/graphic/pub-party/01.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "social-adis",
+      "category": "graphic",
+      "title": "Redes – ADIS",
+      "summary": "Contenido visual para redes sociales de ADIS.",
+      "year": 2021,
+      "tech": [
+        "Photoshop",
+        "Illustrator"
+      ],
+      "thumb": "assets/img/projects/graphic/social-adis/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/social-adis/thumb.jpg",
+        "assets/img/projects/graphic/social-adis/01.jpg",
+        "assets/img/projects/graphic/social-adis/02.jpg",
+        "assets/img/projects/graphic/social-adis/03.jpg",
+        "assets/img/projects/graphic/social-adis/04.jpg",
+        "assets/img/projects/graphic/social-adis/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true,
+      "client": "ADIS"
+    },
+    {
+      "id": "social-liveseo",
+      "category": "graphic",
+      "title": "Redes – LiveSEO",
+      "summary": "Contenido para redes sociales de LiveSEO.",
+      "year": 2020,
+      "tech": [
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/social-liveseo/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/social-liveseo/thumb.jpg",
+        "assets/img/projects/graphic/social-liveseo/01.jpg",
+        "assets/img/projects/graphic/social-liveseo/02.jpg",
+        "assets/img/projects/graphic/social-liveseo/03.jpg",
+        "assets/img/projects/graphic/social-liveseo/04.jpg",
+        "assets/img/projects/graphic/social-liveseo/05.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true,
+      "client": "LiveSEO"
+    },
+    {
+      "id": "social-muimia",
+      "category": "graphic",
+      "title": "Redes – Muimia",
+      "summary": "Contenido visual para redes de Muimia.",
+      "year": 2021,
+      "tech": [
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/social-muimia/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/social-muimia/thumb.jpg",
+        "assets/img/projects/graphic/social-muimia/01.jpg",
+        "assets/img/projects/graphic/social-muimia/02.jpg",
+        "assets/img/projects/graphic/social-muimia/03.jpg",
+        "assets/img/projects/graphic/social-muimia/04.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true
+    },
+    {
+      "id": "social-opg",
+      "category": "graphic",
+      "title": "Redes – OPG",
+      "summary": "Contenido para redes sociales de OPG.",
+      "year": 2021,
+      "tech": [
+        "Photoshop"
+      ],
+      "thumb": "assets/img/projects/graphic/social-opg/thumb.jpg",
+      "images": [
+        "assets/img/projects/graphic/social-opg/thumb.jpg",
+        "assets/img/projects/graphic/social-opg/01.jpg",
+        "assets/img/projects/graphic/social-opg/02.jpg",
+        "assets/img/projects/graphic/social-opg/03.jpg",
+        "assets/img/projects/graphic/social-opg/04.jpg"
+      ],
+      "tags": [
+        "nuevo"
+      ],
+      "status": "Documented",
+      "visible": true,
+      "client": "OPG"
     }
   ]
 }

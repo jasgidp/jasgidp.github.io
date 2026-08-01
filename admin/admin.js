@@ -489,6 +489,7 @@
         </div>
         <div class="admin-field"><label>Resumen</label><textarea data-field="summary">${esc(p.summary)}</textarea></div>
         <div class="admin-field"><label>Tecnologías (separadas por coma)</label><input data-field="tech" value="${esc(joinCsv(p.tech))}"></div>
+        <div class="admin-field"><label>Tags (separados por coma, p.ej. nuevo)</label><input data-field="tags" value="${esc(joinCsv(p.tags))}"></div>
         <div class="admin-field"><label>Equipo (separado por coma)</label><input data-field="team" value="${esc(joinCsv(p.team))}"></div>
         <div class="admin-grid-2">
           <div class="admin-field"><label>Características (una por línea)</label><textarea data-field="features">${esc(joinLines(p.features))}</textarea></div>
@@ -519,7 +520,7 @@
       const f = e.target.dataset.field; if (!f) return;
       if (f === 'year' || f === 'order') { const n = e.target.value === '' ? undefined : Number(e.target.value); if (n === undefined) delete p[f]; else p[f] = n; }
       else if (f === 'visible') p.visible = e.target.value === 'true';
-      else if (f === 'tech' || f === 'team') p[f] = toCsv(e.target.value);
+      else if (f === 'tech' || f === 'team' || f === 'tags') p[f] = toCsv(e.target.value);
       else if (f === 'features' || f === 'results' || f === 'images') p[f] = toLines(e.target.value);
       else if (f.startsWith('links.')) { p.links = p.links || {}; p.links[f.split('.')[1]] = e.target.value; }
       else p[f] = e.target.value;

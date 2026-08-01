@@ -44,10 +44,19 @@
       });
     }
 
+    // ¿Tiene el tag "nuevo"? (proyectos recién documentados desde Proyectos/)
+    function isNew(p){
+      return Array.isArray(p.tags) && p.tags.map(t => String(t).toLowerCase()).includes('nuevo');
+    }
+
     // ¿Este proyecto debe mostrarse con el filtro/búsqueda actuales?
     function matches(p){
       if (p.visible === false) return false; // ocultos a propósito
-      if (state.filter !== 'all' && p.category !== state.filter) return false;
+      if (state.filter === 'nuevo') {
+        if (!isNew(p)) return false;
+      } else if (state.filter !== 'all' && p.category !== state.filter) {
+        return false;
+      }
       if (!state.q) return true;
       // Las tecnologías pueden ser un array o un objeto agrupado
       let techText = '';
@@ -59,7 +68,8 @@
         if (Array.isArray(p.tech.tools)) groups.push(...p.tech.tools);
         techText = groups.join(' ');
       }
-      const hay = [p.title, p.summary, p.category, techText, p.role, p.client, p.id].join(' ').toLowerCase();
+      const tagText = Array.isArray(p.tags) ? p.tags.join(' ') : '';
+      const hay = [p.title, p.summary, p.category, techText, tagText, p.role, p.client, p.id].join(' ').toLowerCase();
       return hay.includes(state.q);
     }
 
@@ -80,8 +90,12 @@
         const isPlaceholder = !raw || /(^|\/)HOme\.png$/i.test(raw) || /assets\/img\/brand\/HOme\.png$/i.test(raw);
         const bgStyle = isPlaceholder ? '' : ` style="background-image:url('${raw}')"`;
         const cls = isPlaceholder ? ' no-image' : '';
+        const newBadge = isNew(p)
+          ? `<span class="tile-badge-nuevo" data-i18n="filters.nuevo">Nuevo</span>`
+          : '';
         return `
           <article class="project-card project-tile${cls}" data-category="${p.category}" data-id="${p.id}"${bgStyle} tabindex="0" aria-label="View ${p.title} details">
+            ${newBadge}
             <div class="project-overlay">
               <h3 class="project-title">${p.title}</h3>
               ${p.year ? `<span class="project-year">${p.year}</span>` : ''}
@@ -121,6 +135,7 @@
       `;
 
       const badges = `
+        ${isNew(p) ? `<span class="badge badge--nuevo"><i class="ri-sparkling-line" aria-hidden="true"></i><span data-i18n="filters.nuevo">Nuevo</span></span>` : ''}
         ${p.category ? `<span class="badge"><i class="ri-price-tag-3-line" aria-hidden="true"></i>${p.category}</span>` : ''}
         ${p.status ? `<span class="badge badge--status"><i class="ri-checkbox-circle-line" aria-hidden="true"></i>${p.status}</span>` : ''}
         ${p.importance ? `<span class="badge badge--importance"><i class="ri-star-smile-line" aria-hidden="true"></i>${p.importance}</span>` : ''}

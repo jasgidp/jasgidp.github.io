@@ -3,3 +3,6 @@
 .ipynb_checkpoints/
 jasgidp/
 *.log
+
+# Archivo fuente de proyectos (originales pesados). La web usa assets/img/projects/
+Proyectos/
