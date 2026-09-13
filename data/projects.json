@@ -753,7 +753,7 @@
         "Grafana",
         "Mimir",
         "Prometheus",
-        "Venue monitoring",
+        "Mobile video capture",
         "Sports feed provider",
         "Streaming engine",
         "Ingest provider"
@@ -781,14 +781,14 @@
           "pt": "Comp ID, contagem regressiva, link MS, URL de reprodução e motor de streaming no painel"
         },
         {
-          "es": "Integración del monitoreo de sede, los proveedores de feeds deportivos, la reverificación de VOD y proveedores externos",
-          "en": "Venue monitoring, sports feed providers, VOD recheck and third-party providers integrated",
-          "pt": "Integração do monitoramento de venue, dos provedores de feeds esportivos, da reverificação de VOD e de provedores externos"
+          "es": "Integración del servicio de transmisión de video desde móvil, los proveedores de feeds deportivos, la reverificación de VOD y proveedores externos",
+          "en": "Mobile video transmission service, sports feed providers, VOD recheck and third-party providers integrated",
+          "pt": "Integração do serviço de transmissão de vídeo por celular, dos provedores de feeds esportivos, da reverificação de VOD e de provedores externos"
         },
         {
-          "es": "Métricas del proveedor de ingesta en el clúster de métricas mediante Mimir y Grafana",
-          "en": "Ingest provider metrics on the metrics cluster through Mimir and Grafana",
-          "pt": "Métricas do provedor de ingestão no cluster de métricas via Mimir e Grafana"
+          "es": "Métricas del proveedor de ingesta en el clúster on-premise mediante Mimir y Grafana",
+          "en": "Ingest provider metrics on the on-premise cluster through Mimir and Grafana",
+          "pt": "Métricas do provedor de ingestão no cluster on-premise via Mimir e Grafana"
         },
         {
           "es": "Tableros actualizados para los proveedores migrados al nuevo servicio de ingesta",
@@ -1486,9 +1486,9 @@
           "pt": "Telemetria fora do ar na liga principal dos EUA, classificada como P1"
         },
         {
-          "es": "Stream de otra liga congelado, resuelto con reinicio manual",
-          "en": "Stream stuck on another league, resolved with a manual restart",
-          "pt": "Stream de outra liga travado, resolvido com reinício manual"
+          "es": "Stream de otro proveedor congelado, resuelto con reinicio manual",
+          "en": "Stream stuck on another provider, resolved with a manual restart",
+          "pt": "Stream de outro provedor travado, resolvido com reinício manual"
         },
         {
           "es": "Cortes intermitentes y pantallas en negro en feeds de un proveedor externo",
@@ -1761,9 +1761,9 @@
           "pt": "Integração da API de vídeo de um provedor externo e de sua API de sindicação"
         },
         {
-          "es": "Ingesta de contenido de una liga con backfill de la temporada 2025/26 mediante workers de Temporal",
-          "en": "League content ingest with a 2025/26 season backfill through Temporal workers",
-          "pt": "Ingestão de conteúdo de uma liga com backfill da temporada 2025/26 via workers do Temporal"
+          "es": "Ingesta desde un proveedor de contenido deportivo con backfill de la temporada 2025/26 mediante workers de Temporal",
+          "en": "Ingest from a sports content provider with a 2025/26 season backfill through Temporal workers",
+          "pt": "Ingestão a partir de um provedor de conteúdo esportivo com backfill da temporada 2025/26 via workers do Temporal"
         },
         {
           "es": "Interfaz de administración interna como alternativa de respaldo en el pipeline, con su documentación integrada",
