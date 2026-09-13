@@ -181,12 +181,51 @@
         </a>`;
     }
 
+    /* ------------------------------------------------------------
+       AGRUPACIÓN POR TIPO
+       Dentro de una categoría, los proyectos pueden llevar "type"
+       (frontend, backend, infra…). Cuando los hay, la rejilla se
+       parte en bloques con su encabezado en vez de ser una lista
+       plana: con 25 proyectos de software, saber cuál es de qué
+       importa más que verlos todos seguidos.
+       ------------------------------------------------------------ */
+    const TYPE_ORDER = ['frontend','backend','media','infra','data','observability','docs'];
+
+    function typeLabel(t){
+      return (window.t ? window.t('portfolio.types.' + t, t) : t);
+    }
+
+    // Agrupa respetando TYPE_ORDER; los que no tengan tipo van al final
+    function groupByType(items){
+      const groups = new Map();
+      items.forEach(p => {
+        const key = p.type && TYPE_ORDER.includes(p.type) ? p.type : '';
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(p);
+      });
+      return [...groups.entries()].sort((a,b) => {
+        const ia = a[0] ? TYPE_ORDER.indexOf(a[0]) : 999;
+        const ib = b[0] ? TYPE_ORDER.indexOf(b[0]) : 999;
+        return ia - ib;
+      });
+    }
+
+    function groupHeadingHtml(type, count){
+      if (!type) return '';
+      return `<h3 class="type-heading">${typeLabel(type)}<span class="type-count">${count}</span></h3>`;
+    }
+
     // Dibuja (o re-dibuja) todas las tarjetas visibles
     function render(){
       const items = sortProjects(projects.filter(matches));
-      if (!items.length) { container.innerHTML = bannerHtml() + '<p class="empty-state">No projects found.</p>'; return; }
+      if (!items.length) { container.innerHTML = bannerHtml() + '<p class="empty-state">No projects found.</p>' + githubCardHtml(); return; }
 
-      container.innerHTML = bannerHtml() + githubCardHtml() + items.map(p => {
+      /* Agrupamos solo dentro de una categoría concreta. Con "Todo" no:
+         ahí conviven proyectos con tipo y sin él, y saldrían unos cuantos
+         encabezados seguidos de un bloque enorme sin encabezar. */
+      const inOneCategory = state.filter && state.filter !== 'all' && state.filter !== 'nuevo';
+      const useGroups = inOneCategory && items.some(p => p.type && TYPE_ORDER.includes(p.type));
+      const tileHtml = p => {
         const raw = p.thumb || (Array.isArray(p.images) && p.images[0]) || '';
         // Si la imagen es el logo genérico, usamos un degradado CSS en su lugar
         const isPlaceholder = !raw || /(^|\/)HOme\.png$/i.test(raw) || /assets\/img\/brand\/HOme\.png$/i.test(raw);
@@ -205,7 +244,14 @@
               ${p.year ? `<span class="project-year">${p.year}</span>` : ''}
             </div>
           </article>`;
-      }).join('');
+      };
+
+      // La tarjeta de GitHub va al final: arriba dejaba media fila vacía,
+      // porque el encabezado del primer grupo empieza línea nueva.
+      container.innerHTML = bannerHtml() + (useGroups
+        ? groupByType(items).map(([type, list]) =>
+            groupHeadingHtml(type, list.length) + list.map(tileHtml).join('')).join('')
+        : items.map(tileHtml).join('')) + githubCardHtml();
 
       // Al re-renderizar, cualquier panel abierto desaparece
       openPanel = null;

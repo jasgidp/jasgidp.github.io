@@ -1,5 +1,5 @@
 {
-  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, tags (p.ej. [\"nuevo\"]), y campos opcionales (status, client, features, demoHeight…). Si links.demo existe, el panel muestra un botón de vista previa que incrusta la demo en un iframe de demoHeight píxeles. Imágenes en assets/img/projects/{category}/{id}/. visible:false oculta. order: menor = primero.",
+  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, tags (p.ej. [\"nuevo\"]), y campos opcionales (status, client, features, demoHeight, type…). type agrupa los proyectos dentro de una categoría (frontend, backend, media, infra, data, observability, docs) y projects.js pinta un encabezado por grupo; su nombre visible sale de portfolio.types.* en locales/. Si links.demo existe, el panel muestra un botón de vista previa que incrusta la demo en un iframe de demoHeight píxeles. Imágenes en assets/img/projects/{category}/{id}/. visible:false oculta. order: menor = primero.",
   "projects": [
     {
       "id": "aiesec-awards",
@@ -569,6 +569,7 @@
     {
       "id": "clean-dataset",
       "category": "software",
+      "type": "data",
       "title": "Clean Dataset",
       "summary": {
         "es": "Automatización para limpieza y preprocesado de datos.",
@@ -627,6 +628,7 @@
     {
       "id": "forecast-gl",
       "category": "software",
+      "type": "data",
       "title": "Forecast GL Project",
       "summary": {
         "es": "Analítica predictiva para operaciones de streaming.",
@@ -644,6 +646,7 @@
     {
       "id": "web-jonathan",
       "category": "software",
+      "type": "frontend",
       "title": "Web Page Jonathan",
       "summary": {
         "es": "Sitio web de portafolio personal.",
@@ -720,6 +723,7 @@
     {
       "id": "sbs",
       "category": "software",
+      "type": "backend",
       "title": "SBS",
       "summary": {
         "es": "Herramienta interna de soporte a sistemas y procesos.",
@@ -733,6 +737,7 @@
     {
       "id": "grafana-improvement",
       "category": "software",
+      "type": "observability",
       "title": "Monitoring & Dashboards",
       "summary": {
         "es": "Tableros de Grafana para el monitoreo de streaming en vivo: datos de fixtures, estado de los streams y métricas de calidad centralizados en un solo sitio.",
@@ -821,6 +826,7 @@
     {
       "id": "hermes-improvements",
       "category": "software",
+      "type": "frontend",
       "title": "Internal Ops Tooling",
       "summary": {
         "es": "Mejoras de usabilidad en las herramientas internas con las que el equipo gestiona fuentes de video, licencias y pruebas de plataforma.",
@@ -888,6 +894,7 @@
     {
       "id": "runbooks",
       "category": "software",
+      "type": "data",
       "title": "Troubleshooting Runbooks",
       "summary": {
         "es": "Runbooks en Python y Jupyter que reúnen en un cuaderno los datos y las acciones que antes exigían abrir seis herramientas distintas durante un incidente.",
@@ -972,6 +979,7 @@
     {
       "id": "db-automation",
       "category": "software",
+      "type": "data",
       "title": "Data & Rule Automation",
       "summary": {
         "es": "Automatización de las tareas de datos que se hacían a mano: limpieza de fuentes de video sin usar, asignación masiva de reglas y trazabilidad de quién cambió qué.",
@@ -1042,6 +1050,7 @@
     {
       "id": "alerts-nfl",
       "category": "software",
+      "type": "observability",
       "title": "Alerting & Early Detection",
       "summary": {
         "es": "Sistema de alertas para detectar caídas de streaming antes de que las note el usuario, y limpieza del ruido que hacía que se ignorasen.",
@@ -1116,6 +1125,7 @@
     {
       "id": "permission-system",
       "category": "software",
+      "type": "backend",
       "title": "New Permission System",
       "summary": {
         "es": "Lógica de backend para control de acceso por roles.",
@@ -1147,6 +1157,7 @@
     {
       "id": "fixture-manager",
       "category": "software",
+      "type": "backend",
       "title": "Fixture Scheduling Automation",
       "summary": {
         "es": "Automatización de la coordinación de fixtures: hilos de Slack creados por competición según los días previos al partido.",
@@ -1196,6 +1207,7 @@
     {
       "id": "form-validation",
       "category": "software",
+      "type": "frontend",
       "title": "Project Form Validation",
       "summary": {
         "es": "Validación de formularios en el cliente con avisos en tiempo real.",
@@ -1227,6 +1239,7 @@
     {
       "id": "login-page",
       "category": "software",
+      "type": "frontend",
       "title": "Project Login",
       "summary": {
         "es": "Página de inicio de sesión responsive: maquetación y estilos.",
@@ -1257,6 +1270,7 @@
     {
       "id": "weather-app",
       "category": "software",
+      "type": "frontend",
       "title": "Project Weather App",
       "summary": {
         "es": "Aplicación del tiempo que consume una API pública de clima.",
@@ -1287,6 +1301,7 @@
     {
       "id": "social-network-draft",
       "category": "software",
+      "type": "frontend",
       "title": "Project jasg Social Network Draft",
       "summary": {
         "es": "Primer borrador de la interfaz de una red social.",
@@ -1318,6 +1333,7 @@
     {
       "id": "stream-qc",
       "category": "software",
+      "type": "media",
       "title": "Stream Quality Control",
       "summary": {
         "es": "Evaluación e integración de una solución de control de calidad de stream para tener señales objetivas de salud sobre los protocolos de transporte.",
@@ -1374,6 +1390,7 @@
     {
       "id": "provider-migrations",
       "category": "software",
+      "type": "infra",
       "title": "Provider Migrations",
       "summary": {
         "es": "Migración operativa de proveedores de señal, con división de URLs de streaming y validación de los feeds resultantes.",
@@ -1428,6 +1445,7 @@
     {
       "id": "critical-incidents",
       "category": "software",
+      "type": "observability",
       "title": "Critical Incident Response",
       "summary": {
         "es": "Respuesta a incidentes P1 en producción durante eventos deportivos en directo, donde una caída no admite espera.",
@@ -1492,6 +1510,7 @@
     {
       "id": "internal-training",
       "category": "software",
+      "type": "docs",
       "title": "Internal Training Programmes",
       "summary": {
         "es": "Formación interna para que el conocimiento de streaming y de automatización deje de depender de unas pocas personas.",
@@ -1544,6 +1563,7 @@
     {
       "id": "rag-assistant",
       "category": "software",
+      "type": "backend",
       "title": "RAG AI Assistant",
       "summary": {
         "es": "Asistente de IA con recuperación aumentada sobre la documentación del transcoder, conectado a Slack para que el equipo pregunte donde ya trabaja.",
@@ -1611,6 +1631,7 @@
     {
       "id": "media-pipeline",
       "category": "software",
+      "type": "media",
       "title": "Media Pipeline in Rust & GStreamer",
       "summary": {
         "es": "Trabajo sobre el pipeline de transcodificación: plugins propios en Rust, migración del transcoder a su segunda versión y nuevas salidas de entrega.",
@@ -1685,6 +1706,7 @@
     {
       "id": "video-integrations",
       "category": "software",
+      "type": "backend",
       "title": "Video Platform Integrations",
       "summary": {
         "es": "Integración de nuevos proveedores y fuentes de video en la plataforma interna: estados de ingesta, claves de stream, APIs externas e ingesta histórica.",
@@ -1762,6 +1784,7 @@
     {
       "id": "cdn-logs",
       "category": "software",
+      "type": "backend",
       "title": "Serverless CDN Log Processing",
       "summary": {
         "es": "Procesamiento sin servidor de los logs de la CDN para alimentar al proveedor de DRM con la información que necesita.",
@@ -1815,6 +1838,7 @@
     {
       "id": "webrtc-infra",
       "category": "software",
+      "type": "infra",
       "title": "Streaming Infrastructure & Performance",
       "summary": {
         "es": "Decisiones de arquitectura respaldadas con pruebas: enfoque de WebRTC, sesiones en despliegues con varias réplicas y coste por rendimiento en la nube.",
@@ -1884,6 +1908,7 @@
     {
       "id": "tech-docs",
       "category": "software",
+      "type": "docs",
       "title": "Technical Documentation & Knowledge Sharing",
       "summary": {
         "es": "Documentación del pipeline de video de punta a punta y sesiones técnicas internas, para que entender el sistema no dependa de preguntar a la persona correcta.",

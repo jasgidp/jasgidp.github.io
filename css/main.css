@@ -1486,6 +1486,34 @@ body { background: transparent; }
    comparte los mismos bordes que las fichas sin calcular nada. */
 .category-banner { grid-column: 1 / -1; }
 
+/* Encabezado de grupo dentro de la rejilla (Frontend, Backend…).
+   Ocupa la fila entera igual que el banner, así las fichas del grupo
+   arrancan debajo y en su propia línea. */
+.type-heading {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 10px;
+  margin: 10px 0 0;
+  color: var(--text-strong);
+  font-size: 15px; font-weight: 700;
+  letter-spacing: .01em;
+}
+/* Línea que se come el espacio sobrante a la derecha del título */
+.type-heading::after {
+  content: ""; flex: 1; height: 1px;
+  background: var(--border);
+}
+.type-count {
+  order: 1;            /* después de la línea, al extremo derecho */
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 12px; font-weight: 600;
+}
+/* El primero no necesita separarse de lo que tiene encima */
+.type-heading:first-child { margin-top: 0; }
+
 /* Tarjeta que lleva al listado de repositorios de GitHub. Va en la
    rejilla como una ficha más cuando el filtro activo es "software",
    pero se distingue: sin foto, borde punteado y color de marca. */

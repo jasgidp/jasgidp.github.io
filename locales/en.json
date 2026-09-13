@@ -43,6 +43,15 @@
       "githubCard": "GitHub Portfolio",
       "githubCardHint": "All my public repositories",
       "backToSoftware": "See software projects"
+    },
+    "types": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "media": "Media & streaming",
+      "infra": "Infrastructure",
+      "data": "Data & automation",
+      "observability": "Observability & ops",
+      "docs": "Documentation & enablement"
     }
   },
   "filters": {
