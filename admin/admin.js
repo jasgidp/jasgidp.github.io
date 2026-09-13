@@ -335,7 +335,7 @@
     const cards = items.map((it, i) => `
       <div class="admin-card" data-idx="${i}">
         <div class="admin-card-head">
-          <span class="admin-card-title">${esc(it.role) || '(sin cargo)'} ${it.org ? '· ' + esc(it.org) : ''}</span>
+          <span class="admin-card-title">${esc(tv(it.role)) || '(sin cargo)'} ${it.org ? '· ' + esc(it.org) : ''}</span>
           <div class="admin-card-actions">
             <button class="admin-btn ghost small" data-act="up" ${i === 0 ? 'disabled' : ''}><i class="ri-arrow-up-line"></i></button>
             <button class="admin-btn ghost small" data-act="down" ${i === items.length - 1 ? 'disabled' : ''}><i class="ri-arrow-down-line"></i></button>
@@ -343,12 +343,12 @@
           </div>
         </div>
         <div class="admin-grid-2">
-          <div class="admin-field"><label>Cargo / Rol</label><input data-field="role" value="${esc(it.role)}"></div>
+          <div class="admin-field"><label>Cargo / Rol <span class="admin-subtle">· ${adminLang.toUpperCase()}</span></label><input data-field="role" value="${esc(tv(it.role))}"></div>
           <div class="admin-field"><label>Organización</label><input data-field="org" value="${esc(it.org)}"></div>
           <div class="admin-field"><label>Inicio (AAAA-MM)</label><input data-field="start" value="${esc(it.start)}" placeholder="2023-01"></div>
           <div class="admin-field"><label>Fin (AAAA-MM · vacío = Presente)</label><input data-field="end" value="${esc(it.end)}" placeholder="2024-06"></div>
         </div>
-        <div class="admin-field"><label>Viñetas (una por línea)</label><textarea data-field="bullets">${esc(joinLines(it.bullets))}</textarea></div>
+        <div class="admin-field"><label>Viñetas (una por línea) <span class="admin-subtle">· ${adminLang.toUpperCase()}</span></label><textarea data-field="bullets">${esc(joinLinesI18n(it.bullets))}</textarea></div>
       </div>`).join('') || '<p class="admin-empty">No hay entradas en esta sección.</p>';
 
     c.innerHTML = `<div class="admin-section-tabs">${secTabs}</div>${cards}`;
@@ -360,7 +360,9 @@
       const card = e.target.closest('.admin-card'); if (!card) return;
       const it = items[+card.dataset.idx];
       const f = e.target.dataset.field;
-      if (f === 'bullets') it.bullets = toLines(e.target.value);
+      // role y las viñetas se traducen; org, start y end van tal cual
+      if (f === 'bullets') it.bullets = toLinesI18n(e.target.value, it.bullets);
+      else if (f === 'role') it.role = tset(it.role, e.target.value);
       else it[f] = e.target.value;
       markDirty();
     };

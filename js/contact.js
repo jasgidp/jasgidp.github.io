@@ -36,7 +36,18 @@
   function render() {
     if (!contactData) return;
     // Desestructuramos el JSON en variables con nombres claros
-    const { headline, subheadline, email, phone, location, address, availability, socials, form } = contactData;
+    // Resuelve texto plano o {es,en,pt} según el idioma activo
+    const tx = (v, fb) => {
+      if (v == null) return fb || '';
+      if (typeof v === 'string') return v;
+      const l = document.documentElement.lang || 'es';
+      return v[l] || v.en || v.es || fb || '';
+    };
+    const { email, phone, address, socials, form } = contactData;
+    const headline = tx(contactData.headline);
+    const subheadline = tx(contactData.subheadline);
+    const location = tx(contactData.location);
+    const availability = tx(contactData.availability);
 
     // Textos de cabecera
     const headlineEl = document.getElementById('contact-headline');
@@ -78,7 +89,7 @@
     // Botón "Send Email" → abre el cliente de correo con mailto:
     const emailBtn = document.getElementById('email-cta');
     if (emailBtn && email) {
-      const subject = encodeURIComponent((form && form.subject) || 'Hello');
+      const subject = encodeURIComponent(tx(form && form.subject, 'Hello'));
       emailBtn.href = `mailto:${email}?subject=${subject}`;
       emailBtn.textContent = label('contact.emailCta', 'Send Email');
     }

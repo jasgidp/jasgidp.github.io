@@ -1,11 +1,23 @@
 {
-  "_documentacion": "Trayectoria profesional (página Timeline). Lo lee timeline.js. Secciones: experience, research, leadership, education. Cada entrada: org, role, start (AAAA-MM), end (AAAA-MM o null = Presente), bullets (lista de logros) y, opcionales, employment (jornada), location (ciudad/modalidad) y skills (lista de tecnologías). La duración en años y meses la calcula timeline.js a partir de start/end.",
+  "_documentacion": "Trayectoria profesional (página Timeline). Lo lee timeline.js. Secciones: experience, research, leadership, education. Cada entrada: org, role, start (AAAA-MM), end (AAAA-MM o null = Presente), bullets (lista de logros) y, opcionales, employment (jornada), location (ciudad/modalidad) y skills (lista de tecnologías). role, employment, location y cada viñeta admiten texto plano o {es,en,pt}; org se deja tal cual por ser nombre propio. La duración la calcula timeline.js.",
   "experience": [
     {
       "org": "Genius Sports",
-      "role": "Software Engineer I",
-      "employment": "Full-time",
-      "location": "Medellín, Antioquia, Colombia · Híbrido",
+      "role": {
+        "es": "Ingeniero de Software I",
+        "en": "Software Engineer I",
+        "pt": "Engenheiro de Software I"
+      },
+      "employment": {
+        "es": "Jornada completa",
+        "en": "Full-time",
+        "pt": "Período integral"
+      },
+      "location": {
+        "es": "Medellín, Antioquia, Colombia · Híbrido",
+        "en": "Medellín, Antioquia, Colombia · Hybrid",
+        "pt": "Medellín, Antioquia, Colômbia · Híbrido"
+      },
       "start": "2025-08",
       "end": null,
       "skills": [
@@ -16,197 +28,405 @@
     },
     {
       "org": "Genius Sports",
-      "role": "Operational Engineer – Streaming Specialist",
+      "role": {
+        "es": "Ingeniero de Operaciones – Especialista en Streaming",
+        "en": "Operational Engineer – Streaming Specialist",
+        "pt": "Engenheiro de Operações – Especialista em Streaming"
+      },
       "start": "2023-10",
       "end": "2025-08",
       "bullets": [
-        "Live support with development teams.",
-        "Grafana dashboards and Python runbooks for troubleshooting.",
-        "Improved streaming tools and new support utilities."
+        {
+          "es": "Soporte en vivo junto a los equipos de desarrollo.",
+          "en": "Live support with development teams.",
+          "pt": "Suporte ao vivo junto às equipes de desenvolvimento."
+        },
+        {
+          "es": "Tableros en Grafana y runbooks en Python para diagnóstico.",
+          "en": "Grafana dashboards and Python runbooks for troubleshooting.",
+          "pt": "Painéis no Grafana e runbooks em Python para diagnóstico."
+        },
+        {
+          "es": "Mejoras en las herramientas de streaming y nuevas utilidades de soporte.",
+          "en": "Improved streaming tools and new support utilities.",
+          "pt": "Melhorias nas ferramentas de streaming e novos utilitários de suporte."
+        }
       ]
     },
     {
       "org": "Genius Sports",
-      "role": "Streaming Customer Onboarding Specialist",
+      "role": {
+        "es": "Especialista en Onboarding de Clientes de Streaming",
+        "en": "Streaming Customer Onboarding Specialist",
+        "pt": "Especialista em Onboarding de Clientes de Streaming"
+      },
       "start": "2022-09",
       "end": "2023-09",
       "bullets": [
-        "Automated processes across platforms and teams.",
-        "Managed internal product releases.",
-        "Onboarded customers and trained team members."
+        {
+          "es": "Automatización de procesos entre plataformas y equipos.",
+          "en": "Automated processes across platforms and teams.",
+          "pt": "Automação de processos entre plataformas e equipes."
+        },
+        {
+          "es": "Gestión de los despliegues internos de producto.",
+          "en": "Managed internal product releases.",
+          "pt": "Gestão dos lançamentos internos de produto."
+        },
+        {
+          "es": "Onboarding de clientes y formación del equipo.",
+          "en": "Onboarded customers and trained team members.",
+          "pt": "Onboarding de clientes e treinamento da equipe."
+        }
       ]
     },
     {
       "org": "Genius Sports",
-      "role": "Streaming Support & Implementation Officer",
+      "role": {
+        "es": "Responsable de Soporte e Implementación de Streaming",
+        "en": "Streaming Support & Implementation Officer",
+        "pt": "Responsável por Suporte e Implementação de Streaming"
+      },
       "start": "2021-09",
       "end": "2022-09",
       "bullets": [
-        "Implemented streaming projects and integrations.",
-        "Training and documentation standardization."
+        {
+          "es": "Implementación de proyectos e integraciones de streaming.",
+          "en": "Implemented streaming projects and integrations.",
+          "pt": "Implementação de projetos e integrações de streaming."
+        },
+        {
+          "es": "Formación y estandarización de la documentación.",
+          "en": "Training and documentation standardisation.",
+          "pt": "Treinamento e padronização da documentação."
+        }
       ]
     },
     {
       "org": "Genius Sports",
-      "role": "Live Feed Analyst – High Level",
+      "role": {
+        "es": "Analista de Datos en Vivo – Nivel Alto",
+        "en": "Live Feed Analyst – High Level",
+        "pt": "Analista de Dados ao Vivo – Nível Alto"
+      },
       "start": "2018-07",
       "end": "2021-09",
       "bullets": [
-        "Analyzed live sports data.",
-        "Analyst onboarding and training."
+        {
+          "es": "Análisis de datos deportivos en vivo.",
+          "en": "Analysed live sports data.",
+          "pt": "Análise de dados esportivos ao vivo."
+        },
+        {
+          "es": "Onboarding y formación de analistas.",
+          "en": "Analyst onboarding and training.",
+          "pt": "Onboarding e treinamento de analistas."
+        }
       ]
     },
     {
       "org": "Ecoluz S.A.S",
-      "role": "R&D Intern",
+      "role": {
+        "es": "Practicante de I+D",
+        "en": "R&D Intern",
+        "pt": "Estagiário de P&D"
+      },
       "start": "2019-01",
       "end": "2019-07",
       "bullets": [
-        "Developed concepts and prototypes for luminaires."
+        {
+          "es": "Desarrollo de conceptos y prototipos de luminarias.",
+          "en": "Developed concepts and prototypes for luminaires.",
+          "pt": "Desenvolvimento de conceitos e protótipos de luminárias."
+        }
       ]
     },
     {
       "org": "EAFIT University",
-      "role": "Academic Tutor – Electromechanical Projects",
+      "role": {
+        "es": "Monitor Académico – Proyectos Electromecánicos",
+        "en": "Academic Tutor – Electromechanical Projects",
+        "pt": "Monitor Acadêmico – Projetos Eletromecânicos"
+      },
       "start": "2018-07",
       "end": "2018-11",
       "bullets": [
-        "Guided students in control and electronic product design."
+        {
+          "es": "Acompañamiento a estudiantes en control y diseño de productos electrónicos.",
+          "en": "Guided students in control and electronic product design.",
+          "pt": "Acompanhamento de estudantes em controle e design de produtos eletrônicos."
+        }
       ]
     },
     {
       "org": "LiveSEO Agency (Brazil)",
-      "role": "Graphic Design Internship (AIESEC Exchange)",
+      "role": {
+        "es": "Práctica en Diseño Gráfico (Intercambio AIESEC)",
+        "en": "Graphic Design Internship (AIESEC Exchange)",
+        "pt": "Estágio em Design Gráfico (Intercâmbio AIESEC)"
+      },
       "start": "2021-04",
       "end": "2021-06",
       "bullets": [
-        "Custom design pieces; web image optimization."
+        {
+          "es": "Piezas de diseño a medida; optimización de imágenes para web.",
+          "en": "Custom design pieces; web image optimisation.",
+          "pt": "Peças de design sob medida; otimização de imagens para web."
+        }
       ]
     }
   ],
   "research": [
     {
       "org": "EAFIT – GRID",
-      "role": "Investigative Monitor (Solar Energy)",
+      "role": {
+        "es": "Monitor de Investigación (Energía Solar)",
+        "en": "Investigative Monitor (Solar Energy)",
+        "pt": "Monitor de Pesquisa (Energia Solar)"
+      },
       "start": "2019-07",
       "end": "2019-12",
       "bullets": [
-        "Research on CPV and BICPV technologies."
+        {
+          "es": "Investigación sobre tecnologías CPV y BICPV.",
+          "en": "Research on CPV and BICPV technologies.",
+          "pt": "Pesquisa sobre tecnologias CPV e BICPV."
+        }
       ]
     },
     {
       "org": "EAFIT – GRID",
-      "role": "Investigative Member (Wind Energy)",
+      "role": {
+        "es": "Integrante de Investigación (Energía Eólica)",
+        "en": "Investigative Member (Wind Energy)",
+        "pt": "Integrante de Pesquisa (Energia Eólica)"
+      },
       "start": "2018-07",
       "end": "2018-12",
       "bullets": [
-        "Applied tensile structure strategies to wind turbine blades."
+        {
+          "es": "Aplicación de estrategias de tensoestructuras a palas de aerogenerador.",
+          "en": "Applied tensile structure strategies to wind turbine blades.",
+          "pt": "Aplicação de estratégias de tensoestruturas a pás de aerogerador."
+        }
       ]
     },
     {
-      "org": "Publication",
-      "role": "Co-author",
+      "org": {
+        "es": "Publicación",
+        "en": "Publication",
+        "pt": "Publicação"
+      },
+      "role": {
+        "es": "Coautor",
+        "en": "Co-author",
+        "pt": "Coautor"
+      },
       "start": "2023-01",
       "end": null,
       "bullets": [
-        "Wind Engineering Journal: WIE-23-0168.R1."
+        {
+          "es": "Wind Engineering Journal: WIE-23-0168.R1.",
+          "en": "Wind Engineering Journal: WIE-23-0168.R1.",
+          "pt": "Wind Engineering Journal: WIE-23-0168.R1."
+        }
       ]
     }
   ],
   "leadership": [
     {
       "org": "AIESEC EAFIT",
-      "role": "DX Manager & Events Director; Sales/IR; HT & Comms",
+      "role": {
+        "es": "Director de Experiencia Digital y Eventos; Ventas/RI; Talento Humano y Comunicaciones",
+        "en": "DX Manager & Events Director; Sales/IR; HT & Comms",
+        "pt": "Diretor de Experiência Digital e Eventos; Vendas/RI; Talento Humano e Comunicação"
+      },
       "start": "2017-01",
       "end": "2022-12",
       "bullets": [
-        "Managed social media, branding, newsletters, and event identity.",
-        "Coordinated sales and international relations.",
-        "Led human talent and communications."
+        {
+          "es": "Gestión de redes sociales, marca, boletines e identidad de eventos.",
+          "en": "Managed social media, branding, newsletters and event identity.",
+          "pt": "Gestão de redes sociais, marca, newsletters e identidade de eventos."
+        },
+        {
+          "es": "Coordinación de ventas y relaciones internacionales.",
+          "en": "Coordinated sales and international relations.",
+          "pt": "Coordenação de vendas e relações internacionais."
+        },
+        {
+          "es": "Dirección de talento humano y comunicaciones.",
+          "en": "Led human talent and communications.",
+          "pt": "Direção de talento humano e comunicação."
+        }
       ]
     },
     {
       "org": "Fundación ADIS (Mexico)",
-      "role": "International Volunteer – Partnerships (SDG #17)",
+      "role": {
+        "es": "Voluntario Internacional – Alianzas (ODS #17)",
+        "en": "International Volunteer – Partnerships (SDG #17)",
+        "pt": "Voluntário Internacional – Parcerias (ODS #17)"
+      },
       "start": "2018-11",
       "end": "2019-01",
       "bullets": [
-        "Marketing strategy; website redesign."
+        {
+          "es": "Estrategia de marketing; rediseño del sitio web.",
+          "en": "Marketing strategy; website redesign.",
+          "pt": "Estratégia de marketing; redesign do site."
+        }
       ]
     },
     {
       "org": "Lar Bethel (Brazil)",
-      "role": "International Volunteer – Quality Education",
+      "role": {
+        "es": "Voluntario Internacional – Educación de Calidad",
+        "en": "International Volunteer – Quality Education",
+        "pt": "Voluntário Internacional – Educação de Qualidade"
+      },
       "start": "2017-06",
       "end": "2017-08",
       "bullets": []
     },
     {
       "org": "Seres EAFIT",
-      "role": "Volunteer – Social Action & Marketing",
+      "role": {
+        "es": "Voluntario – Acción Social y Marketing",
+        "en": "Volunteer – Social Action & Marketing",
+        "pt": "Voluntário – Ação Social e Marketing"
+      },
       "start": "2015-01",
       "end": "2018-12",
       "bullets": [
-        "Campaign promotion; outreach to foundations."
+        {
+          "es": "Promoción de campañas; contacto con fundaciones.",
+          "en": "Campaign promotion; outreach to foundations.",
+          "pt": "Promoção de campanhas; contato com fundações."
+        }
       ]
     }
   ],
   "education": [
     {
       "org": "Universidad EAFIT",
-      "role": "Maestría en Ingeniería",
+      "role": {
+        "es": "Maestría en Ingeniería",
+        "en": "Master’s in Engineering",
+        "pt": "Mestrado em Engenharia"
+      },
       "start": "2024-01",
       "end": null,
       "bullets": [
-        "Enfoque: sostenibilidad y desarrollo de software."
+        {
+          "es": "Enfoque: sostenibilidad y desarrollo de software.",
+          "en": "Focus: sustainability and software development.",
+          "pt": "Foco: sustentabilidade e desenvolvimento de software."
+        }
       ]
     },
     {
       "org": "Universidad EAFIT",
-      "role": "Especialización en Desarrollo de Software",
+      "role": {
+        "es": "Especialización en Desarrollo de Software",
+        "en": "Specialisation in Software Development",
+        "pt": "Especialização em Desenvolvimento de Software"
+      },
       "start": "2024-01",
       "end": "2026-12",
       "bullets": [
-        "Enfoque: desarrollo de software y sostenibilidad."
+        {
+          "es": "Enfoque: desarrollo de software y sostenibilidad.",
+          "en": "Focus: software development and sustainability.",
+          "pt": "Foco: desenvolvimento de software e sustentabilidade."
+        }
       ]
     },
     {
       "org": "Digital House",
-      "role": "Data Science Intensive",
+      "role": {
+        "es": "Intensivo de Ciencia de Datos",
+        "en": "Data Science Intensive",
+        "pt": "Intensivo de Ciência de Dados"
+      },
       "start": "2022-02",
       "end": "2022-10",
       "bullets": [
-        "EDA, statistics, visualization, transformation with Python/Pandas."
+        {
+          "es": "EDA, estadística, visualización y transformación con Python/Pandas.",
+          "en": "EDA, statistics, visualisation and transformation with Python/Pandas.",
+          "pt": "EDA, estatística, visualização e transformação com Python/Pandas."
+        }
       ]
     },
     {
       "org": "Universidad EAFIT",
-      "role": "Product Design Engineering",
+      "role": {
+        "es": "Ingeniería de Diseño de Producto",
+        "en": "Product Design Engineering",
+        "pt": "Engenharia de Design de Produto"
+      },
       "start": "2015-01",
       "end": "2019-12",
       "bullets": [
-        "GPA 4.3/5.0; Wavy Leading Edge HAWT blade project."
+        {
+          "es": "Promedio 4.3/5.0; proyecto de pala HAWT con Wavy Leading Edge.",
+          "en": "GPA 4.3/5.0; Wavy Leading Edge HAWT blade project.",
+          "pt": "Média 4.3/5.0; projeto de pá HAWT com Wavy Leading Edge."
+        }
       ]
     },
     {
       "org": "Politécnico JIC",
-      "role": "Technical Program in Software Development",
+      "role": {
+        "es": "Técnico en Desarrollo de Software",
+        "en": "Technical Program in Software Development",
+        "pt": "Técnico em Desenvolvimento de Software"
+      },
       "start": "2013-01",
       "end": "2014-12",
       "bullets": []
     },
     {
       "org": "Universidade de São Paulo (USP) – Ribeirão Preto",
-      "role": "Intercambio académico",
-      "location": "Ribeirão Preto, São Paulo, Brasil",
+      "role": {
+        "es": "Intercambio académico",
+        "en": "Academic exchange",
+        "pt": "Intercâmbio acadêmico"
+      },
+      "location": {
+        "es": "Ribeirão Preto, São Paulo, Brasil",
+        "en": "Ribeirão Preto, São Paulo, Brazil",
+        "pt": "Ribeirão Preto, São Paulo, Brasil"
+      },
       "start": "2025-01",
       "end": "2025-08",
       "bullets": [
-        "Machine Learning",
-        "Ciência de Dados",
-        "Mercados e Instrumentos Financeiros",
-        "Mindfulness",
-        "Gestão Empresarial"
+        {
+          "es": "Machine Learning",
+          "en": "Machine Learning",
+          "pt": "Machine Learning"
+        },
+        {
+          "es": "Ciencia de Datos",
+          "en": "Data Science",
+          "pt": "Ciência de Dados"
+        },
+        {
+          "es": "Mercados e Instrumentos Financieros",
+          "en": "Financial Markets and Instruments",
+          "pt": "Mercados e Instrumentos Financeiros"
+        },
+        {
+          "es": "Mindfulness",
+          "en": "Mindfulness",
+          "pt": "Mindfulness"
+        },
+        {
+          "es": "Gestión Empresarial",
+          "en": "Business Management",
+          "pt": "Gestão Empresarial"
+        }
       ]
     }
   ]

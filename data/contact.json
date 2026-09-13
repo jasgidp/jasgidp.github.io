@@ -1,10 +1,26 @@
 {
   "_documentacion": "Archivo de datos de la página Contacto. Lo lee contact.js. Campos: headline/subheadline (textos de cabecera), email, phone, location, address, availability, socials (lista de {name,url,icon}), form (asunto del mailto). Edita este archivo para cambiar tu email o redes sin tocar el HTML.",
-  "headline": "Let's work together",
-  "subheadline": "Open to freelance, internships, and full‑time roles.",
+  "headline": {
+    "es": "Trabajemos juntos",
+    "en": "Let's work together",
+    "pt": "Vamos trabalhar juntos"
+  },
+  "subheadline": {
+    "es": "Abierto a proyectos freelance, prácticas y puestos a jornada completa.",
+    "en": "Open to freelance, internships and full‑time roles.",
+    "pt": "Aberto a projetos freelance, estágios e vagas em período integral."
+  },
   "email": "jsandov4@eafit.edu.co",
-  "location": "Medellín, Colombia",
-  "availability": "Usually replies within 1–2 days.",
+  "location": {
+    "es": "Medellín, Colombia",
+    "en": "Medellín, Colombia",
+    "pt": "Medellín, Colômbia"
+  },
+  "availability": {
+    "es": "Normalmente respondo en 1–2 días.",
+    "en": "Usually replies within 1–2 days.",
+    "pt": "Normalmente respondo em 1–2 dias."
+  },
   "socials": [
     {
       "name": "LinkedIn",
@@ -30,7 +46,11 @@
   "form": {
     "enabled": true,
     "to": "jsandov4@eafit.edu.co",
-    "subject": "New message from portfolio",
+    "subject": {
+      "es": "Nuevo mensaje desde el portafolio",
+      "en": "New message from portfolio",
+      "pt": "Nova mensagem do portfólio"
+    },
     "demo": true
   }
 }
