@@ -1,5 +1,5 @@
 {
-  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, tags (p.ej. [\"nuevo\"]), y campos opcionales (status, client, features, demoHeight…). Si links.demo existe, el panel muestra un botón de vista previa que incrusta la demo en un iframe de demoHeight píxeles. Imágenes en assets/img/projects/{category}/{id}/. visible:false oculta. order: menor = primero.",
+  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, tags (p.ej. [\"nuevo\"]), y campos opcionales (status, client, features, demoHeight, type…). type agrupa los proyectos dentro de una categoría (frontend, backend, media, infra, data, observability, docs) y projects.js pinta un encabezado por grupo; su nombre visible sale de portfolio.types.* en locales/. Si links.demo existe, el panel muestra un botón de vista previa que incrusta la demo en un iframe de demoHeight píxeles. Imágenes en assets/img/projects/{category}/{id}/. visible:false oculta. order: menor = primero.",
   "projects": [
     {
       "id": "aiesec-awards",
@@ -569,6 +569,7 @@
     {
       "id": "clean-dataset",
       "category": "software",
+      "type": "data",
       "title": "Clean Dataset",
       "summary": {
         "es": "Automatización para limpieza y preprocesado de datos.",
@@ -627,6 +628,7 @@
     {
       "id": "forecast-gl",
       "category": "software",
+      "type": "data",
       "title": "Forecast GL Project",
       "summary": {
         "es": "Analítica predictiva para operaciones de streaming.",
@@ -644,6 +646,7 @@
     {
       "id": "web-jonathan",
       "category": "software",
+      "type": "frontend",
       "title": "Web Page Jonathan",
       "summary": {
         "es": "Sitio web de portafolio personal.",
@@ -720,6 +723,7 @@
     {
       "id": "sbs",
       "category": "software",
+      "type": "backend",
       "title": "SBS",
       "summary": {
         "es": "Herramienta interna de soporte a sistemas y procesos.",
@@ -733,6 +737,7 @@
     {
       "id": "grafana-improvement",
       "category": "software",
+      "type": "observability",
       "title": "Monitoring & Dashboards",
       "summary": {
         "es": "Tableros de Grafana para el monitoreo de streaming en vivo: datos de fixtures, estado de los streams y métricas de calidad centralizados en un solo sitio.",
@@ -748,10 +753,10 @@
         "Grafana",
         "Mimir",
         "Prometheus",
-        "LISA",
-        "StatsPerform",
-        "Stream Engine",
-        "Dolby"
+        "Venue monitoring",
+        "Sports feed provider",
+        "Streaming engine",
+        "Ingest provider"
       ],
       "year": 2025,
       "status": {
@@ -771,29 +776,29 @@
       },
       "features": [
         {
-          "es": "Comp ID, cuenta atrás, enlace MS, URL de reproducción y Stream Engine en el tablero",
-          "en": "Comp ID, countdown, MS link, playback URL and Stream Engine on the dashboard",
-          "pt": "Comp ID, contagem regressiva, link MS, URL de reprodução e Stream Engine no painel"
+          "es": "Comp ID, cuenta atrás, enlace MS, URL de reproducción y motor de streaming en el tablero",
+          "en": "Comp ID, countdown, MS link, playback URL and streaming engine on the dashboard",
+          "pt": "Comp ID, contagem regressiva, link MS, URL de reprodução e motor de streaming no painel"
         },
         {
-          "es": "Integración de LISA, StatsPerform, VOD Recheck y proveedores externos",
-          "en": "LISA, StatsPerform, VOD Recheck and third-party providers integrated",
-          "pt": "Integração de LISA, StatsPerform, VOD Recheck e provedores externos"
+          "es": "Integración del monitoreo de sede, los proveedores de feeds deportivos, la reverificación de VOD y proveedores externos",
+          "en": "Venue monitoring, sports feed providers, VOD recheck and third-party providers integrated",
+          "pt": "Integração do monitoramento de venue, dos provedores de feeds esportivos, da reverificação de VOD e de provedores externos"
         },
         {
-          "es": "Métricas de Dolby en el clúster Parcero mediante Mimir y Grafana",
-          "en": "Dolby metrics on the Parcero cluster through Mimir and Grafana",
-          "pt": "Métricas da Dolby no cluster Parcero via Mimir e Grafana"
+          "es": "Métricas del proveedor de ingesta en el clúster de métricas mediante Mimir y Grafana",
+          "en": "Ingest provider metrics on the metrics cluster through Mimir and Grafana",
+          "pt": "Métricas do provedor de ingestão no cluster de métricas via Mimir e Grafana"
         },
         {
-          "es": "Tableros actualizados para los proveedores migrados a Dolby",
-          "en": "Dashboards updated for the providers migrated to Dolby",
-          "pt": "Painéis atualizados para os provedores migrados para a Dolby"
+          "es": "Tableros actualizados para los proveedores migrados al nuevo servicio de ingesta",
+          "en": "Dashboards updated for the providers migrated to the new ingest service",
+          "pt": "Painéis atualizados para os provedores migrados para o novo serviço de ingestão"
         },
         {
-          "es": "En pausa: tablero consolidado de estado de producto NFL e identificación de producción de venue",
-          "en": "On hold: consolidated NFL product status dashboard and venue production identification",
-          "pt": "Em pausa: painel consolidado de status do produto NFL e identificação de produção de venue"
+          "es": "En pausa: tablero consolidado de estado de producto e identificación de producción de sede",
+          "en": "On hold: consolidated product status dashboard and venue production identification",
+          "pt": "Em pausa: painel consolidado de status do produto e identificação de produção de venue"
         }
       ],
       "results": [
@@ -821,6 +826,7 @@
     {
       "id": "hermes-improvements",
       "category": "software",
+      "type": "frontend",
       "title": "Internal Ops Tooling",
       "summary": {
         "es": "Mejoras de usabilidad en las herramientas internas con las que el equipo gestiona fuentes de video, licencias y pruebas de plataforma.",
@@ -835,7 +841,7 @@
       "tech": [
         "JavaScript",
         "TypeScript",
-        "Hermes",
+        "Ops console",
         "UI/UX"
       ],
       "year": 2024,
@@ -866,9 +872,9 @@
           "pt": "Em pausa: interface para revisar licenças e pacotes sem tocar no banco de dados"
         },
         {
-          "es": "En pausa: plataforma de pruebas e integración para BetVision",
-          "en": "On hold: testing and integration platform for BetVision",
-          "pt": "Em pausa: plataforma de testes e integração para a BetVision"
+          "es": "En pausa: plataforma de pruebas e integración para el producto de video en vivo",
+          "en": "On hold: testing and integration platform for the live video product",
+          "pt": "Em pausa: plataforma de testes e integração para o produto de vídeo ao vivo"
         }
       ],
       "learnings": {
@@ -888,6 +894,7 @@
     {
       "id": "runbooks",
       "category": "software",
+      "type": "data",
       "title": "Troubleshooting Runbooks",
       "summary": {
         "es": "Runbooks en Python y Jupyter que reúnen en un cuaderno los datos y las acciones que antes exigían abrir seis herramientas distintas durante un incidente.",
@@ -904,9 +911,9 @@
         "Jupyter",
         "Grafana",
         "Graylog",
-        "Ingress Manager",
-        "Venue Manager",
-        "Heimdallr"
+        "Ingest service",
+        "Venue service",
+        "Provider orchestration"
       ],
       "year": 2025,
       "status": {
@@ -920,15 +927,15 @@
         "pt": "Genius Sports"
       },
       "contribution": {
-        "es": "Desarrollo de los runbooks y de las consultas a las APIs internas, y migración del runbook de NFL para integrarlo con la telemetría y los logs.",
-        "en": "Built the runbooks and the calls to the internal APIs, and migrated the NFL runbook to integrate it with telemetry and logs.",
-        "pt": "Desenvolvi os runbooks e as chamadas às APIs internas, e migrei o runbook da NFL para integrá-lo com a telemetria e os logs."
+        "es": "Desarrollo de los runbooks y de las consultas a las APIs internas, y migración del runbook de la liga principal para integrarlo con la telemetría y los logs.",
+        "en": "Built the runbooks and the calls to the internal APIs, and migrated the main league runbook to integrate it with telemetry and logs.",
+        "pt": "Desenvolvi os runbooks e as chamadas às APIs internas, e migrei o runbook da liga principal para integrá-lo com a telemetria e os logs."
       },
       "features": [
         {
-          "es": "Datos de fixture, Ingress Manager, Venue Manager, Grafana y Graylog en un solo cuaderno",
-          "en": "Fixture data, Ingress Manager, Venue Manager, Grafana and Graylog in a single notebook",
-          "pt": "Dados de fixture, Ingress Manager, Venue Manager, Grafana e Graylog em um único caderno"
+          "es": "Datos de fixture, servicio de ingesta, servicio de sedes, Grafana y Graylog en un solo cuaderno",
+          "en": "Fixture data, ingest service, venue service, Grafana and Graylog in a single notebook",
+          "pt": "Dados de fixture, serviço de ingestão, serviço de venues, Grafana e Graylog em um único caderno"
         },
         {
           "es": "Reinicio centralizado de servicios sin saltar entre consolas",
@@ -946,9 +953,9 @@
           "pt": "Auditoria das regras aplicadas a um fixture específico"
         },
         {
-          "es": "Migración del runbook de NFL para conectarlo con Grafana y Graylog",
-          "en": "NFL runbook migrated to connect with Grafana and Graylog",
-          "pt": "Migração do runbook da NFL para conectá-lo com Grafana e Graylog"
+          "es": "Migración del runbook de la liga principal para conectarlo con Grafana y Graylog",
+          "en": "Main league runbook migrated to connect with Grafana and Graylog",
+          "pt": "Migração do runbook da liga principal para conectá-lo com Grafana e Graylog"
         }
       ],
       "results": [
@@ -972,6 +979,7 @@
     {
       "id": "db-automation",
       "category": "software",
+      "type": "data",
       "title": "Data & Rule Automation",
       "summary": {
         "es": "Automatización de las tareas de datos que se hacían a mano: limpieza de fuentes de video sin usar, asignación masiva de reglas y trazabilidad de quién cambió qué.",
@@ -987,7 +995,7 @@
         "Python",
         "SQL",
         "Jupyter",
-        "Heimdallr",
+        "Provider orchestration",
         "Excel"
       ],
       "year": 2025,
@@ -1042,6 +1050,7 @@
     {
       "id": "alerts-nfl",
       "category": "software",
+      "type": "observability",
       "title": "Alerting & Early Detection",
       "summary": {
         "es": "Sistema de alertas para detectar caídas de streaming antes de que las note el usuario, y limpieza del ruido que hacía que se ignorasen.",
@@ -1058,7 +1067,7 @@
         "Slack",
         "DRM",
         "Akamai CDN",
-        "BetVision"
+        "Live betting video"
       ],
       "year": 2024,
       "status": {
@@ -1083,9 +1092,9 @@
           "pt": "Alertas de DRM (5xx e 404) e latência p99 da Akamai acima de 3 s"
         },
         {
-          "es": "Aviso cuando un partido de BetVision NFL lleva más de 2 minutos sin espectadores",
-          "en": "Warning when a BetVision NFL fixture goes over 2 minutes with no viewers",
-          "pt": "Aviso quando uma partida da BetVision NFL passa de 2 minutos sem espectadores"
+          "es": "Aviso cuando un partido de la liga principal lleva más de 2 minutos sin espectadores",
+          "en": "Warning when a main league fixture goes over 2 minutes with no viewers",
+          "pt": "Aviso quando uma partida da liga principal passa de 2 minutos sem espectadores"
         },
         {
           "es": "Filtrado de las alertas de error de las fuentes de prueba en el canal de soporte",
@@ -1100,9 +1109,9 @@
       },
       "results": [
         {
-          "es": "Menos ruido en el canal de soporte y cobertura preventiva en los partidos de BetVision",
-          "en": "Less noise in the support channel and preventive coverage on BetVision fixtures",
-          "pt": "Menos ruído no canal de suporte e cobertura preventiva nas partidas da BetVision"
+          "es": "Menos ruido en el canal de soporte y cobertura preventiva en los partidos de alto tráfico",
+          "en": "Less noise in the support channel and preventive coverage on high-traffic fixtures",
+          "pt": "Menos ruído no canal de suporte e cobertura preventiva nas partidas de alto tráfego"
         }
       ],
       "_tickets": [
@@ -1116,6 +1125,7 @@
     {
       "id": "permission-system",
       "category": "software",
+      "type": "backend",
       "title": "New Permission System",
       "summary": {
         "es": "Lógica de backend para control de acceso por roles.",
@@ -1147,7 +1157,8 @@
     {
       "id": "fixture-manager",
       "category": "software",
-      "title": "Fixture Manager / NFL Messages",
+      "type": "backend",
+      "title": "Fixture Scheduling Automation",
       "summary": {
         "es": "Automatización de la coordinación de fixtures: hilos de Slack creados por competición según los días previos al partido.",
         "en": "Automation of fixture coordination: Slack threads created per competition based on the days before the match.",
@@ -1196,6 +1207,7 @@
     {
       "id": "form-validation",
       "category": "software",
+      "type": "frontend",
       "title": "Project Form Validation",
       "summary": {
         "es": "Validación de formularios en el cliente con avisos en tiempo real.",
@@ -1227,6 +1239,7 @@
     {
       "id": "login-page",
       "category": "software",
+      "type": "frontend",
       "title": "Project Login",
       "summary": {
         "es": "Página de inicio de sesión responsive: maquetación y estilos.",
@@ -1257,6 +1270,7 @@
     {
       "id": "weather-app",
       "category": "software",
+      "type": "frontend",
       "title": "Project Weather App",
       "summary": {
         "es": "Aplicación del tiempo que consume una API pública de clima.",
@@ -1287,6 +1301,7 @@
     {
       "id": "social-network-draft",
       "category": "software",
+      "type": "frontend",
       "title": "Project jasg Social Network Draft",
       "summary": {
         "es": "Primer borrador de la interfaz de una red social.",
@@ -1318,6 +1333,7 @@
     {
       "id": "stream-qc",
       "category": "software",
+      "type": "media",
       "title": "Stream Quality Control",
       "summary": {
         "es": "Evaluación e integración de una solución de control de calidad de stream para tener señales objetivas de salud sobre los protocolos de transporte.",
@@ -1330,13 +1346,13 @@
         "pt": "Ops Engineer · Streaming"
       },
       "tech": [
-        "Elecard",
+        "Stream QC suite",
         "UDP",
         "RTP",
         "SRT",
         "HTTP",
         "OTT",
-        "Heimdallr"
+        "Provider orchestration"
       ],
       "year": 2025,
       "status": {
@@ -1374,6 +1390,7 @@
     {
       "id": "provider-migrations",
       "category": "software",
+      "type": "infra",
       "title": "Provider Migrations",
       "summary": {
         "es": "Migración operativa de proveedores de señal, con división de URLs de streaming y validación de los feeds resultantes.",
@@ -1386,9 +1403,9 @@
         "pt": "Ops Engineer · Streaming"
       },
       "tech": [
-        "StatsPerform",
+        "Sports feed provider",
         "AWS MediaConnect",
-        "Dolby",
+        "Ingest provider",
         "Grafana"
       ],
       "year": 2025,
@@ -1428,6 +1445,7 @@
     {
       "id": "critical-incidents",
       "category": "software",
+      "type": "observability",
       "title": "Critical Incident Response",
       "summary": {
         "es": "Respuesta a incidentes P1 en producción durante eventos deportivos en directo, donde una caída no admite espera.",
@@ -1463,19 +1481,19 @@
       },
       "features": [
         {
-          "es": "Telemetría caída en NFL USA, clasificado como P1",
-          "en": "Telemetry down on NFL USA, classified as P1",
-          "pt": "Telemetria fora do ar na NFL USA, classificada como P1"
+          "es": "Telemetría caída en la liga principal de EE. UU., clasificado como P1",
+          "en": "Telemetry down on the main US league, classified as P1",
+          "pt": "Telemetria fora do ar na liga principal dos EUA, classificada como P1"
         },
         {
-          "es": "Stream de CFL congelado, resuelto con reinicio manual",
-          "en": "CFL stream stuck, resolved with a manual restart",
-          "pt": "Stream da CFL travado, resolvido com reinício manual"
+          "es": "Stream de otra liga congelado, resuelto con reinicio manual",
+          "en": "Stream stuck on another league, resolved with a manual restart",
+          "pt": "Stream de outra liga travado, resolvido com reinício manual"
         },
         {
-          "es": "Cortes intermitentes y pantallas en negro en feeds de StatsPerform",
-          "en": "Intermittent drops and black screens on StatsPerform feeds",
-          "pt": "Quedas intermitentes e telas pretas em feeds da StatsPerform"
+          "es": "Cortes intermitentes y pantallas en negro en feeds de un proveedor externo",
+          "en": "Intermittent drops and black screens on a third-party provider's feeds",
+          "pt": "Quedas intermitentes e telas pretas em feeds de um provedor externo"
         }
       ],
       "learnings": {
@@ -1492,6 +1510,7 @@
     {
       "id": "internal-training",
       "category": "software",
+      "type": "docs",
       "title": "Internal Training Programmes",
       "summary": {
         "es": "Formación interna para que el conocimiento de streaming y de automatización deje de depender de unas pocas personas.",
@@ -1544,6 +1563,7 @@
     {
       "id": "rag-assistant",
       "category": "software",
+      "type": "backend",
       "title": "RAG AI Assistant",
       "summary": {
         "es": "Asistente de IA con recuperación aumentada sobre la documentación del transcoder, conectado a Slack para que el equipo pregunte donde ya trabaja.",
@@ -1611,6 +1631,7 @@
     {
       "id": "media-pipeline",
       "category": "software",
+      "type": "media",
       "title": "Media Pipeline in Rust & GStreamer",
       "summary": {
         "es": "Trabajo sobre el pipeline de transcodificación: plugins propios en Rust, migración del transcoder a su segunda versión y nuevas salidas de entrega.",
@@ -1685,6 +1706,7 @@
     {
       "id": "video-integrations",
       "category": "software",
+      "type": "backend",
       "title": "Video Platform Integrations",
       "summary": {
         "es": "Integración de nuevos proveedores y fuentes de video en la plataforma interna: estados de ingesta, claves de stream, APIs externas e ingesta histórica.",
@@ -1700,9 +1722,9 @@
         "Kotlin",
         "Java",
         "Temporal",
-        "Heimdallr",
-        "Ingress Manager",
-        "Dolby",
+        "Provider orchestration",
+        "Ingest service",
+        "Ingest provider",
         "RTMP",
         "TypeScript"
       ],
@@ -1724,9 +1746,9 @@
       },
       "features": [
         {
-          "es": "Estados de Dolby en la fase de ingesta y migración de proveedores",
-          "en": "Dolby states in the ingest stage and provider migration",
-          "pt": "Estados da Dolby na fase de ingestão e migração de provedores"
+          "es": "Estados del proveedor de ingesta en la fase de entrada y migración de proveedores",
+          "en": "Ingest provider states in the ingest stage and provider migration",
+          "pt": "Estados do provedor de ingestão na fase de entrada e migração de provedores"
         },
         {
           "es": "Claves de stream RTMP gestionadas desde la plataforma",
@@ -1734,19 +1756,19 @@
           "pt": "Chaves de stream RTMP gerenciadas pela plataforma"
         },
         {
-          "es": "Integración de la API de video de InFront y de su API de sindicación",
-          "en": "InFront video API and its syndication API integrated",
-          "pt": "Integração da API de vídeo da InFront e de sua API de sindicação"
+          "es": "Integración de la API de video de un proveedor externo y de su API de sindicación",
+          "en": "A third-party provider's video API and its syndication API integrated",
+          "pt": "Integração da API de vídeo de um provedor externo e de sua API de sindicação"
         },
         {
-          "es": "Ingesta de Scoreplay para SFL con backfill de la temporada 2025/26 mediante workers de Temporal",
-          "en": "Scoreplay ingest for SFL with a 2025/26 season backfill through Temporal workers",
-          "pt": "Ingestão do Scoreplay para SFL com backfill da temporada 2025/26 via workers do Temporal"
+          "es": "Ingesta de contenido de una liga con backfill de la temporada 2025/26 mediante workers de Temporal",
+          "en": "League content ingest with a 2025/26 season backfill through Temporal workers",
+          "pt": "Ingestão de conteúdo de uma liga com backfill da temporada 2025/26 via workers do Temporal"
         },
         {
-          "es": "Veritas como alternativa de respaldo en el pipeline, con su documentación integrada",
-          "en": "Veritas as a fallback in the pipeline, with its documentation integrated",
-          "pt": "Veritas como alternativa de reserva no pipeline, com sua documentação integrada"
+          "es": "Interfaz de administración interna como alternativa de respaldo en el pipeline, con su documentación integrada",
+          "en": "Internal admin UI as a fallback in the pipeline, with its documentation integrated",
+          "pt": "Interface de administração interna como alternativa de reserva no pipeline, com sua documentação integrada"
         }
       ],
       "_tickets": [
@@ -1762,6 +1784,7 @@
     {
       "id": "cdn-logs",
       "category": "software",
+      "type": "backend",
       "title": "Serverless CDN Log Processing",
       "summary": {
         "es": "Procesamiento sin servidor de los logs de la CDN para alimentar al proveedor de DRM con la información que necesita.",
@@ -1777,7 +1800,7 @@
         "Python",
         "AWS Lambda",
         "AWS SQS",
-        "EZDRM",
+        "DRM platform",
         "CDN"
       ],
       "year": 2024,
@@ -1815,6 +1838,7 @@
     {
       "id": "webrtc-infra",
       "category": "software",
+      "type": "infra",
       "title": "Streaming Infrastructure & Performance",
       "summary": {
         "es": "Decisiones de arquitectura respaldadas con pruebas: enfoque de WebRTC, sesiones en despliegues con varias réplicas y coste por rendimiento en la nube.",
@@ -1884,6 +1908,7 @@
     {
       "id": "tech-docs",
       "category": "software",
+      "type": "docs",
       "title": "Technical Documentation & Knowledge Sharing",
       "summary": {
         "es": "Documentación del pipeline de video de punta a punta y sesiones técnicas internas, para que entender el sistema no dependa de preguntar a la persona correcta.",

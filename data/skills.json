@@ -465,7 +465,7 @@
           ]
         },
         {
-          "name": "Elecard",
+          "name": "Stream QC suite",
           "description": {
             "es": "Control de calidad de stream y señales objetivas de salud.",
             "en": "Stream quality control and objective health signals.",

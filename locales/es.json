@@ -43,6 +43,15 @@
       "githubCard": "Portafolio de GitHub",
       "githubCardHint": "Todos mis repositorios públicos",
       "backToSoftware": "Ver proyectos de software"
+    },
+    "types": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "media": "Media y streaming",
+      "infra": "Infraestructura",
+      "data": "Datos y automatización",
+      "observability": "Observabilidad y operaciones",
+      "docs": "Documentación y formación"
     }
   },
   "filters": {
