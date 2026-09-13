@@ -22,7 +22,25 @@
     "title": "Portfolio",
     "subtitle": "Browse projects by category",
     "programmingBtn": "Programming Portfolio",
-    "softwareHint": "Extra button for programming portfolio is located below."
+    "softwareHint": "Extra button for programming portfolio is located below.",
+    "panel": {
+      "description": "Description",
+      "details": "Details",
+      "tech": "Technologies",
+      "features": "Features",
+      "learnings": "Learnings",
+      "results": "Results",
+      "gallery": "Gallery",
+      "client": "Client",
+      "discipline": "Discipline",
+      "team": "Team",
+      "contribution": "Contribution",
+      "state": "Status",
+      "demo": "Demo",
+      "portfolio": "Portfolio",
+      "video": "Video",
+      "repo": "Code"
+    }
   },
   "filters": {
     "all": "All",

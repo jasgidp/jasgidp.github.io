@@ -55,6 +55,16 @@
     if (window.applyI18n) window.applyI18n(tabsNav);
   }
 
+  /* Resuelve un texto que puede venir plano o como {es,en,pt}.
+     Igual que en projects.js y skills.js: los datos ya traducidos y los
+     que aún no lo están conviven sin romper nada. */
+  function tx(value, fallback){
+    if (value == null) return fallback || '';
+    if (typeof value === 'string') return value;
+    const l = document.documentElement.lang || 'es';
+    return value[l] || value.en || value.es || fallback || '';
+  }
+
   // Convierte "2023-01" en un objeto Date para poder ordenar
   function parseDate(d){ if(!d) return null; const [y,m] = String(d).split('-'); const Y=+y||0; const M=(+m||1)-1; return new Date(Y,M,1); }
 
@@ -108,7 +118,7 @@
   }
 
   // ¿La entrada coincide con el texto del buscador?
-  function matchSearch(it, q){ if(!q) return true; const hay=[it.role,it.org,it.start,it.end,it.location,it.employment,...(it.skills||[]),...(it.bullets||[])].filter(Boolean).join(' \n ').toLowerCase(); return hay.includes(q.toLowerCase()); }
+  function matchSearch(it, q){ if(!q) return true; const hay=[tx(it.role),it.org,it.start,it.end,tx(it.location),tx(it.employment),...(it.skills||[]),...((it.bullets||[]).map(b=>tx(b)))].filter(Boolean).join(' \n ').toLowerCase(); return hay.includes(q.toLowerCase()); }
 
   // Dibuja la sección activa
   function renderSection(sectionKey) {
@@ -132,9 +142,9 @@
             const startTxt = formatDate(it.start);
             const range = startTxt ? `${startTxt} – ${endTxt}` : '';
             const dur = formatDuration(it.start, it.end);
-            const bullets = (it.bullets || []).map(b => `<li>${b}</li>`).join('');
+            const bullets = (it.bullets || []).map(b => `<li>${tx(b)}</li>`).join('');
             // Línea secundaria: jornada y lugar, solo si existen
-            const metaLine = [it.employment, it.location].filter(Boolean).join(' · ');
+            const metaLine = [tx(it.employment), tx(it.location)].filter(Boolean).join(' · ');
             const skills = (it.skills || []).map(sk => `<span class="tl-skill">${sk}</span>`).join('');
             return `
               <li class="timeline-item reveal">
@@ -142,7 +152,7 @@
                   <div class="timeline-header">
                     <div class="title-wrap">
                       <i class="timeline-icon ${meta.icon}" aria-hidden="true"></i>
-                      <h3>${it.role} — <span class="org">${it.org}</span></h3>
+                      <h3>${tx(it.role)} — <span class="org">${it.org}</span></h3>
                     </div>
                     ${range ? `<span class="dates">${range}${dur ? `<span class="duration">${dur}</span>` : ''}</span>` : ''}
                   </div>

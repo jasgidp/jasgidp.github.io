@@ -33,6 +33,26 @@
      valor por defecto, así que una portada que falte no rompe nada,
      simplemente no se nota.
      ------------------------------------------------------------ */
+  /* Resuelve un campo de datos que puede venir como texto plano o como
+     {es,en,pt}. Igual que en skills.js: así los proyectos ya traducidos
+     conviven con los que todavía están en un solo idioma. */
+  function tx(value, fallback){
+    if (value == null) return fallback || '';
+    if (typeof value === 'string') return value;
+    const lang = document.documentElement.lang || 'es';
+    return value[lang] || value.en || value.es || fallback || '';
+  }
+  // Igual, para listas de textos (features, results…)
+  function txList(arr){
+    return (Array.isArray(arr) ? arr : []).map(v => tx(v, '')).filter(Boolean);
+  }
+
+  // Etiqueta traducida del panel. window.t lo expone i18n.js; si aún no
+  // cargó, devuelve el texto de respaldo en español.
+  function L(key, fallback){
+    return (window.t ? window.t('portfolio.panel.' + key, fallback) : fallback);
+  }
+
   const COVER_DIR = 'assets/img/brand/covers/';
   const coverReady = {}; // categoría -> true cuando la imagen cargó
 
@@ -104,7 +124,7 @@
         techText = groups.join(' ');
       }
       const tagText = Array.isArray(p.tags) ? p.tags.join(' ') : '';
-      const hay = [p.title, p.summary, p.category, techText, tagText, p.role, p.client, p.discipline, p.id].join(' ').toLowerCase();
+      const hay = [p.title, tx(p.summary), p.category, techText, tagText, p.role, tx(p.client), tx(p.discipline), p.id].join(' ').toLowerCase();
       return hay.includes(state.q);
     }
 
@@ -185,29 +205,29 @@
       })();
 
       const links = `
-        ${p.links?.demo ? `<a href="${p.links.demo}" target="_blank" rel="noopener">Demo</a>` : ''}
-        ${p.links?.portfolio ? `<a href="${p.links.portfolio}" target="_blank" rel="noopener">Portafolio</a>` : ''}
-        ${p.links?.video ? `<a href="${p.links.video}" target="_blank" rel="noopener">Video</a>` : ''}
-        ${p.links?.repo ? `<a href="${p.links.repo}" target="_blank" rel="noopener">Código</a>` : ''}
+        ${p.links?.demo ? `<a href="${p.links.demo}" target="_blank" rel="noopener">${L('demo','Demo')}</a>` : ''}
+        ${p.links?.portfolio ? `<a href="${p.links.portfolio}" target="_blank" rel="noopener">${L('portfolio','Portafolio')}</a>` : ''}
+        ${p.links?.video ? `<a href="${p.links.video}" target="_blank" rel="noopener">${L('video','Video')}</a>` : ''}
+        ${p.links?.repo ? `<a href="${p.links.repo}" target="_blank" rel="noopener">${L('repo','Código')}</a>` : ''}
       `;
 
       const badges = `
         ${isNew(p) ? `<span class="badge badge--nuevo"><i class="ri-sparkling-line" aria-hidden="true"></i><span data-i18n="filters.nuevo">Nuevo</span></span>` : ''}
         ${p.category ? `<span class="badge"><i class="ri-price-tag-3-line" aria-hidden="true"></i>${p.category}</span>` : ''}
-        ${p.status ? `<span class="badge badge--status"><i class="ri-checkbox-circle-line" aria-hidden="true"></i>${p.status}</span>` : ''}
+        ${tx(p.status) ? `<span class="badge badge--status"><i class="ri-checkbox-circle-line" aria-hidden="true"></i>${tx(p.status)}</span>` : ''}
         ${p.importance ? `<span class="badge badge--importance"><i class="ri-star-smile-line" aria-hidden="true"></i>${p.importance}</span>` : ''}
       `;
 
       const metaItems = [
-        p.client ? `<div class="meta-item"><label>Cliente</label><div class="value">${p.client}</div></div>` : '',
-        p.discipline ? `<div class="meta-item"><label>Disciplina</label><div class="value">${p.discipline}</div></div>` : '',
-        p.team ? `<div class="meta-item"><label>Integrantes</label><div class="value">${Array.isArray(p.team)? p.team.join(', ') : p.team}</div></div>` : '',
-        p.contribution ? `<div class="meta-item"><label>Contribución</label><div class="value">${p.contribution}</div></div>` : '',
-        p.state ? `<div class="meta-item"><label>Estado</label><div class="value">${p.state}</div></div>` : ''
+        tx(p.client) ? `<div class="meta-item"><label>${L('client','Cliente')}</label><div class="value">${tx(p.client)}</div></div>` : '',
+        tx(p.discipline) ? `<div class="meta-item"><label>${L('discipline','Disciplina')}</label><div class="value">${tx(p.discipline)}</div></div>` : '',
+        p.team ? `<div class="meta-item"><label>${L('team','Integrantes')}</label><div class="value">${Array.isArray(p.team)? p.team.join(', ') : p.team}</div></div>` : '',
+        tx(p.contribution) ? `<div class="meta-item"><label>${L('contribution','Contribución')}</label><div class="value">${tx(p.contribution)}</div></div>` : '',
+        p.state ? `<div class="meta-item"><label>${L('state','Estado')}</label><div class="value">${p.state}</div></div>` : ''
       ].filter(Boolean).join('');
 
-      const features = (p.features||[]).map(f => `<li>${f}</li>`).join('');
-      const results = (p.results||[]).map(r => `<li>${r}</li>`).join('');
+      const features = txList(p.features).map(f => `<li>${f}</li>`).join('');
+      const results = txList(p.results).map(r => `<li>${r}</li>`).join('');
       const gallery = (Array.isArray(p.images)? p.images.slice(0,6) : []).map((src, i) => `<img src="${src}" alt="${p.title} ${i+1}" loading="lazy" tabindex="0" role="button" aria-label="Ampliar imagen ${i+1} de ${p.title}">`).join('');
 
       const panel = document.createElement('div');
@@ -223,20 +243,20 @@
           </div>
           <div class="project-badges">${badges}</div>
         </div>
-        ${p.summary ? `<div class="section"><div class="section-header"><h4>Descripción</h4></div><p class="project-summary">${p.summary}</p></div>` : ''}
+        ${tx(p.summary) ? `<div class="section"><div class="section-header"><h4>${L('description','Descripción')}</h4></div><p class="project-summary">${tx(p.summary)}</p></div>` : ''}
         <div class="project-sections">
           <div class="section">
-            <div class="section-header"><h4>Detalles</h4></div>
+            <div class="section-header"><h4>${L('details','Detalles')}</h4></div>
             <div class="meta-grid">${metaItems}</div>
           </div>
           <div class="section">
-            <div class="section-header"><h4>Tecnologías</h4></div>
+            <div class="section-header"><h4>${L('tech','Tecnologías')}</h4></div>
             <div class="chips">${techChips}</div>
           </div>
-          ${features ? `<div class="section"><div class="section-header"><h4>Características</h4></div><ul class="feature-list">${features}</ul></div>` : ''}
-          ${p.learnings ? `<div class="section"><div class="section-header"><h4>Aprendizajes</h4></div><p>${p.learnings}</p></div>` : ''}
-          ${results ? `<div class="section"><div class="section-header"><h4>Resultados</h4></div><ul class="result-list">${results}</ul></div>` : ''}
-          ${gallery ? `<div class="section"><div class="section-header"><h4>Galería</h4></div><div class="gallery">${gallery}</div></div>` : ''}
+          ${features ? `<div class="section"><div class="section-header"><h4>${L('features','Características')}</h4></div><ul class="feature-list">${features}</ul></div>` : ''}
+          ${tx(p.learnings) ? `<div class="section"><div class="section-header"><h4>${L('learnings','Aprendizajes')}</h4></div><p>${tx(p.learnings)}</p></div>` : ''}
+          ${results ? `<div class="section"><div class="section-header"><h4>${L('results','Resultados')}</h4></div><ul class="result-list">${results}</ul></div>` : ''}
+          ${gallery ? `<div class="section"><div class="section-header"><h4>${L('gallery','Galería')}</h4></div><div class="gallery">${gallery}</div></div>` : ''}
           ${links.trim() ? `<div class="section"><div class="link-buttons">${links}</div></div>` : ''}
         </div>
       `;
@@ -421,6 +441,17 @@
 
     // Cada tecla en el buscador re-filtra
     if (searchInput) searchInput.addEventListener('input', (e) => { state.q = normalize(e.target.value); render(); });
+
+    // Al cambiar de idioma hay que rehacer el panel: sus títulos y
+    // etiquetas se generan aquí, no llevan data-i18n en el HTML.
+    document.addEventListener('i18n:updated', () => {
+      const reopen = openProjectId;
+      render();
+      if (reopen) {
+        const card = container.querySelector(`.project-tile[data-id="${CSS.escape(reopen)}"]`);
+        if (card) card.click();
+      }
+    });
 
     render(); // primer dibujado
     openFromQuery(); // ?p=<id> → abrir ese proyecto directamente
