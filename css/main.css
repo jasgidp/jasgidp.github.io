@@ -758,7 +758,9 @@ a {
    el atributo [hidden].
    ============================================================ */
 .lightbox {
-  position: fixed; inset: 0; z-index: 2000;
+  /* top/right/bottom/left además de inset: Safari < 14.1 ignora la
+     forma corta y sin offsets un position:fixed cae al final del flujo. */
+  position: fixed; inset: 0; top: 0; right: 0; bottom: 0; left: 0; z-index: 2000;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 24px;
   background: rgba(2, 6, 23, .92);

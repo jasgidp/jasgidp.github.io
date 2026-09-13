@@ -10,7 +10,7 @@
     "contact": "Contact"
   },
   "hero": {
-    "role": "Product Design Engineer · Software Development Specialist · Focused on Streaming",
+    "role": "Product Design Engineer · Software Development Specialist focused on Streaming · Master’s Student",
     "ctaPortfolio": "View Portfolio",
     "ctaCV": "Download CV",
     "ctaContact": "Contact",
@@ -36,7 +36,7 @@
   },
   "about": {
     "title": "About",
-    "bio": "Product Design Engineer and Software Development Specialist focused on streaming, with hands-on experience in live support, Python automation and Grafana monitoring. Specialist in Software Development from EAFIT, with an academic exchange at USP (Brazil). I have led data and internal tooling projects at Genius Sports, plus work across graphic design, renewable energy research and interactive experiences. I focus on useful, measurable and well-designed solutions for users and technical teams.",
+    "bio": "Product Design Engineer and Software Development Specialist focused on streaming, with hands-on experience in live support, Python automation and Grafana monitoring. Specialist in Software Development from EAFIT and Master’s in Engineering student, with an academic exchange at USP (Brazil). I have led data and internal tooling projects at Genius Sports, plus work across graphic design, renewable energy research and interactive experiences. I focus on useful, measurable and well-designed solutions for users and technical teams.",
     "highlightsTitle": "Highlights",
     "highlights": [
       "Python automation for operations and tooling",

@@ -10,7 +10,7 @@
     "contact": "Contato"
   },
   "hero": {
-    "role": "Engenheiro de Design de Produto · Especialista em Desenvolvimento de Software · Focado em Streaming",
+    "role": "Engenheiro de Design de Produto · Especialista em Desenvolvimento de Software focado em Streaming · Mestrando",
     "ctaPortfolio": "Ver Portfólio",
     "ctaCV": "Baixar CV",
     "ctaContact": "Contato",
@@ -36,7 +36,7 @@
   },
   "about": {
     "title": "Sobre",
-    "bio": "Engenheiro de Design de Produto e especialista em Desenvolvimento de Software focado em streaming, com experiência em suporte ao vivo, automação em Python e monitoramento com Grafana. Especialista em Desenvolvimento de Software pela EAFIT, com intercâmbio acadêmico na USP (Brasil). Liderei projetos de dados e ferramentas internas na Genius Sports e atuei em design gráfico, pesquisa em energias renováveis e experiências interativas. Busco soluções úteis, mensuráveis e bem projetadas para usuários e equipes técnicas.",
+    "bio": "Engenheiro de Design de Produto e especialista em Desenvolvimento de Software focado em streaming, com experiência em suporte ao vivo, automação em Python e monitoramento com Grafana. Especialista em Desenvolvimento de Software pela EAFIT e mestrando em Engenharia, com intercâmbio acadêmico na USP (Brasil). Liderei projetos de dados e ferramentas internas na Genius Sports e atuei em design gráfico, pesquisa em energias renováveis e experiências interativas. Busco soluções úteis, mensuráveis e bem projetadas para usuários e equipes técnicas.",
     "highlightsTitle": "Destaques",
     "highlights": [
       "Automação em Python para operações e ferramentas",

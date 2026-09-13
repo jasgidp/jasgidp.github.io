@@ -154,6 +154,15 @@
   "education": [
     {
       "org": "Universidad EAFIT",
+      "role": "Maestría en Ingeniería",
+      "start": "2024-01",
+      "end": null,
+      "bullets": [
+        "Enfoque: sostenibilidad y desarrollo de software."
+      ]
+    },
+    {
+      "org": "Universidad EAFIT",
       "role": "Especialización en Desarrollo de Software",
       "start": "2024-01",
       "end": "2026-12",
