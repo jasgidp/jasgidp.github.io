@@ -25,12 +25,11 @@
   const FILES = {
     timeline: 'data/timeline.json',
     skills:   'data/skills.json',
-    projects: 'data/projects.json',
-    code:     'data/code-projects.json'
+    projects: 'data/projects.json'
   };
 
   // store[tab] = { data: objeto JSON, sha: versión en GitHub }
-  const store = { timeline: null, skills: null, projects: null, code: null };
+  const store = { timeline: null, skills: null, projects: null };
   // dirty[tab] = true si hay cambios sin guardar en esa pestaña
   const dirty = { timeline: false, skills: false, projects: false, code: false };
   let activeTab = 'timeline';           // pestaña visible ahora
@@ -307,7 +306,6 @@
     if (activeTab === 'timeline') renderTimeline(c, actions);
     else if (activeTab === 'skills') renderSkills(c, actions);
     else if (activeTab === 'projects') renderProjects(c, actions);
-    else if (activeTab === 'code') renderCode(c, actions);
     updateSaveState();
   }
 
@@ -632,55 +630,6 @@
     };
   }
 
-  /* ============================================================
-     EDITOR DE PROYECTOS DE CÓDIGO (data/code-projects.json)
-     Lista simple: título, descripción, repo, demo y altura del iframe.
-     ============================================================ */
-  function renderCode(c, actions) {
-    const list = store.code.data.projects || (store.code.data.projects = []);
-    actions.innerHTML = `<button class="admin-btn primary small" id="cp-add"><i class="ri-add-line"></i> Agregar proyecto</button>`;
-    $('cp-add').onclick = () => {
-      list.push({ id: 'code-' + Date.now().toString(36), title: 'Nuevo proyecto', description: '', repo: '', demo: '', demoHeight: 400 });
-      markDirty(); renderCode(c, actions);
-    };
-
-    c.innerHTML = list.map((p, i) => `
-      <div class="admin-card" data-idx="${i}">
-        <div class="admin-card-head">
-          <span class="admin-card-title">${esc(p.title) || '(sin título)'}</span>
-          <div class="admin-card-actions">
-            <button class="admin-btn ghost small" data-act="up" ${i === 0 ? 'disabled' : ''}><i class="ri-arrow-up-line"></i></button>
-            <button class="admin-btn ghost small" data-act="down" ${i === list.length - 1 ? 'disabled' : ''}><i class="ri-arrow-down-line"></i></button>
-            <button class="admin-btn danger small" data-act="del"><i class="ri-delete-bin-line"></i></button>
-          </div>
-        </div>
-        <div class="admin-grid-2">
-          <div class="admin-field"><label>ID (slug)</label><input data-field="id" value="${esc(p.id)}"></div>
-          <div class="admin-field"><label>Título</label><input data-field="title" value="${esc(p.title)}"></div>
-        </div>
-        <div class="admin-field"><label>Descripción</label><textarea data-field="description">${esc(p.description)}</textarea></div>
-        <div class="admin-grid-2">
-          <div class="admin-field"><label>Repositorio (URL)</label><input data-field="repo" value="${esc(p.repo)}"></div>
-          <div class="admin-field"><label>Demo (URL, opcional)</label><input data-field="demo" value="${esc(p.demo)}"></div>
-          <div class="admin-field"><label>Altura del demo (px)</label><input data-field="demoHeight" type="number" value="${esc(p.demoHeight)}"></div>
-        </div>
-      </div>`).join('') || '<p class="admin-empty">No hay proyectos de código.</p>';
-
-    c.oninput = (e) => {
-      const card = e.target.closest('[data-idx]'); if (!card) return;
-      const p = list[+card.dataset.idx]; const f = e.target.dataset.field; if (!f) return;
-      if (f === 'demoHeight') p.demoHeight = e.target.value === '' ? undefined : Number(e.target.value);
-      else p[f] = e.target.value;
-      markDirty();
-    };
-    c.onclick = (e) => {
-      const btn = e.target.closest('[data-act]'); if (!btn) return;
-      const card = btn.closest('[data-idx]'); const i = +card.dataset.idx;
-      if (btn.dataset.act === 'del') { if (confirm('¿Borrar este proyecto?')) { list.splice(i, 1); markDirty(); renderCode(c, actions); } }
-      else if (btn.dataset.act === 'up' && i > 0) { [list[i - 1], list[i]] = [list[i], list[i - 1]]; markDirty(); renderCode(c, actions); }
-      else if (btn.dataset.act === 'down' && i < list.length - 1) { [list[i + 1], list[i]] = [list[i], list[i + 1]]; markDirty(); renderCode(c, actions); }
-    };
-  }
 
   /* ============================================================
      GUARDAR

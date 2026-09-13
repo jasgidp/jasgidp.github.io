@@ -18,7 +18,6 @@
   const container = document.getElementById('projects-container');
   // En portfolio.html el buscador se llama timeline-search (reutilizado)
   const searchInput = document.getElementById('projects-search') || document.getElementById('timeline-search');
-  const softwareExtra = document.getElementById('software-extra');
   if (!container) return; // solo corre en portfolio.html
 
   /* ------------------------------------------------------------
@@ -150,18 +149,28 @@
       if ((wanted && !current) || (!wanted && current)) render();
     }
 
-    // Muestra el botón hacia programming.html solo si el filtro es "software"
-    function toggleSoftwareExtra(){
-      if (!softwareExtra) return;
-      if (state.filter === 'software') softwareExtra.hidden = false; else softwareExtra.hidden = true;
+    /* Con el filtro "software" añadimos una tarjeta más que lleva al
+       listado automático de repositorios de GitHub. Va en la propia
+       rejilla, como una tarjeta cualquiera, en vez de como un botón
+       suelto debajo. */
+    function githubCardHtml(){
+      if (state.filter !== 'software') return '';
+      return `
+        <a class="project-card project-tile github-tile" href="programming.html" data-category="software"
+           aria-label="${L('githubCard','Portafolio de GitHub')}">
+          <div class="project-overlay">
+            <h3 class="project-title"><i class="ri-github-fill" aria-hidden="true"></i> ${L('githubCard','Portafolio de GitHub')}</h3>
+            <span class="project-year">${L('githubCardHint','Todos mis repositorios públicos')}</span>
+          </div>
+        </a>`;
     }
 
     // Dibuja (o re-dibuja) todas las tarjetas visibles
     function render(){
       const items = sortProjects(projects.filter(matches));
-      if (!items.length) { container.innerHTML = bannerHtml() + '<p class="empty-state">No projects found.</p>'; toggleSoftwareExtra(); return; }
+      if (!items.length) { container.innerHTML = bannerHtml() + '<p class="empty-state">No projects found.</p>'; return; }
 
-      container.innerHTML = bannerHtml() + items.map(p => {
+      container.innerHTML = bannerHtml() + githubCardHtml() + items.map(p => {
         const raw = p.thumb || (Array.isArray(p.images) && p.images[0]) || '';
         // Si la imagen es el logo genérico, usamos un degradado CSS en su lugar
         const isPlaceholder = !raw || /(^|\/)HOme\.png$/i.test(raw) || /assets\/img\/brand\/HOme\.png$/i.test(raw);
@@ -183,7 +192,6 @@
       // Al re-renderizar, cualquier panel abierto desaparece
       openPanel = null;
       openProjectId = null;
-      toggleSoftwareExtra();
       if (window.applyI18n) window.applyI18n(document);
     }
 
@@ -203,6 +211,19 @@
         ];
         return flat.map(t => `<span class="chip">${t}</span>`).join('');
       })();
+
+      /* Vista previa en vivo: si el proyecto tiene demo, un botón la
+         incrusta en un iframe dentro del propio panel. El iframe se
+         crea vacío y solo carga la web al pulsar, para no descargar
+         cuatro sitios enteros cada vez que se abre el portafolio. */
+      const preview = p.links?.demo ? `
+        <div class="section project-preview">
+          <button type="button" class="btn orange toggle-preview" aria-expanded="false">
+            <i class="ri-eye-line" aria-hidden="true"></i><span>${L('preview','Ver demo')}</span>
+          </button>
+          <iframe class="iframe" data-src="${p.links.demo}" title="${p.title}"
+                  width="100%" height="${p.demoHeight || 400}" loading="lazy" hidden></iframe>
+        </div>` : '';
 
       const links = `
         ${p.links?.demo ? `<a href="${p.links.demo}" target="_blank" rel="noopener">${L('demo','Demo')}</a>` : ''}
@@ -258,6 +279,7 @@
           ${results ? `<div class="section"><div class="section-header"><h4>${L('results','Resultados')}</h4></div><ul class="result-list">${results}</ul></div>` : ''}
           ${gallery ? `<div class="section"><div class="section-header"><h4>${L('gallery','Galería')}</h4></div><div class="gallery">${gallery}</div></div>` : ''}
           ${links.trim() ? `<div class="section"><div class="link-buttons">${links}</div></div>` : ''}
+          ${preview}
         </div>
       `;
       return panel;
@@ -269,7 +291,19 @@
        proyecto, así que al llegar hay que abrir ese panel solo.
        ------------------------------------------------------------ */
     function openFromQuery(){
-      const id = new URLSearchParams(location.search).get('p');
+      const params = new URLSearchParams(location.search);
+
+      // ?filter=<categoría> deja la página ya filtrada (lo usa el enlace
+      // de vuelta desde la página de repositorios de GitHub).
+      const f = params.get('filter');
+      if (f && document.querySelector(`.filters [data-filter="${f}"]`)) {
+        state.filter = f;
+        document.querySelectorAll('.filters [data-filter]').forEach(b =>
+          b.classList.toggle('active', b.getAttribute('data-filter') === f));
+        render();
+      }
+
+      const id = params.get('p');
       if (!id) return;
       const p = projects.find(pp => pp.id === id);
       if (!p || p.visible === false) return;
@@ -378,6 +412,23 @@
       }
       return { open };
     })();
+
+    /* Mostrar / ocultar la vista previa incrustada. El src se asigna
+       la primera vez que se pulsa: así la demo no se descarga hasta
+       que alguien la pide. */
+    container.addEventListener('click', (e) => {
+      const btn = e.target.closest('.toggle-preview');
+      if (!btn) return;
+      e.stopPropagation();
+      const frame = btn.parentElement.querySelector('iframe.iframe');
+      if (!frame) return;
+      const show = frame.hidden;
+      if (show && !frame.src) frame.src = frame.dataset.src || '';
+      frame.hidden = !show;
+      btn.setAttribute('aria-expanded', show ? 'true' : 'false');
+      const label = btn.querySelector('span');
+      if (label) label.textContent = show ? L('hidePreview','Ocultar demo') : L('preview','Ver demo');
+    });
 
     // Clic en una miniatura de la galería → abrir el lightbox
     container.addEventListener('click', (e) => {

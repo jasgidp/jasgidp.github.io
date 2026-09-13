@@ -1481,6 +1481,48 @@ body { background: transparent; }
 /* El banner es un hijo de la rejilla que ocupa la fila entera, así
    comparte los mismos bordes que las fichas sin calcular nada. */
 .category-banner { grid-column: 1 / -1; }
+
+/* Tarjeta que lleva al listado de repositorios de GitHub. Va en la
+   rejilla como una ficha más cuando el filtro activo es "software",
+   pero se distingue: sin foto, borde punteado y color de marca. */
+.project-tile.github-tile {
+  background: var(--surface);
+  border: 1px dashed var(--brand);
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.project-tile.github-tile::before { background: none; }   /* sin velo oscuro */
+.project-tile.github-tile:hover { background: var(--brand-soft); transform: translateY(-3px); }
+/* El overlay normal es una fila (título a la izquierda, año a la derecha)
+   con el título recortado a una línea. Aquí lo pasamos a columna centrada
+   y quitamos el recorte, o el texto se corta a media palabra. */
+.project-tile.github-tile .project-overlay {
+  position: static; padding: 16px; background: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; text-align: center; width: 100%;
+}
+.project-tile.github-tile .project-title {
+  color: var(--brand-strong); text-shadow: none;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  white-space: normal; overflow: visible; text-overflow: clip;
+  font-size: 15px; line-height: 1.3;
+}
+/* Sin el puntito de categoría: esta tarjeta no es un proyecto */
+.project-tile.github-tile .project-title::before { display: none; }
+.project-tile.github-tile .project-year {
+  color: var(--text-muted); text-shadow: none; line-height: 1.35;
+}
+
+/* Vista previa en vivo dentro del panel de detalle */
+.project-preview .toggle-preview { margin-bottom: 10px; }
+.project-preview iframe.iframe {
+  display: block; width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.project-preview iframe.iframe[hidden] { display: none; }
 .category-banner[hidden] { display: none; }
 .category-banner-img {
   width: 100%;

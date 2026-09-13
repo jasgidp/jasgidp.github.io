@@ -1,5 +1,5 @@
 {
-  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, tags (p.ej. [\"nuevo\"]), y campos opcionales (status, client, features…). Imágenes en assets/img/projects/{category}/{id}/. visible:false oculta. order: menor = primero.",
+  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, tags (p.ej. [\"nuevo\"]), y campos opcionales (status, client, features, demoHeight…). Si links.demo existe, el panel muestra un botón de vista previa que incrusta la demo en un iframe de demoHeight píxeles. Imágenes en assets/img/projects/{category}/{id}/. visible:false oculta. order: menor = primero.",
   "projects": [
     {
       "id": "aiesec-awards",
@@ -879,6 +879,128 @@
       "links": {
         "repo": ""
       }
+    },
+    {
+      "id": "form-validation",
+      "category": "software",
+      "title": "Project Form Validation",
+      "summary": {
+        "es": "Validación de formularios en el cliente con avisos en tiempo real.",
+        "en": "Client-side form validation with real-time feedback.",
+        "pt": "Validação de formulários no cliente com avisos em tempo real."
+      },
+      "discipline": {
+        "es": "Desarrollo web",
+        "en": "Web development",
+        "pt": "Desenvolvimento web"
+      },
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "year": 2022,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "links": {
+        "demo": "https://form-validator-jasg.netlify.app/",
+        "repo": "https://github.com/jasgidp/Validacion-formulario"
+      },
+      "demoHeight": 900
+    },
+    {
+      "id": "login-page",
+      "category": "software",
+      "title": "Project Login",
+      "summary": {
+        "es": "Página de inicio de sesión responsive: maquetación y estilos.",
+        "en": "Responsive login page layout and styling.",
+        "pt": "Página de login responsiva: layout e estilos."
+      },
+      "discipline": {
+        "es": "Desarrollo web",
+        "en": "Web development",
+        "pt": "Desenvolvimento web"
+      },
+      "tech": [
+        "HTML",
+        "CSS"
+      ],
+      "year": 2022,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "links": {
+        "demo": "https://login-jasg.netlify.app/",
+        "repo": "https://github.com/jasgidp/Login-page"
+      },
+      "demoHeight": 400
+    },
+    {
+      "id": "weather-app",
+      "category": "software",
+      "title": "Project Weather App",
+      "summary": {
+        "es": "Aplicación del tiempo que consume una API pública de clima.",
+        "en": "Weather lookup app consuming a public weather API.",
+        "pt": "Aplicativo de tempo que consome uma API pública de clima."
+      },
+      "discipline": {
+        "es": "Desarrollo web",
+        "en": "Web development",
+        "pt": "Desenvolvimento web"
+      },
+      "tech": [
+        "JavaScript",
+        "APIs"
+      ],
+      "year": 2023,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "links": {
+        "demo": "https://weather-app-jasg.netlify.app/",
+        "repo": "https://github.com/jasgidp/weather-app"
+      },
+      "demoHeight": 400
+    },
+    {
+      "id": "social-network-draft",
+      "category": "software",
+      "title": "Project jasg Social Network Draft",
+      "summary": {
+        "es": "Primer borrador de la interfaz de una red social.",
+        "en": "Early draft of a social network UI.",
+        "pt": "Primeiro rascunho da interface de uma rede social."
+      },
+      "discipline": {
+        "es": "Desarrollo web",
+        "en": "Web development",
+        "pt": "Desenvolvimento web"
+      },
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "year": 2022,
+      "status": {
+        "es": "En curso",
+        "en": "In progress",
+        "pt": "Em andamento"
+      },
+      "links": {
+        "demo": "https://jasg-social-network-draft.netlify.app/",
+        "repo": "https://github.com/jasgidp/jasg-social-network-draft"
+      },
+      "demoHeight": 400
     },
     {
       "id": "center-box",

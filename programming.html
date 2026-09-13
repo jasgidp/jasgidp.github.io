@@ -5,8 +5,9 @@
   ------------------------------------------------------------
   ¿Qué es?  Portafolio de proyectos de código + repos de GitHub.
   ¿Para qué?
-    1) Lista curada (data/code-projects.json) con demos en vivo.
-    2) Todos tus repos públicos de GitHub (github-repos.js).
+    Listado automático de todos tus repos públicos de GitHub
+    (github-repos.js). Los proyectos de software trabajados están
+    en portfolio.html, con el filtro "Software".
   ============================================================
 -->
 <html lang="en">
@@ -49,27 +50,20 @@
 
 <main class="page">
   <section class="prog-section">
-      <h1 class="timeline-title" data-i18n="programming.title">Programming Portfolio</h1>
+      <h1 class="timeline-title" data-i18n="programming.title">Repositorios de GitHub</h1>
 
-      <!-- Buscador de proyectos curados (programming.js lo usa) -->
-      <section class="timeline-controls" aria-label="Programming controls">
-        <div class="search-wrap">
-          <i class="ri-search-line" aria-hidden="true"></i>
-          <input id="programming-search" type="search" placeholder="Search projects..." aria-label="Search programming projects" />
-        </div>
-      </section>
-
-      <p class="prog-intro" data-i18n="programming.intro">Selected software projects with live demos and code repositories. Use the button to toggle the live preview.</p>
+      <p class="prog-intro" data-i18n="programming.intro">Todos mis repositorios públicos, actualizados automáticamente desde GitHub.</p>
 
       <!--
-        Lista vacía: programming.js inserta cada proyecto como <li>.
-        El botón "Show demo" lo maneja script.js (muestra/oculta el iframe).
+        Los proyectos de software trabajados ya no viven aquí: están en
+        portfolio.html con el filtro "Software", junto al resto del
+        portafolio. Esta página es solo el listado automático de repos.
       -->
-      <ul class="programming-list" aria-live="polite"></ul>
+      <p class="prog-intro">
+        <a class="btn" href="portfolio.html?filter=software"><i class="ri-folder-3-line" aria-hidden="true"></i>
+          <span data-i18n="portfolio.panel.backToSoftware">Ver proyectos de software</span></a>
+      </p>
 
-      <!-- Sección automática de repositorios públicos de GitHub -->
-      <h2 class="repos-title" data-i18n="programming.reposTitle">Repositorios de GitHub</h2>
-      <p class="prog-intro" data-i18n="programming.reposIntro">Todos mis repositorios públicos, actualizados automáticamente desde GitHub.</p>
       <!-- Contenedor vacío: github-repos.js pinta las tarjetas aquí -->
       <div id="github-repos" class="projects-grid" aria-live="polite"></div>
   </section>
@@ -78,8 +72,6 @@
 <script src="js/analytics.js" defer></script>
 <script src="js/header.js" defer></script>
 <script src="js/i18n.js" defer></script>
-<!-- Proyectos curados desde code-projects.json -->
-<script src="js/programming.js" defer></script>
 <!-- Repos públicos desde la API de GitHub -->
 <script src="js/github-repos.js" defer></script>
 <!-- Toggle del demo iframe + menú móvil -->

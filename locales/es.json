@@ -21,8 +21,6 @@
   "portfolio": {
     "title": "Portafolio",
     "subtitle": "Explora mis proyectos por categoría",
-    "programmingBtn": "Portafolio de Programación",
-    "softwareHint": "El botón extra del portafolio de programación está abajo.",
     "panel": {
       "description": "Descripción",
       "details": "Detalles",
@@ -39,7 +37,12 @@
       "demo": "Demo",
       "portfolio": "Portafolio",
       "video": "Video",
-      "repo": "Código"
+      "repo": "Código",
+      "preview": "Ver demo",
+      "hidePreview": "Ocultar demo",
+      "githubCard": "Portafolio de GitHub",
+      "githubCardHint": "Todos mis repositorios públicos",
+      "backToSoftware": "Ver proyectos de software"
     }
   },
   "filters": {
@@ -87,13 +90,11 @@
     "noResults": "No hay elementos que coincidan con tu búsqueda."
   },
   "programming": {
-    "title": "Portafolio de Programación",
-    "intro": "Proyectos de software con demos en vivo y repositorios. Usa el botón para mostrar/ocultar la vista previa.",
+    "title": "Repositorios de GitHub",
+    "intro": "Todos mis repositorios públicos, actualizados automáticamente desde GitHub.",
     "preview": "Ver demo",
     "hide": "Ocultar demo",
-    "repo": "Repo",
-    "reposTitle": "Repositorios de GitHub",
-    "reposIntro": "Todos mis repositorios públicos, actualizados automáticamente desde GitHub."
+    "repo": "Repo"
   },
   "contact": {
     "title": "Contacto",
