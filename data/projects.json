@@ -4,6 +4,7 @@
     {
       "id": "aiesec-awards",
       "category": "graphic",
+      "type": "digital-experience",
       "title": "Awards – AIESEC",
       "summary": {
         "es": "Certificados y logo del evento inspirados en Rápido y Furioso, para la ceremonia que premia todo lo que logran los miembros a lo largo de un semestre.",
@@ -92,6 +93,7 @@
     {
       "id": "zonalito-2020-1",
       "category": "graphic",
+      "type": "digital-experience",
       "title": "Conference 2020 (1) – Zonalito",
       "summary": {
         "es": "Zonalito: cada actividad, decoración y desarrollo del evento se construye a partir de un concepto inicial basado en algo que ya existe.",
@@ -126,6 +128,7 @@
     {
       "id": "zonalito-2020-2",
       "category": "graphic",
+      "type": "digital-experience",
       "title": "Conference 2020 (2) – Big Heroes",
       "summary": {
         "es": "Zonalito: evento de inducción para quienes acaban de entrar en la organización. Camisetas, logos, plantillas de presentación y cuadernillos.",
@@ -174,6 +177,7 @@
     {
       "id": "zonalito-2019",
       "category": "graphic",
+      "type": "digital-experience",
       "title": "Conference 2019 (1) – Special Agents",
       "summary": {
         "es": "Zonalito: evento semestral donde un concepto elegido da forma tanto a las actividades como a la parte gráfica. Logos, plantillas y cuadernillos.",
@@ -1977,6 +1981,7 @@
     {
       "id": "center-box",
       "category": "design",
+      "type": "furniture",
       "title": "Center Box – Family Project",
       "summary": {
         "es": "Mesa de centro pensada para el hogar: sirve además como almacenamiento para objetos del día a día.",
@@ -2020,6 +2025,7 @@
     {
       "id": "overlap",
       "category": "design",
+      "type": "concept",
       "title": "Overlap – University Project",
       "summary": {
         "es": "Proyecto centrado en una introducción a los mecanismos y a la conceptualización de referentes.",
@@ -2073,6 +2079,7 @@
     {
       "id": "diesel-chair",
       "category": "design",
+      "type": "furniture",
       "title": "Diesel Chair – University Project",
       "summary": {
         "es": "Diseño de silla que explora la ergonomía y la conceptualización de marcas de ropa.",
@@ -2126,6 +2133,7 @@
     {
       "id": "stad",
       "category": "design",
+      "type": "furniture",
       "title": "Stad – University Project",
       "summary": {
         "es": "Proyecto centrado en la ergonomía y la conceptualización de referentes en mobiliario.",
@@ -2179,6 +2187,7 @@
     {
       "id": "tengu",
       "category": "design",
+      "type": "modeling",
       "title": "Tengu – University Project",
       "summary": {
         "es": "Botella diseñada para beber sake, con el Tengu como tema.",
@@ -2224,6 +2233,7 @@
     {
       "id": "sd-sofa",
       "category": "design",
+      "type": "furniture",
       "title": "SD Sofa – Family Project",
       "summary": {
         "es": "Sofá cama convertible hecho con materiales reciclados.",
@@ -2235,6 +2245,7 @@
     {
       "id": "models",
       "category": "design",
+      "type": "modeling",
       "title": "3D Model Design – University Project",
       "summary": {
         "es": "Modelado de productos existentes con Creo.",
@@ -2246,6 +2257,7 @@
     {
       "id": "twist-lamp",
       "category": "design",
+      "type": "furniture",
       "title": "Twist Lamp",
       "summary": {
         "es": "Lámpara de mesa con geometría torsionada; modelado y prototipo.",
@@ -2279,6 +2291,7 @@
     {
       "id": "perchero-arana",
       "category": "design",
+      "type": "furniture",
       "title": "Perchero Araña",
       "summary": {
         "es": "Perchero de pie con estructura radial; diseño y construcción.",
@@ -2312,6 +2325,7 @@
     {
       "id": "eslovensa",
       "category": "design",
+      "type": "furniture",
       "title": "Eslovensa",
       "summary": {
         "es": "Proyecto de diseño de producto y mobiliario.",
@@ -2344,6 +2358,7 @@
     {
       "id": "control-headset",
       "category": "design",
+      "type": "modeling",
       "title": "Control and Headset",
       "summary": {
         "es": "Concepto de control y headset; modelado 3D.",
@@ -2373,6 +2388,7 @@
     {
       "id": "premios-design",
       "category": "design",
+      "type": "concept",
       "title": "Premios – Piezas de diseño",
       "summary": {
         "es": "Piezas y reconocimientos de diseño.",
@@ -2404,6 +2420,7 @@
     {
       "id": "open-mate",
       "category": "design",
+      "type": "maker",
       "title": "Open-Mate – Destapadores",
       "summary": {
         "es": "Diseño freelance de destapadores; planos DXF y pieza final.",
@@ -2437,6 +2454,7 @@
     {
       "id": "caja-de-gatos",
       "category": "design",
+      "type": "maker",
       "title": "Caja de gatos",
       "summary": {
         "es": "Proyecto maker: caja y mueble para gatos.",
@@ -2468,6 +2486,7 @@
     {
       "id": "viana",
       "category": "design",
+      "type": "maker",
       "title": "Viana",
       "summary": {
         "es": "Proyecto maker e ilustración de personaje.",
@@ -2597,6 +2616,7 @@
     {
       "id": "ilustracion-game",
       "category": "graphic",
+      "type": "illustration",
       "title": "Ilustraciones – Game",
       "summary": {
         "es": "Serie de ilustraciones con estética gamer.",
@@ -2630,6 +2650,7 @@
     {
       "id": "ilustracion-kombi",
       "category": "graphic",
+      "type": "illustration",
       "title": "Ilustraciones – Kombi",
       "summary": {
         "es": "Ilustraciones inspiradas en la Volkswagen Kombi.",
@@ -2662,6 +2683,7 @@
     {
       "id": "ilustracion-liveseo",
       "category": "graphic",
+      "type": "illustration",
       "title": "Ilustraciones – LiveSEO",
       "summary": {
         "es": "Ilustraciones para la marca LiveSEO.",
@@ -2698,6 +2720,7 @@
     {
       "id": "ilustracion-minimalism",
       "category": "graphic",
+      "type": "illustration",
       "title": "Ilustraciones – Minimalism",
       "summary": {
         "es": "Serie de ilustraciones minimalistas.",
@@ -2730,6 +2753,7 @@
     {
       "id": "brand-estilistas",
       "category": "graphic",
+      "type": "brand",
       "title": "Estilistas de Corazones – Marca",
       "summary": {
         "es": "Identidad visual y logo para Estilistas de Corazones.",
@@ -2761,6 +2785,7 @@
     {
       "id": "brand-evolucion",
       "category": "graphic",
+      "type": "brand",
       "title": "Evolución Tecnológica – Marca",
       "summary": {
         "es": "Sistema de marca: isotipo, imagotipo y logotipo.",
@@ -2793,6 +2818,7 @@
     {
       "id": "brand-jonathan",
       "category": "graphic",
+      "type": "brand",
       "title": "Marca personal – Jonathan Sandoval",
       "summary": {
         "es": "Exploración de identidad visual personal.",
@@ -2821,6 +2847,7 @@
     {
       "id": "brand-sbs",
       "category": "graphic",
+      "type": "brand",
       "title": "SBS – Imagen de marca",
       "summary": {
         "es": "Identidad visual y piezas gráficas para SBS.",
@@ -2854,6 +2881,7 @@
     {
       "id": "brand-via",
       "category": "graphic",
+      "type": "brand",
       "title": "VIA Ingeniería – Marca",
       "summary": {
         "es": "Identidad visual, logos y aplicaciones para VIA Ingeniería.",
@@ -2891,6 +2919,7 @@
     {
       "id": "pub-amigos-caninos",
       "category": "graphic",
+      "type": "brand",
       "title": "Publicidad – Amigos Caninos",
       "summary": {
         "es": "Piezas publicitarias para Amigos Caninos.",
@@ -2924,6 +2953,7 @@
     {
       "id": "pub-atletas",
       "category": "graphic",
+      "type": "infographic",
       "title": "Publicidad – Atletas Recordistas",
       "summary": {
         "es": "Campaña gráfica para atletas recordistas.",
@@ -2954,6 +2984,7 @@
     {
       "id": "pub-clases",
       "category": "graphic",
+      "type": "publicity",
       "title": "Publicidad – Clases",
       "summary": {
         "es": "Piezas promocionales para clases y formación.",
@@ -2982,6 +3013,7 @@
     {
       "id": "pub-conciertos",
       "category": "graphic",
+      "type": "publicity",
       "title": "Publicidad – Conciertos",
       "summary": {
         "es": "Piezas gráficas para conciertos y eventos musicales.",
@@ -3011,6 +3043,7 @@
     {
       "id": "pub-ivan-sports",
       "category": "graphic",
+      "type": "brand",
       "title": "Publicidad – Ivan Sports",
       "summary": {
         "es": "Material publicitario para Ivan Sports.",
@@ -3049,6 +3082,7 @@
     {
       "id": "pub-maxifrio",
       "category": "graphic",
+      "type": "brand",
       "title": "Publicidad – MaxiFrio",
       "summary": {
         "es": "Piezas publicitarias para MaxiFrio.",
@@ -3082,6 +3116,7 @@
     {
       "id": "pub-party",
       "category": "graphic",
+      "type": "publicity",
       "title": "Publicidad – Party",
       "summary": {
         "es": "Diseño gráfico para fiestas y eventos.",
@@ -3110,6 +3145,7 @@
     {
       "id": "social-adis",
       "category": "graphic",
+      "type": "illustration",
       "title": "Redes – ADIS",
       "summary": {
         "es": "Contenido visual para las redes sociales de ADIS.",
@@ -3148,6 +3184,7 @@
     {
       "id": "social-liveseo",
       "category": "graphic",
+      "type": "social",
       "title": "Redes – LiveSEO",
       "summary": {
         "es": "Contenido para las redes sociales de LiveSEO.",
@@ -3185,6 +3222,7 @@
     {
       "id": "social-muimia",
       "category": "graphic",
+      "type": "social",
       "title": "Redes – Muimia",
       "summary": {
         "es": "Contenido visual para las redes de Muimia.",
@@ -3216,6 +3254,7 @@
     {
       "id": "social-opg",
       "category": "graphic",
+      "type": "social",
       "title": "Redes – OPG",
       "summary": {
         "es": "Contenido para las redes sociales de OPG.",

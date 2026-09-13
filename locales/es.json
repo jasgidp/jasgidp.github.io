@@ -51,7 +51,17 @@
       "infra": "Infraestructura",
       "data": "Datos y automatización",
       "observability": "Observabilidad y operaciones",
-      "docs": "Documentación y formación"
+      "docs": "Documentación y formación",
+      "digital-experience": "Experiencia digital",
+      "brand": "Imagen de marca",
+      "illustration": "Ilustración",
+      "infographic": "Infografía",
+      "social": "Redes sociales",
+      "publicity": "Publicidad",
+      "furniture": "Mobiliario",
+      "modeling": "Modelado 3D",
+      "concept": "Conceptual",
+      "maker": "Maker"
     }
   },
   "filters": {
@@ -61,7 +71,7 @@
     "engineering": "Ingeniería",
     "research": "Investigación",
     "software": "Software",
-    "design": "Diseño",
+    "design": "Diseño de producto",
     "nuevo": "Nuevo"
   },
   "about": {
