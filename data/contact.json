@@ -2,7 +2,7 @@
   "_documentacion": "Archivo de datos de la página Contacto. Lo lee contact.js. Campos: headline/subheadline (textos de cabecera), email, phone, location, address, availability, socials (lista de {name,url,icon}), form (asunto del mailto). Edita este archivo para cambiar tu email o redes sin tocar el HTML.",
   "headline": "Let's work together",
   "subheadline": "Open to freelance, internships, and full‑time roles.",
-  "email": "hello@example.com",
+  "email": "jsandov4@eafit.edu.co",
   "phone": "+1 (555) 123-4567",
   "location": "Medellín, Colombia",
   "address": "Cra. 123 #45-67, Medellín",
@@ -26,7 +26,7 @@
   ],
   "form": {
     "enabled": true,
-    "to": "hello@example.com",
+    "to": "jsandov4@eafit.edu.co",
     "subject": "New message from portfolio",
     "demo": true
   }
