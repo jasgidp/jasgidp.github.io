@@ -1463,13 +1463,41 @@ body { background: transparent; }
 /* Si no hay imagen real: degradado del color de la categoría
    (evita repetir el logo assets/img/brand/HOme.png en todas las tiles) */
 .project-tile.no-image { background-image: linear-gradient(135deg, #64748b, #94a3b8); }
-.project-tile.no-image[data-category="graphic"]     { background-image: linear-gradient(135deg, var(--cat-graphic), #f9a8d4); }
-.project-tile.no-image[data-category="experience"]  { background-image: linear-gradient(135deg, var(--cat-experience), #fcd34d); }
-.project-tile.no-image[data-category="engineering"] { background-image: linear-gradient(135deg, var(--cat-engineering), #93c5fd); }
-.project-tile.no-image[data-category="research"]    { background-image: linear-gradient(135deg, var(--cat-research), #67e8f9); }
-.project-tile.no-image[data-category="software"]    { background-image: linear-gradient(135deg, var(--cat-software), #6ee7b7); }
-.project-tile.no-image[data-category="design"]      { background-image: linear-gradient(135deg, var(--cat-design), #c4b5fd); }
+.project-tile.no-image[data-category="graphic"] { background-image: var(--cover-graphic, linear-gradient(135deg, var(--cat-graphic), #f9a8d4)); }
+.project-tile.no-image[data-category="experience"] { background-image: var(--cover-experience, linear-gradient(135deg, var(--cat-experience), #fcd34d)); }
+.project-tile.no-image[data-category="engineering"] { background-image: var(--cover-engineering, linear-gradient(135deg, var(--cat-engineering), #93c5fd)); }
+.project-tile.no-image[data-category="research"] { background-image: var(--cover-research, linear-gradient(135deg, var(--cat-research), #67e8f9)); }
+.project-tile.no-image[data-category="software"] { background-image: var(--cover-software, linear-gradient(135deg, var(--cat-software), #6ee7b7)); }
+.project-tile.no-image[data-category="design"] { background-image: var(--cover-design, linear-gradient(135deg, var(--cat-design), #c4b5fd)); }
 .project-tile.no-image::before { background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0) 60%); }
+/* Cuando la ficha usa una portada real (no el degradado), el velo
+   oscuro se refuerza para que el título siga legible encima. */
+.project-tile.no-image { background-position: center; background-size: cover; }
+
+/* ============================================================
+   BANNER DE CATEGORÍA (portada al filtrar en el portafolio)
+   projects.js lo rellena solo si la portada de esa categoría existe.
+   ============================================================ */
+/* El banner es un hijo de la rejilla que ocupa la fila entera, así
+   comparte los mismos bordes que las fichas sin calcular nada. */
+.category-banner { grid-column: 1 / -1; }
+.category-banner[hidden] { display: none; }
+.category-banner-img {
+  width: 100%;
+  /* Las portadas son 1920x1080; recortarlas a 16:5 deja el logo y el
+     nombre centrados, que es lo único que interesa ver aquí. */
+  aspect-ratio: 16 / 5;
+  max-height: 220px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 20px rgba(0,0,0,.10);
+}
+@media (max-width: 640px) {
+  .category-banner-img { aspect-ratio: 16 / 7; max-height: 150px; border-radius: 10px; }
+}
 
 
 /* Accesibilidad: si el SO pide menos movimiento, apagamos animaciones */
