@@ -733,42 +733,154 @@
     {
       "id": "grafana-improvement",
       "category": "software",
-      "title": "Grafana Improvement",
+      "title": "Monitoring & Dashboards",
       "summary": {
-        "es": "Optimización de visualización y monitoreo.",
-        "en": "Visualization and monitoring optimisation.",
-        "pt": "Otimização de visualização e monitoramento."
+        "es": "Tableros de Grafana para el monitoreo de streaming en vivo: datos de fixtures, estado de los streams y métricas de calidad centralizados en un solo sitio.",
+        "en": "Grafana dashboards for live streaming monitoring: fixture data, stream state and quality metrics brought together in one place.",
+        "pt": "Painéis de Grafana para o monitoramento de streaming ao vivo: dados de fixtures, estado dos streams e métricas de qualidade reunidos em um só lugar."
       },
-      "links": {
-        "repo": ""
+      "discipline": {
+        "es": "Ops Engineer · Streaming",
+        "en": "Ops Engineer · Streaming",
+        "pt": "Ops Engineer · Streaming"
       },
+      "tech": [
+        "Grafana",
+        "Mimir",
+        "Prometheus",
+        "LISA",
+        "StatsPerform",
+        "Stream Engine",
+        "Dolby"
+      ],
+      "year": 2025,
       "status": {
         "es": "Completado",
         "en": "Completed",
         "pt": "Concluído"
       },
-      "results": [
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Diseño e iteración de los tableros, definición de las métricas que importan en soporte y conexión de las fuentes de datos.",
+        "en": "Designed and iterated the dashboards, defined the metrics that matter in support, and wired up the data sources.",
+        "pt": "Desenhei e iterei os painéis, defini as métricas que importam no suporte e conectei as fontes de dados."
+      },
+      "features": [
         {
-          "es": "Reduje el ruido de alertas un 25%",
-          "en": "Reduced alert noise by 25%",
-          "pt": "Reduzi o ruído de alertas em 25%"
+          "es": "Comp ID, cuenta atrás, enlace MS, URL de reproducción y Stream Engine en el tablero",
+          "en": "Comp ID, countdown, MS link, playback URL and Stream Engine on the dashboard",
+          "pt": "Comp ID, contagem regressiva, link MS, URL de reprodução e Stream Engine no painel"
         },
         {
-          "es": "Mejoré el MTTR",
-          "en": "Improved MTTR",
-          "pt": "Melhorei o MTTR"
+          "es": "Integración de LISA, StatsPerform, VOD Recheck y proveedores externos",
+          "en": "LISA, StatsPerform, VOD Recheck and third-party providers integrated",
+          "pt": "Integração de LISA, StatsPerform, VOD Recheck e provedores externos"
+        },
+        {
+          "es": "Métricas de Dolby en el clúster Parcero mediante Mimir y Grafana",
+          "en": "Dolby metrics on the Parcero cluster through Mimir and Grafana",
+          "pt": "Métricas da Dolby no cluster Parcero via Mimir e Grafana"
+        },
+        {
+          "es": "Tableros actualizados para los proveedores migrados a Dolby",
+          "en": "Dashboards updated for the providers migrated to Dolby",
+          "pt": "Painéis atualizados para os provedores migrados para a Dolby"
+        },
+        {
+          "es": "En pausa: tablero consolidado de estado de producto NFL e identificación de producción de venue",
+          "en": "On hold: consolidated NFL product status dashboard and venue production identification",
+          "pt": "Em pausa: painel consolidado de status do produto NFL e identificação de produção de venue"
         }
-      ]
+      ],
+      "results": [
+        {
+          "es": "Un solo tablero para los video checks en lugar de varias herramientas",
+          "en": "One dashboard for video checks instead of several tools",
+          "pt": "Um único painel para os video checks em vez de várias ferramentas"
+        }
+      ],
+      "_tickets": [
+        "VID-6482",
+        "VID-6520",
+        "VID-6679",
+        "VID-6810",
+        "VID-7091",
+        "ADV-13357",
+        "ADV-12580",
+        "VID-7282",
+        "VID-7084"
+      ],
+      "links": {
+        "repo": ""
+      }
     },
     {
       "id": "hermes-improvements",
       "category": "software",
-      "title": "Hermes Improvements",
+      "title": "Internal Ops Tooling",
       "summary": {
-        "es": "Mejoras en la plataforma interna de comunicación.",
-        "en": "Enhancements to the internal communication platform.",
-        "pt": "Melhorias na plataforma interna de comunicação."
+        "es": "Mejoras de usabilidad en las herramientas internas con las que el equipo gestiona fuentes de video, licencias y pruebas de plataforma.",
+        "en": "Usability work on the internal tools the team uses to manage video sources, licences and platform testing.",
+        "pt": "Melhorias de usabilidade nas ferramentas internas com que a equipe gerencia fontes de vídeo, licenças e testes de plataforma."
       },
+      "discipline": {
+        "es": "Ops Engineer · Streaming",
+        "en": "Ops Engineer · Streaming",
+        "pt": "Ops Engineer · Streaming"
+      },
+      "tech": [
+        "JavaScript",
+        "TypeScript",
+        "Hermes",
+        "UI/UX"
+      ],
+      "year": 2024,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Rediseño de los flujos de la interfaz a partir de lo que realmente frenaba al equipo en soporte.",
+        "en": "Redesigned the interface flows based on what was actually slowing the support team down.",
+        "pt": "Redesenhei os fluxos da interface a partir do que realmente atrasava a equipe de suporte."
+      },
+      "features": [
+        {
+          "es": "Filtros, editores de consultas y specs, selección múltiple y limpieza de pestañas",
+          "en": "Filters, query and spec editors, multi-select and tab clean-up",
+          "pt": "Filtros, editores de consultas e specs, seleção múltipla e limpeza de abas"
+        },
+        {
+          "es": "En pausa: interfaz para revisar licencias y paquetes sin tocar la base de datos",
+          "en": "On hold: interface to review licences and packages without touching the database",
+          "pt": "Em pausa: interface para revisar licenças e pacotes sem tocar no banco de dados"
+        },
+        {
+          "es": "En pausa: plataforma de pruebas e integración para BetVision",
+          "en": "On hold: testing and integration platform for BetVision",
+          "pt": "Em pausa: plataforma de testes e integração para a BetVision"
+        }
+      ],
+      "learnings": {
+        "es": "Simplificar un flujo acelera el soporte más que añadir funciones nuevas.",
+        "en": "Simplifying a flow speeds up support more than adding new features.",
+        "pt": "Simplificar um fluxo acelera o suporte mais do que adicionar funções novas."
+      },
+      "_tickets": [
+        "VID-6497",
+        "VID-6877",
+        "VID-6723"
+      ],
       "links": {
         "repo": ""
       }
@@ -776,12 +888,83 @@
     {
       "id": "runbooks",
       "category": "software",
-      "title": "Runbooks – Troubleshooting/Info/Rules",
+      "title": "Troubleshooting Runbooks",
       "summary": {
-        "es": "Runbooks operativos estandarizados.",
-        "en": "Standardised operational runbooks.",
-        "pt": "Runbooks operacionais padronizados."
+        "es": "Runbooks en Python y Jupyter que reúnen en un cuaderno los datos y las acciones que antes exigían abrir seis herramientas distintas durante un incidente.",
+        "en": "Python and Jupyter runbooks that gather in one notebook the data and actions that used to mean opening six different tools mid-incident.",
+        "pt": "Runbooks em Python e Jupyter que reúnem em um caderno os dados e as ações que antes exigiam abrir seis ferramentas diferentes durante um incidente."
       },
+      "discipline": {
+        "es": "Ops Engineer · Streaming",
+        "en": "Ops Engineer · Streaming",
+        "pt": "Ops Engineer · Streaming"
+      },
+      "tech": [
+        "Python",
+        "Jupyter",
+        "Grafana",
+        "Graylog",
+        "Ingress Manager",
+        "Venue Manager",
+        "Heimdallr"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Desarrollo de los runbooks y de las consultas a las APIs internas, y migración del runbook de NFL para integrarlo con la telemetría y los logs.",
+        "en": "Built the runbooks and the calls to the internal APIs, and migrated the NFL runbook to integrate it with telemetry and logs.",
+        "pt": "Desenvolvi os runbooks e as chamadas às APIs internas, e migrei o runbook da NFL para integrá-lo com a telemetria e os logs."
+      },
+      "features": [
+        {
+          "es": "Datos de fixture, Ingress Manager, Venue Manager, Grafana y Graylog en un solo cuaderno",
+          "en": "Fixture data, Ingress Manager, Venue Manager, Grafana and Graylog in a single notebook",
+          "pt": "Dados de fixture, Ingress Manager, Venue Manager, Grafana e Graylog em um único caderno"
+        },
+        {
+          "es": "Reinicio centralizado de servicios sin saltar entre consolas",
+          "en": "Centralised service restart without hopping between consoles",
+          "pt": "Reinício centralizado de serviços sem pular entre consoles"
+        },
+        {
+          "es": "Consulta de bookmakers por fixture y de sus respuestas de API",
+          "en": "Lookup of bookmakers per fixture and of their API responses",
+          "pt": "Consulta de bookmakers por fixture e de suas respostas de API"
+        },
+        {
+          "es": "Auditoría de las reglas aplicadas a un fixture concreto",
+          "en": "Audit of the rules applied to a specific fixture",
+          "pt": "Auditoria das regras aplicadas a um fixture específico"
+        },
+        {
+          "es": "Migración del runbook de NFL para conectarlo con Grafana y Graylog",
+          "en": "NFL runbook migrated to connect with Grafana and Graylog",
+          "pt": "Migração do runbook da NFL para conectá-lo com Grafana e Graylog"
+        }
+      ],
+      "results": [
+        {
+          "es": "Incidentes resueltos en menos pasos y con menos dependencia de quién esté de turno",
+          "en": "Incidents resolved in fewer steps and with less dependence on who is on shift",
+          "pt": "Incidentes resolvidos em menos passos e com menos dependência de quem está de plantão"
+        }
+      ],
+      "_tickets": [
+        "VID-6541",
+        "VID-6566",
+        "VID-7025",
+        "ADV-10496",
+        "VID-7279"
+      ],
       "links": {
         "repo": ""
       }
@@ -789,52 +972,146 @@
     {
       "id": "db-automation",
       "category": "software",
-      "title": "Database Information Automation",
+      "title": "Data & Rule Automation",
       "summary": {
-        "es": "Scripts para actualizar y validar conjuntos de datos.",
-        "en": "Scripts for updating and validating datasets.",
-        "pt": "Scripts para atualizar e validar conjuntos de dados."
+        "es": "Automatización de las tareas de datos que se hacían a mano: limpieza de fuentes de video sin usar, asignación masiva de reglas y trazabilidad de quién cambió qué.",
+        "en": "Automation of the data chores that were done by hand: cleaning up unused video sources, bulk rule assignment and traceability of who changed what.",
+        "pt": "Automação das tarefas de dados feitas à mão: limpeza de fontes de vídeo sem uso, atribuição em massa de regras e rastreabilidade de quem mudou o quê."
       },
-      "links": {
-        "repo": ""
+      "discipline": {
+        "es": "Ops Engineer · Streaming",
+        "en": "Ops Engineer · Streaming",
+        "pt": "Ops Engineer · Streaming"
       },
+      "tech": [
+        "Python",
+        "SQL",
+        "Jupyter",
+        "Heimdallr",
+        "Excel"
+      ],
+      "year": 2025,
       "status": {
         "es": "Completado",
         "en": "Completed",
         "pt": "Concluído"
       },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Desarrollo de los scripts de limpieza y del puente entre Excel y la API de reglas, y adición de campos de auditoría en la base de datos.",
+        "en": "Wrote the clean-up scripts and the bridge from Excel to the rules API, and added audit fields in the database.",
+        "pt": "Escrevi os scripts de limpeza e a ponte do Excel para a API de regras, e adicionei campos de auditoria no banco."
+      },
+      "features": [
+        {
+          "es": "Borrado automático de fuentes de video no utilizadas y de sus datos asociados",
+          "en": "Automatic deletion of unused video sources and their related data",
+          "pt": "Exclusão automática de fontes de vídeo sem uso e de seus dados associados"
+        },
+        {
+          "es": "Campos created_at y updated_at en las reglas, visibles desde la herramienta interna",
+          "en": "created_at and updated_at fields on rules, visible from the internal tool",
+          "pt": "Campos created_at e updated_at nas regras, visíveis pela ferramenta interna"
+        },
+        {
+          "es": "Asignación de reglas desde una hoja de proveedores hacia la API",
+          "en": "Rule assignment from a providers spreadsheet into the API",
+          "pt": "Atribuição de regras a partir de uma planilha de provedores para a API"
+        }
+      ],
       "results": [
         {
-          "es": "Bajé el tiempo de actualización de horas a minutos",
-          "en": "Cut update time from hours to minutes",
-          "pt": "Reduzi o tempo de atualização de horas para minutos"
+          "es": "Menos trabajo manual, menos almacenamiento basura y auditoría clara de los cambios",
+          "en": "Less manual work, less junk storage and a clear audit trail of changes",
+          "pt": "Menos trabalho manual, menos armazenamento inútil e auditoria clara das mudanças"
         }
-      ]
+      ],
+      "_tickets": [
+        "VID-6947",
+        "VID-6827",
+        "VID-7084"
+      ],
+      "links": {
+        "repo": ""
+      }
     },
     {
       "id": "alerts-nfl",
       "category": "software",
-      "title": "Alerts for NFL",
+      "title": "Alerting & Early Detection",
       "summary": {
-        "es": "Sistema automático de alertas para datos deportivos.",
-        "en": "Automated alert system for sports data.",
-        "pt": "Sistema automático de alertas para dados esportivos."
+        "es": "Sistema de alertas para detectar caídas de streaming antes de que las note el usuario, y limpieza del ruido que hacía que se ignorasen.",
+        "en": "Alerting built to catch streaming failures before viewers notice them, plus a clean-up of the noise that was making alerts ignorable.",
+        "pt": "Sistema de alertas para detectar quedas de streaming antes que o usuário perceba, e limpeza do ruído que fazia com que fossem ignoradas."
       },
-      "links": {
-        "repo": ""
+      "discipline": {
+        "es": "Ops Engineer · Streaming",
+        "en": "Ops Engineer · Streaming",
+        "pt": "Ops Engineer · Streaming"
       },
+      "tech": [
+        "Grafana",
+        "Slack",
+        "DRM",
+        "Akamai CDN",
+        "BetVision"
+      ],
+      "year": 2024,
       "status": {
-        "es": "Operativo",
-        "en": "Operational",
-        "pt": "Operacional"
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Definición de las condiciones críticas de alerta y diagnóstico del ruido operativo que las enterraba.",
+        "en": "Defined the critical alert conditions and diagnosed the operational noise that was burying them.",
+        "pt": "Defini as condições críticas de alerta e diagnostiquei o ruído operacional que as enterrava."
+      },
+      "features": [
+        {
+          "es": "Alertas de DRM (5xx y 404) y de latencia p99 de Akamai por encima de 3 s",
+          "en": "DRM alerts (5xx and 404) and Akamai p99 latency above 3 s",
+          "pt": "Alertas de DRM (5xx e 404) e latência p99 da Akamai acima de 3 s"
+        },
+        {
+          "es": "Aviso cuando un partido de BetVision NFL lleva más de 2 minutos sin espectadores",
+          "en": "Warning when a BetVision NFL fixture goes over 2 minutes with no viewers",
+          "pt": "Aviso quando uma partida da BetVision NFL passa de 2 minutos sem espectadores"
+        },
+        {
+          "es": "Filtrado de las alertas de error de las fuentes de prueba en el canal de soporte",
+          "en": "Filtered out delivery-error alerts from test sources in the support channel",
+          "pt": "Filtragem dos alertas de erro das fontes de teste no canal de suporte"
+        }
+      ],
+      "learnings": {
+        "es": "Una alerta que salta siempre deja de ser una alerta: quitar ruido vale tanto como añadir cobertura.",
+        "en": "An alert that always fires stops being an alert: removing noise is worth as much as adding coverage.",
+        "pt": "Um alerta que dispara sempre deixa de ser alerta: tirar ruído vale tanto quanto aumentar cobertura."
       },
       "results": [
         {
-          "es": "Mejoré la latencia de detección un 30%",
-          "en": "Improved detection latency 30%",
-          "pt": "Melhorei a latência de detecção em 30%"
+          "es": "Menos ruido en el canal de soporte y cobertura preventiva en los partidos de BetVision",
+          "en": "Less noise in the support channel and preventive coverage on BetVision fixtures",
+          "pt": "Menos ruído no canal de suporte e cobertura preventiva nas partidas da BetVision"
         }
-      ]
+      ],
+      "_tickets": [
+        "VID-6777",
+        "VID-6454"
+      ],
+      "links": {
+        "repo": ""
+      }
     },
     {
       "id": "permission-system",
@@ -872,13 +1149,49 @@
       "category": "software",
       "title": "Fixture Manager / NFL Messages",
       "summary": {
-        "es": "Herramientas para gestión y automatización de datos deportivos.",
-        "en": "Tools for sports data management and automation.",
-        "pt": "Ferramentas para gestão e automação de dados esportivos."
+        "es": "Automatización de la coordinación de fixtures: hilos de Slack creados por competición según los días previos al partido.",
+        "en": "Automation of fixture coordination: Slack threads created per competition based on the days before the match.",
+        "pt": "Automação da coordenação de fixtures: threads no Slack criadas por competição conforme os dias antes da partida."
       },
       "links": {
         "repo": ""
-      }
+      },
+      "discipline": {
+        "es": "Software Engineer · Backend y media",
+        "en": "Software Engineer · Backend & media",
+        "pt": "Software Engineer · Backend e media"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "tech": [
+        "Python",
+        "Slack API"
+      ],
+      "contribution": {
+        "es": "Desarrollo del servicio, configurable por competición.",
+        "en": "Built the service, configurable per competition.",
+        "pt": "Desenvolvi o serviço, configurável por competição."
+      },
+      "features": [
+        {
+          "es": "Hilos creados automáticamente según los días previos al partido",
+          "en": "Threads created automatically based on the days before the match",
+          "pt": "Threads criadas automaticamente conforme os dias antes da partida"
+        }
+      ],
+      "results": [
+        {
+          "es": "Menos coordinación manual antes de cada evento",
+          "en": "Less manual coordination before each event",
+          "pt": "Menos coordenação manual antes de cada evento"
+        }
+      ],
+      "_tickets": [
+        "ADV-12592"
+      ]
     },
     {
       "id": "form-validation",
@@ -1001,6 +1314,640 @@
         "repo": "https://github.com/jasgidp/jasg-social-network-draft"
       },
       "demoHeight": 400
+    },
+    {
+      "id": "stream-qc",
+      "category": "software",
+      "title": "Stream Quality Control",
+      "summary": {
+        "es": "Evaluación e integración de una solución de control de calidad de stream para tener señales objetivas de salud sobre los protocolos de transporte.",
+        "en": "Evaluation and integration of a stream quality control solution, to get objective health signals across the transport protocols.",
+        "pt": "Avaliação e integração de uma solução de controle de qualidade de stream, para ter sinais objetivos de saúde nos protocolos de transporte."
+      },
+      "discipline": {
+        "es": "Ops Engineer · Streaming",
+        "en": "Ops Engineer · Streaming",
+        "pt": "Ops Engineer · Streaming"
+      },
+      "tech": [
+        "Elecard",
+        "UDP",
+        "RTP",
+        "SRT",
+        "HTTP",
+        "OTT",
+        "Heimdallr"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "En curso",
+        "en": "In progress",
+        "pt": "Em andamento"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Pruebas de idoneidad de la herramienta y diseño de cómo sus métricas entran en el monitoreo existente.",
+        "en": "Ran the suitability testing and designed how its metrics feed into the existing monitoring.",
+        "pt": "Fiz os testes de adequação e desenhei como suas métricas entram no monitoramento existente."
+      },
+      "features": [
+        {
+          "es": "Cobertura de UDP, RTP, SRT, HTTP y OTT",
+          "en": "Coverage across UDP, RTP, SRT, HTTP and OTT",
+          "pt": "Cobertura de UDP, RTP, SRT, HTTP e OTT"
+        },
+        {
+          "es": "Camino hacia unas Golden Signals de calidad de video",
+          "en": "A route towards Golden Signals for video quality",
+          "pt": "Caminho para Golden Signals de qualidade de vídeo"
+        }
+      ],
+      "_tickets": [
+        "VID-7255",
+        "BV-725"
+      ]
+    },
+    {
+      "id": "provider-migrations",
+      "category": "software",
+      "title": "Provider Migrations",
+      "summary": {
+        "es": "Migración operativa de proveedores de señal, con división de URLs de streaming y validación de los feeds resultantes.",
+        "en": "Operational migration of signal providers, splitting streaming URLs and validating the resulting feeds.",
+        "pt": "Migração operacional de provedores de sinal, com divisão de URLs de streaming e validação dos feeds resultantes."
+      },
+      "discipline": {
+        "es": "Ops Engineer · Streaming",
+        "en": "Ops Engineer · Streaming",
+        "pt": "Ops Engineer · Streaming"
+      },
+      "tech": [
+        "StatsPerform",
+        "AWS MediaConnect",
+        "Dolby",
+        "Grafana"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Ejecución de la migración y validación de URLs y feeds antes y después del cambio.",
+        "en": "Ran the migration and validated URLs and feeds before and after the switch.",
+        "pt": "Executei a migração e validei URLs e feeds antes e depois da troca."
+      },
+      "features": [
+        {
+          "es": "División de URLs de streaming por destino",
+          "en": "Streaming URLs split by destination",
+          "pt": "Divisão de URLs de streaming por destino"
+        },
+        {
+          "es": "Pruebas de transporte con MediaConnect",
+          "en": "Transport testing with MediaConnect",
+          "pt": "Testes de transporte com MediaConnect"
+        }
+      ],
+      "_tickets": [
+        "ADV-13479",
+        "ADV-13480",
+        "ADV-13481"
+      ]
+    },
+    {
+      "id": "critical-incidents",
+      "category": "software",
+      "title": "Critical Incident Response",
+      "summary": {
+        "es": "Respuesta a incidentes P1 en producción durante eventos deportivos en directo, donde una caída no admite espera.",
+        "en": "P1 incident response in production during live sports events, where an outage cannot wait.",
+        "pt": "Resposta a incidentes P1 em produção durante eventos esportivos ao vivo, onde uma queda não pode esperar."
+      },
+      "discipline": {
+        "es": "Ops Engineer · Streaming",
+        "en": "Ops Engineer · Streaming",
+        "pt": "Ops Engineer · Streaming"
+      },
+      "tech": [
+        "Python",
+        "Grafana",
+        "Graylog",
+        "Slack"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Investigación en caliente, aislamiento de la causa y recuperación del servicio junto a los equipos de desarrollo.",
+        "en": "Live investigation, isolating the cause and restoring service alongside the development teams.",
+        "pt": "Investigação ao vivo, isolamento da causa e recuperação do serviço junto às equipes de desenvolvimento."
+      },
+      "features": [
+        {
+          "es": "Telemetría caída en NFL USA, clasificado como P1",
+          "en": "Telemetry down on NFL USA, classified as P1",
+          "pt": "Telemetria fora do ar na NFL USA, classificada como P1"
+        },
+        {
+          "es": "Stream de CFL congelado, resuelto con reinicio manual",
+          "en": "CFL stream stuck, resolved with a manual restart",
+          "pt": "Stream da CFL travado, resolvido com reinício manual"
+        },
+        {
+          "es": "Cortes intermitentes y pantallas en negro en feeds de StatsPerform",
+          "en": "Intermittent drops and black screens on StatsPerform feeds",
+          "pt": "Quedas intermitentes e telas pretas em feeds da StatsPerform"
+        }
+      ],
+      "learnings": {
+        "es": "En directo, aislar la causa antes de tocar el sistema ahorra más tiempo del que parece.",
+        "en": "Live, isolating the cause before touching the system saves more time than it seems.",
+        "pt": "Ao vivo, isolar a causa antes de mexer no sistema poupa mais tempo do que parece."
+      },
+      "_tickets": [
+        "GI-21152",
+        "GI-21155",
+        "GI-21164"
+      ]
+    },
+    {
+      "id": "internal-training",
+      "category": "software",
+      "title": "Internal Training Programmes",
+      "summary": {
+        "es": "Formación interna para que el conocimiento de streaming y de automatización deje de depender de unas pocas personas.",
+        "en": "Internal training so that streaming and automation knowledge stops depending on a handful of people.",
+        "pt": "Formação interna para que o conhecimento de streaming e automação deixe de depender de poucas pessoas."
+      },
+      "discipline": {
+        "es": "Ops Engineer · Streaming",
+        "en": "Ops Engineer · Streaming",
+        "pt": "Ops Engineer · Streaming"
+      },
+      "tech": [
+        "Python",
+        "Jupyter",
+        "Confluence"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Diseño y estructuración de los cursos, y desarrollo colaborativo de runbooks con el equipo.",
+        "en": "Designed and structured the courses, and ran collaborative runbook development with the team.",
+        "pt": "Desenhei e estruturei os cursos, e conduzi o desenvolvimento colaborativo de runbooks com a equipe."
+      },
+      "features": [
+        {
+          "es": "Streaming 101: curso interno de fundamentos de streaming",
+          "en": "Streaming 101: internal course on streaming fundamentals",
+          "pt": "Streaming 101: curso interno de fundamentos de streaming"
+        },
+        {
+          "es": "Formación dinámica en Python y construcción colaborativa de runbooks",
+          "en": "Dynamic Python training and collaborative runbook building",
+          "pt": "Formação dinâmica em Python e construção colaborativa de runbooks"
+        }
+      ],
+      "_tickets": [
+        "VID-7283",
+        "VID-7284"
+      ]
+    },
+    {
+      "id": "rag-assistant",
+      "category": "software",
+      "title": "RAG AI Assistant",
+      "summary": {
+        "es": "Asistente de IA con recuperación aumentada sobre la documentación del transcoder, conectado a Slack para que el equipo pregunte donde ya trabaja.",
+        "en": "Retrieval-augmented AI assistant over the transcoder documentation, wired into Slack so the team can ask where they already work.",
+        "pt": "Assistente de IA com geração aumentada por recuperação sobre a documentação do transcoder, conectado ao Slack para a equipe perguntar onde já trabalha."
+      },
+      "discipline": {
+        "es": "Software Engineer · Backend y media",
+        "en": "Software Engineer · Backend & media",
+        "pt": "Software Engineer · Backend e media"
+      },
+      "tech": [
+        "Python",
+        "RAG",
+        "Slack API",
+        "Docker"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Desarrollo del backend del asistente, la indexación de la documentación y la integración con Slack, más la guía para desarrolladores.",
+        "en": "Built the assistant backend, the documentation indexing and the Slack integration, plus the developer guide.",
+        "pt": "Desenvolvi o backend do assistente, a indexação da documentação e a integração com o Slack, além do guia para desenvolvedores."
+      },
+      "features": [
+        {
+          "es": "Backend de recuperación sobre la documentación del transcoder",
+          "en": "Retrieval backend over the transcoder documentation",
+          "pt": "Backend de recuperação sobre a documentação do transcoder"
+        },
+        {
+          "es": "Conexión con Slack para consultar desde los canales del equipo",
+          "en": "Slack connection so it can be queried from the team channels",
+          "pt": "Conexão com o Slack para consultar a partir dos canais da equipe"
+        },
+        {
+          "es": "Guía de desarrollo para que otros puedan extenderlo",
+          "en": "Developer guide so others can extend it",
+          "pt": "Guia de desenvolvimento para que outros possam estendê-lo"
+        }
+      ],
+      "results": [
+        {
+          "es": "Soporte técnico asistido por IA sin salir de Slack",
+          "en": "AI-assisted technical support without leaving Slack",
+          "pt": "Suporte técnico assistido por IA sem sair do Slack"
+        }
+      ],
+      "_tickets": [
+        "BV-919",
+        "BV-928",
+        "BV-929",
+        "ADV-11321"
+      ]
+    },
+    {
+      "id": "media-pipeline",
+      "category": "software",
+      "title": "Media Pipeline in Rust & GStreamer",
+      "summary": {
+        "es": "Trabajo sobre el pipeline de transcodificación: plugins propios en Rust, migración del transcoder a su segunda versión y nuevas salidas de entrega.",
+        "en": "Work on the transcoding pipeline: own plugins in Rust, migration of the transcoder to its second version, and new delivery outputs.",
+        "pt": "Trabalho no pipeline de transcodificação: plugins próprios em Rust, migração do transcoder para a segunda versão e novas saídas de entrega."
+      },
+      "discipline": {
+        "es": "Software Engineer · Backend y media",
+        "en": "Software Engineer · Backend & media",
+        "pt": "Software Engineer · Backend e media"
+      },
+      "tech": [
+        "Rust",
+        "GStreamer",
+        "Cargo",
+        "RTMP",
+        "SRT",
+        "GPAC"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Desarrollo de los plugins y del output RTMP, migración de las aplicaciones a la versión 2 y validación del resultado.",
+        "en": "Built the plugins and the RTMP output, migrated the applications to version 2 and validated the result.",
+        "pt": "Desenvolvi os plugins e a saída RTMP, migrei as aplicações para a versão 2 e validei o resultado."
+      },
+      "features": [
+        {
+          "es": "Plugins de audio y video en Rust sobre GStreamer",
+          "en": "Audio and video plugins in Rust on top of GStreamer",
+          "pt": "Plugins de áudio e vídeo em Rust sobre GStreamer"
+        },
+        {
+          "es": "Migración de las aplicaciones del transcoder a la versión 2",
+          "en": "Transcoder applications migrated to version 2",
+          "pt": "Migração das aplicações do transcoder para a versão 2"
+        },
+        {
+          "es": "Salida RTMP en el módulo transcoder",
+          "en": "RTMP output in the transcoder module",
+          "pt": "Saída RTMP no módulo transcoder"
+        },
+        {
+          "es": "Reproducción SRT con soporte de passkey",
+          "en": "SRT playback with passkey support",
+          "pt": "Reprodução SRT com suporte a passkey"
+        },
+        {
+          "es": "Reproductor de depuración para inspeccionar el pipeline",
+          "en": "Debug player to inspect the pipeline",
+          "pt": "Player de depuração para inspecionar o pipeline"
+        }
+      ],
+      "_tickets": [
+        "BV-931",
+        "ADV-4942",
+        "ADV-13079",
+        "ADV-13148",
+        "ADV-4903",
+        "BV-932"
+      ]
+    },
+    {
+      "id": "video-integrations",
+      "category": "software",
+      "title": "Video Platform Integrations",
+      "summary": {
+        "es": "Integración de nuevos proveedores y fuentes de video en la plataforma interna: estados de ingesta, claves de stream, APIs externas e ingesta histórica.",
+        "en": "Integration of new providers and video sources into the internal platform: ingest states, stream keys, external APIs and historical ingest.",
+        "pt": "Integração de novos provedores e fontes de vídeo na plataforma interna: estados de ingestão, chaves de stream, APIs externas e ingestão histórica."
+      },
+      "discipline": {
+        "es": "Software Engineer · Backend y media",
+        "en": "Software Engineer · Backend & media",
+        "pt": "Software Engineer · Backend e media"
+      },
+      "tech": [
+        "Kotlin",
+        "Java",
+        "Temporal",
+        "Heimdallr",
+        "Ingress Manager",
+        "Dolby",
+        "RTMP",
+        "TypeScript"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Implementación de las integraciones en el backend JVM, migración de proveedores y workers de backfill con Temporal.",
+        "en": "Implemented the integrations in the JVM backend, migrated providers and built backfill workers with Temporal.",
+        "pt": "Implementei as integrações no backend JVM, migrei provedores e criei workers de backfill com Temporal."
+      },
+      "features": [
+        {
+          "es": "Estados de Dolby en la fase de ingesta y migración de proveedores",
+          "en": "Dolby states in the ingest stage and provider migration",
+          "pt": "Estados da Dolby na fase de ingestão e migração de provedores"
+        },
+        {
+          "es": "Claves de stream RTMP gestionadas desde la plataforma",
+          "en": "RTMP stream keys managed from the platform",
+          "pt": "Chaves de stream RTMP gerenciadas pela plataforma"
+        },
+        {
+          "es": "Integración de la API de video de InFront y de su API de sindicación",
+          "en": "InFront video API and its syndication API integrated",
+          "pt": "Integração da API de vídeo da InFront e de sua API de sindicação"
+        },
+        {
+          "es": "Ingesta de Scoreplay para SFL con backfill de la temporada 2025/26 mediante workers de Temporal",
+          "en": "Scoreplay ingest for SFL with a 2025/26 season backfill through Temporal workers",
+          "pt": "Ingestão do Scoreplay para SFL com backfill da temporada 2025/26 via workers do Temporal"
+        },
+        {
+          "es": "Veritas como alternativa de respaldo en el pipeline, con su documentación integrada",
+          "en": "Veritas as a fallback in the pipeline, with its documentation integrated",
+          "pt": "Veritas como alternativa de reserva no pipeline, com sua documentação integrada"
+        }
+      ],
+      "_tickets": [
+        "ADV-13078",
+        "ADV-13077",
+        "ADV-12696",
+        "ADV-12664",
+        "ADV-10298",
+        "ADV-11900",
+        "ADV-11903"
+      ]
+    },
+    {
+      "id": "cdn-logs",
+      "category": "software",
+      "title": "Serverless CDN Log Processing",
+      "summary": {
+        "es": "Procesamiento sin servidor de los logs de la CDN para alimentar al proveedor de DRM con la información que necesita.",
+        "en": "Serverless processing of CDN logs to feed the DRM provider with the information it needs.",
+        "pt": "Processamento serverless dos logs da CDN para alimentar o provedor de DRM com a informação de que precisa."
+      },
+      "discipline": {
+        "es": "Software Engineer · Backend y media",
+        "en": "Software Engineer · Backend & media",
+        "pt": "Software Engineer · Backend e media"
+      },
+      "tech": [
+        "Python",
+        "AWS Lambda",
+        "AWS SQS",
+        "EZDRM",
+        "CDN"
+      ],
+      "year": 2024,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Diseño y desarrollo del pipeline de ingesta y procesamiento sobre colas y funciones sin servidor.",
+        "en": "Designed and built the ingest and processing pipeline on queues and serverless functions.",
+        "pt": "Desenhei e construí o pipeline de ingestão e processamento sobre filas e funções serverless."
+      },
+      "features": [
+        {
+          "es": "Cola de eventos que dispara el procesamiento de cada lote de logs",
+          "en": "Event queue triggering the processing of each batch of logs",
+          "pt": "Fila de eventos que dispara o processamento de cada lote de logs"
+        },
+        {
+          "es": "Envío automatizado de la información de DRM y CDN",
+          "en": "Automated delivery of the DRM and CDN information",
+          "pt": "Envio automatizado da informação de DRM e CDN"
+        }
+      ],
+      "_tickets": [
+        "BV-730"
+      ]
+    },
+    {
+      "id": "webrtc-infra",
+      "category": "software",
+      "title": "Streaming Infrastructure & Performance",
+      "summary": {
+        "es": "Decisiones de arquitectura respaldadas con pruebas: enfoque de WebRTC, sesiones en despliegues con varias réplicas y coste por rendimiento en la nube.",
+        "en": "Architecture decisions backed by testing: the WebRTC approach, sessions in multi-replica deployments and cloud cost per performance.",
+        "pt": "Decisões de arquitetura apoiadas em testes: abordagem de WebRTC, sessões em implantações com várias réplicas e custo por desempenho na nuvem."
+      },
+      "discipline": {
+        "es": "Software Engineer · Backend y media",
+        "en": "Software Engineer · Backend & media",
+        "pt": "Software Engineer · Backend e media"
+      },
+      "tech": [
+        "Bash",
+        "Python",
+        "WebRTC",
+        "MediaMTX",
+        "RTMP",
+        "Auth0",
+        "AWS EC2",
+        "Docker"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Pruebas de carga, diagnóstico del desacople de sesión entre réplicas y benchmark de costo y rendimiento con datos.",
+        "en": "Ran the load testing, diagnosed the session mismatch between replicas and benchmarked cost and performance with data.",
+        "pt": "Fiz os testes de carga, diagnostiquei o desacoplamento de sessão entre réplicas e comparei custo e desempenho com dados."
+      },
+      "features": [
+        {
+          "es": "Cambio de enfoque en WebRTC tras evaluar MediaMTX y hacer pruebas de carga",
+          "en": "WebRTC approach changed after evaluating MediaMTX and running load tests",
+          "pt": "Mudança de abordagem em WebRTC após avaliar o MediaMTX e fazer testes de carga"
+        },
+        {
+          "es": "Sesiones de Auth0 estables entre réplicas compartiendo el secreto de sesión",
+          "en": "Stable Auth0 sessions across replicas by sharing the session secret",
+          "pt": "Sessões do Auth0 estáveis entre réplicas compartilhando o segredo de sessão"
+        },
+        {
+          "es": "Comparativa de coste y rendimiento entre instancias ARM y AMD",
+          "en": "Cost and performance comparison between ARM and AMD instances",
+          "pt": "Comparativo de custo e desempenho entre instâncias ARM e AMD"
+        }
+      ],
+      "learnings": {
+        "es": "Una decisión de arquitectura defendida con números se discute mucho mejor que una defendida con intuición.",
+        "en": "An architecture decision backed by numbers is far easier to argue than one backed by intuition.",
+        "pt": "Uma decisão de arquitetura apoiada em números se discute muito melhor do que uma apoiada em intuição."
+      },
+      "_tickets": [
+        "ADV-12848",
+        "ADV-4913",
+        "ADV-12426",
+        "ADV-13273"
+      ]
+    },
+    {
+      "id": "tech-docs",
+      "category": "software",
+      "title": "Technical Documentation & Knowledge Sharing",
+      "summary": {
+        "es": "Documentación del pipeline de video de punta a punta y sesiones técnicas internas, para que entender el sistema no dependa de preguntar a la persona correcta.",
+        "en": "End-to-end documentation of the video pipeline plus internal tech talks, so understanding the system does not depend on asking the right person.",
+        "pt": "Documentação do pipeline de vídeo de ponta a ponta e sessões técnicas internas, para que entender o sistema não dependa de perguntar à pessoa certa."
+      },
+      "discipline": {
+        "es": "Software Engineer · Backend y media",
+        "en": "Software Engineer · Backend & media",
+        "pt": "Software Engineer · Backend e media"
+      },
+      "tech": [
+        "Markdown",
+        "TechDocs",
+        "GStreamer",
+        "GPAC",
+        "Docker"
+      ],
+      "year": 2025,
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Genius Sports",
+        "en": "Genius Sports",
+        "pt": "Genius Sports"
+      },
+      "contribution": {
+        "es": "Redacción de la documentación técnica, preparación de las charlas y diseño de una ruta de aprendizaje estructurada.",
+        "en": "Wrote the technical documentation, prepared the talks and designed a structured learning path.",
+        "pt": "Escrevi a documentação técnica, preparei as palestras e desenhei uma trilha de aprendizado estruturada."
+      },
+      "features": [
+        {
+          "es": "Documentación a fondo de packagers, orígenes, GStreamer y la CDN",
+          "en": "Deep-dive documentation of packagers, origins, GStreamer and the CDN",
+          "pt": "Documentação aprofundada de packagers, origens, GStreamer e a CDN"
+        },
+        {
+          "es": "Charla técnica sobre arquitectura de backend, contenedores, métricas y despliegues",
+          "en": "Tech talk on backend architecture, containers, metrics and deployments",
+          "pt": "Palestra técnica sobre arquitetura de backend, contêineres, métricas e deploys"
+        },
+        {
+          "es": "Explorador visual de plantillas de streaming",
+          "en": "Visual explorer for streaming templates",
+          "pt": "Explorador visual de templates de streaming"
+        },
+        {
+          "es": "Ruta de aprendizaje estructurada en GStreamer y GPAC",
+          "en": "Structured learning path on GStreamer and GPAC",
+          "pt": "Trilha de aprendizado estruturada em GStreamer e GPAC"
+        }
+      ],
+      "_tickets": [
+        "BV-933",
+        "ADV-11186",
+        "BV-930",
+        "BV-697",
+        "BV-937",
+        "ADV-5019"
+      ]
     },
     {
       "id": "center-box",

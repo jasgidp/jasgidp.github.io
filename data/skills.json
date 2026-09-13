@@ -2,20 +2,20 @@
   "_documentacion": "Habilidades agrupadas (página Skills). Lo lee skills.js. groups[]: name (clave), emoji, label {es,en,pt}, items[]. Cada item puede ser un string (\"Python\") o un objeto {name, description, docs:[{label,url}], projects:[ids de data/projects.json]}. name, description y label admiten texto plano o un objeto {es,en,pt}: skills.js elige según el idioma activo y cae a 'en' si falta. Los idiomas además usan {flag, level (0-100), levelLabel} para pintar la barra de dominio.",
   "groups": [
     {
-      "name": "programmingData",
-      "emoji": "💻📊",
+      "name": "languagesCode",
+      "emoji": "⌨️",
       "label": {
-        "es": "Programación y Datos",
-        "en": "Programming & Data",
-        "pt": "Programação e Dados"
+        "es": "Lenguajes",
+        "en": "Languages",
+        "pt": "Linguagens"
       },
       "items": [
         {
           "name": "Python",
           "description": {
-            "es": "Lenguaje principal para automatización, análisis de datos y scripting de operaciones.",
-            "en": "Main language for automation, data analysis and operations scripting.",
-            "pt": "Linguagem principal para automação, análise de dados e scripts de operações."
+            "es": "Lenguaje principal: runbooks, automatización de operaciones, servicios de IA y funciones sin servidor.",
+            "en": "Main language: runbooks, operations automation, AI services and serverless functions.",
+            "pt": "Linguagem principal: runbooks, automação de operações, serviços de IA e funções serverless."
           },
           "docs": [
             {
@@ -28,21 +28,19 @@
             }
           ],
           "projects": [
-            "kory",
-            "clean-dataset",
-            "forecast-gl",
-            "db-automation",
-            "alerts-nfl",
             "runbooks",
-            "fixture-manager"
+            "rag-assistant",
+            "cdn-logs",
+            "db-automation",
+            "kory"
           ]
         },
         {
-          "name": "Pandas",
+          "name": "Rust",
           "description": {
-            "es": "Manipulación y limpieza de datos tabulares: carga, filtrado, agregaciones y series temporales.",
-            "en": "Handling and cleaning tabular data: loading, filtering, aggregations and time series.",
-            "pt": "Manipulação e limpeza de dados tabulares: carga, filtragem, agregações e séries temporais."
+            "es": "Plugins de GStreamer y desarrollo sobre el transcoder de video.",
+            "en": "GStreamer plugins and development on the video transcoder.",
+            "pt": "Plugins de GStreamer e desenvolvimento sobre o transcoder de vídeo."
           },
           "docs": [
             {
@@ -51,88 +49,126 @@
                 "en": "Official documentation",
                 "pt": "Documentação oficial"
               },
-              "url": "https://pandas.pydata.org/docs/"
+              "url": "https://doc.rust-lang.org/book/"
             }
           ],
           "projects": [
-            "clean-dataset",
-            "forecast-gl"
+            "media-pipeline"
+          ]
+        },
+        {
+          "name": "Kotlin",
+          "description": {
+            "es": "Backend de la plataforma de video: integraciones e ingesta.",
+            "en": "Video platform backend: integrations and ingest.",
+            "pt": "Backend da plataforma de vídeo: integrações e ingestão."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://kotlinlang.org/docs/home.html"
+            }
+          ],
+          "projects": [
+            "video-integrations"
+          ]
+        },
+        {
+          "name": "Java",
+          "description": {
+            "es": "Servicios JVM de la plataforma interna de video.",
+            "en": "JVM services on the internal video platform.",
+            "pt": "Serviços JVM da plataforma interna de vídeo."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://docs.oracle.com/en/java/"
+            }
+          ],
+          "projects": [
+            "video-integrations"
+          ]
+        },
+        {
+          "name": "TypeScript",
+          "description": {
+            "es": "Herramientas internas y frontend de plataforma con tipos.",
+            "en": "Internal tooling and platform frontend, typed.",
+            "pt": "Ferramentas internas e frontend de plataforma, com tipos."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Referencia de MDN",
+                "en": "MDN reference",
+                "pt": "Referência da MDN"
+              },
+              "url": "https://www.typescriptlang.org/docs/"
+            }
+          ],
+          "projects": [
+            "video-integrations"
+          ]
+        },
+        {
+          "name": "JavaScript",
+          "description": {
+            "es": "Interactividad del lado del cliente y herramientas web internas.",
+            "en": "Client-side interactivity and internal web tools.",
+            "pt": "Interatividade no cliente e ferramentas web internas."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Referencia de MDN",
+                "en": "MDN reference",
+                "pt": "Referência da MDN"
+              },
+              "url": "https://developer.mozilla.org/es/docs/Web/JavaScript"
+            }
+          ],
+          "projects": [
+            "hermes-improvements",
+            "web-jonathan"
           ]
         },
         {
           "name": "SQL",
           "description": {
-            "es": "Consultas y modelado relacional para extraer y cruzar información de las bases de datos internas.",
-            "en": "Queries and relational modelling to pull and join data from the internal databases.",
-            "pt": "Consultas e modelagem relacional para extrair e cruzar dados dos bancos internos."
+            "es": "Consultas, campos de auditoría y limpieza de datos en bases relacionales.",
+            "en": "Queries, audit fields and data clean-up in relational databases.",
+            "pt": "Consultas, campos de auditoria e limpeza de dados em bancos relacionais."
           },
           "docs": [
             {
               "label": {
-                "es": "Tutorial de PostgreSQL",
-                "en": "PostgreSQL tutorial",
-                "pt": "Tutorial do PostgreSQL"
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
               },
               "url": "https://www.postgresql.org/docs/current/tutorial.html"
             }
           ],
           "projects": [
             "db-automation",
-            "permission-system",
-            "sbs"
+            "permission-system"
           ]
         },
         {
-          "name": "JSON",
+          "name": "Bash",
           "description": {
-            "es": "Formato de intercambio de datos entre APIs, configuraciones y el contenido de este portafolio.",
-            "en": "Data interchange format between APIs, configuration files and this portfolio's own content.",
-            "pt": "Formato de troca de dados entre APIs, configurações e o conteúdo deste portfólio."
-          },
-          "docs": [
-            {
-              "label": {
-                "es": "Especificación",
-                "en": "Specification",
-                "pt": "Especificação"
-              },
-              "url": "https://www.json.org/json-es.html"
-            }
-          ],
-          "projects": [
-            "web-jonathan",
-            "fixture-manager"
-          ]
-        },
-        {
-          "name": "APIs",
-          "description": {
-            "es": "Consumo e integración de APIs REST: autenticación, paginación y manejo de errores.",
-            "en": "Consuming and integrating REST APIs: authentication, pagination and error handling.",
-            "pt": "Consumo e integração de APIs REST: autenticação, paginação e tratamento de erros."
-          },
-          "docs": [
-            {
-              "label": {
-                "es": "Guía de MDN sobre HTTP",
-                "en": "MDN guide to HTTP",
-                "pt": "Guia de HTTP da MDN"
-              },
-              "url": "https://developer.mozilla.org/es/docs/Web/HTTP"
-            }
-          ],
-          "projects": [
-            "hermes-improvements",
-            "fixture-manager",
-            "alerts-nfl"
-          ]
-        },
-        {
-          "name": "Grafana",
-          "description": {
-            "es": "Tableros de monitoreo y alertas sobre métricas de streaming en producción.",
-            "en": "Monitoring dashboards and alerts over live streaming metrics in production.",
-            "pt": "Painéis de monitoramento e alertas sobre métricas de streaming em produção."
+            "es": "Scripts de operaciones, benchmarks y automatización de despliegues.",
+            "en": "Operations scripts, benchmarks and deployment automation.",
+            "pt": "Scripts de operações, benchmarks e automação de deploys."
           },
           "docs": [
             {
@@ -141,69 +177,13 @@
                 "en": "Official documentation",
                 "pt": "Documentação oficial"
               },
-              "url": "https://grafana.com/docs/grafana/latest/"
+              "url": "https://www.gnu.org/software/bash/manual/"
             }
           ],
           "projects": [
-            "grafana-improvement",
-            "runbooks",
-            "alerts-nfl"
+            "webrtc-infra"
           ]
         },
-        {
-          "name": "InfluxDB",
-          "description": {
-            "es": "Base de datos de series temporales para métricas de streaming en vivo.",
-            "en": "Time-series database for live streaming metrics.",
-            "pt": "Banco de dados de séries temporais para métricas de streaming ao vivo."
-          },
-          "docs": [
-            {
-              "label": {
-                "es": "Documentación oficial",
-                "en": "Official documentation",
-                "pt": "Documentação oficial"
-              },
-              "url": "https://docs.influxdata.com/influxdb/"
-            }
-          ],
-          "projects": [
-            "grafana-improvement"
-          ]
-        },
-        {
-          "name": "Jupyter Notebooks",
-          "description": {
-            "es": "Exploración de datos y prototipado de análisis con resultados reproducibles.",
-            "en": "Data exploration and analysis prototyping with reproducible results.",
-            "pt": "Exploração de dados e prototipagem de análises com resultados reproduzíveis."
-          },
-          "docs": [
-            {
-              "label": {
-                "es": "Documentación oficial",
-                "en": "Official documentation",
-                "pt": "Documentação oficial"
-              },
-              "url": "https://docs.jupyter.org/en/latest/"
-            }
-          ],
-          "projects": [
-            "clean-dataset",
-            "forecast-gl"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "web",
-      "emoji": "🌐",
-      "label": {
-        "es": "Desarrollo Web",
-        "en": "Web Development",
-        "pt": "Desenvolvimento Web"
-      },
-      "items": [
         {
           "name": "HTML",
           "description": {
@@ -245,13 +225,68 @@
           "projects": [
             "web-jonathan"
           ]
+        }
+      ]
+    },
+    {
+      "name": "dataAutomation",
+      "emoji": "📊",
+      "label": {
+        "es": "Datos y Automatización",
+        "en": "Data & Automation",
+        "pt": "Dados e Automação"
+      },
+      "items": [
+        {
+          "name": "Pandas",
+          "description": {
+            "es": "Limpieza y transformación de datos tabulares.",
+            "en": "Cleaning and transforming tabular data.",
+            "pt": "Limpeza e transformação de dados tabulares."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://pandas.pydata.org/docs/"
+            }
+          ],
+          "projects": [
+            "clean-dataset",
+            "forecast-gl"
+          ]
         },
         {
-          "name": "JavaScript",
+          "name": "Jupyter Notebooks",
           "description": {
-            "es": "Interactividad del lado del cliente: carga de datos, filtros y componentes propios.",
-            "en": "Client-side interactivity: data loading, filters and hand-rolled components.",
-            "pt": "Interatividade no cliente: carga de dados, filtros e componentes próprios."
+            "es": "Runbooks operativos y exploración de datos reproducible.",
+            "en": "Operational runbooks and reproducible data exploration.",
+            "pt": "Runbooks operacionais e exploração de dados reproduzível."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://docs.jupyter.org/en/latest/"
+            }
+          ],
+          "projects": [
+            "runbooks",
+            "db-automation"
+          ]
+        },
+        {
+          "name": "APIs",
+          "description": {
+            "es": "Consumo e integración de APIs REST: autenticación, paginación y manejo de errores.",
+            "en": "Consuming and integrating REST APIs: authentication, pagination and error handling.",
+            "pt": "Consumo e integração de APIs REST: autenticação, paginação e tratamento de erros."
           },
           "docs": [
             {
@@ -260,11 +295,522 @@
                 "en": "MDN reference",
                 "pt": "Referência da MDN"
               },
-              "url": "https://developer.mozilla.org/es/docs/Web/JavaScript"
+              "url": "https://developer.mozilla.org/es/docs/Web/HTTP"
+            }
+          ],
+          "projects": [
+            "runbooks",
+            "video-integrations"
+          ]
+        },
+        {
+          "name": "JSON",
+          "description": {
+            "es": "Formato de intercambio entre APIs, configuraciones y contenido.",
+            "en": "Interchange format between APIs, configuration and content.",
+            "pt": "Formato de troca entre APIs, configurações e conteúdo."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://www.json.org/json-es.html"
             }
           ],
           "projects": [
             "web-jonathan"
+          ]
+        },
+        {
+          "name": "Excel",
+          "description": {
+            "es": "Puente entre las hojas que usa el negocio y las APIs internas.",
+            "en": "Bridge between the spreadsheets the business uses and the internal APIs.",
+            "pt": "Ponte entre as planilhas que o negócio usa e as APIs internas."
+          },
+          "projects": [
+            "db-automation"
+          ]
+        },
+        {
+          "name": "Temporal",
+          "description": {
+            "es": "Workflows y workers duraderos para ingesta y backfill.",
+            "en": "Durable workflows and workers for ingest and backfill.",
+            "pt": "Workflows e workers duráveis para ingestão e backfill."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://docs.temporal.io/"
+            }
+          ],
+          "projects": [
+            "video-integrations"
+          ]
+        },
+        {
+          "name": "RAG",
+          "description": {
+            "es": "Recuperación aumentada sobre documentación técnica para asistentes de IA.",
+            "en": "Retrieval-augmented generation over technical documentation for AI assistants.",
+            "pt": "Geração aumentada por recuperação sobre documentação técnica para assistentes de IA."
+          },
+          "projects": [
+            "rag-assistant"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "observability",
+      "emoji": "📈",
+      "label": {
+        "es": "Observabilidad",
+        "en": "Observability",
+        "pt": "Observabilidade"
+      },
+      "items": [
+        {
+          "name": "Grafana",
+          "description": {
+            "es": "Tableros de monitoreo y alertas sobre métricas de streaming en producción.",
+            "en": "Monitoring dashboards and alerts over live streaming metrics in production.",
+            "pt": "Painéis de monitoramento e alertas sobre métricas de streaming em produção."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://grafana.com/docs/grafana/latest/"
+            }
+          ],
+          "projects": [
+            "grafana-improvement",
+            "alerts-nfl"
+          ]
+        },
+        {
+          "name": "Prometheus / Mimir",
+          "description": {
+            "es": "Recolección y almacenamiento de métricas a largo plazo.",
+            "en": "Metrics collection and long-term storage.",
+            "pt": "Coleta e armazenamento de métricas a longo prazo."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://prometheus.io/docs/"
+            }
+          ],
+          "projects": [
+            "grafana-improvement"
+          ]
+        },
+        {
+          "name": "InfluxDB",
+          "description": {
+            "es": "Base de datos de series temporales para métricas de streaming en vivo.",
+            "en": "Time-series database for live streaming metrics.",
+            "pt": "Banco de dados de séries temporais para métricas de streaming ao vivo."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://docs.influxdata.com/influxdb/"
+            }
+          ],
+          "projects": [
+            "grafana-improvement"
+          ]
+        },
+        {
+          "name": "Graylog",
+          "description": {
+            "es": "Búsqueda y correlación de logs durante incidentes.",
+            "en": "Log search and correlation during incidents.",
+            "pt": "Busca e correlação de logs durante incidentes."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://go2docs.graylog.org/"
+            }
+          ],
+          "projects": [
+            "runbooks",
+            "critical-incidents"
+          ]
+        },
+        {
+          "name": "Elecard",
+          "description": {
+            "es": "Control de calidad de stream y señales objetivas de salud.",
+            "en": "Stream quality control and objective health signals.",
+            "pt": "Controle de qualidade de stream e sinais objetivos de saúde."
+          },
+          "projects": [
+            "stream-qc"
+          ]
+        },
+        {
+          "name": "Akamai CDN",
+          "description": {
+            "es": "Métricas de entrega: latencia p99 y errores de DRM.",
+            "en": "Delivery metrics: p99 latency and DRM errors.",
+            "pt": "Métricas de entrega: latência p99 e erros de DRM."
+          },
+          "projects": [
+            "alerts-nfl"
+          ]
+        },
+        {
+          "name": "Slack",
+          "description": {
+            "es": "Canales de alertas, automatización de hilos e integración de asistentes.",
+            "en": "Alert channels, thread automation and assistant integration.",
+            "pt": "Canais de alertas, automação de threads e integração de assistentes."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://api.slack.com/"
+            }
+          ],
+          "projects": [
+            "alerts-nfl",
+            "rag-assistant",
+            "fixture-manager"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mediaStreaming",
+      "emoji": "🎬",
+      "label": {
+        "es": "Media y Streaming",
+        "en": "Media & Streaming",
+        "pt": "Media e Streaming"
+      },
+      "items": [
+        {
+          "name": "GStreamer",
+          "description": {
+            "es": "Pipelines multimedia para transporte y transformación de video en vivo.",
+            "en": "Multimedia pipelines for transporting and transforming live video.",
+            "pt": "Pipelines multimídia para transporte e transformação de vídeo ao vivo."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://gstreamer.freedesktop.org/documentation/"
+            }
+          ],
+          "projects": [
+            "media-pipeline",
+            "tech-docs"
+          ]
+        },
+        {
+          "name": "GPAC",
+          "description": {
+            "es": "Herramientas de empaquetado y análisis de contenido multimedia.",
+            "en": "Packaging and analysis tooling for multimedia content.",
+            "pt": "Ferramentas de empacotamento e análise de conteúdo multimídia."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://wiki.gpac.io/"
+            }
+          ],
+          "projects": [
+            "tech-docs"
+          ]
+        },
+        {
+          "name": "RTMP",
+          "description": {
+            "es": "Protocolo de ingesta y salida de video, con gestión de claves de stream.",
+            "en": "Video ingest and output protocol, with stream key management.",
+            "pt": "Protocolo de ingestão e saída de vídeo, com gestão de chaves de stream."
+          },
+          "projects": [
+            "media-pipeline",
+            "video-integrations"
+          ]
+        },
+        {
+          "name": "SRT",
+          "description": {
+            "es": "Transporte fiable de video sobre redes no fiables, con autenticación por passkey.",
+            "en": "Reliable video transport over unreliable networks, with passkey authentication.",
+            "pt": "Transporte confiável de vídeo em redes não confiáveis, com autenticação por passkey."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://github.com/Haivision/srt"
+            }
+          ],
+          "projects": [
+            "media-pipeline",
+            "stream-qc"
+          ]
+        },
+        {
+          "name": "WebRTC",
+          "description": {
+            "es": "Video en tiempo real de baja latencia hacia el navegador.",
+            "en": "Low-latency real-time video to the browser.",
+            "pt": "Vídeo em tempo real de baixa latência para o navegador."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://webrtc.org/getting-started/overview"
+            }
+          ],
+          "projects": [
+            "webrtc-infra"
+          ]
+        },
+        {
+          "name": "MediaMTX",
+          "description": {
+            "es": "Servidor multimedia evaluado para entrega en tiempo real.",
+            "en": "Media server evaluated for real-time delivery.",
+            "pt": "Servidor de mídia avaliado para entrega em tempo real."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://github.com/bluenviron/mediamtx"
+            }
+          ],
+          "projects": [
+            "webrtc-infra"
+          ]
+        },
+        {
+          "name": "HLS / OTT",
+          "description": {
+            "es": "Entrega de video por HTTP hacia reproductores y plataformas OTT.",
+            "en": "HTTP video delivery to players and OTT platforms.",
+            "pt": "Entrega de vídeo por HTTP para players e plataformas OTT."
+          },
+          "projects": [
+            "stream-qc"
+          ]
+        },
+        {
+          "name": "AWS MediaConnect",
+          "description": {
+            "es": "Transporte de video en directo entre proveedores y destinos.",
+            "en": "Live video transport between providers and destinations.",
+            "pt": "Transporte de vídeo ao vivo entre provedores e destinos."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación de AWS",
+                "en": "AWS documentation",
+                "pt": "Documentação da AWS"
+              },
+              "url": "https://docs.aws.amazon.com/mediaconnect/"
+            }
+          ],
+          "projects": [
+            "provider-migrations"
+          ]
+        },
+        {
+          "name": "Packagers y Origins",
+          "description": {
+            "es": "Empaquetado y servido del video hacia la red de distribución.",
+            "en": "Packaging and serving video towards the distribution network.",
+            "pt": "Empacotamento e entrega do vídeo para a rede de distribuição."
+          },
+          "projects": [
+            "tech-docs"
+          ]
+        },
+        {
+          "name": "DRM",
+          "description": {
+            "es": "Protección de contenido y monitoreo de sus errores de entrega.",
+            "en": "Content protection and monitoring of its delivery errors.",
+            "pt": "Proteção de conteúdo e monitoramento de seus erros de entrega."
+          },
+          "projects": [
+            "alerts-nfl",
+            "cdn-logs"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cloudInfra",
+      "emoji": "☁️",
+      "label": {
+        "es": "Cloud e Infraestructura",
+        "en": "Cloud & Infrastructure",
+        "pt": "Cloud e Infraestrutura"
+      },
+      "items": [
+        {
+          "name": "AWS (EC2, S3, Lambda, SQS)",
+          "description": {
+            "es": "Cómputo, almacenamiento, funciones sin servidor y colas de eventos.",
+            "en": "Compute, storage, serverless functions and event queues.",
+            "pt": "Computação, armazenamento, funções serverless e filas de eventos."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación de AWS",
+                "en": "AWS documentation",
+                "pt": "Documentação da AWS"
+              },
+              "url": "https://docs.aws.amazon.com/"
+            }
+          ],
+          "projects": [
+            "cdn-logs",
+            "webrtc-infra"
+          ]
+        },
+        {
+          "name": "Docker",
+          "description": {
+            "es": "Contenedores para reproducir entornos y desplegar herramientas internas.",
+            "en": "Containers to reproduce environments and deploy internal tools.",
+            "pt": "Contêineres para reproduzir ambientes e publicar ferramentas internas."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://docs.docker.com/"
+            }
+          ],
+          "projects": [
+            "rag-assistant",
+            "tech-docs"
+          ]
+        },
+        {
+          "name": "Linux",
+          "description": {
+            "es": "Administración por línea de comandos, logs y diagnóstico de servidores.",
+            "en": "Command-line administration, logs and server diagnosis.",
+            "pt": "Administração por linha de comando, logs e diagnóstico de servidores."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://www.gnu.org/software/bash/manual/"
+            }
+          ],
+          "projects": [
+            "runbooks",
+            "critical-incidents"
+          ]
+        },
+        {
+          "name": "Auth0",
+          "description": {
+            "es": "Autenticación y sesiones, incluidas las que se reparten entre réplicas.",
+            "en": "Authentication and sessions, including those shared across replicas.",
+            "pt": "Autenticação e sessões, inclusive as compartilhadas entre réplicas."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://auth0.com/docs"
+            }
+          ],
+          "projects": [
+            "webrtc-infra"
+          ]
+        },
+        {
+          "name": "Hasura",
+          "description": {
+            "es": "API GraphQL instantánea sobre la base de datos para herramientas internas.",
+            "en": "Instant GraphQL API over the database for internal tools.",
+            "pt": "API GraphQL instantânea sobre o banco de dados para ferramentas internas."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://hasura.io/docs/latest/index/"
+            }
+          ],
+          "projects": [
+            "permission-system"
           ]
         }
       ]
@@ -281,9 +827,9 @@
         {
           "name": "GitHub",
           "description": {
-            "es": "Control de versiones, ramas y revisión de código; también despliega este sitio con Pages.",
-            "en": "Version control, branching and code review; it also deploys this site through Pages.",
-            "pt": "Controle de versão, branches e revisão de código; também publica este site com o Pages."
+            "es": "Control de versiones, ramas y revisión de código; también publica este sitio.",
+            "en": "Version control, branching and code review; it also publishes this site.",
+            "pt": "Controle de versão, branches e revisão de código; também publica este site."
           },
           "docs": [
             {
@@ -320,9 +866,9 @@
         {
           "name": "Jira",
           "description": {
-            "es": "Seguimiento de incidencias y planificación de sprints.",
-            "en": "Issue tracking and sprint planning.",
-            "pt": "Acompanhamento de chamados e planejamento de sprints."
+            "es": "Seguimiento de incidencias y planificación de trabajo.",
+            "en": "Issue tracking and work planning.",
+            "pt": "Acompanhamento de chamados e planejamento de trabalho."
           },
           "docs": [
             {
@@ -336,11 +882,29 @@
           ]
         },
         {
+          "name": "Linear",
+          "description": {
+            "es": "Seguimiento de trabajo en equipos de producto.",
+            "en": "Work tracking in product teams.",
+            "pt": "Acompanhamento de trabalho em equipes de produto."
+          },
+          "docs": [
+            {
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
+              "url": "https://linear.app/docs"
+            }
+          ]
+        },
+        {
           "name": "Confluence",
           "description": {
-            "es": "Documentación interna: runbooks, guías de troubleshooting y traspasos de turno.",
-            "en": "Internal documentation: runbooks, troubleshooting guides and shift handovers.",
-            "pt": "Documentação interna: runbooks, guias de troubleshooting e passagens de turno."
+            "es": "Documentación interna: runbooks, guías y traspasos de turno.",
+            "en": "Internal documentation: runbooks, guides and shift handovers.",
+            "pt": "Documentação interna: runbooks, guias e passagens de turno."
           },
           "docs": [
             {
@@ -353,103 +917,30 @@
             }
           ],
           "projects": [
-            "runbooks"
+            "runbooks",
+            "internal-training"
           ]
         },
         {
-          "name": "Docker",
+          "name": "Monday.com",
           "description": {
-            "es": "Contenedores para reproducir entornos de desarrollo y desplegar herramientas internas.",
-            "en": "Containers to reproduce development environments and deploy internal tools.",
-            "pt": "Contêineres para reproduzir ambientes de desenvolvimento e publicar ferramentas internas."
+            "es": "Seguimiento de producción integrado en el monitoreo.",
+            "en": "Production tracking integrated into monitoring.",
+            "pt": "Acompanhamento de produção integrado ao monitoramento."
           },
-          "docs": [
-            {
-              "label": {
-                "es": "Documentación oficial",
-                "en": "Official documentation",
-                "pt": "Documentação oficial"
-              },
-              "url": "https://docs.docker.com/"
-            }
-          ]
-        },
-        {
-          "name": "Linux",
-          "description": {
-            "es": "Administración por línea de comandos, logs y diagnóstico de servidores de streaming.",
-            "en": "Command-line administration, logs and diagnosis of streaming servers.",
-            "pt": "Administração por linha de comando, logs e diagnóstico de servidores de streaming."
-          },
-          "docs": [
-            {
-              "label": {
-                "es": "Manual de Bash",
-                "en": "Bash manual",
-                "pt": "Manual do Bash"
-              },
-              "url": "https://www.gnu.org/software/bash/manual/"
-            }
-          ],
           "projects": [
-            "runbooks"
+            "grafana-improvement"
           ]
         },
         {
-          "name": "GStreamer",
+          "name": "TechDocs",
           "description": {
-            "es": "Pipelines multimedia para transporte y transformación de vídeo en vivo.",
-            "en": "Multimedia pipelines for transporting and transforming live video.",
-            "pt": "Pipelines multimídia para transporte e transformação de vídeo ao vivo."
+            "es": "Documentación técnica publicada junto al código.",
+            "en": "Technical documentation published alongside the code.",
+            "pt": "Documentação técnica publicada junto ao código."
           },
-          "docs": [
-            {
-              "label": {
-                "es": "Documentación oficial",
-                "en": "Official documentation",
-                "pt": "Documentação oficial"
-              },
-              "url": "https://gstreamer.freedesktop.org/documentation/"
-            }
-          ]
-        },
-        {
-          "name": "Hasura",
-          "description": {
-            "es": "API GraphQL instantánea sobre la base de datos para herramientas internas.",
-            "en": "Instant GraphQL API over the database for internal tools.",
-            "pt": "API GraphQL instantânea sobre o banco de dados para ferramentas internas."
-          },
-          "docs": [
-            {
-              "label": {
-                "es": "Documentación oficial",
-                "en": "Official documentation",
-                "pt": "Documentação oficial"
-              },
-              "url": "https://hasura.io/docs/latest/index/"
-            }
-          ],
           "projects": [
-            "permission-system"
-          ]
-        },
-        {
-          "name": "AWS (EC2, S3, MediaConnect)",
-          "description": {
-            "es": "Infraestructura en la nube para cómputo, almacenamiento y transporte de vídeo en directo.",
-            "en": "Cloud infrastructure for compute, storage and live video transport.",
-            "pt": "Infraestrutura em nuvem para computação, armazenamento e transporte de vídeo ao vivo."
-          },
-          "docs": [
-            {
-              "label": {
-                "es": "Documentación de AWS",
-                "en": "AWS documentation",
-                "pt": "Documentação da AWS"
-              },
-              "url": "https://docs.aws.amazon.com/"
-            }
+            "tech-docs"
           ]
         }
       ]
