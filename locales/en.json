@@ -21,8 +21,6 @@
   "portfolio": {
     "title": "Portfolio",
     "subtitle": "Browse projects by category",
-    "programmingBtn": "Programming Portfolio",
-    "softwareHint": "Extra button for programming portfolio is located below.",
     "panel": {
       "description": "Description",
       "details": "Details",
@@ -39,7 +37,12 @@
       "demo": "Demo",
       "portfolio": "Portfolio",
       "video": "Video",
-      "repo": "Code"
+      "repo": "Code",
+      "preview": "Show demo",
+      "hidePreview": "Hide demo",
+      "githubCard": "GitHub Portfolio",
+      "githubCardHint": "All my public repositories",
+      "backToSoftware": "See software projects"
     }
   },
   "filters": {
@@ -87,13 +90,11 @@
     "noResults": "No items match your search."
   },
   "programming": {
-    "title": "Programming Portfolio",
-    "intro": "Selected software projects with live demos and code repositories. Use the button to toggle the live preview.",
+    "title": "GitHub Repositories",
+    "intro": "All my public repositories, updated automatically from GitHub.",
     "preview": "Show demo",
     "hide": "Hide demo",
-    "repo": "Repo",
-    "reposTitle": "GitHub Repositories",
-    "reposIntro": "All my public repositories, updated automatically from GitHub."
+    "repo": "Repo"
   },
   "contact": {
     "title": "Contact",
