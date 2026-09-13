@@ -21,6 +21,41 @@
   const softwareExtra = document.getElementById('software-extra');
   if (!container) return; // solo corre en portfolio.html
 
+  /* ------------------------------------------------------------
+     PORTADAS DE CATEGORÍA
+     Una imagen por categoría en assets/img/brand/covers/<cat>.jpg.
+     Sirven para dos cosas: fondo de las fichas que no tienen imagen
+     propia, y banner al filtrar por esa categoría.
+
+     Nunca damos por hecho que el archivo existe: lo cargamos primero
+     y solo si responde publicamos la variable CSS --cover-<cat>. Las
+     reglas de main.css la usan con el degradado de siempre como
+     valor por defecto, así que una portada que falte no rompe nada,
+     simplemente no se nota.
+     ------------------------------------------------------------ */
+  const COVER_DIR = 'assets/img/brand/covers/';
+  const coverReady = {}; // categoría -> true cuando la imagen cargó
+
+  // URL absoluta a propósito: una url() relativa dentro de una variable
+  // CSS se resuelve contra la HOJA DE ESTILOS (css/main.css), no contra la
+  // página, y acabaría apuntando a /css/assets/... que no existe.
+  function coverUrl(cat){
+    return new URL(`${COVER_DIR}${cat}.jpg`, document.baseURI).href;
+  }
+
+  function probeCover(cat){
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => {
+        coverReady[cat] = true;
+        document.documentElement.style.setProperty(`--cover-${cat}`, `url('${coverUrl(cat)}')`);
+        resolve(true);
+      };
+      img.onerror = () => { coverReady[cat] = false; resolve(false); };
+      img.src = coverUrl(cat);
+    });
+  }
+
   try {
     const res = await fetch('./data/projects.json?t=' + Date.now(), { cache: 'no-store' });
     const { projects } = await res.json();
@@ -73,6 +108,28 @@
       return hay.includes(state.q);
     }
 
+    /* Banner con la portada de la categoría filtrada.
+       Va DENTRO de la rejilla ocupando toda la fila (grid-column:1/-1),
+       igual que el panel de detalle. Así queda alineado con las fichas
+       por construcción: el ancho de la rejilla lo deciden sus columnas,
+       no un max-width, y replicarlo desde fuera no cuadraba.
+       No aparece con "Todo", con "nuevo", ni si esa portada no existe. */
+    function bannerHtml(){
+      const cat = state.filter;
+      if (!cat || cat === 'all' || cat === 'nuevo' || !coverReady[cat]) return '';
+      // El nombre visible sale del propio botón de filtro, que ya está traducido
+      const chip = document.querySelector(`.filters [data-filter="${cat}"] span`);
+      const label = chip ? chip.textContent.trim() : cat;
+      return `<div class="category-banner"><div class="category-banner-img" style="background-image:url('${coverUrl(cat)}')" role="img" aria-label="${label}"></div></div>`;
+    }
+
+    // Repinta solo si el banner cambia (las portadas llegan tarde, async)
+    function updateBanner(){
+      const current = container.querySelector('.category-banner');
+      const wanted = bannerHtml();
+      if ((wanted && !current) || (!wanted && current)) render();
+    }
+
     // Muestra el botón hacia programming.html solo si el filtro es "software"
     function toggleSoftwareExtra(){
       if (!softwareExtra) return;
@@ -82,9 +139,9 @@
     // Dibuja (o re-dibuja) todas las tarjetas visibles
     function render(){
       const items = sortProjects(projects.filter(matches));
-      if (!items.length) { container.innerHTML = '<p class="empty-state">No projects found.</p>'; toggleSoftwareExtra(); return; }
+      if (!items.length) { container.innerHTML = bannerHtml() + '<p class="empty-state">No projects found.</p>'; toggleSoftwareExtra(); return; }
 
-      container.innerHTML = items.map(p => {
+      container.innerHTML = bannerHtml() + items.map(p => {
         const raw = p.thumb || (Array.isArray(p.images) && p.images[0]) || '';
         // Si la imagen es el logo genérico, usamos un degradado CSS en su lugar
         const isPlaceholder = !raw || /(^|\/)HOme\.png$/i.test(raw) || /assets\/img\/brand\/HOme\.png$/i.test(raw);
@@ -367,6 +424,11 @@
 
     render(); // primer dibujado
     openFromQuery(); // ?p=<id> → abrir ese proyecto directamente
+
+    // Buscar las portadas en segundo plano: la página ya está usable
+    // y, según van llegando, las fichas y el banner se actualizan solos.
+    const cats = [...new Set(projects.map(p => p.category).filter(Boolean))];
+    Promise.all(cats.map(probeCover)).then(updateBanner);
   } catch (err) {
     console.error('Failed to load projects', err);
     container.innerHTML = '<p style="padding:12px;">Projects could not load. Please serve the site with a local server or open the deployed GitHub Pages site.</p>';
