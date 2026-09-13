@@ -5,27 +5,75 @@
       "id": "aiesec-awards",
       "category": "graphic",
       "title": "Awards – AIESEC",
-      "summary": "Certificates and event logo inspired by Fast & Furious, for the ceremony that rewards everything members achieve over a semester.",
+      "summary": {
+        "es": "Certificados y logo del evento inspirados en Rápido y Furioso, para la ceremonia que premia todo lo que logran los miembros a lo largo de un semestre.",
+        "en": "Certificates and event logo inspired by Fast & Furious, for the ceremony that rewards everything members achieve over a semester.",
+        "pt": "Certificados e logo do evento inspirados em Velozes e Furiosos, para a cerimônia que premia tudo o que os membros conquistam ao longo de um semestre."
+      },
       "role": "Director of Digital Experience & Graphic Design",
-      "discipline": "Digital experience",
+      "discipline": {
+        "es": "Experiencia digital",
+        "en": "Digital experience",
+        "pt": "Experiência digital"
+      },
       "tech": [
         "Illustrator",
         "Photoshop"
       ],
       "year": 2020,
-      "status": "Completed",
-      "importance": "High",
-      "client": "AIESEC",
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "importance": {
+        "es": "Alta",
+        "en": "High",
+        "pt": "Alta"
+      },
+      "client": {
+        "es": "AIESEC",
+        "en": "AIESEC",
+        "pt": "AIESEC"
+      },
       "features": [
-        "Coherent visual system",
-        "Printable and digital assets",
-        "Event concept: The Family — reconnect everyone as one family",
-        "Deliverables: event logo, certificates and supporting assets"
+        {
+          "es": "Sistema visual coherente",
+          "en": "Coherent visual system",
+          "pt": "Sistema visual coerente"
+        },
+        {
+          "es": "Piezas para imprenta y digital",
+          "en": "Printable and digital assets",
+          "pt": "Peças para impressão e digital"
+        },
+        {
+          "es": "Concepto del evento: The Family — reconectar a todos como una familia",
+          "en": "Event concept: The Family — reconnect everyone as one family",
+          "pt": "Conceito do evento: The Family — reconectar todos como uma família"
+        },
+        {
+          "es": "Entregables: logo del evento, certificados y piezas de apoyo",
+          "en": "Deliverables: event logo, certificates and supporting assets",
+          "pt": "Entregáveis: logo do evento, certificados e peças de apoio"
+        }
       ],
-      "learnings": "Refined brand consistency under tight timelines.",
+      "learnings": {
+        "es": "Afiné la consistencia de marca con plazos ajustados.",
+        "en": "Refined brand consistency under tight timelines.",
+        "pt": "Refinei a consistência de marca com prazos apertados."
+      },
       "results": [
-        "Delivered 100+ assets",
-        "Used across 3 events"
+        {
+          "es": "Más de 100 piezas entregadas",
+          "en": "Delivered 100+ assets",
+          "pt": "Mais de 100 peças entregues"
+        },
+        {
+          "es": "Usado en 3 eventos",
+          "en": "Used across 3 events",
+          "pt": "Usado em 3 eventos"
+        }
       ],
       "thumb": "assets/img/projects/graphic/aiesec-awards/thumb.jpg",
       "images": [
@@ -45,14 +93,26 @@
       "id": "zonalito-2020-1",
       "category": "graphic",
       "title": "Conference 2020 (1) – Zonalito",
-      "summary": "Zonalito: every activity, decoration and development of the event is built from an initial concept based on something that already exists.",
-      "discipline": "Digital experience",
+      "summary": {
+        "es": "Zonalito: cada actividad, decoración y desarrollo del evento se construye a partir de un concepto inicial basado en algo que ya existe.",
+        "en": "Zonalito: every activity, decoration and development of the event is built from an initial concept based on something that already exists.",
+        "pt": "Zonalito: cada atividade, decoração e desenvolvimento do evento parte de um conceito inicial baseado em algo que já existe."
+      },
+      "discipline": {
+        "es": "Experiencia digital",
+        "en": "Digital experience",
+        "pt": "Experiência digital"
+      },
       "tech": [
         "Illustrator",
         "Photoshop"
       ],
       "year": 2020,
-      "client": "AIESEC",
+      "client": {
+        "es": "AIESEC",
+        "en": "AIESEC",
+        "pt": "AIESEC"
+      },
       "thumb": "assets/img/projects/graphic/zonalito-2020-1/thumb.jpg",
       "images": [
         "assets/img/projects/graphic/zonalito-2020-1/thumb.jpg",
@@ -67,15 +127,39 @@
       "id": "zonalito-2020-2",
       "category": "graphic",
       "title": "Conference 2020 (2) – Big Heroes",
-      "summary": "Zonalito: an event that works as an induction for people new to the organisation. T‑shirts, logos, presentation templates and booklets.",
+      "summary": {
+        "es": "Zonalito: evento de inducción para quienes acaban de entrar en la organización. Camisetas, logos, plantillas de presentación y cuadernillos.",
+        "en": "Zonalito: an event that works as an induction for people new to the organisation. T‑shirts, logos, presentation templates and booklets.",
+        "pt": "Zonalito: evento de integração para quem acabou de entrar na organização. Camisetas, logos, modelos de apresentação e livretos."
+      },
       "role": "In charge of Digital Experience & Graphic Design",
-      "discipline": "Digital experience",
+      "discipline": {
+        "es": "Experiencia digital",
+        "en": "Digital experience",
+        "pt": "Experiência digital"
+      },
       "year": 2020,
-      "client": "AIESEC",
+      "client": {
+        "es": "AIESEC",
+        "en": "AIESEC",
+        "pt": "AIESEC"
+      },
       "features": [
-        "Event concept: Big Heroes — we can all be heroes",
-        "In charge of the digital experience and graphic design of the event",
-        "Deliverables: event logo, shirt, mascot, templates and activities"
+        {
+          "es": "Concepto del evento: Big Heroes — todos podemos ser héroes",
+          "en": "Event concept: Big Heroes — we can all be heroes",
+          "pt": "Conceito do evento: Big Heroes — todos podemos ser heróis"
+        },
+        {
+          "es": "A cargo de la experiencia digital y el diseño gráfico del evento",
+          "en": "In charge of the digital experience and graphic design of the event",
+          "pt": "Responsável pela experiência digital e pelo design gráfico do evento"
+        },
+        {
+          "es": "Entregables: logo del evento, camiseta, mascota, plantillas y actividades",
+          "en": "Deliverables: event logo, shirt, mascot, templates and activities",
+          "pt": "Entregáveis: logo do evento, camiseta, mascote, modelos e atividades"
+        }
       ],
       "thumb": "assets/img/projects/graphic/zonalito-2020-2/thumb.jpg",
       "images": [
@@ -91,15 +175,39 @@
       "id": "zonalito-2019",
       "category": "graphic",
       "title": "Conference 2019 (1) – Special Agents",
-      "summary": "Zonalito: a biannual event where a chosen concept shapes both the activities and the graphic work. Logos, templates and booklets.",
+      "summary": {
+        "es": "Zonalito: evento semestral donde un concepto elegido da forma tanto a las actividades como a la parte gráfica. Logos, plantillas y cuadernillos.",
+        "en": "Zonalito: a biannual event where a chosen concept shapes both the activities and the graphic work. Logos, templates and booklets.",
+        "pt": "Zonalito: evento semestral em que um conceito escolhido molda tanto as atividades quanto a parte gráfica. Logos, modelos e livretos."
+      },
       "role": "In charge of Digital Experience & Graphic Design",
-      "discipline": "Digital experience",
+      "discipline": {
+        "es": "Experiencia digital",
+        "en": "Digital experience",
+        "pt": "Experiência digital"
+      },
       "year": 2019,
-      "client": "AIESEC",
+      "client": {
+        "es": "AIESEC",
+        "en": "AIESEC",
+        "pt": "AIESEC"
+      },
       "features": [
-        "Event concept: Special Agents — those who are unique",
-        "In charge of the digital experience and graphic design of the event",
-        "Deliverables: event logo, rosettes and supporting assets"
+        {
+          "es": "Concepto del evento: Special Agents — los que son únicos",
+          "en": "Event concept: Special Agents — those who are unique",
+          "pt": "Conceito do evento: Special Agents — os que são únicos"
+        },
+        {
+          "es": "A cargo de la experiencia digital y el diseño gráfico del evento",
+          "en": "In charge of the digital experience and graphic design of the event",
+          "pt": "Responsável pela experiência digital e pelo design gráfico do evento"
+        },
+        {
+          "es": "Entregables: logo del evento, escarapelas y piezas de apoyo",
+          "en": "Deliverables: event logo, rosettes and supporting assets",
+          "pt": "Entregáveis: logo do evento, escarapelas e peças de apoio"
+        }
       ],
       "thumb": "assets/img/projects/graphic/zonalito-2019/thumb.jpg",
       "images": [
@@ -112,25 +220,77 @@
       "id": "mi-centro",
       "category": "experience",
       "title": "Mi Centro – University Project",
-      "summary": "Project focused on designing experiences with a social approach: an integrated system made up of station, pole and device.",
-      "discipline": "Experience design",
+      "summary": {
+        "es": "Proyecto centrado en el diseño de experiencias con enfoque social: un sistema integrado de estación, poste y dispositivo.",
+        "en": "Project focused on designing experiences with a social approach: an integrated system made up of station, pole and device.",
+        "pt": "Projeto focado no design de experiências com abordagem social: um sistema integrado de estação, poste e dispositivo."
+      },
+      "discipline": {
+        "es": "Diseño de experiencias",
+        "en": "Experience design",
+        "pt": "Design de experiências"
+      },
       "year": 2019,
-      "status": "Concept",
-      "importance": "Medium",
-      "client": "University",
+      "status": {
+        "es": "Concepto",
+        "en": "Concept",
+        "pt": "Conceito"
+      },
+      "importance": {
+        "es": "Media",
+        "en": "Medium",
+        "pt": "Média"
+      },
+      "client": {
+        "es": "Universidad",
+        "en": "University",
+        "pt": "Universidade"
+      },
       "team": "6",
-      "contribution": "Design phase: context research, prototyping and experience design. Construction: electronics manufacturing, programming and operation.",
+      "contribution": {
+        "es": "Fase de diseño: investigación de contexto, prototipado y diseño de la experiencia. Construcción: fabricación electrónica, programación y operación.",
+        "en": "Design phase: context research, prototyping and experience design. Construction: electronics manufacturing, programming and operation.",
+        "pt": "Fase de design: pesquisa de contexto, prototipagem e design da experiência. Construção: fabricação eletrônica, programação e operação."
+      },
       "state": "Prototype",
       "features": [
-        "Modular station",
-        "Contextual feedback",
-        "Integrated system: station, pole and device",
-        "Inspired by the social recovery of the city centre",
-        "Goal: create positive experiences"
+        {
+          "es": "Estación modular",
+          "en": "Modular station",
+          "pt": "Estação modular"
+        },
+        {
+          "es": "Retroalimentación contextual",
+          "en": "Contextual feedback",
+          "pt": "Retorno contextual"
+        },
+        {
+          "es": "Sistema integrado: estación, poste y dispositivo",
+          "en": "Integrated system: station, pole and device",
+          "pt": "Sistema integrado: estação, poste e dispositivo"
+        },
+        {
+          "es": "Inspirado en la recuperación social del centro de la ciudad",
+          "en": "Inspired by the social recovery of the city centre",
+          "pt": "Inspirado na recuperação social do centro da cidade"
+        },
+        {
+          "es": "Objetivo: crear experiencias positivas",
+          "en": "Goal: create positive experiences",
+          "pt": "Objetivo: criar experiências positivas"
+        }
       ],
-      "learnings": "User research synthesis and rapid prototyping.",
+      "learnings": {
+        "es": "Síntesis de investigación con usuarios y prototipado rápido.",
+        "en": "User research synthesis and rapid prototyping.",
+        "pt": "Síntese de pesquisa com usuários e prototipagem rápida."
+      },
       "results": [
-        "Validated with 12 participants"
+        {
+          "es": "Validado con 12 participantes",
+          "en": "Validated with 12 participants",
+          "pt": "Validado com 12 participantes"
+        }
       ],
       "thumb": "assets/img/projects/experience/mi-centro/thumb.jpg",
       "images": [
@@ -149,17 +309,49 @@
       "id": "thor-machine",
       "category": "experience",
       "title": "Thor Machine – University Project",
-      "summary": "Project focused on design with physical and cognitive ergonomics in an interactive machine.",
-      "discipline": "Experience design",
+      "summary": {
+        "es": "Proyecto centrado en el diseño con ergonomía física y cognitiva en una máquina interactiva.",
+        "en": "Project focused on design with physical and cognitive ergonomics in an interactive machine.",
+        "pt": "Projeto focado em design com ergonomia física e cognitiva em uma máquina interativa."
+      },
+      "discipline": {
+        "es": "Diseño de experiencias",
+        "en": "Experience design",
+        "pt": "Design de experiências"
+      },
       "year": 2019,
-      "client": "University",
+      "client": {
+        "es": "Universidad",
+        "en": "University",
+        "pt": "Universidade"
+      },
       "team": "5",
-      "contribution": "Design phase: mechanism approach, components and experience design. Construction: manufacturing, finishes and mechanical operation.",
+      "contribution": {
+        "es": "Fase de diseño: planteamiento de mecanismos, componentes y diseño de la experiencia. Construcción: fabricación, acabados y funcionamiento mecánico.",
+        "en": "Design phase: mechanism approach, components and experience design. Construction: manufacturing, finishes and mechanical operation.",
+        "pt": "Fase de design: abordagem dos mecanismos, componentes e design da experiência. Construção: fabricação, acabamentos e funcionamento mecânico."
+      },
       "features": [
-        "References: the world of Asgard",
-        "Users: children aged 8–12",
-        "Inspired by the conservation of angular momentum",
-        "Goal: teach the physical phenomenon"
+        {
+          "es": "Referentes: el mundo de Asgard",
+          "en": "References: the world of Asgard",
+          "pt": "Referências: o mundo de Asgard"
+        },
+        {
+          "es": "Usuarios: niños de 8 a 12 años",
+          "en": "Users: children aged 8–12",
+          "pt": "Usuários: crianças de 8 a 12 anos"
+        },
+        {
+          "es": "Inspirado en la conservación del momento angular",
+          "en": "Inspired by the conservation of angular momentum",
+          "pt": "Inspirado na conservação do momento angular"
+        },
+        {
+          "es": "Objetivo: enseñar el fenómeno físico",
+          "en": "Goal: teach the physical phenomenon",
+          "pt": "Objetivo: ensinar o fenômeno físico"
+        }
       ],
       "thumb": "assets/img/projects/experience/thor-machine/thumb.jpg",
       "images": [
@@ -178,18 +370,54 @@
       "id": "fwd",
       "category": "engineering",
       "title": "FWD – University Project",
-      "summary": "Project focused on mechanical systems in motor vehicles: a single‑person, two‑wheel vehicle with the transmission inside the rim.",
-      "discipline": "Vehicle design",
+      "summary": {
+        "es": "Proyecto centrado en sistemas mecánicos de vehículos: un vehículo monoplaza de dos ruedas con la transmisión dentro de la llanta.",
+        "en": "Project focused on mechanical systems in motor vehicles: a single‑person, two‑wheel vehicle with the transmission inside the rim.",
+        "pt": "Projeto focado em sistemas mecânicos de veículos: um veículo de uma pessoa e duas rodas com a transmissão dentro do aro."
+      },
+      "discipline": {
+        "es": "Diseño de vehículos",
+        "en": "Vehicle design",
+        "pt": "Design de veículos"
+      },
       "year": 2018,
-      "status": "Completed",
-      "client": "University",
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Universidad",
+        "en": "University",
+        "pt": "Universidade"
+      },
       "team": "5",
-      "contribution": "Design phase: ergonomics, drawings and design decisions. Construction: manufacturing (chassis), assembly and general operation.",
+      "contribution": {
+        "es": "Fase de diseño: ergonomía, planos y decisiones de diseño. Construcción: fabricación (chasis), ensamblaje y funcionamiento general.",
+        "en": "Design phase: ergonomics, drawings and design decisions. Construction: manufacturing (chassis), assembly and general operation.",
+        "pt": "Fase de design: ergonomia, desenhos e decisões de projeto. Construção: fabricação (chassi), montagem e funcionamento geral."
+      },
       "features": [
-        "Two wheels driven by a combustion engine",
-        "Transmission inside the rim",
-        "Inspired by the recovery position",
-        "Single‑person vehicle"
+        {
+          "es": "Dos ruedas movidas por un motor de combustión",
+          "en": "Two wheels driven by a combustion engine",
+          "pt": "Duas rodas movidas por um motor de combustão"
+        },
+        {
+          "es": "Transmisión dentro de la llanta",
+          "en": "Transmission inside the rim",
+          "pt": "Transmissão dentro do aro"
+        },
+        {
+          "es": "Inspirado en la posición de recuperación",
+          "en": "Inspired by the recovery position",
+          "pt": "Inspirado na posição de recuperação"
+        },
+        {
+          "es": "Vehículo monoplaza",
+          "en": "Single‑person vehicle",
+          "pt": "Veículo de uma pessoa"
+        }
       ],
       "thumb": "assets/img/projects/engineering/fwd/thumb.jpg",
       "images": [
@@ -205,26 +433,70 @@
       "id": "joha",
       "category": "engineering",
       "title": "JO.HA – Ecoluz",
-      "summary": "Details pending documentation.",
+      "summary": {
+        "es": "Pendiente de documentar.",
+        "en": "Details pending documentation.",
+        "pt": "Aguardando documentação."
+      },
       "year": 2019,
-      "client": "Ecoluz"
+      "client": {
+        "es": "Ecoluz",
+        "en": "Ecoluz",
+        "pt": "Ecoluz"
+      }
     },
     {
       "id": "kory",
       "category": "engineering",
       "title": "Kory – Beach Cleaner",
-      "summary": "Project focused on developing and integrating technical systems: a semi‑autonomous electric vehicle steered by remote control or via GPS and compass.",
-      "discipline": "Electric robot design",
+      "summary": {
+        "es": "Proyecto centrado en desarrollar e integrar sistemas técnicos: un vehículo eléctrico semiautónomo guiado por control remoto o por GPS y brújula.",
+        "en": "Project focused on developing and integrating technical systems: a semi‑autonomous electric vehicle steered by remote control or via GPS and compass.",
+        "pt": "Projeto focado em desenvolver e integrar sistemas técnicos: um veículo elétrico semiautônomo guiado por controle remoto ou por GPS e bússola."
+      },
+      "discipline": {
+        "es": "Diseño de robótica eléctrica",
+        "en": "Electric robot design",
+        "pt": "Design de robótica elétrica"
+      },
       "year": 2020,
-      "status": "Completed",
-      "client": "University",
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Universidad",
+        "en": "University",
+        "pt": "Universidade"
+      },
       "team": "8",
-      "contribution": "Design phase: electronics approach, steering, finite element analysis and conceptual design. Construction: programming, wiring and assembly of electronic components.",
+      "contribution": {
+        "es": "Fase de diseño: planteamiento electrónico, dirección, análisis por elementos finitos y diseño conceptual. Construcción: programación, cableado y montaje de componentes electrónicos.",
+        "en": "Design phase: electronics approach, steering, finite element analysis and conceptual design. Construction: programming, wiring and assembly of electronic components.",
+        "pt": "Fase de design: abordagem eletrônica, direção, análise por elementos finitos e design conceitual. Construção: programação, cabeamento e montagem de componentes eletrônicos."
+      },
       "features": [
-        "Semi‑autonomous electric vehicle, guided by control or via GPS / compass",
-        "Seeks to raise awareness and help the climate situation",
-        "Designed to collect solid waste on tourist beaches",
-        "Goal: erase the negative footprint people leave on the beach"
+        {
+          "es": "Vehículo eléctrico semiautónomo, guiado por control o por GPS / brújula",
+          "en": "Semi‑autonomous electric vehicle, guided by control or via GPS / compass",
+          "pt": "Veículo elétrico semiautônomo, guiado por controle ou por GPS / bússola"
+        },
+        {
+          "es": "Busca concienciar y ayudar ante la situación climática",
+          "en": "Seeks to raise awareness and help the climate situation",
+          "pt": "Busca conscientizar e ajudar diante da situação climática"
+        },
+        {
+          "es": "Diseñado para recoger residuos sólidos en playas turísticas",
+          "en": "Designed to collect solid waste on tourist beaches",
+          "pt": "Projetado para recolher resíduos sólidos em praias turísticas"
+        },
+        {
+          "es": "Objetivo: borrar la huella negativa que deja la gente en la playa",
+          "en": "Goal: erase the negative footprint people leave on the beach",
+          "pt": "Objetivo: apagar a pegada negativa que as pessoas deixam na praia"
+        }
       ],
       "links": {
         "video": ""
@@ -234,7 +506,11 @@
       "id": "grid-1",
       "category": "research",
       "title": "Comparación de Álabes – GRID",
-      "summary": "Comparative study of blade profiles.",
+      "summary": {
+        "es": "Estudio comparativo de perfiles de pala.",
+        "en": "Comparative study of blade profiles.",
+        "pt": "Estudo comparativo de perfis de pá."
+      },
       "year": 2018,
       "thumb": "assets/img/projects/research/grid-1/thumb.jpg",
       "images": [
@@ -246,14 +522,22 @@
       "id": "grid-2",
       "category": "research",
       "title": "Validación Wavy Leading Edge – GRID",
-      "summary": "Validation of Wavy Leading Edge strategies.",
+      "summary": {
+        "es": "Validación de estrategias de Wavy Leading Edge.",
+        "en": "Validation of Wavy Leading Edge strategies.",
+        "pt": "Validação de estratégias de Wavy Leading Edge."
+      },
       "year": 2018
     },
     {
       "id": "grid-3",
       "category": "research",
       "title": "Viabilidad de Aerogenerador",
-      "summary": "Feasibility analysis of a small wind turbine.",
+      "summary": {
+        "es": "Análisis de viabilidad de un aerogenerador pequeño.",
+        "en": "Feasibility analysis of a small wind turbine.",
+        "pt": "Análise de viabilidade de um aerogerador pequeno."
+      },
       "year": 2019,
       "thumb": "assets/img/projects/research/grid-3/thumb.jpg",
       "images": [
@@ -264,21 +548,33 @@
       "id": "grid-4",
       "category": "research",
       "title": "Gratu",
-      "summary": "Research item placeholder.",
+      "summary": {
+        "es": "Pendiente de documentar.",
+        "en": "Details pending documentation.",
+        "pt": "Aguardando documentação."
+      },
       "year": 2019
     },
     {
       "id": "grid-5",
       "category": "research",
       "title": "Artículo Científico",
-      "summary": "Co-authored publication in Wind Engineering Journal.",
+      "summary": {
+        "es": "Publicación en coautoría en el Wind Engineering Journal.",
+        "en": "Co-authored publication in the Wind Engineering Journal.",
+        "pt": "Publicação em coautoria no Wind Engineering Journal."
+      },
       "year": 2023
     },
     {
       "id": "clean-dataset",
       "category": "software",
       "title": "Clean Dataset",
-      "summary": "Automation for data cleaning and preprocessing.",
+      "summary": {
+        "es": "Automatización para limpieza y preprocesado de datos.",
+        "en": "Automation for data cleaning and preprocessing.",
+        "pt": "Automação para limpeza e pré-processamento de dados."
+      },
       "tech": [
         "Python"
       ],
@@ -288,23 +584,55 @@
         "repo": "",
         "demo": ""
       },
-      "status": "In progress",
+      "status": {
+        "es": "En curso",
+        "en": "In progress",
+        "pt": "Em andamento"
+      },
       "features": [
-        "Schema validation",
-        "Pipeline orchestration"
+        {
+          "es": "Validación de esquema",
+          "en": "Schema validation",
+          "pt": "Validação de esquema"
+        },
+        {
+          "es": "Orquestación de pipelines",
+          "en": "Pipeline orchestration",
+          "pt": "Orquestração de pipelines"
+        }
       ],
-      "contribution": "Sole developer",
-      "importance": "Medium",
-      "learnings": "Data contracts and robust logging.",
+      "contribution": {
+        "es": "Desarrollo en solitario",
+        "en": "Sole developer",
+        "pt": "Desenvolvimento solo"
+      },
+      "importance": {
+        "es": "Media",
+        "en": "Medium",
+        "pt": "Média"
+      },
+      "learnings": {
+        "es": "Contratos de datos y registro robusto.",
+        "en": "Data contracts and robust logging.",
+        "pt": "Contratos de dados e registro robusto."
+      },
       "results": [
-        "Reduced manual cleaning time by 40%"
+        {
+          "es": "Reduje el tiempo de limpieza manual un 40%",
+          "en": "Reduced manual cleaning time by 40%",
+          "pt": "Reduzi o tempo de limpeza manual em 40%"
+        }
       ]
     },
     {
       "id": "forecast-gl",
       "category": "software",
       "title": "Forecast GL Project",
-      "summary": "Predictive analytics for streaming operations.",
+      "summary": {
+        "es": "Analítica predictiva para operaciones de streaming.",
+        "en": "Predictive analytics for streaming operations.",
+        "pt": "Analítica preditiva para operações de streaming."
+      },
       "tech": [
         "Python",
         "ML"
@@ -317,7 +645,11 @@
       "id": "web-jonathan",
       "category": "software",
       "title": "Web Page Jonathan",
-      "summary": "Personal portfolio website.",
+      "summary": {
+        "es": "Sitio web de portafolio personal.",
+        "en": "Personal portfolio website.",
+        "pt": "Site de portfólio pessoal."
+      },
       "tech": {
         "languages": [
           "HTML",
@@ -335,25 +667,65 @@
         "repo": "",
         "portfolio": "https://jasgidp.github.io"
       },
-      "status": "Live",
+      "status": {
+        "es": "En producción",
+        "en": "Live",
+        "pt": "Em produção"
+      },
       "features": [
-        "i18n",
-        "Responsive",
-        "Data-driven sections"
+        {
+          "es": "Multiidioma",
+          "en": "i18n",
+          "pt": "Multi-idioma"
+        },
+        {
+          "es": "Adaptable a móvil",
+          "en": "Responsive",
+          "pt": "Responsivo"
+        },
+        {
+          "es": "Secciones alimentadas por datos",
+          "en": "Data-driven sections",
+          "pt": "Seções alimentadas por dados"
+        }
       ],
-      "contribution": "Design & development",
-      "importance": "High",
-      "learnings": "Design tokens and content-driven architecture.",
+      "contribution": {
+        "es": "Diseño y desarrollo",
+        "en": "Design & development",
+        "pt": "Design e desenvolvimento"
+      },
+      "importance": {
+        "es": "Alta",
+        "en": "High",
+        "pt": "Alta"
+      },
+      "learnings": {
+        "es": "Tokens de diseño y arquitectura guiada por contenido.",
+        "en": "Design tokens and content-driven architecture.",
+        "pt": "Tokens de design e arquitetura guiada por conteúdo."
+      },
       "results": [
-        "Improved mobile nav UX",
-        "Faster content updates"
+        {
+          "es": "Mejoré la navegación en móvil",
+          "en": "Improved mobile nav UX",
+          "pt": "Melhorei a navegação no celular"
+        },
+        {
+          "es": "Actualizaciones de contenido más rápidas",
+          "en": "Faster content updates",
+          "pt": "Atualizações de conteúdo mais rápidas"
+        }
       ]
     },
     {
       "id": "sbs",
       "category": "software",
       "title": "SBS",
-      "summary": "Internal tool for system/process support.",
+      "summary": {
+        "es": "Herramienta interna de soporte a sistemas y procesos.",
+        "en": "Internal tool for system and process support.",
+        "pt": "Ferramenta interna de suporte a sistemas e processos."
+      },
       "links": {
         "repo": ""
       }
@@ -362,21 +734,41 @@
       "id": "grafana-improvement",
       "category": "software",
       "title": "Grafana Improvement",
-      "summary": "Visualization and monitoring optimization.",
+      "summary": {
+        "es": "Optimización de visualización y monitoreo.",
+        "en": "Visualization and monitoring optimisation.",
+        "pt": "Otimização de visualização e monitoramento."
+      },
       "links": {
         "repo": ""
       },
-      "status": "Completed",
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
       "results": [
-        "Reduced alert noise by 25%",
-        "Improved MTTR"
+        {
+          "es": "Reduje el ruido de alertas un 25%",
+          "en": "Reduced alert noise by 25%",
+          "pt": "Reduzi o ruído de alertas em 25%"
+        },
+        {
+          "es": "Mejoré el MTTR",
+          "en": "Improved MTTR",
+          "pt": "Melhorei o MTTR"
+        }
       ]
     },
     {
       "id": "hermes-improvements",
       "category": "software",
       "title": "Hermes Improvements",
-      "summary": "Enhancements to internal communication platform.",
+      "summary": {
+        "es": "Mejoras en la plataforma interna de comunicación.",
+        "en": "Enhancements to the internal communication platform.",
+        "pt": "Melhorias na plataforma interna de comunicação."
+      },
       "links": {
         "repo": ""
       }
@@ -385,7 +777,11 @@
       "id": "runbooks",
       "category": "software",
       "title": "Runbooks – Troubleshooting/Info/Rules",
-      "summary": "Standardized operational runbooks.",
+      "summary": {
+        "es": "Runbooks operativos estandarizados.",
+        "en": "Standardised operational runbooks.",
+        "pt": "Runbooks operacionais padronizados."
+      },
       "links": {
         "repo": ""
       }
@@ -394,40 +790,80 @@
       "id": "db-automation",
       "category": "software",
       "title": "Database Information Automation",
-      "summary": "Scripts for updating and validating datasets.",
+      "summary": {
+        "es": "Scripts para actualizar y validar conjuntos de datos.",
+        "en": "Scripts for updating and validating datasets.",
+        "pt": "Scripts para atualizar e validar conjuntos de dados."
+      },
       "links": {
         "repo": ""
       },
-      "status": "Completed",
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
       "results": [
-        "Cut update time from hours to minutes"
+        {
+          "es": "Bajé el tiempo de actualización de horas a minutos",
+          "en": "Cut update time from hours to minutes",
+          "pt": "Reduzi o tempo de atualização de horas para minutos"
+        }
       ]
     },
     {
       "id": "alerts-nfl",
       "category": "software",
       "title": "Alerts for NFL",
-      "summary": "Automated alert system for sports data.",
+      "summary": {
+        "es": "Sistema automático de alertas para datos deportivos.",
+        "en": "Automated alert system for sports data.",
+        "pt": "Sistema automático de alertas para dados esportivos."
+      },
       "links": {
         "repo": ""
       },
-      "status": "Operational",
+      "status": {
+        "es": "Operativo",
+        "en": "Operational",
+        "pt": "Operacional"
+      },
       "results": [
-        "Improved detection latency 30%"
+        {
+          "es": "Mejoré la latencia de detección un 30%",
+          "en": "Improved detection latency 30%",
+          "pt": "Melhorei a latência de detecção em 30%"
+        }
       ]
     },
     {
       "id": "permission-system",
       "category": "software",
       "title": "New Permission System",
-      "summary": "Backend logic for role-based access control.",
+      "summary": {
+        "es": "Lógica de backend para control de acceso por roles.",
+        "en": "Backend logic for role-based access control.",
+        "pt": "Lógica de backend para controle de acesso por papéis."
+      },
       "links": {
         "repo": ""
       },
-      "status": "In progress",
+      "status": {
+        "es": "En curso",
+        "en": "In progress",
+        "pt": "Em andamento"
+      },
       "features": [
-        "RBAC",
-        "Audit logs"
+        {
+          "es": "Control de acceso por roles",
+          "en": "RBAC",
+          "pt": "Controle de acesso por papéis"
+        },
+        {
+          "es": "Registros de auditoría",
+          "en": "Audit logs",
+          "pt": "Logs de auditoria"
+        }
       ],
       "state": "MVP"
     },
@@ -435,7 +871,11 @@
       "id": "fixture-manager",
       "category": "software",
       "title": "Fixture Manager / NFL Messages",
-      "summary": "Tools for sports data management and automation.",
+      "summary": {
+        "es": "Herramientas para gestión y automatización de datos deportivos.",
+        "en": "Tools for sports data management and automation.",
+        "pt": "Ferramentas para gestão e automação de dados esportivos."
+      },
       "links": {
         "repo": ""
       }
@@ -444,14 +884,34 @@
       "id": "center-box",
       "category": "design",
       "title": "Center Box – Family Project",
-      "summary": "Centre table designed for the home: a coffee table that doubles as storage for everyday items.",
-      "discipline": "Furniture design",
+      "summary": {
+        "es": "Mesa de centro pensada para el hogar: sirve además como almacenamiento para objetos del día a día.",
+        "en": "Centre table designed for the home: a coffee table that doubles as storage for everyday items.",
+        "pt": "Mesa de centro pensada para a casa: serve também como armazenamento para objetos do dia a dia."
+      },
+      "discipline": {
+        "es": "Diseño de mobiliario",
+        "en": "Furniture design",
+        "pt": "Design de mobiliário"
+      },
       "year": 2017,
-      "client": "Family",
+      "client": {
+        "es": "Familia",
+        "en": "Family",
+        "pt": "Família"
+      },
       "team": "1",
-      "contribution": "Whole project (sole author).",
+      "contribution": {
+        "es": "Proyecto completo (autor único).",
+        "en": "Whole project (sole author).",
+        "pt": "Projeto completo (autor único)."
+      },
       "features": [
-        "Coffee table that stores items inside"
+        {
+          "es": "Mesa de centro que guarda objetos dentro",
+          "en": "Coffee table that stores items inside",
+          "pt": "Mesa de centro que guarda objetos dentro"
+        }
       ],
       "thumb": "assets/img/projects/design/center-box/thumb.jpg",
       "images": [
@@ -467,16 +927,44 @@
       "id": "overlap",
       "category": "design",
       "title": "Overlap – University Project",
-      "summary": "Project focused on an introduction to mechanisms and the conceptualisation of references.",
-      "discipline": "Conceptual design",
+      "summary": {
+        "es": "Proyecto centrado en una introducción a los mecanismos y a la conceptualización de referentes.",
+        "en": "Project focused on an introduction to mechanisms and the conceptualisation of references.",
+        "pt": "Projeto focado em uma introdução aos mecanismos e à conceituação de referências."
+      },
+      "discipline": {
+        "es": "Diseño conceptual",
+        "en": "Conceptual design",
+        "pt": "Design conceitual"
+      },
       "year": 2017,
-      "status": "Completed",
-      "client": "University project",
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Proyecto universitario",
+        "en": "University project",
+        "pt": "Projeto universitário"
+      },
       "team": "4",
-      "contribution": "Design phase: abstraction of the reference and design of the drive mechanism. Construction: dispensing mechanism and assemblies.",
+      "contribution": {
+        "es": "Fase de diseño: abstracción del referente y diseño del mecanismo de accionamiento. Construcción: mecanismo dispensador y ensamblajes.",
+        "en": "Design phase: abstraction of the reference and design of the drive mechanism. Construction: dispensing mechanism and assemblies.",
+        "pt": "Fase de design: abstração da referência e projeto do mecanismo de acionamento. Construção: mecanismo dispensador e montagens."
+      },
       "features": [
-        "Dispenser for MAMM scale models",
-        "Inspired by the MAMM and its overlapping volumes"
+        {
+          "es": "Dispensador de maquetas del MAMM",
+          "en": "Dispenser for MAMM scale models",
+          "pt": "Dispensador de maquetes do MAMM"
+        },
+        {
+          "es": "Inspirado en el MAMM y la superposición de sus volúmenes",
+          "en": "Inspired by the MAMM and its overlapping volumes",
+          "pt": "Inspirado no MAMM e na sobreposição de seus volumes"
+        }
       ],
       "thumb": "assets/img/projects/design/overlap/thumb.jpg",
       "images": [
@@ -492,16 +980,44 @@
       "id": "diesel-chair",
       "category": "design",
       "title": "Diesel Chair – University Project",
-      "summary": "Chair design exploring ergonomics and the conceptualisation of clothing brands.",
-      "discipline": "Furniture design",
+      "summary": {
+        "es": "Diseño de silla que explora la ergonomía y la conceptualización de marcas de ropa.",
+        "en": "Chair design exploring ergonomics and the conceptualisation of clothing brands.",
+        "pt": "Design de cadeira que explora ergonomia e a conceituação de marcas de roupa."
+      },
+      "discipline": {
+        "es": "Diseño de mobiliario",
+        "en": "Furniture design",
+        "pt": "Design de mobiliário"
+      },
       "year": 2017,
-      "status": "Completed",
-      "client": "University project",
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Proyecto universitario",
+        "en": "University project",
+        "pt": "Projeto universitário"
+      },
       "team": "1",
-      "contribution": "Whole project (sole author).",
+      "contribution": {
+        "es": "Proyecto completo (autor único).",
+        "en": "Whole project (sole author).",
+        "pt": "Projeto completo (autor único)."
+      },
       "features": [
-        "Inspired by the Diesel brand",
-        "Explores different assembly methods"
+        {
+          "es": "Inspirado en la marca Diesel",
+          "en": "Inspired by the Diesel brand",
+          "pt": "Inspirado na marca Diesel"
+        },
+        {
+          "es": "Explora distintos métodos de ensamblaje",
+          "en": "Explores different assembly methods",
+          "pt": "Explora diferentes métodos de montagem"
+        }
       ],
       "thumb": "assets/img/projects/design/diesel-chair/thumb.jpg",
       "images": [
@@ -517,16 +1033,44 @@
       "id": "stad",
       "category": "design",
       "title": "Stad – University Project",
-      "summary": "Project focused on ergonomics and the conceptualisation of references in furniture.",
-      "discipline": "Furniture design",
+      "summary": {
+        "es": "Proyecto centrado en la ergonomía y la conceptualización de referentes en mobiliario.",
+        "en": "Project focused on ergonomics and the conceptualisation of references in furniture.",
+        "pt": "Projeto focado em ergonomia e na conceituação de referências em mobiliário."
+      },
+      "discipline": {
+        "es": "Diseño de mobiliario",
+        "en": "Furniture design",
+        "pt": "Design de mobiliário"
+      },
       "year": 2017,
-      "status": "Completed",
-      "client": "University project",
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Proyecto universitario",
+        "en": "University project",
+        "pt": "Projeto universitário"
+      },
       "team": "3",
-      "contribution": "Design phase: conceptualisation. Construction: assemblies and finishes.",
+      "contribution": {
+        "es": "Fase de diseño: conceptualización. Construcción: ensamblajes y acabados.",
+        "en": "Design phase: conceptualisation. Construction: assemblies and finishes.",
+        "pt": "Fase de design: conceituação. Construção: montagens e acabamentos."
+      },
       "features": [
-        "Reference: Delft Blue ceramics",
-        "Inspirational city: Amsterdam"
+        {
+          "es": "Referente: cerámica Delft Blue",
+          "en": "Reference: Delft Blue ceramics",
+          "pt": "Referência: cerâmica Delft Blue"
+        },
+        {
+          "es": "Ciudad de inspiración: Ámsterdam",
+          "en": "Inspirational city: Amsterdam",
+          "pt": "Cidade de inspiração: Amsterdã"
+        }
       ],
       "thumb": "assets/img/projects/design/stad/thumb.jpg",
       "images": [
@@ -542,15 +1086,39 @@
       "id": "tengu",
       "category": "design",
       "title": "Tengu – University Project",
-      "summary": "Bottle designed for drinking sake, themed around the Tengu.",
-      "discipline": "3D model design",
+      "summary": {
+        "es": "Botella diseñada para beber sake, con el Tengu como tema.",
+        "en": "Bottle designed for drinking sake, themed around the Tengu.",
+        "pt": "Garrafa desenhada para beber saquê, com o Tengu como tema."
+      },
+      "discipline": {
+        "es": "Modelado 3D",
+        "en": "3D model design",
+        "pt": "Modelagem 3D"
+      },
       "year": 2017,
-      "status": "Completed",
-      "client": "University project",
+      "status": {
+        "es": "Completado",
+        "en": "Completed",
+        "pt": "Concluído"
+      },
+      "client": {
+        "es": "Proyecto universitario",
+        "en": "University project",
+        "pt": "Projeto universitário"
+      },
       "team": "2",
-      "contribution": "Physical model for scanning, 3D model design and conceptualisation.",
+      "contribution": {
+        "es": "Modelo físico para escanear, modelado 3D y conceptualización.",
+        "en": "Physical model for scanning, 3D model design and conceptualisation.",
+        "pt": "Modelo físico para escanear, modelagem 3D e conceituação."
+      },
       "features": [
-        "Inspired by the Tengu, legendary creatures of Japanese folk religion"
+        {
+          "es": "Inspirado en los Tengu, criaturas legendarias de la religión popular japonesa",
+          "en": "Inspired by the Tengu, legendary creatures of Japanese folk religion",
+          "pt": "Inspirado nos Tengu, criaturas lendárias da religião popular japonesa"
+        }
       ],
       "thumb": "assets/img/projects/design/tengu/thumb.jpg",
       "images": [
@@ -563,21 +1131,33 @@
       "id": "sd-sofa",
       "category": "design",
       "title": "SD Sofa – Family Project",
-      "summary": "Convertible sofa-bed using recycled materials.",
+      "summary": {
+        "es": "Sofá cama convertible hecho con materiales reciclados.",
+        "en": "Convertible sofa-bed using recycled materials.",
+        "pt": "Sofá-cama conversível feito com materiais reciclados."
+      },
       "year": 2018
     },
     {
       "id": "models",
       "category": "design",
       "title": "3D Model Design – University Project",
-      "summary": "Modeling of existing products using Creo.",
+      "summary": {
+        "es": "Modelado de productos existentes con Creo.",
+        "en": "Modelling of existing products using Creo.",
+        "pt": "Modelagem de produtos existentes com Creo."
+      },
       "year": 2017
     },
     {
       "id": "twist-lamp",
       "category": "design",
       "title": "Twist Lamp",
-      "summary": "Lámpara de mesa con geometría torsionada; modelado y prototipo.",
+      "summary": {
+        "es": "Lámpara de mesa con geometría torsionada; modelado y prototipo.",
+        "en": "Table lamp with twisted geometry; modelling and prototype.",
+        "pt": "Luminária de mesa com geometria torcida; modelagem e protótipo."
+      },
       "year": 2018,
       "tech": [
         "Rhino",
@@ -595,14 +1175,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "perchero-arana",
       "category": "design",
       "title": "Perchero Araña",
-      "summary": "Perchero de pie con estructura radial; diseño y construcción.",
+      "summary": {
+        "es": "Perchero de pie con estructura radial; diseño y construcción.",
+        "en": "Standing coat rack with a radial structure; design and build.",
+        "pt": "Cabideiro de pé com estrutura radial; design e construção."
+      },
       "year": 2018,
       "tech": [
         "Madera",
@@ -620,14 +1208,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "eslovensa",
       "category": "design",
       "title": "Eslovensa",
-      "summary": "Proyecto de diseño de producto / mobiliario.",
+      "summary": {
+        "es": "Proyecto de diseño de producto y mobiliario.",
+        "en": "Product and furniture design project.",
+        "pt": "Projeto de design de produto e mobiliário."
+      },
       "year": 2018,
       "tech": [
         "Diseño industrial"
@@ -644,14 +1240,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "control-headset",
       "category": "design",
       "title": "Control and Headset",
-      "summary": "Concepto de control y headset; modelado 3D.",
+      "summary": {
+        "es": "Concepto de control y headset; modelado 3D.",
+        "en": "Controller and headset concept; 3D modelling.",
+        "pt": "Conceito de controle e headset; modelagem 3D."
+      },
       "year": 2017,
       "tech": [
         "Creo",
@@ -665,14 +1269,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "premios-design",
       "category": "design",
       "title": "Premios – Piezas de diseño",
-      "summary": "Piezas y reconocimientos de diseño.",
+      "summary": {
+        "es": "Piezas y reconocimientos de diseño.",
+        "en": "Design pieces and awards.",
+        "pt": "Peças e prêmios de design."
+      },
       "year": 2018,
       "tech": [
         "Diseño"
@@ -688,14 +1300,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "open-mate",
       "category": "design",
       "title": "Open-Mate – Destapadores",
-      "summary": "Diseño freelance de destapadores; planos DXF y pieza final.",
+      "summary": {
+        "es": "Diseño freelance de destapadores; planos DXF y pieza final.",
+        "en": "Freelance bottle-opener design; DXF drawings and final piece.",
+        "pt": "Design freelance de abridores; desenhos DXF e peça final."
+      },
       "year": 2020,
       "tech": [
         "DXF",
@@ -708,15 +1328,27 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true,
-      "client": "Freelance"
+      "client": {
+        "es": "Freelance",
+        "en": "Freelance",
+        "pt": "Freelance"
+      }
     },
     {
       "id": "caja-de-gatos",
       "category": "design",
       "title": "Caja de gatos",
-      "summary": "Maker project: caja / mueble para gatos.",
+      "summary": {
+        "es": "Proyecto maker: caja y mueble para gatos.",
+        "en": "Maker project: a box and piece of furniture for cats.",
+        "pt": "Projeto maker: caixa e móvel para gatos."
+      },
       "year": 2019,
       "tech": [
         "Maker",
@@ -732,14 +1364,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "viana",
       "category": "design",
       "title": "Viana",
-      "summary": "Proyecto maker / ilustración de personaje.",
+      "summary": {
+        "es": "Proyecto maker e ilustración de personaje.",
+        "en": "Maker project and character illustration.",
+        "pt": "Projeto maker e ilustração de personagem."
+      },
       "year": 2019,
       "tech": [
         "Ilustración",
@@ -755,14 +1395,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "try-engine",
       "category": "engineering",
       "title": "TRY – Vehículo / motor",
-      "summary": "Exploración de ingeniería: vistas, proceso y componentes de motor.",
+      "summary": {
+        "es": "Exploración de ingeniería: vistas, proceso y componentes de motor.",
+        "en": "Engineering exploration: views, process and engine components.",
+        "pt": "Exploração de engenharia: vistas, processo e componentes de motor."
+      },
       "year": 2019,
       "tech": [
         "Ingeniería",
@@ -780,14 +1428,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "aero-social",
       "category": "research",
       "title": "Aero Social",
-      "summary": "Investigación sobre aerogeneración / impacto social.",
+      "summary": {
+        "es": "Investigación sobre aerogeneración e impacto social.",
+        "en": "Research on wind power generation and social impact.",
+        "pt": "Pesquisa sobre geração eólica e impacto social."
+      },
       "year": 2019,
       "tech": [
         "Investigación"
@@ -804,14 +1460,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "tensoestructuras",
       "category": "research",
       "title": "Tensoestructuras",
-      "summary": "Estudio y resultados de tensoestructuras.",
+      "summary": {
+        "es": "Estudio y resultados de tensoestructuras.",
+        "en": "Study and results on tensile structures.",
+        "pt": "Estudo e resultados de tensoestruturas."
+      },
       "year": 2019,
       "tech": [
         "Estructuras",
@@ -829,14 +1493,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "ilustracion-game",
       "category": "graphic",
       "title": "Ilustraciones – Game",
-      "summary": "Serie de ilustraciones con estética gamer.",
+      "summary": {
+        "es": "Serie de ilustraciones con estética gamer.",
+        "en": "Illustration series with a gaming aesthetic.",
+        "pt": "Série de ilustrações com estética gamer."
+      },
       "year": 2020,
       "tech": [
         "Illustrator",
@@ -854,14 +1526,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "ilustracion-kombi",
       "category": "graphic",
       "title": "Ilustraciones – Kombi",
-      "summary": "Ilustraciones inspiradas en la Volkswagen Kombi.",
+      "summary": {
+        "es": "Ilustraciones inspiradas en la Volkswagen Kombi.",
+        "en": "Illustrations inspired by the Volkswagen Kombi.",
+        "pt": "Ilustrações inspiradas na Volkswagen Kombi."
+      },
       "year": 2020,
       "tech": [
         "Illustrator",
@@ -878,14 +1558,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "ilustracion-liveseo",
       "category": "graphic",
       "title": "Ilustraciones – LiveSEO",
-      "summary": "Ilustraciones para marca LiveSEO.",
+      "summary": {
+        "es": "Ilustraciones para la marca LiveSEO.",
+        "en": "Illustrations for the LiveSEO brand.",
+        "pt": "Ilustrações para a marca LiveSEO."
+      },
       "year": 2020,
       "tech": [
         "Illustrator"
@@ -901,15 +1589,27 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true,
-      "client": "LiveSEO"
+      "client": {
+        "es": "LiveSEO",
+        "en": "LiveSEO",
+        "pt": "LiveSEO"
+      }
     },
     {
       "id": "ilustracion-minimalism",
       "category": "graphic",
       "title": "Ilustraciones – Minimalism",
-      "summary": "Serie de ilustraciones minimalistas.",
+      "summary": {
+        "es": "Serie de ilustraciones minimalistas.",
+        "en": "Minimalist illustration series.",
+        "pt": "Série de ilustrações minimalistas."
+      },
       "year": 2020,
       "tech": [
         "Illustrator"
@@ -926,14 +1626,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "brand-estilistas",
       "category": "graphic",
       "title": "Estilistas de Corazones – Marca",
-      "summary": "Identidad visual y logo para Estilistas de Corazones.",
+      "summary": {
+        "es": "Identidad visual y logo para Estilistas de Corazones.",
+        "en": "Visual identity and logo for Estilistas de Corazones.",
+        "pt": "Identidade visual e logo para Estilistas de Corazones."
+      },
       "year": 2021,
       "tech": [
         "Illustrator",
@@ -949,14 +1657,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "brand-evolucion",
       "category": "graphic",
       "title": "Evolución Tecnológica – Marca",
-      "summary": "Sistema de marca: isotipo, imagotipo y logotipo.",
+      "summary": {
+        "es": "Sistema de marca: isotipo, imagotipo y logotipo.",
+        "en": "Brand system: symbol, combination mark and wordmark.",
+        "pt": "Sistema de marca: símbolo, marca combinada e logotipo."
+      },
       "year": 2021,
       "tech": [
         "Illustrator"
@@ -973,14 +1689,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "brand-jonathan",
       "category": "graphic",
       "title": "Marca personal – Jonathan Sandoval",
-      "summary": "Exploración de identidad visual personal.",
+      "summary": {
+        "es": "Exploración de identidad visual personal.",
+        "en": "Personal visual identity exploration.",
+        "pt": "Exploração de identidade visual pessoal."
+      },
       "year": 2021,
       "tech": [
         "Illustrator"
@@ -993,14 +1717,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "brand-sbs",
       "category": "graphic",
       "title": "SBS – Imagen de marca",
-      "summary": "Identidad visual y piezas gráficas para SBS.",
+      "summary": {
+        "es": "Identidad visual y piezas gráficas para SBS.",
+        "en": "Visual identity and graphic pieces for SBS.",
+        "pt": "Identidade visual e peças gráficas para SBS."
+      },
       "year": 2020,
       "tech": [
         "Illustrator",
@@ -1018,14 +1750,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "brand-via",
       "category": "graphic",
       "title": "VIA Ingeniería – Marca",
-      "summary": "Identidad visual, logos y aplicaciones para VIA Ingeniería.",
+      "summary": {
+        "es": "Identidad visual, logos y aplicaciones para VIA Ingeniería.",
+        "en": "Visual identity, logos and applications for VIA Ingeniería.",
+        "pt": "Identidade visual, logos e aplicações para VIA Ingeniería."
+      },
       "year": 2021,
       "tech": [
         "Illustrator"
@@ -1042,15 +1782,27 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true,
-      "client": "VIA Ingeniería"
+      "client": {
+        "es": "VIA Ingeniería",
+        "en": "VIA Ingeniería",
+        "pt": "VIA Ingeniería"
+      }
     },
     {
       "id": "pub-amigos-caninos",
       "category": "graphic",
       "title": "Publicidad – Amigos Caninos",
-      "summary": "Piezas publicitarias para Amigos Caninos.",
+      "summary": {
+        "es": "Piezas publicitarias para Amigos Caninos.",
+        "en": "Advertising pieces for Amigos Caninos.",
+        "pt": "Peças publicitárias para Amigos Caninos."
+      },
       "year": 2020,
       "tech": [
         "Photoshop",
@@ -1068,14 +1820,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "pub-atletas",
       "category": "graphic",
       "title": "Publicidad – Atletas Recordistas",
-      "summary": "Campaña gráfica para atletas recordistas.",
+      "summary": {
+        "es": "Campaña gráfica para atletas recordistas.",
+        "en": "Graphic campaign for record-breaking athletes.",
+        "pt": "Campanha gráfica para atletas recordistas."
+      },
       "year": 2020,
       "tech": [
         "Photoshop"
@@ -1090,14 +1850,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "pub-clases",
       "category": "graphic",
       "title": "Publicidad – Clases",
-      "summary": "Piezas promocionales para clases / formación.",
+      "summary": {
+        "es": "Piezas promocionales para clases y formación.",
+        "en": "Promotional pieces for classes and training.",
+        "pt": "Peças promocionais para aulas e formação."
+      },
       "year": 2020,
       "tech": [
         "Photoshop"
@@ -1110,14 +1878,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "pub-conciertos",
       "category": "graphic",
       "title": "Publicidad – Conciertos",
-      "summary": "Piezas gráficas para conciertos y eventos musicales.",
+      "summary": {
+        "es": "Piezas gráficas para conciertos y eventos musicales.",
+        "en": "Graphic pieces for concerts and music events.",
+        "pt": "Peças gráficas para shows e eventos musicais."
+      },
       "year": 2020,
       "tech": [
         "Photoshop"
@@ -1131,14 +1907,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "pub-ivan-sports",
       "category": "graphic",
       "title": "Publicidad – Ivan Sports",
-      "summary": "Material publicitario para Ivan Sports.",
+      "summary": {
+        "es": "Material publicitario para Ivan Sports.",
+        "en": "Advertising material for Ivan Sports.",
+        "pt": "Material publicitário para Ivan Sports."
+      },
       "year": 2020,
       "tech": [
         "Photoshop",
@@ -1156,15 +1940,27 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true,
-      "client": "Ivan Sports"
+      "client": {
+        "es": "Ivan Sports",
+        "en": "Ivan Sports",
+        "pt": "Ivan Sports"
+      }
     },
     {
       "id": "pub-maxifrio",
       "category": "graphic",
       "title": "Publicidad – MaxiFrio",
-      "summary": "Piezas publicitarias para MaxiFrio.",
+      "summary": {
+        "es": "Piezas publicitarias para MaxiFrio.",
+        "en": "Advertising pieces for MaxiFrio.",
+        "pt": "Peças publicitárias para MaxiFrio."
+      },
       "year": 2020,
       "tech": [
         "Photoshop"
@@ -1177,15 +1973,27 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true,
-      "client": "MaxiFrio"
+      "client": {
+        "es": "MaxiFrio",
+        "en": "MaxiFrio",
+        "pt": "MaxiFrio"
+      }
     },
     {
       "id": "pub-party",
       "category": "graphic",
       "title": "Publicidad – Party",
-      "summary": "Diseño gráfico para eventos / party.",
+      "summary": {
+        "es": "Diseño gráfico para fiestas y eventos.",
+        "en": "Graphic design for parties and events.",
+        "pt": "Design gráfico para festas e eventos."
+      },
       "year": 2020,
       "tech": [
         "Photoshop"
@@ -1198,14 +2006,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "social-adis",
       "category": "graphic",
       "title": "Redes – ADIS",
-      "summary": "Contenido visual para redes sociales de ADIS.",
+      "summary": {
+        "es": "Contenido visual para las redes sociales de ADIS.",
+        "en": "Visual content for ADIS social media.",
+        "pt": "Conteúdo visual para as redes sociais da ADIS."
+      },
       "year": 2021,
       "tech": [
         "Photoshop",
@@ -1223,15 +2039,27 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true,
-      "client": "ADIS"
+      "client": {
+        "es": "ADIS",
+        "en": "ADIS",
+        "pt": "ADIS"
+      }
     },
     {
       "id": "social-liveseo",
       "category": "graphic",
       "title": "Redes – LiveSEO",
-      "summary": "Contenido para redes sociales de LiveSEO.",
+      "summary": {
+        "es": "Contenido para las redes sociales de LiveSEO.",
+        "en": "Content for LiveSEO social media.",
+        "pt": "Conteúdo para as redes sociais da LiveSEO."
+      },
       "year": 2020,
       "tech": [
         "Photoshop"
@@ -1248,15 +2076,27 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true,
-      "client": "LiveSEO"
+      "client": {
+        "es": "LiveSEO",
+        "en": "LiveSEO",
+        "pt": "LiveSEO"
+      }
     },
     {
       "id": "social-muimia",
       "category": "graphic",
       "title": "Redes – Muimia",
-      "summary": "Contenido visual para redes de Muimia.",
+      "summary": {
+        "es": "Contenido visual para las redes de Muimia.",
+        "en": "Visual content for Muimia social media.",
+        "pt": "Conteúdo visual para as redes da Muimia."
+      },
       "year": 2021,
       "tech": [
         "Photoshop"
@@ -1272,14 +2112,22 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true
     },
     {
       "id": "social-opg",
       "category": "graphic",
       "title": "Redes – OPG",
-      "summary": "Contenido para redes sociales de OPG.",
+      "summary": {
+        "es": "Contenido para las redes sociales de OPG.",
+        "en": "Content for OPG social media.",
+        "pt": "Conteúdo para as redes sociais da OPG."
+      },
       "year": 2021,
       "tech": [
         "Photoshop"
@@ -1295,9 +2143,17 @@
       "tags": [
         "nuevo"
       ],
-      "status": "Documented",
+      "status": {
+        "es": "Documentado",
+        "en": "Documented",
+        "pt": "Documentado"
+      },
       "visible": true,
-      "client": "OPG"
+      "client": {
+        "es": "OPG",
+        "en": "OPG",
+        "pt": "OPG"
+      }
     }
   ]
 }

@@ -109,6 +109,18 @@
       <!-- Barra superior: acciones (Agregar…) + guardar -->
       <div class="admin-toolbar">
         <div id="toolbar-actions"></div>
+        <!--
+          Idioma que se está editando. Solo afecta a los campos de texto
+          traducibles (resumen, características, descripción de una
+          habilidad…). Cambiarlo NO traduce nada: solo muestra y guarda
+          el idioma elegido, dejando los otros dos intactos.
+        -->
+        <div class="admin-lang" id="admin-lang" role="group" aria-label="Idioma que se edita">
+          <span class="admin-subtle">Editando:</span>
+          <button type="button" class="admin-btn ghost small active" data-adminlang="es">ES</button>
+          <button type="button" class="admin-btn ghost small" data-adminlang="en">EN</button>
+          <button type="button" class="admin-btn ghost small" data-adminlang="pt">PT</button>
+        </div>
         <div class="admin-toolbar-right">
           <span id="save-status" class="admin-status" role="status" aria-live="polite"></span>
           <button id="save-btn" class="admin-btn primary"><i class="ri-save-3-line"></i> Guardar en GitHub</button>

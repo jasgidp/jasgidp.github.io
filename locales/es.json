@@ -22,7 +22,25 @@
     "title": "Portafolio",
     "subtitle": "Explora mis proyectos por categoría",
     "programmingBtn": "Portafolio de Programación",
-    "softwareHint": "El botón extra del portafolio de programación está abajo."
+    "softwareHint": "El botón extra del portafolio de programación está abajo.",
+    "panel": {
+      "description": "Descripción",
+      "details": "Detalles",
+      "tech": "Tecnologías",
+      "features": "Características",
+      "learnings": "Aprendizajes",
+      "results": "Resultados",
+      "gallery": "Galería",
+      "client": "Cliente",
+      "discipline": "Disciplina",
+      "team": "Integrantes",
+      "contribution": "Contribución",
+      "state": "Estado",
+      "demo": "Demo",
+      "portfolio": "Portafolio",
+      "video": "Video",
+      "repo": "Código"
+    }
   },
   "filters": {
     "all": "Todo",

@@ -61,6 +61,53 @@
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const joinLines = (arr) => (Array.isArray(arr) ? arr : []).join('\n');
   const toLines = (v) => (v || '').split('\n').map(s => s.trim()).filter(Boolean);
+
+  /* ------------------------------------------------------------
+     CAMPOS MULTIIDIOMA  {es, en, pt}
+     Varios textos del sitio (resúmenes de proyecto, descripciones de
+     habilidades…) se guardan como {es,en,pt} para que el visitante los
+     vea en su idioma. En el panel se edita UN idioma a la vez: el que
+     marque el selector ES/EN/PT de la barra superior.
+
+     Reglas al escribir:
+     - Si el campo ya es {es,en,pt}, solo se toca el idioma activo; los
+       otros dos se quedan como estaban.
+     - Si todavía es texto plano, se convierte a los tres idiomas con el
+       mismo contenido y luego se aplica el cambio al idioma activo. Así
+       no se pierde lo que hubiera escrito antes.
+     ------------------------------------------------------------ */
+  const I18N_LANGS = ['es', 'en', 'pt'];
+  let adminLang = 'es'; // idioma que se está editando ahora mismo
+
+  // ¿Es un objeto de traducción y no un valor cualquiera?
+  const isI18n = (v) => !!v && typeof v === 'object' && !Array.isArray(v)
+    && I18N_LANGS.some(l => typeof v[l] === 'string');
+
+  // Valor a mostrar en el formulario, en el idioma activo
+  const tv = (v) => {
+    if (v == null) return '';
+    if (isI18n(v)) return v[adminLang] || '';
+    return typeof v === 'string' ? v : '';
+  };
+
+  // Valor a guardar: conserva los otros idiomas
+  const tset = (prev, str) => {
+    if (isI18n(prev)) return { ...prev, [adminLang]: str };
+    const base = typeof prev === 'string' ? prev : '';
+    const out = {}; I18N_LANGS.forEach(l => { out[l] = base; });
+    out[adminLang] = str;
+    return out;
+  };
+
+  // Listas traducibles (características, resultados): una línea por ítem.
+  // Se emparejan por posición para no perder las traducciones de las
+  // líneas que no se tocaron; una línea nueva entra como texto plano.
+  const joinLinesI18n = (arr) => (Array.isArray(arr) ? arr : []).map(tv).join('\n');
+  const toLinesI18n = (v, prev) => {
+    const prevArr = Array.isArray(prev) ? prev : [];
+    return (v || '').split('\n').map(s => s.trim()).filter(Boolean)
+      .map((line, i) => isI18n(prevArr[i]) ? tset(prevArr[i], line) : line);
+  };
   const joinCsv = (arr) => (Array.isArray(arr) ? arr : (arr ? [arr] : [])).join(', ');
   const toCsv = (v) => (v || '').split(',').map(s => s.trim()).filter(Boolean);
   const slugify = (s) => (s || 'item').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
@@ -71,6 +118,20 @@
     el.className = 'admin-status' + (kind ? ' ' + kind : '');
   }
   function markDirty() { if (previewMode) return; dirty[activeTab] = true; updateSaveState(); }
+
+  // Selector ES/EN/PT de la barra: cambia el idioma que se edita y
+  // vuelve a dibujar la pestaña para que los campos muestren ese idioma.
+  // No toca los datos, así que no marca cambios pendientes.
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-adminlang]');
+    if (!btn) return;
+    const lang = btn.getAttribute('data-adminlang');
+    if (!I18N_LANGS.includes(lang) || lang === adminLang) return;
+    adminLang = lang;
+    document.querySelectorAll('[data-adminlang]').forEach(b =>
+      b.classList.toggle('active', b.getAttribute('data-adminlang') === lang));
+    renderActive();
+  });
   // Actualiza solo el botón Guardar. NO pisa mensajes de éxito/error del save.
   function updateSaveState() {
     const btn = $('save-btn');
@@ -343,13 +404,13 @@
               <button class="admin-btn danger small" data-sact="del-skill"><i class="ri-delete-bin-line"></i></button>
             </div>
           </div>
-          <div class="admin-field"><label>Habilidad</label><input data-sfield="name" value="${esc(s.name)}"></div>
-          <div class="admin-field"><label>Descripción</label><textarea data-sfield="description">${esc(s.description)}</textarea></div>
+          <div class="admin-field"><label>Habilidad</label><input data-sfield="name" value="${esc(tv(s.name))}"></div>
+          <div class="admin-field"><label>Descripción <span class="admin-subtle">· ${adminLang.toUpperCase()}</span></label><textarea data-sfield="description">${esc(tv(s.description))}</textarea></div>
           <label class="admin-field" style="margin-bottom:4px"><span style="font-size:13px;font-weight:600;color:#334155">Documentación</span></label>
           <div class="admin-rows">
             ${s.docs.map((d, di) => `
               <div class="admin-row" data-di="${di}">
-                <input data-dfield="label" placeholder="Etiqueta" value="${esc(d.label)}">
+                <input data-dfield="label" placeholder="Etiqueta" value="${esc(tv(d.label))}">
                 <input data-dfield="url" placeholder="https://…" value="${esc(d.url)}">
                 <button class="admin-btn danger small" data-sact="del-doc"><i class="ri-close-line"></i></button>
               </div>`).join('')}
@@ -391,9 +452,19 @@
       }
       const sCard = e.target.closest('[data-si]'); if (!sCard) return;
       const s = g.items[+sCard.dataset.si];
-      if (e.target.dataset.sfield) { s[e.target.dataset.sfield] = e.target.value; markDirty(); return; }
+      if (e.target.dataset.sfield) {
+        const f = e.target.dataset.sfield;
+        // name y description son traducibles; el resto va tal cual
+        s[f] = (f === 'description' || f === 'name') ? tset(s[f], e.target.value) : e.target.value;
+        markDirty(); return;
+      }
       const row = e.target.closest('[data-di]');
-      if (row && e.target.dataset.dfield) { s.docs[+row.dataset.di][e.target.dataset.dfield] = e.target.value; markDirty(); }
+      if (row && e.target.dataset.dfield) {
+        const d = s.docs[+row.dataset.di], f = e.target.dataset.dfield;
+        // la etiqueta del enlace se traduce; la URL no
+        d[f] = (f === 'label') ? tset(d[f], e.target.value) : e.target.value;
+        markDirty();
+      }
     };
 
     c.onclick = (e) => {
@@ -480,23 +551,23 @@
           <div class="admin-field"><label>Título</label><input data-field="title" value="${esc(p.title)}"></div>
           <div class="admin-field"><label>Categoría</label><select data-field="category">${CATEGORIES.map(cat => `<option value="${cat}" ${p.category === cat ? 'selected' : ''}>${cat}</option>`).join('')}</select></div>
           <div class="admin-field"><label>Año</label><input data-field="year" type="number" value="${esc(p.year)}"></div>
-          <div class="admin-field"><label>Estado</label><input data-field="status" value="${esc(p.status)}"></div>
-          <div class="admin-field"><label>Importancia</label><input data-field="importance" value="${esc(p.importance)}"></div>
-          <div class="admin-field"><label>Cliente</label><input data-field="client" value="${esc(p.client)}"></div>
-          <div class="admin-field"><label>Disciplina</label><input data-field="discipline" value="${esc(p.discipline)}"></div>
-          <div class="admin-field"><label>Contribución</label><input data-field="contribution" value="${esc(p.contribution)}"></div>
+          <div class="admin-field"><label>Estado</label><input data-field="status" value="${esc(tv(p.status))}"></div>
+          <div class="admin-field"><label>Importancia</label><input data-field="importance" value="${esc(tv(p.importance))}"></div>
+          <div class="admin-field"><label>Cliente</label><input data-field="client" value="${esc(tv(p.client))}"></div>
+          <div class="admin-field"><label>Disciplina</label><input data-field="discipline" value="${esc(tv(p.discipline))}"></div>
+          <div class="admin-field"><label>Contribución</label><input data-field="contribution" value="${esc(tv(p.contribution))}"></div>
           <div class="admin-field"><label>Orden (nº, opcional)</label><input data-field="order" type="number" value="${esc(p.order)}"></div>
           <div class="admin-field"><label>Visible</label><select data-field="visible"><option value="true" ${p.visible !== false ? 'selected' : ''}>Sí</option><option value="false" ${p.visible === false ? 'selected' : ''}>No (oculto)</option></select></div>
         </div>
-        <div class="admin-field"><label>Resumen</label><textarea data-field="summary">${esc(p.summary)}</textarea></div>
+        <div class="admin-field"><label>Resumen <span class="admin-subtle">· ${adminLang.toUpperCase()}</span></label><textarea data-field="summary">${esc(tv(p.summary))}</textarea></div>
         <div class="admin-field"><label>Tecnologías (separadas por coma)</label><input data-field="tech" value="${esc(joinCsv(p.tech))}"></div>
         <div class="admin-field"><label>Tags (separados por coma, p.ej. nuevo)</label><input data-field="tags" value="${esc(joinCsv(p.tags))}"></div>
         <div class="admin-field"><label>Equipo (separado por coma)</label><input data-field="team" value="${esc(joinCsv(p.team))}"></div>
         <div class="admin-grid-2">
-          <div class="admin-field"><label>Características (una por línea)</label><textarea data-field="features">${esc(joinLines(p.features))}</textarea></div>
-          <div class="admin-field"><label>Resultados (uno por línea)</label><textarea data-field="results">${esc(joinLines(p.results))}</textarea></div>
+          <div class="admin-field"><label>Características (una por línea) <span class="admin-subtle">· ${adminLang.toUpperCase()}</span></label><textarea data-field="features">${esc(joinLinesI18n(p.features))}</textarea></div>
+          <div class="admin-field"><label>Resultados (uno por línea) <span class="admin-subtle">· ${adminLang.toUpperCase()}</span></label><textarea data-field="results">${esc(joinLinesI18n(p.results))}</textarea></div>
         </div>
-        <div class="admin-field"><label>Aprendizajes</label><textarea data-field="learnings">${esc(p.learnings)}</textarea></div>
+        <div class="admin-field"><label>Aprendizajes <span class="admin-subtle">· ${adminLang.toUpperCase()}</span></label><textarea data-field="learnings">${esc(tv(p.learnings))}</textarea></div>
         <div class="admin-grid-2">
           <div class="admin-field"><label>Thumbnail (ruta)</label><input data-field="thumb" value="${esc(p.thumb)}"></div>
           <div class="admin-field"><label>Imágenes (una ruta por línea)</label><textarea data-field="images">${esc(joinLines(p.images))}</textarea></div>
@@ -519,11 +590,15 @@
       const card = e.target.closest('[data-idx]'); if (!card) return;
       const p = list[+card.dataset.idx];
       const f = e.target.dataset.field; if (!f) return;
+      const I18N_FIELDS = ['summary', 'client', 'contribution', 'discipline', 'status', 'importance', 'learnings'];
       if (f === 'year' || f === 'order') { const n = e.target.value === '' ? undefined : Number(e.target.value); if (n === undefined) delete p[f]; else p[f] = n; }
       else if (f === 'visible') p.visible = e.target.value === 'true';
       else if (f === 'tech' || f === 'team' || f === 'tags') p[f] = toCsv(e.target.value);
-      else if (f === 'features' || f === 'results' || f === 'images') p[f] = toLines(e.target.value);
+      // images no se traduce: son rutas de archivo
+      else if (f === 'images') p[f] = toLines(e.target.value);
+      else if (f === 'features' || f === 'results') p[f] = toLinesI18n(e.target.value, p[f]);
       else if (f.startsWith('links.')) { p.links = p.links || {}; p.links[f.split('.')[1]] = e.target.value; }
+      else if (I18N_FIELDS.includes(f)) p[f] = tset(p[f], e.target.value);
       else p[f] = e.target.value;
       markDirty();
     };
