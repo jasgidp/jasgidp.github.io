@@ -20,6 +20,11 @@
       "name": "Instagram",
       "url": "https://www.instagram.com/jonathan_alejandro_sandov/",
       "icon": "ri-instagram-line"
+    },
+    {
+      "name": "YouTube",
+      "url": "https://www.youtube.com/@jonathanalejandrosandovalg9571",
+      "icon": "ri-youtube-fill"
     }
   ],
   "form": {

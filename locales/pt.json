@@ -10,13 +10,13 @@
     "contact": "Contato"
   },
   "hero": {
-    "role": "Engenheiro de Design de Produto · Especialista em Streaming · Mestrando",
+    "role": "Engenheiro de Design de Produto · Especialista em Desenvolvimento de Software focado em Streaming · Mestrando",
     "ctaPortfolio": "Ver Portfólio",
     "ctaCV": "Baixar CV",
     "ctaContact": "Contato",
     "ctaSkills": "Ver Habilidades",
     "ctaTimeline": "Ver Linha do Tempo",
-    "blurb": "Engenheiro de Design de Produto e especialista em Streaming focado em soluções úteis e mensuráveis. Construo ferramentas internas, automatizo com Python e monitoro com Grafana."
+    "blurb": "Engenheiro de Design de Produto e especialista em Desenvolvimento de Software focado em streaming. Construo ferramentas internas, automatizo com Python e monitoro com Grafana."
   },
   "portfolio": {
     "title": "Portfólio",
@@ -36,7 +36,7 @@
   },
   "about": {
     "title": "Sobre",
-    "bio": "Engenheiro de Design de Produto e Especialista em Streaming com experiência em suporte ao vivo, automação em Python e monitoramento com Grafana. Mestrando em Engenharia (sustentabilidade e desenvolvimento de software). Liderei projetos de dados e ferramentas internas na Genius Sports e atuei em design gráfico, pesquisa em energias renováveis e experiências interativas. Busco soluções úteis, mensuráveis e bem projetadas para usuários e equipes técnicas.",
+    "bio": "Engenheiro de Design de Produto e especialista em Desenvolvimento de Software focado em streaming, com experiência em suporte ao vivo, automação em Python e monitoramento com Grafana. Especialista em Desenvolvimento de Software pela EAFIT e mestrando em Engenharia, com intercâmbio acadêmico na USP (Brasil). Liderei projetos de dados e ferramentas internas na Genius Sports e atuei em design gráfico, pesquisa em energias renováveis e experiências interativas. Busco soluções úteis, mensuráveis e bem projetadas para usuários e equipes técnicas.",
     "highlightsTitle": "Destaques",
     "highlights": [
       "Automação em Python para operações e ferramentas",

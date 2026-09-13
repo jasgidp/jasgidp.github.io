@@ -25,19 +25,30 @@
     return (labelObj && (labelObj[lang] || labelObj['en'])) || fallback || '';
   }
 
+  // Resuelve un campo que puede venir como texto plano o como {es,en,pt}.
+  // Así conviven las habilidades traducidas con las que aún no lo están.
+  function tx(value, fallback) {
+    if (value == null) return fallback || '';
+    if (typeof value === 'string') return value;
+    return t(value, fallback);
+  }
+
   // Acepta strings antiguos y el formato nuevo con objetos
   function normalizeSkill(item) {
     if (typeof item === 'string') return { name: item, description: '', docs: [], projects: [] };
     return {
-      name: item.name || '',
-      description: item.description || '',
-      docs: Array.isArray(item.docs) ? item.docs : [],
+      name: tx(item.name, ''),
+      description: tx(item.description, ''),
+      docs: (Array.isArray(item.docs) ? item.docs : []).map(d => ({
+        url: d.url,
+        label: tx(d.label, d.url)
+      })),
       // Proyectos de data/projects.json donde se usó esta habilidad
       projects: Array.isArray(item.projects) ? item.projects : [],
       // Solo los idiomas traen estos tres: pintan bandera y barra de dominio
       flag: item.flag || '',
       level: typeof item.level === 'number' ? item.level : null,
-      levelLabel: item.levelLabel || ''
+      levelLabel: tx(item.levelLabel, '')
     };
   }
 

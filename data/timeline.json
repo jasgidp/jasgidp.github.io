@@ -18,7 +18,7 @@
       "org": "Genius Sports",
       "role": "Operational Engineer – Streaming Specialist",
       "start": "2023-10",
-      "end": "2025-07",
+      "end": "2025-08",
       "bullets": [
         "Live support with development teams.",
         "Grafana dashboards and Python runbooks for troubleshooting.",
@@ -154,11 +154,20 @@
   "education": [
     {
       "org": "Universidad EAFIT",
-      "role": "Master’s in Engineering",
+      "role": "Maestría en Ingeniería",
+      "start": "2024-01",
+      "end": null,
+      "bullets": [
+        "Enfoque: sostenibilidad y desarrollo de software."
+      ]
+    },
+    {
+      "org": "Universidad EAFIT",
+      "role": "Especialización en Desarrollo de Software",
       "start": "2024-01",
       "end": "2026-12",
       "bullets": [
-        "Focus: Sustainability & Software Development."
+        "Enfoque: desarrollo de software y sostenibilidad."
       ]
     },
     {
@@ -190,8 +199,8 @@
       "org": "Universidade de São Paulo (USP) – Ribeirão Preto",
       "role": "Intercambio académico",
       "location": "Ribeirão Preto, São Paulo, Brasil",
-      "start": null,
-      "end": null,
+      "start": "2025-01",
+      "end": "2025-08",
       "bullets": [
         "Machine Learning",
         "Ciência de Dados",

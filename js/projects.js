@@ -224,6 +224,26 @@
         el.setAttribute('aria-modal','true');
         el.setAttribute('aria-label','Imagen ampliada');
         el.hidden = true;
+
+        /* Lo que hace que esto sea una SUPERPOSICION va aqui en linea,
+           no solo en main.css. Si el navegador sirve una copia antigua
+           de la hoja de estilos, el div se quedaria sin reglas y se
+           dibujaria como un bloque normal al final del <body>: es decir,
+           la imagen enorme abajo del todo en vez de encima de la pagina.
+           Con estos estilos en linea eso no puede pasar.
+           `inset` se acompana de top/right/bottom/left porque Safari
+           anterior a 14.1 no entiende la forma corta, y sin offsets un
+           position:fixed cae tambien al final del documento. */
+        Object.assign(el.style, {
+          position: 'fixed',
+          top: '0', right: '0', bottom: '0', left: '0',
+          zIndex: '2000',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'rgba(2, 6, 23, .92)',
+          display: 'none'   // open() lo pasa a 'flex'
+        });
+
         el.innerHTML = `
           <button class="lightbox-close" type="button" aria-label="Cerrar"><i class="ri-close-line" aria-hidden="true"></i></button>
           <button class="lightbox-nav prev" type="button" aria-label="Anterior"><i class="ri-arrow-left-s-line" aria-hidden="true"></i></button>
@@ -251,6 +271,8 @@
 
       function show(){
         const img = el.querySelector('img');
+        // Mismo motivo que arriba: sin CSS la imagen saldria a tamaño real
+        Object.assign(img.style, { maxWidth: '100%', maxHeight: '82vh', objectFit: 'contain' });
         img.src = imgs[idx].src;
         img.alt = imgs[idx].alt || '';
         el.querySelector('.lightbox-caption').textContent = `${idx+1} / ${imgs.length}`;
@@ -265,12 +287,14 @@
         imgs = list; idx = start;
         lastFocus = document.activeElement;
         el.hidden = false;
+        el.style.display = 'flex';
         document.body.classList.add('lightbox-open');
         show();
         el.querySelector('.lightbox-close').focus();
       }
       function close(){
         el.hidden = true;
+        el.style.display = 'none';
         document.body.classList.remove('lightbox-open');
         // Devolver el foco a la miniatura desde la que se abrió
         if (lastFocus && lastFocus.focus) lastFocus.focus();

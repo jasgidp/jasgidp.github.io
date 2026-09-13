@@ -10,13 +10,13 @@
     "contact": "Contacto"
   },
   "hero": {
-    "role": "Ingeniero de Producto · Especialista en Streaming · Estudiante de Maestría",
+    "role": "Ingeniero de Diseño de Producto · Especialista en Desarrollo de Software enfocado en Streaming · Estudiante de Maestría",
     "ctaPortfolio": "Ver Portafolio",
     "ctaCV": "Descargar CV",
     "ctaContact": "Contacto",
     "ctaSkills": "Ver Habilidades",
     "ctaTimeline": "Ver Cronología",
-    "blurb": "Ingeniero de Diseño de Producto y especialista en Streaming enfocado en soluciones útiles y medibles. Construyo herramientas internas, automatizo con Python y monitoreo con Grafana."
+    "blurb": "Ingeniero de Diseño de Producto y especialista en Desarrollo de Software enfocado en Streaming. Construyo herramientas internas, automatizo con Python y monitoreo con Grafana."
   },
   "portfolio": {
     "title": "Portafolio",
@@ -36,7 +36,7 @@
   },
   "about": {
     "title": "Sobre mí",
-    "bio": "Ingeniero de Diseño de Producto y especialista en Streaming con experiencia en soporte en vivo, automatización con Python y monitoreo con Grafana. Estudiante de Maestría en Ingeniería (sostenibilidad y desarrollo de software). He liderado proyectos de datos y herramientas internas en Genius Sports, y he trabajado en diseño gráfico, investigación en energías renovables y experiencias interactivas. Enfoco mi trabajo en soluciones útiles, medibles y bien diseñadas para usuarios y equipos técnicos.",
+    "bio": "Ingeniero de Diseño de Producto y especialista en Desarrollo de Software enfocado en Streaming, con experiencia en soporte en vivo, automatización con Python y monitoreo con Grafana. Especialista en Desarrollo de Software por EAFIT y estudiante de Maestría en Ingeniería, con intercambio académico en la USP (Brasil). He liderado proyectos de datos y herramientas internas en Genius Sports, y he trabajado en diseño gráfico, investigación en energías renovables y experiencias interactivas. Enfoco mi trabajo en soluciones útiles, medibles y bien diseñadas para usuarios y equipos técnicos.",
     "highlightsTitle": "Destacados",
     "highlights": [
       "Automatización con Python para operaciones y tooling",
