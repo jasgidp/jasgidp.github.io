@@ -1,21 +1,29 @@
 {
-  "_documentacion": "Habilidades agrupadas (página Skills). Lo lee skills.js. groups[]: name (clave), emoji, label {es,en,pt}, items[]. Cada item puede ser un string (\"Python\") o un objeto {name, description, docs:[{label,url}], projects:[ids de data/projects.json]}. Los idiomas además usan {flag, level (0-100), levelLabel} para pintar la barra de dominio.",
+  "_documentacion": "Habilidades agrupadas (página Skills). Lo lee skills.js. groups[]: name (clave), emoji, label {es,en,pt}, items[]. Cada item puede ser un string (\"Python\") o un objeto {name, description, docs:[{label,url}], projects:[ids de data/projects.json]}. name, description y label admiten texto plano o un objeto {es,en,pt}: skills.js elige según el idioma activo y cae a 'en' si falta. Los idiomas además usan {flag, level (0-100), levelLabel} para pintar la barra de dominio.",
   "groups": [
     {
       "name": "programmingData",
       "emoji": "💻📊",
       "label": {
-        "en": "Programming & Data",
         "es": "Programación y Datos",
+        "en": "Programming & Data",
         "pt": "Programação e Dados"
       },
       "items": [
         {
           "name": "Python",
-          "description": "Lenguaje principal para automatización, análisis de datos y scripting de operaciones.",
+          "description": {
+            "es": "Lenguaje principal para automatización, análisis de datos y scripting de operaciones.",
+            "en": "Main language for automation, data analysis and operations scripting.",
+            "pt": "Linguagem principal para automação, análise de dados e scripts de operações."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://docs.python.org/3/"
             }
           ],
@@ -31,10 +39,18 @@
         },
         {
           "name": "Pandas",
-          "description": "Manipulación y limpieza de datos tabulares: carga, filtrado, agregaciones y series temporales.",
+          "description": {
+            "es": "Manipulación y limpieza de datos tabulares: carga, filtrado, agregaciones y series temporales.",
+            "en": "Handling and cleaning tabular data: loading, filtering, aggregations and time series.",
+            "pt": "Manipulação e limpeza de dados tabulares: carga, filtragem, agregações e séries temporais."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://pandas.pydata.org/docs/"
             }
           ],
@@ -45,10 +61,18 @@
         },
         {
           "name": "SQL",
-          "description": "Consultas y modelado relacional para extraer y cruzar información de las bases de datos internas.",
+          "description": {
+            "es": "Consultas y modelado relacional para extraer y cruzar información de las bases de datos internas.",
+            "en": "Queries and relational modelling to pull and join data from the internal databases.",
+            "pt": "Consultas e modelagem relacional para extrair e cruzar dados dos bancos internos."
+          },
           "docs": [
             {
-              "label": "Tutorial de PostgreSQL",
+              "label": {
+                "es": "Tutorial de PostgreSQL",
+                "en": "PostgreSQL tutorial",
+                "pt": "Tutorial do PostgreSQL"
+              },
               "url": "https://www.postgresql.org/docs/current/tutorial.html"
             }
           ],
@@ -60,10 +84,18 @@
         },
         {
           "name": "JSON",
-          "description": "Formato de intercambio de datos entre APIs, configuraciones y el contenido de este portafolio.",
+          "description": {
+            "es": "Formato de intercambio de datos entre APIs, configuraciones y el contenido de este portafolio.",
+            "en": "Data interchange format between APIs, configuration files and this portfolio's own content.",
+            "pt": "Formato de troca de dados entre APIs, configurações e o conteúdo deste portfólio."
+          },
           "docs": [
             {
-              "label": "Especificación",
+              "label": {
+                "es": "Especificación",
+                "en": "Specification",
+                "pt": "Especificação"
+              },
               "url": "https://www.json.org/json-es.html"
             }
           ],
@@ -74,10 +106,18 @@
         },
         {
           "name": "APIs",
-          "description": "Consumo e integración de APIs REST: autenticación, paginación y manejo de errores.",
+          "description": {
+            "es": "Consumo e integración de APIs REST: autenticación, paginación y manejo de errores.",
+            "en": "Consuming and integrating REST APIs: authentication, pagination and error handling.",
+            "pt": "Consumo e integração de APIs REST: autenticação, paginação e tratamento de erros."
+          },
           "docs": [
             {
-              "label": "Guía de MDN sobre HTTP",
+              "label": {
+                "es": "Guía de MDN sobre HTTP",
+                "en": "MDN guide to HTTP",
+                "pt": "Guia de HTTP da MDN"
+              },
               "url": "https://developer.mozilla.org/es/docs/Web/HTTP"
             }
           ],
@@ -89,10 +129,18 @@
         },
         {
           "name": "Grafana",
-          "description": "Tableros de monitoreo y alertas sobre métricas de streaming en producción.",
+          "description": {
+            "es": "Tableros de monitoreo y alertas sobre métricas de streaming en producción.",
+            "en": "Monitoring dashboards and alerts over live streaming metrics in production.",
+            "pt": "Painéis de monitoramento e alertas sobre métricas de streaming em produção."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://grafana.com/docs/grafana/latest/"
             }
           ],
@@ -104,10 +152,18 @@
         },
         {
           "name": "InfluxDB",
-          "description": "Base de datos de series temporales para métricas de streaming en vivo.",
+          "description": {
+            "es": "Base de datos de series temporales para métricas de streaming en vivo.",
+            "en": "Time-series database for live streaming metrics.",
+            "pt": "Banco de dados de séries temporais para métricas de streaming ao vivo."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://docs.influxdata.com/influxdb/"
             }
           ],
@@ -117,10 +173,18 @@
         },
         {
           "name": "Jupyter Notebooks",
-          "description": "Exploración de datos y prototipado de análisis con resultados reproducibles.",
+          "description": {
+            "es": "Exploración de datos y prototipado de análisis con resultados reproducibles.",
+            "en": "Data exploration and analysis prototyping with reproducible results.",
+            "pt": "Exploração de dados e prototipagem de análises com resultados reproduzíveis."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://docs.jupyter.org/en/latest/"
             }
           ],
@@ -135,17 +199,25 @@
       "name": "web",
       "emoji": "🌐",
       "label": {
-        "en": "Web Development",
         "es": "Desarrollo Web",
+        "en": "Web Development",
         "pt": "Desenvolvimento Web"
       },
       "items": [
         {
           "name": "HTML",
-          "description": "Estructura semántica y accesible de páginas web.",
+          "description": {
+            "es": "Estructura semántica y accesible de páginas web.",
+            "en": "Semantic, accessible structure for web pages.",
+            "pt": "Estrutura semântica e acessível de páginas web."
+          },
           "docs": [
             {
-              "label": "Referencia de MDN",
+              "label": {
+                "es": "Referencia de MDN",
+                "en": "MDN reference",
+                "pt": "Referência da MDN"
+              },
               "url": "https://developer.mozilla.org/es/docs/Web/HTML"
             }
           ],
@@ -155,10 +227,18 @@
         },
         {
           "name": "CSS",
-          "description": "Maquetación responsive, variables personalizadas y temas claro/oscuro.",
+          "description": {
+            "es": "Maquetación responsive, variables personalizadas y temas claro/oscuro.",
+            "en": "Responsive layout, custom properties and light/dark theming.",
+            "pt": "Layout responsivo, variáveis personalizadas e temas claro/escuro."
+          },
           "docs": [
             {
-              "label": "Referencia de MDN",
+              "label": {
+                "es": "Referencia de MDN",
+                "en": "MDN reference",
+                "pt": "Referência da MDN"
+              },
               "url": "https://developer.mozilla.org/es/docs/Web/CSS"
             }
           ],
@@ -168,10 +248,18 @@
         },
         {
           "name": "JavaScript",
-          "description": "Interactividad del lado del cliente: carga de datos, filtros y componentes propios.",
+          "description": {
+            "es": "Interactividad del lado del cliente: carga de datos, filtros y componentes propios.",
+            "en": "Client-side interactivity: data loading, filters and hand-rolled components.",
+            "pt": "Interatividade no cliente: carga de dados, filtros e componentes próprios."
+          },
           "docs": [
             {
-              "label": "Referencia de MDN",
+              "label": {
+                "es": "Referencia de MDN",
+                "en": "MDN reference",
+                "pt": "Referência da MDN"
+              },
               "url": "https://developer.mozilla.org/es/docs/Web/JavaScript"
             }
           ],
@@ -185,17 +273,25 @@
       "name": "toolsPlatforms",
       "emoji": "🛠️",
       "label": {
-        "en": "Tools & Platforms",
         "es": "Herramientas y Plataformas",
+        "en": "Tools & Platforms",
         "pt": "Ferramentas e Plataformas"
       },
       "items": [
         {
           "name": "GitHub",
-          "description": "Control de versiones, ramas y revisión de código; también despliega este sitio con Pages.",
+          "description": {
+            "es": "Control de versiones, ramas y revisión de código; también despliega este sitio con Pages.",
+            "en": "Version control, branching and code review; it also deploys this site through Pages.",
+            "pt": "Controle de versão, branches e revisão de código; também publica este site com o Pages."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://docs.github.com/es"
             }
           ],
@@ -205,30 +301,54 @@
         },
         {
           "name": "GitLab",
-          "description": "Repositorios y pipelines de CI/CD en el entorno de trabajo.",
+          "description": {
+            "es": "Repositorios y pipelines de CI/CD en el entorno de trabajo.",
+            "en": "Repositories and CI/CD pipelines in the work environment.",
+            "pt": "Repositórios e pipelines de CI/CD no ambiente de trabalho."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://docs.gitlab.com/"
             }
           ]
         },
         {
           "name": "Jira",
-          "description": "Seguimiento de incidencias y planificación de sprints.",
+          "description": {
+            "es": "Seguimiento de incidencias y planificación de sprints.",
+            "en": "Issue tracking and sprint planning.",
+            "pt": "Acompanhamento de chamados e planejamento de sprints."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://support.atlassian.com/jira-software-cloud/"
             }
           ]
         },
         {
           "name": "Confluence",
-          "description": "Documentación interna: runbooks, guías de troubleshooting y traspasos de turno.",
+          "description": {
+            "es": "Documentación interna: runbooks, guías de troubleshooting y traspasos de turno.",
+            "en": "Internal documentation: runbooks, troubleshooting guides and shift handovers.",
+            "pt": "Documentação interna: runbooks, guias de troubleshooting e passagens de turno."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://support.atlassian.com/confluence-cloud/"
             }
           ],
@@ -238,20 +358,36 @@
         },
         {
           "name": "Docker",
-          "description": "Contenedores para reproducir entornos de desarrollo y desplegar herramientas internas.",
+          "description": {
+            "es": "Contenedores para reproducir entornos de desarrollo y desplegar herramientas internas.",
+            "en": "Containers to reproduce development environments and deploy internal tools.",
+            "pt": "Contêineres para reproduzir ambientes de desenvolvimento e publicar ferramentas internas."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://docs.docker.com/"
             }
           ]
         },
         {
           "name": "Linux",
-          "description": "Administración por línea de comandos, logs y diagnóstico de servidores de streaming.",
+          "description": {
+            "es": "Administración por línea de comandos, logs y diagnóstico de servidores de streaming.",
+            "en": "Command-line administration, logs and diagnosis of streaming servers.",
+            "pt": "Administração por linha de comando, logs e diagnóstico de servidores de streaming."
+          },
           "docs": [
             {
-              "label": "Manual de Bash",
+              "label": {
+                "es": "Manual de Bash",
+                "en": "Bash manual",
+                "pt": "Manual do Bash"
+              },
               "url": "https://www.gnu.org/software/bash/manual/"
             }
           ],
@@ -261,20 +397,36 @@
         },
         {
           "name": "GStreamer",
-          "description": "Pipelines multimedia para transporte y transformación de vídeo en vivo.",
+          "description": {
+            "es": "Pipelines multimedia para transporte y transformación de vídeo en vivo.",
+            "en": "Multimedia pipelines for transporting and transforming live video.",
+            "pt": "Pipelines multimídia para transporte e transformação de vídeo ao vivo."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://gstreamer.freedesktop.org/documentation/"
             }
           ]
         },
         {
           "name": "Hasura",
-          "description": "API GraphQL instantánea sobre la base de datos para herramientas internas.",
+          "description": {
+            "es": "API GraphQL instantánea sobre la base de datos para herramientas internas.",
+            "en": "Instant GraphQL API over the database for internal tools.",
+            "pt": "API GraphQL instantânea sobre o banco de dados para ferramentas internas."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://hasura.io/docs/latest/index/"
             }
           ],
@@ -284,10 +436,18 @@
         },
         {
           "name": "AWS (EC2, S3, MediaConnect)",
-          "description": "Infraestructura en la nube para cómputo, almacenamiento y transporte de vídeo en directo.",
+          "description": {
+            "es": "Infraestructura en la nube para cómputo, almacenamiento y transporte de vídeo en directo.",
+            "en": "Cloud infrastructure for compute, storage and live video transport.",
+            "pt": "Infraestrutura em nuvem para computação, armazenamento e transporte de vídeo ao vivo."
+          },
           "docs": [
             {
-              "label": "Documentación de AWS",
+              "label": {
+                "es": "Documentación de AWS",
+                "en": "AWS documentation",
+                "pt": "Documentação da AWS"
+              },
               "url": "https://docs.aws.amazon.com/"
             }
           ]
@@ -298,17 +458,25 @@
       "name": "designVisualization",
       "emoji": "🎨",
       "label": {
-        "en": "Design & Visualization",
         "es": "Diseño y Visualización",
+        "en": "Design & Visualization",
         "pt": "Design e Visualização"
       },
       "items": [
         {
           "name": "Illustrator",
-          "description": "Identidad visual, logotipos e ilustración vectorial para eventos y marcas.",
+          "description": {
+            "es": "Identidad visual, logotipos e ilustración vectorial para eventos y marcas.",
+            "en": "Visual identity, logos and vector illustration for events and brands.",
+            "pt": "Identidade visual, logotipos e ilustração vetorial para eventos e marcas."
+          },
           "docs": [
             {
-              "label": "Tutoriales de Adobe",
+              "label": {
+                "es": "Tutoriales de Adobe",
+                "en": "Adobe tutorials",
+                "pt": "Tutoriais da Adobe"
+              },
               "url": "https://helpx.adobe.com/es/illustrator/tutorials.html"
             }
           ],
@@ -323,10 +491,18 @@
         },
         {
           "name": "Photoshop",
-          "description": "Retoque, composición y piezas gráficas para redes y material impreso.",
+          "description": {
+            "es": "Retoque, composición y piezas gráficas para redes y material impreso.",
+            "en": "Retouching, compositing and graphic pieces for social media and print.",
+            "pt": "Retoque, composição e peças gráficas para redes sociais e impressos."
+          },
           "docs": [
             {
-              "label": "Tutoriales de Adobe",
+              "label": {
+                "es": "Tutoriales de Adobe",
+                "en": "Adobe tutorials",
+                "pt": "Tutoriais da Adobe"
+              },
               "url": "https://helpx.adobe.com/es/photoshop/tutorials.html"
             }
           ],
@@ -339,10 +515,18 @@
         },
         {
           "name": "After Effects",
-          "description": "Animación y motion graphics para piezas audiovisuales.",
+          "description": {
+            "es": "Animación y motion graphics para piezas audiovisuales.",
+            "en": "Animation and motion graphics for audiovisual pieces.",
+            "pt": "Animação e motion graphics para peças audiovisuais."
+          },
           "docs": [
             {
-              "label": "Tutoriales de Adobe",
+              "label": {
+                "es": "Tutoriales de Adobe",
+                "en": "Adobe tutorials",
+                "pt": "Tutoriais da Adobe"
+              },
               "url": "https://helpx.adobe.com/es/after-effects/tutorials.html"
             }
           ],
@@ -352,20 +536,36 @@
         },
         {
           "name": "Lightroom",
-          "description": "Revelado y tratamiento de color de fotografía.",
+          "description": {
+            "es": "Revelado y tratamiento de color de fotografía.",
+            "en": "Photo developing and colour grading.",
+            "pt": "Revelação e tratamento de cor de fotografia."
+          },
           "docs": [
             {
-              "label": "Tutoriales de Adobe",
+              "label": {
+                "es": "Tutoriales de Adobe",
+                "en": "Adobe tutorials",
+                "pt": "Tutoriais da Adobe"
+              },
               "url": "https://helpx.adobe.com/es/lightroom-cc/tutorials.html"
             }
           ]
         },
         {
           "name": "Creo",
-          "description": "CAD paramétrico para modelado de piezas y ensamblajes mecánicos.",
+          "description": {
+            "es": "CAD paramétrico para modelado de piezas y ensamblajes mecánicos.",
+            "en": "Parametric CAD for modelling mechanical parts and assemblies.",
+            "pt": "CAD paramétrico para modelagem de peças e montagens mecânicas."
+          },
           "docs": [
             {
-              "label": "Ayuda de PTC Creo",
+              "label": {
+                "es": "Ayuda de PTC Creo",
+                "en": "PTC Creo help",
+                "pt": "Ajuda do PTC Creo"
+              },
               "url": "https://support.ptc.com/help/creo/creo_pma/usascii/index.html"
             }
           ],
@@ -376,10 +576,18 @@
         },
         {
           "name": "Fusion",
-          "description": "CAD/CAM en la nube para modelado, ensamblajes y preparación de fabricación.",
+          "description": {
+            "es": "CAD/CAM en la nube para modelado, ensamblajes y preparación de fabricación.",
+            "en": "Cloud CAD/CAM for modelling, assemblies and manufacturing prep.",
+            "pt": "CAD/CAM na nuvem para modelagem, montagens e preparação de fabricação."
+          },
           "docs": [
             {
-              "label": "Documentación de Autodesk",
+              "label": {
+                "es": "Documentación de Autodesk",
+                "en": "Autodesk documentation",
+                "pt": "Documentação da Autodesk"
+              },
               "url": "https://help.autodesk.com/view/fusion360/ESP/"
             }
           ],
@@ -391,10 +599,18 @@
         },
         {
           "name": "Rhino",
-          "description": "Modelado 3D de superficies complejas y formas orgánicas.",
+          "description": {
+            "es": "Modelado 3D de superficies complejas y formas orgánicas.",
+            "en": "3D modelling of complex surfaces and organic shapes.",
+            "pt": "Modelagem 3D de superfícies complexas e formas orgânicas."
+          },
           "docs": [
             {
-              "label": "Documentación oficial",
+              "label": {
+                "es": "Documentación oficial",
+                "en": "Official documentation",
+                "pt": "Documentação oficial"
+              },
               "url": "https://docs.mcneel.com/rhino/8/help/es-es/index.htm"
             }
           ],
@@ -405,10 +621,18 @@
         },
         {
           "name": "Electronic Prototyping",
-          "description": "Prototipado electrónico: sensores, actuadores y control para piezas interactivas.",
+          "description": {
+            "es": "Prototipado electrónico: sensores, actuadores y control para piezas interactivas.",
+            "en": "Electronic prototyping: sensors, actuators and control for interactive pieces.",
+            "pt": "Prototipagem eletrônica: sensores, atuadores e controle para peças interativas."
+          },
           "docs": [
             {
-              "label": "Referencia de Arduino",
+              "label": {
+                "es": "Referencia de Arduino",
+                "en": "Arduino reference",
+                "pt": "Referência do Arduino"
+              },
               "url": "https://docs.arduino.cc/"
             }
           ],
@@ -424,14 +648,18 @@
       "name": "softSkills",
       "emoji": "🤝",
       "label": {
-        "en": "Soft Skills",
         "es": "Habilidades Blandas",
+        "en": "Soft Skills",
         "pt": "Habilidades Sociais"
       },
       "items": [
         {
           "name": "Leadership",
-          "description": "Dirección de equipos y de áreas en AIESEC, y referencia técnica en soporte en vivo.",
+          "description": {
+            "es": "Dirección de equipos y de áreas en AIESEC, y referencia técnica en soporte en vivo.",
+            "en": "Leading teams and departments at AIESEC, and acting as technical reference in live support.",
+            "pt": "Liderança de equipes e áreas na AIESEC, e referência técnica no suporte ao vivo."
+          },
           "projects": [
             "aiesec-awards",
             "zonalito-2020-2"
@@ -439,14 +667,22 @@
         },
         {
           "name": "Adaptability",
-          "description": "Cambio de contexto entre diseño, datos y operaciones según lo que el equipo necesite.",
+          "description": {
+            "es": "Cambio de contexto entre diseño, datos y operaciones según lo que el equipo necesite.",
+            "en": "Switching between design, data and operations depending on what the team needs.",
+            "pt": "Alternância entre design, dados e operações conforme a necessidade da equipe."
+          },
           "projects": [
             "mi-centro"
           ]
         },
         {
           "name": "Teamwork",
-          "description": "Trabajo en equipos multidisciplinares de hasta ocho personas entre diseño e ingeniería.",
+          "description": {
+            "es": "Trabajo en equipos multidisciplinares de hasta ocho personas entre diseño e ingeniería.",
+            "en": "Working in multidisciplinary teams of up to eight people across design and engineering.",
+            "pt": "Trabalho em equipes multidisciplinares de até oito pessoas entre design e engenharia."
+          },
           "projects": [
             "kory",
             "mi-centro",
@@ -455,14 +691,22 @@
         },
         {
           "name": "Critical Thinking",
-          "description": "Diagnóstico de incidencias en directo: aislar la causa antes de tocar el sistema.",
+          "description": {
+            "es": "Diagnóstico de incidencias en directo: aislar la causa antes de tocar el sistema.",
+            "en": "Diagnosing live incidents: isolate the cause before touching the system.",
+            "pt": "Diagnóstico de incidentes ao vivo: isolar a causa antes de mexer no sistema."
+          },
           "projects": [
             "runbooks"
           ]
         },
         {
           "name": "Project Management",
-          "description": "Planificación, alcance y entrega de proyectos académicos y de herramientas internas.",
+          "description": {
+            "es": "Planificación, alcance y entrega de proyectos académicos y de herramientas internas.",
+            "en": "Planning, scoping and delivering academic projects and internal tooling.",
+            "pt": "Planejamento, escopo e entrega de projetos acadêmicos e de ferramentas internas."
+          },
           "projects": [
             "fwd",
             "permission-system"
@@ -470,7 +714,11 @@
         },
         {
           "name": "Research",
-          "description": "Investigación aplicada en energías renovables, con publicación revisada por pares.",
+          "description": {
+            "es": "Investigación aplicada en energías renovables, con publicación revisada por pares.",
+            "en": "Applied research in renewable energy, with a peer-reviewed publication.",
+            "pt": "Pesquisa aplicada em energias renováveis, com publicação revisada por pares."
+          },
           "projects": [
             "grid-5",
             "grid-3",
@@ -479,14 +727,22 @@
         },
         {
           "name": "Planning",
-          "description": "Organización de entregas y calendarios de eventos con muchas partes implicadas.",
+          "description": {
+            "es": "Organización de entregas y calendarios de eventos con muchas partes implicadas.",
+            "en": "Organising deliveries and event schedules with many moving parts.",
+            "pt": "Organização de entregas e cronogramas de eventos com muitas partes envolvidas."
+          },
           "projects": [
             "zonalito-2019"
           ]
         },
         {
           "name": "Working under pressure",
-          "description": "Soporte de eventos deportivos en directo, donde una caída no admite espera.",
+          "description": {
+            "es": "Soporte de eventos deportivos en directo, donde una caída no admite espera.",
+            "en": "Supporting live sports events, where an outage cannot wait.",
+            "pt": "Suporte a eventos esportivos ao vivo, onde uma queda não pode esperar."
+          },
           "projects": [
             "alerts-nfl",
             "fixture-manager"
@@ -498,31 +754,67 @@
       "name": "languages",
       "emoji": "🌍",
       "label": {
-        "en": "Languages",
         "es": "Idiomas",
+        "en": "Languages",
         "pt": "Idiomas"
       },
       "items": [
         {
-          "name": "Español",
+          "name": {
+            "es": "Español",
+            "en": "Spanish",
+            "pt": "Espanhol"
+          },
           "flag": "🇨🇴",
           "level": 100,
-          "levelLabel": "Nativo",
-          "description": "Lengua materna. Toda mi formación académica y profesional en Colombia."
+          "levelLabel": {
+            "es": "Nativo",
+            "en": "Native",
+            "pt": "Nativo"
+          },
+          "description": {
+            "es": "Lengua materna. Toda mi formación académica y profesional en Colombia.",
+            "en": "Mother tongue. All of my academic and professional training took place in Colombia.",
+            "pt": "Língua materna. Toda a minha formação acadêmica e profissional na Colômbia."
+          }
         },
         {
-          "name": "Inglés",
+          "name": {
+            "es": "Inglés",
+            "en": "English",
+            "pt": "Inglês"
+          },
           "flag": "🇬🇧",
           "level": 80,
-          "levelLabel": "B2 · Avanzado",
-          "description": "Idioma de trabajo diario con equipos de desarrollo y clientes internacionales."
+          "levelLabel": {
+            "es": "B2 · Avanzado",
+            "en": "B2 · Advanced",
+            "pt": "B2 · Avançado"
+          },
+          "description": {
+            "es": "Idioma de trabajo diario con equipos de desarrollo y clientes internacionales.",
+            "en": "Daily working language with development teams and international clients.",
+            "pt": "Idioma de trabalho diário com equipes de desenvolvimento e clientes internacionais."
+          }
         },
         {
-          "name": "Portugués",
+          "name": {
+            "es": "Portugués",
+            "en": "Portuguese",
+            "pt": "Português"
+          },
           "flag": "🇧🇷",
           "level": 65,
-          "levelLabel": "B1 · Intermedio",
-          "description": "Aprendido en Brasil: intercambio en la USP y prácticas de diseño en LiveSEO."
+          "levelLabel": {
+            "es": "B1 · Intermedio",
+            "en": "B1 · Intermediate",
+            "pt": "B1 · Intermediário"
+          },
+          "description": {
+            "es": "Aprendido en Brasil: intercambio en la USP y prácticas de diseño en LiveSEO.",
+            "en": "Learned in Brazil: exchange at USP and a design internship at LiveSEO.",
+            "pt": "Aprendido no Brasil: intercâmbio na USP e estágio de design na LiveSEO."
+          }
         }
       ]
     }
