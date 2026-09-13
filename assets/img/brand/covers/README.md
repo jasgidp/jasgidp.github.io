@@ -11,16 +11,20 @@ El nombre debe ser exactamente el de la categoría en `data/projects.json`:
 
 | Archivo            | Categoría                |
 | ------------------ | ------------------------ |
-| `engineering.jpg`  | Ingeniería               |
-| `experience.jpg`   | Experience Design        |
-| `graphic.jpg`      | Diseño Gráfico           |
-| `design.jpg`       | Product Design           |
-| `research.jpg`     | Investigación            |
-| `software.jpg`     | Software                 |
+| `engineering.*`    | Ingeniería               |
+| `experience.*`     | Experience Design        |
+| `graphic.*`        | Diseño Gráfico           |
+| `design.*`         | Product Design           |
+| `research.*`       | Investigación            |
+| `software.*`       | Software                 |
 
-Formato `.jpg`, horizontal (las originales son 1920×1080). El banner recorta
-a 16:5 y las fichas a un rectángulo bajo, así que **lo importante debe ir
-centrado**: los bordes superior e inferior se pierden en el recorte.
+La extensión puede ser `.png`, `.jpg`, `.jpeg` o `.webp`: `js/projects.js`
+las prueba en ese orden y usa la primera que exista, así que no hace falta
+convertir nada.
+
+Horizontal (las originales son 1920×1080). El banner recorta a 16:5 y las
+fichas a un rectángulo bajo, así que **lo importante debe ir centrado**:
+los bordes superior e inferior se pierden en el recorte.
 
 ## Si falta alguna
 

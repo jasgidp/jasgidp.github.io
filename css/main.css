@@ -1470,9 +1470,13 @@ body { background: transparent; }
 .project-tile.no-image[data-category="software"] { background-image: var(--cover-software, linear-gradient(135deg, var(--cat-software), #6ee7b7)); }
 .project-tile.no-image[data-category="design"] { background-image: var(--cover-design, linear-gradient(135deg, var(--cat-design), #c4b5fd)); }
 .project-tile.no-image::before { background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0) 60%); }
-/* Cuando la ficha usa una portada real (no el degradado), el velo
-   oscuro se refuerza para que el título siga legible encima. */
 .project-tile.no-image { background-position: center; background-size: cover; }
+/* Las portadas de categoría son ilustraciones, y algunas tienen el fondo
+   claro. El velo suave del degradado no basta ahí: el título blanco se
+   perdía sobre el crema de Engineering. Con portada, velo más fuerte. */
+.project-tile.no-image.cover-bg::before {
+  background: linear-gradient(to top, rgba(0,0,0,0.68), rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.08));
+}
 
 /* ============================================================
    BANNER DE CATEGORÍA (portada al filtrar en el portafolio)
@@ -1526,10 +1530,11 @@ body { background: transparent; }
 .category-banner[hidden] { display: none; }
 .category-banner-img {
   width: 100%;
-  /* Las portadas son 1920x1080; recortarlas a 16:5 deja el logo y el
-     nombre centrados, que es lo único que interesa ver aquí. */
-  aspect-ratio: 16 / 5;
-  max-height: 220px;
+  /* Las portadas son 1920x1080. A 16:5 se recortaba tanto que el nombre
+     de arriba y la categoría de abajo quedaban cortados; 16:6 deja ver
+     la composición entera sin que el banner se coma la pantalla. */
+  aspect-ratio: 16 / 6;
+  max-height: 300px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1538,7 +1543,7 @@ body { background: transparent; }
   box-shadow: 0 6px 20px rgba(0,0,0,.10);
 }
 @media (max-width: 640px) {
-  .category-banner-img { aspect-ratio: 16 / 7; max-height: 150px; border-radius: 10px; }
+  .category-banner-img { aspect-ratio: 16 / 7; max-height: 170px; border-radius: 10px; }
 }
 
 
