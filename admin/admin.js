@@ -483,6 +483,7 @@
           <div class="admin-field"><label>Estado</label><input data-field="status" value="${esc(p.status)}"></div>
           <div class="admin-field"><label>Importancia</label><input data-field="importance" value="${esc(p.importance)}"></div>
           <div class="admin-field"><label>Cliente</label><input data-field="client" value="${esc(p.client)}"></div>
+          <div class="admin-field"><label>Disciplina</label><input data-field="discipline" value="${esc(p.discipline)}"></div>
           <div class="admin-field"><label>Contribución</label><input data-field="contribution" value="${esc(p.contribution)}"></div>
           <div class="admin-field"><label>Orden (nº, opcional)</label><input data-field="order" type="number" value="${esc(p.order)}"></div>
           <div class="admin-field"><label>Visible</label><select data-field="visible"><option value="true" ${p.visible !== false ? 'selected' : ''}>Sí</option><option value="false" ${p.visible === false ? 'selected' : ''}>No (oculto)</option></select></div>

@@ -1,16 +1,33 @@
 {
-  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, tags (p.ej. [\"nuevo\"]), y campos opcionales (status, client, features). Imágenes en assets/img/projects/{category}/{id}/. visible:false oculta. order: menor = primero.",
+  "_documentacion": "Proyectos del portafolio. Lo lee projects.js. Cada proyecto: id, category (graphic|experience|engineering|research|software|design), title, summary, year, tech, thumb/images, links, visible, order, tags (p.ej. [\"nuevo\"]), y campos opcionales (status, client, features…). Imágenes en assets/img/projects/{category}/{id}/. visible:false oculta. order: menor = primero.",
   "projects": [
     {
       "id": "aiesec-awards",
       "category": "graphic",
       "title": "Awards – AIESEC",
-      "summary": "Certificates and event logo aligned to ‘The Family’ concept.",
+      "summary": "Certificates and event logo inspired by Fast & Furious, for the ceremony that rewards everything members achieve over a semester.",
       "role": "Director of Digital Experience & Graphic Design",
+      "discipline": "Digital experience",
       "tech": [
         "Illustrator",
         "Photoshop"
       ],
+      "year": 2020,
+      "status": "Completed",
+      "importance": "High",
+      "client": "AIESEC",
+      "features": [
+        "Coherent visual system",
+        "Printable and digital assets",
+        "Event concept: The Family — reconnect everyone as one family",
+        "Deliverables: event logo, certificates and supporting assets"
+      ],
+      "learnings": "Refined brand consistency under tight timelines.",
+      "results": [
+        "Delivered 100+ assets",
+        "Used across 3 events"
+      ],
+      "thumb": "assets/img/projects/graphic/aiesec-awards/thumb.jpg",
       "images": [
         "assets/img/projects/graphic/aiesec-awards/thumb.jpg",
         "assets/img/projects/graphic/aiesec-awards/01.jpg",
@@ -18,36 +35,24 @@
         "assets/img/projects/graphic/aiesec-awards/03.jpg",
         "assets/img/projects/graphic/aiesec-awards/04.jpg"
       ],
-      "thumb": "assets/img/projects/graphic/aiesec-awards/thumb.jpg",
       "links": {
         "demo": "",
         "repo": "",
         "video": ""
-      },
-      "year": 2020,
-      "status": "Completed",
-      "client": "AIESEC",
-      "features": [
-        "Coherent visual system",
-        "Printable and digital assets"
-      ],
-      "importance": "High",
-      "learnings": "Refined brand consistency under tight timelines.",
-      "results": [
-        "Delivered 100+ assets",
-        "Used across 3 events"
-      ]
+      }
     },
     {
       "id": "zonalito-2020-1",
       "category": "graphic",
       "title": "Conference 2020 (1) – Zonalito",
-      "summary": "Concept and visual system for regional AIESEC event.",
+      "summary": "Zonalito: every activity, decoration and development of the event is built from an initial concept based on something that already exists.",
+      "discipline": "Digital experience",
       "tech": [
         "Illustrator",
         "Photoshop"
       ],
       "year": 2020,
+      "client": "AIESEC",
       "thumb": "assets/img/projects/graphic/zonalito-2020-1/thumb.jpg",
       "images": [
         "assets/img/projects/graphic/zonalito-2020-1/thumb.jpg",
@@ -62,8 +67,16 @@
       "id": "zonalito-2020-2",
       "category": "graphic",
       "title": "Conference 2020 (2) – Big Heroes",
-      "summary": "Branding: logo, mascot, shirts, templates.",
+      "summary": "Zonalito: an event that works as an induction for people new to the organisation. T‑shirts, logos, presentation templates and booklets.",
+      "role": "In charge of Digital Experience & Graphic Design",
+      "discipline": "Digital experience",
       "year": 2020,
+      "client": "AIESEC",
+      "features": [
+        "Event concept: Big Heroes — we can all be heroes",
+        "In charge of the digital experience and graphic design of the event",
+        "Deliverables: event logo, shirt, mascot, templates and activities"
+      ],
       "thumb": "assets/img/projects/graphic/zonalito-2020-2/thumb.jpg",
       "images": [
         "assets/img/projects/graphic/zonalito-2020-2/thumb.jpg",
@@ -78,8 +91,16 @@
       "id": "zonalito-2019",
       "category": "graphic",
       "title": "Conference 2019 (1) – Special Agents",
-      "summary": "Visual identity; logo, badges, booklets, templates.",
+      "summary": "Zonalito: a biannual event where a chosen concept shapes both the activities and the graphic work. Logos, templates and booklets.",
+      "role": "In charge of Digital Experience & Graphic Design",
+      "discipline": "Digital experience",
       "year": 2019,
+      "client": "AIESEC",
+      "features": [
+        "Event concept: Special Agents — those who are unique",
+        "In charge of the digital experience and graphic design of the event",
+        "Deliverables: event logo, rosettes and supporting assets"
+      ],
       "thumb": "assets/img/projects/graphic/zonalito-2019/thumb.jpg",
       "images": [
         "assets/img/projects/graphic/zonalito-2019/thumb.jpg",
@@ -91,24 +112,22 @@
       "id": "mi-centro",
       "category": "experience",
       "title": "Mi Centro – University Project",
-      "summary": "Social urban experience system (station/pole/device).",
-      "links": {
-        "video": ""
-      },
+      "summary": "Project focused on designing experiences with a social approach: an integrated system made up of station, pole and device.",
+      "discipline": "Experience design",
       "year": 2019,
       "status": "Concept",
+      "importance": "Medium",
       "client": "University",
+      "team": "6",
+      "contribution": "Design phase: context research, prototyping and experience design. Construction: electronics manufacturing, programming and operation.",
+      "state": "Prototype",
       "features": [
         "Modular station",
-        "Contextual feedback"
+        "Contextual feedback",
+        "Integrated system: station, pole and device",
+        "Inspired by the social recovery of the city centre",
+        "Goal: create positive experiences"
       ],
-      "team": [
-        "JASG",
-        "Peers"
-      ],
-      "contribution": "System concept and prototyping",
-      "state": "Prototype",
-      "importance": "Medium",
       "learnings": "User research synthesis and rapid prototyping.",
       "results": [
         "Validated with 12 participants"
@@ -121,17 +140,27 @@
         "assets/img/projects/experience/mi-centro/03.jpg",
         "assets/img/projects/experience/mi-centro/04.jpg",
         "assets/img/projects/experience/mi-centro/05.jpg"
-      ]
+      ],
+      "links": {
+        "video": ""
+      }
     },
     {
       "id": "thor-machine",
       "category": "experience",
       "title": "Thor Machine – University Project",
-      "summary": "Interactive installation for children; ergonomics education.",
-      "links": {
-        "video": ""
-      },
+      "summary": "Project focused on design with physical and cognitive ergonomics in an interactive machine.",
+      "discipline": "Experience design",
       "year": 2019,
+      "client": "University",
+      "team": "5",
+      "contribution": "Design phase: mechanism approach, components and experience design. Construction: manufacturing, finishes and mechanical operation.",
+      "features": [
+        "References: the world of Asgard",
+        "Users: children aged 8–12",
+        "Inspired by the conservation of angular momentum",
+        "Goal: teach the physical phenomenon"
+      ],
       "thumb": "assets/img/projects/experience/thor-machine/thumb.jpg",
       "images": [
         "assets/img/projects/experience/thor-machine/thumb.jpg",
@@ -140,14 +169,28 @@
         "assets/img/projects/experience/thor-machine/03.jpg",
         "assets/img/projects/experience/thor-machine/04.jpg",
         "assets/img/projects/experience/thor-machine/05.jpg"
-      ]
+      ],
+      "links": {
+        "video": ""
+      }
     },
     {
       "id": "fwd",
       "category": "engineering",
       "title": "FWD – University Project",
-      "summary": "Single-person two-wheel vehicle; internal-rim transmission.",
+      "summary": "Project focused on mechanical systems in motor vehicles: a single‑person, two‑wheel vehicle with the transmission inside the rim.",
+      "discipline": "Vehicle design",
       "year": 2018,
+      "status": "Completed",
+      "client": "University",
+      "team": "5",
+      "contribution": "Design phase: ergonomics, drawings and design decisions. Construction: manufacturing (chassis), assembly and general operation.",
+      "features": [
+        "Two wheels driven by a combustion engine",
+        "Transmission inside the rim",
+        "Inspired by the recovery position",
+        "Single‑person vehicle"
+      ],
       "thumb": "assets/img/projects/engineering/fwd/thumb.jpg",
       "images": [
         "assets/img/projects/engineering/fwd/thumb.jpg",
@@ -163,17 +206,29 @@
       "category": "engineering",
       "title": "JO.HA – Ecoluz",
       "summary": "Details pending documentation.",
-      "year": 2019
+      "year": 2019,
+      "client": "Ecoluz"
     },
     {
       "id": "kory",
       "category": "engineering",
       "title": "Kory – Beach Cleaner",
-      "summary": "Semi-autonomous electric vehicle guided by GPS/manual.",
+      "summary": "Project focused on developing and integrating technical systems: a semi‑autonomous electric vehicle steered by remote control or via GPS and compass.",
+      "discipline": "Electric robot design",
+      "year": 2020,
+      "status": "Completed",
+      "client": "University",
+      "team": "8",
+      "contribution": "Design phase: electronics approach, steering, finite element analysis and conceptual design. Construction: programming, wiring and assembly of electronic components.",
+      "features": [
+        "Semi‑autonomous electric vehicle, guided by control or via GPS / compass",
+        "Seeks to raise awareness and help the climate situation",
+        "Designed to collect solid waste on tourist beaches",
+        "Goal: erase the negative footprint people leave on the beach"
+      ],
       "links": {
         "video": ""
-      },
-      "year": 2020
+      }
     },
     {
       "id": "grid-1",
@@ -389,8 +444,15 @@
       "id": "center-box",
       "category": "design",
       "title": "Center Box – Family Project",
-      "summary": "Coffee table with storage; upcycled materials.",
+      "summary": "Centre table designed for the home: a coffee table that doubles as storage for everyday items.",
+      "discipline": "Furniture design",
       "year": 2017,
+      "client": "Family",
+      "team": "1",
+      "contribution": "Whole project (sole author).",
+      "features": [
+        "Coffee table that stores items inside"
+      ],
       "thumb": "assets/img/projects/design/center-box/thumb.jpg",
       "images": [
         "assets/img/projects/design/center-box/thumb.jpg",
@@ -405,8 +467,17 @@
       "id": "overlap",
       "category": "design",
       "title": "Overlap – University Project",
-      "summary": "Conceptual model; mechanical systems and abstraction.",
+      "summary": "Project focused on an introduction to mechanisms and the conceptualisation of references.",
+      "discipline": "Conceptual design",
       "year": 2017,
+      "status": "Completed",
+      "client": "University project",
+      "team": "4",
+      "contribution": "Design phase: abstraction of the reference and design of the drive mechanism. Construction: dispensing mechanism and assemblies.",
+      "features": [
+        "Dispenser for MAMM scale models",
+        "Inspired by the MAMM and its overlapping volumes"
+      ],
       "thumb": "assets/img/projects/design/overlap/thumb.jpg",
       "images": [
         "assets/img/projects/design/overlap/thumb.jpg",
@@ -421,8 +492,17 @@
       "id": "diesel-chair",
       "category": "design",
       "title": "Diesel Chair – University Project",
-      "summary": "Ergonomic chair inspired by Diesel brand.",
+      "summary": "Chair design exploring ergonomics and the conceptualisation of clothing brands.",
+      "discipline": "Furniture design",
       "year": 2017,
+      "status": "Completed",
+      "client": "University project",
+      "team": "1",
+      "contribution": "Whole project (sole author).",
+      "features": [
+        "Inspired by the Diesel brand",
+        "Explores different assembly methods"
+      ],
       "thumb": "assets/img/projects/design/diesel-chair/thumb.jpg",
       "images": [
         "assets/img/projects/design/diesel-chair/thumb.jpg",
@@ -437,8 +517,17 @@
       "id": "stad",
       "category": "design",
       "title": "Stad – University Project",
-      "summary": "Furniture inspired by Amsterdam and Delft Blue ceramics.",
+      "summary": "Project focused on ergonomics and the conceptualisation of references in furniture.",
+      "discipline": "Furniture design",
       "year": 2017,
+      "status": "Completed",
+      "client": "University project",
+      "team": "3",
+      "contribution": "Design phase: conceptualisation. Construction: assemblies and finishes.",
+      "features": [
+        "Reference: Delft Blue ceramics",
+        "Inspirational city: Amsterdam"
+      ],
       "thumb": "assets/img/projects/design/stad/thumb.jpg",
       "images": [
         "assets/img/projects/design/stad/thumb.jpg",
@@ -453,8 +542,16 @@
       "id": "tengu",
       "category": "design",
       "title": "Tengu – University Project",
-      "summary": "Sake bottle inspired by Tengu; 3D modeling and scanning.",
+      "summary": "Bottle designed for drinking sake, themed around the Tengu.",
+      "discipline": "3D model design",
       "year": 2017,
+      "status": "Completed",
+      "client": "University project",
+      "team": "2",
+      "contribution": "Physical model for scanning, 3D model design and conceptualisation.",
+      "features": [
+        "Inspired by the Tengu, legendary creatures of Japanese folk religion"
+      ],
       "thumb": "assets/img/projects/design/tengu/thumb.jpg",
       "images": [
         "assets/img/projects/design/tengu/thumb.jpg",

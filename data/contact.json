@@ -2,31 +2,29 @@
   "_documentacion": "Archivo de datos de la página Contacto. Lo lee contact.js. Campos: headline/subheadline (textos de cabecera), email, phone, location, address, availability, socials (lista de {name,url,icon}), form (asunto del mailto). Edita este archivo para cambiar tu email o redes sin tocar el HTML.",
   "headline": "Let's work together",
   "subheadline": "Open to freelance, internships, and full‑time roles.",
-  "email": "hello@example.com",
-  "phone": "+1 (555) 123-4567",
+  "email": "jsandov4@eafit.edu.co",
   "location": "Medellín, Colombia",
-  "address": "Cra. 123 #45-67, Medellín",
   "availability": "Usually replies within 1–2 days.",
   "socials": [
     {
       "name": "LinkedIn",
-      "url": "https://linkedin.com/in/yourprofile",
+      "url": "https://www.linkedin.com/in/jonathan-a-sandoval/",
       "icon": "ri-linkedin-box-fill"
     },
     {
       "name": "GitHub",
-      "url": "https://github.com/your-username",
+      "url": "https://github.com/jasgidp/",
       "icon": "ri-github-fill"
     },
     {
       "name": "Instagram",
-      "url": "https://instagram.com/your-profile",
+      "url": "https://www.instagram.com/jonathan_alejandro_sandov/",
       "icon": "ri-instagram-line"
     }
   ],
   "form": {
     "enabled": true,
-    "to": "hello@example.com",
+    "to": "jsandov4@eafit.edu.co",
     "subject": "New message from portfolio",
     "demo": true
   }

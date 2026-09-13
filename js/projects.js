@@ -69,7 +69,7 @@
         techText = groups.join(' ');
       }
       const tagText = Array.isArray(p.tags) ? p.tags.join(' ') : '';
-      const hay = [p.title, p.summary, p.category, techText, tagText, p.role, p.client, p.id].join(' ').toLowerCase();
+      const hay = [p.title, p.summary, p.category, techText, tagText, p.role, p.client, p.discipline, p.id].join(' ').toLowerCase();
       return hay.includes(state.q);
     }
 
@@ -143,6 +143,7 @@
 
       const metaItems = [
         p.client ? `<div class="meta-item"><label>Cliente</label><div class="value">${p.client}</div></div>` : '',
+        p.discipline ? `<div class="meta-item"><label>Disciplina</label><div class="value">${p.discipline}</div></div>` : '',
         p.team ? `<div class="meta-item"><label>Integrantes</label><div class="value">${Array.isArray(p.team)? p.team.join(', ') : p.team}</div></div>` : '',
         p.contribution ? `<div class="meta-item"><label>Contribución</label><div class="value">${p.contribution}</div></div>` : '',
         p.state ? `<div class="meta-item"><label>Estado</label><div class="value">${p.state}</div></div>` : ''
