@@ -55,24 +55,40 @@
   const COVER_DIR = 'assets/img/brand/covers/';
   const coverReady = {}; // categoría -> true cuando la imagen cargó
 
+  // Se aceptan varias extensiones para no obligar a reconvertir la imagen:
+  // se prueba una detrás de otra y se usa la primera que cargue.
+  const COVER_EXT = ['png', 'jpg', 'jpeg', 'webp'];
+  const coverSrc = {}; // categoría -> URL que funcionó
+
   // URL absoluta a propósito: una url() relativa dentro de una variable
   // CSS se resuelve contra la HOJA DE ESTILOS (css/main.css), no contra la
   // página, y acabaría apuntando a /css/assets/... que no existe.
   function coverUrl(cat){
-    return new URL(`${COVER_DIR}${cat}.jpg`, document.baseURI).href;
+    return coverSrc[cat] || new URL(`${COVER_DIR}${cat}.${COVER_EXT[0]}`, document.baseURI).href;
   }
 
-  function probeCover(cat){
+  // Carga una URL concreta y dice si existe
+  function tryLoad(url){
     return new Promise(resolve => {
       const img = new Image();
-      img.onload = () => {
-        coverReady[cat] = true;
-        document.documentElement.style.setProperty(`--cover-${cat}`, `url('${coverUrl(cat)}')`);
-        resolve(true);
-      };
-      img.onerror = () => { coverReady[cat] = false; resolve(false); };
-      img.src = coverUrl(cat);
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
     });
+  }
+
+  async function probeCover(cat){
+    for (const ext of COVER_EXT) {
+      const url = new URL(`${COVER_DIR}${cat}.${ext}`, document.baseURI).href;
+      if (await tryLoad(url)) {
+        coverSrc[cat] = url;
+        coverReady[cat] = true;
+        document.documentElement.style.setProperty(`--cover-${cat}`, `url('${url}')`);
+        return true;
+      }
+    }
+    coverReady[cat] = false;
+    return false;
   }
 
   try {
@@ -175,7 +191,9 @@
         // Si la imagen es el logo genérico, usamos un degradado CSS en su lugar
         const isPlaceholder = !raw || /(^|\/)HOme\.png$/i.test(raw) || /assets\/img\/brand\/HOme\.png$/i.test(raw);
         const bgStyle = isPlaceholder ? '' : ` style="background-image:url('${raw}')"`;
-        const cls = isPlaceholder ? ' no-image' : '';
+        // cover-bg = la ficha usa la portada de su categoría, no el degradado.
+        // Las portadas claras necesitan un velo más oscuro o el título no se lee.
+        const cls = isPlaceholder ? (coverReady[p.category] ? ' no-image cover-bg' : ' no-image') : '';
         const newBadge = isNew(p)
           ? `<span class="tile-badge-nuevo" data-i18n="filters.nuevo">Nuevo</span>`
           : '';
@@ -510,7 +528,17 @@
     // Buscar las portadas en segundo plano: la página ya está usable
     // y, según van llegando, las fichas y el banner se actualizan solos.
     const cats = [...new Set(projects.map(p => p.category).filter(Boolean))];
-    Promise.all(cats.map(probeCover)).then(updateBanner);
+    // Al terminar se redibuja una vez: las fichas reciben su clase cover-bg
+    // y aparece el banner si toca. Antes solo se comprobaba el banner, así
+    // que con el filtro "Todo" las fichas se quedaban sin la portada.
+    Promise.all(cats.map(probeCover)).then(() => {
+      const reopen = openProjectId;
+      render();
+      if (reopen) {
+        const card = container.querySelector(`.project-tile[data-id="${CSS.escape(reopen)}"]`);
+        if (card) card.click();
+      }
+    });
   } catch (err) {
     console.error('Failed to load projects', err);
     container.innerHTML = '<p style="padding:12px;">Projects could not load. Please serve the site with a local server or open the deployed GitHub Pages site.</p>';
