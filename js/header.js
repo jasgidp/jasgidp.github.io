@@ -50,8 +50,18 @@
         }).join('')}
       </ul>
 
-      <!-- Acciones del header: tema + idioma -->
+      <!-- Acciones del header: admin + tema + idioma -->
       <div class="header-actions">
+        <!--
+          Acceso al panel de edición privado (/admin/).
+          Es un simple enlace: el panel no muestra nada hasta que
+          pegas tu token de GitHub, así que no expone datos.
+        -->
+        <a href="admin/" class="theme-toggle admin-link"
+           aria-label="Panel de edición" title="Panel de edición (admin)">
+          <i class="ri-settings-3-line" aria-hidden="true"></i>
+        </a>
+
         <!--
           Botón de modo claro/oscuro. js/theme.js escucha los clics
           en [data-theme-toggle] y le pone el icono correcto (sol o luna).
