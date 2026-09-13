@@ -56,7 +56,8 @@
     }
   },
   "skills": {
-    "title": "Skills"
+    "title": "Skills",
+    "usedIn": "Used in"
   },
   "timeline": {
     "title": "Timeline",

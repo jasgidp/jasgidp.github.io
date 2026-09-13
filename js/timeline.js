@@ -58,8 +58,57 @@
   // Convierte "2023-01" en un objeto Date para poder ordenar
   function parseDate(d){ if(!d) return null; const [y,m] = String(d).split('-'); const Y=+y||0; const M=(+m||1)-1; return new Date(Y,M,1); }
 
+  /* ------------------------------------------------------------
+     FECHAS LEGIBLES Y DURACIÓN
+     El JSON guarda "2023-10" porque es fácil de ordenar, pero eso
+     se lee mal. Aquí lo pasamos a "oct 2023" en el idioma activo y
+     calculamos cuánto duró, que es lo que de verdad se quiere saber
+     de un vistazo.
+     ------------------------------------------------------------ */
+
+  // Palabras de duración por idioma (singular / plural)
+  const DUR = {
+    es: { y:['año','años'],  m:['mes','meses'] },
+    en: { y:['yr','yrs'],    m:['mo','mos']    },
+    pt: { y:['ano','anos'],  m:['mês','meses'] }
+  };
+  function lang(){ const l = document.documentElement.lang || 'es'; return DUR[l] ? l : 'es'; }
+
+  // "2023-10" -> "oct 2023". Si solo hay año ("2023"), se deja el año.
+  function formatDate(d){
+    if (!d) return '';
+    const str = String(d);
+    if (!str.includes('-')) return str; // solo año
+    const dt = parseDate(str);
+    if (!dt || isNaN(dt)) return str;
+    try {
+      return new Intl.DateTimeFormat(lang(), { month:'short', year:'numeric' }).format(dt);
+    } catch (e) { return str; }
+  }
+
+  // Meses completos entre dos fechas (el mes de inicio cuenta)
+  function monthsBetween(a, b){
+    return (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth()) + 1;
+  }
+
+  // "1 año 2 meses". Devuelve '' si no se puede calcular.
+  function formatDuration(start, end){
+    const a = parseDate(start);
+    if (!a || isNaN(a)) return '';
+    const b = end ? parseDate(end) : new Date();
+    if (!b || isNaN(b) || b < a) return '';
+    const total = monthsBetween(a, b);
+    if (total < 1) return '';
+    const years = Math.floor(total/12), months = total%12;
+    const w = DUR[lang()];
+    const parts = [];
+    if (years)  parts.push(`${years} ${w.y[years===1?0:1]}`);
+    if (months) parts.push(`${months} ${w.m[months===1?0:1]}`);
+    return parts.join(' ');
+  }
+
   // ¿La entrada coincide con el texto del buscador?
-  function matchSearch(it, q){ if(!q) return true; const hay=[it.role,it.org,it.start,it.end,...(it.bullets||[])].filter(Boolean).join(' \n ').toLowerCase(); return hay.includes(q.toLowerCase()); }
+  function matchSearch(it, q){ if(!q) return true; const hay=[it.role,it.org,it.start,it.end,it.location,it.employment,...(it.skills||[]),...(it.bullets||[])].filter(Boolean).join(' \n ').toLowerCase(); return hay.includes(q.toLowerCase()); }
 
   // Dibuja la sección activa
   function renderSection(sectionKey) {
@@ -79,8 +128,14 @@
         <h2 class="visually-hidden" data-i18n="timeline.${sectionKey}">${sectionKey}</h2>
         <ul class="timeline-list">
           ${items.map(it => {
-            const end = it.end && it.end.trim() ? it.end : present;
+            const endTxt = it.end && String(it.end).trim() ? formatDate(it.end) : present;
+            const startTxt = formatDate(it.start);
+            const range = startTxt ? `${startTxt} – ${endTxt}` : '';
+            const dur = formatDuration(it.start, it.end);
             const bullets = (it.bullets || []).map(b => `<li>${b}</li>`).join('');
+            // Línea secundaria: jornada y lugar, solo si existen
+            const metaLine = [it.employment, it.location].filter(Boolean).join(' · ');
+            const skills = (it.skills || []).map(sk => `<span class="tl-skill">${sk}</span>`).join('');
             return `
               <li class="timeline-item reveal">
                 <div class="timeline-card">
@@ -89,9 +144,11 @@
                       <i class="timeline-icon ${meta.icon}" aria-hidden="true"></i>
                       <h3>${it.role} — <span class="org">${it.org}</span></h3>
                     </div>
-                    <span class="dates">${it.start} – ${end}</span>
+                    ${range ? `<span class="dates">${range}${dur ? `<span class="duration">${dur}</span>` : ''}</span>` : ''}
                   </div>
+                  ${metaLine ? `<p class="tl-meta">${metaLine}</p>` : ''}
                   <ul class="bullets">${bullets}</ul>
+                  ${skills ? `<div class="tl-skills">${skills}</div>` : ''}
                 </div>
               </li>`;
           }).join('')}

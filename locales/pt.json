@@ -56,7 +56,8 @@
     }
   },
   "skills": {
-    "title": "Habilidades"
+    "title": "Habilidades",
+    "usedIn": "Usado em"
   },
   "timeline": {
     "title": "Linha do Tempo",

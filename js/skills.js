@@ -27,12 +27,41 @@
 
   // Acepta strings antiguos y el formato nuevo con objetos
   function normalizeSkill(item) {
-    if (typeof item === 'string') return { name: item, description: '', docs: [] };
+    if (typeof item === 'string') return { name: item, description: '', docs: [], projects: [] };
     return {
       name: item.name || '',
       description: item.description || '',
-      docs: Array.isArray(item.docs) ? item.docs : []
+      docs: Array.isArray(item.docs) ? item.docs : [],
+      // Proyectos de data/projects.json donde se usó esta habilidad
+      projects: Array.isArray(item.projects) ? item.projects : [],
+      // Solo los idiomas traen estos tres: pintan bandera y barra de dominio
+      flag: item.flag || '',
+      level: typeof item.level === 'number' ? item.level : null,
+      levelLabel: item.levelLabel || ''
     };
+  }
+
+  // id de proyecto -> título, para mostrar nombres legibles en los chips.
+  // Se llena desde data/projects.json; si no carga, usamos el id tal cual.
+  let projectTitles = {};
+
+  // Escapa texto que se inserta en atributos HTML
+  function esc(str) {
+    return String(str).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
+  // Chips de proyectos donde se usó la habilidad. Cada uno abre el
+  // proyecto en portfolio.html mediante ?p=<id> (lo lee projects.js).
+  function renderProjects(s) {
+    if (!s.projects || !s.projects.length) return '';
+    const chips = s.projects.map(id => {
+      const title = projectTitles[id] || id;
+      return `<a class="skill-project" href="portfolio.html?p=${encodeURIComponent(id)}"><i class="ri-folder-3-line" aria-hidden="true"></i>${esc(title)}</a>`;
+    }).join('');
+    return `<div class="skill-projects-wrap">
+        <span class="skill-projects-label" data-i18n="skills.usedIn">Used in</span>
+        <div class="skill-projects">${chips}</div>
+      </div>`;
   }
 
   let groups = [];
@@ -46,7 +75,7 @@
   }
 
   function skillHasDetail(s) {
-    return !!(s.description || (s.docs && s.docs.length));
+    return !!(s.description || (s.docs && s.docs.length) || (s.projects && s.projects.length));
   }
 
   // HTML del panel expandido (descripción + docs)
@@ -59,6 +88,7 @@
       <div class="skill-detail">
         ${s.description ? `<p class="skill-desc">${s.description}</p>` : ''}
         ${docs ? `<div class="skill-docs">${docs}</div>` : ''}
+        ${renderProjects(s)}
       </div>`;
   }
 
@@ -72,10 +102,26 @@
       }))
       .filter(g => g.skills.length > 0);
 
-    container.innerHTML = filtered.map(g => `
+    container.innerHTML = filtered.map(g => {
+      // Un grupo cuyos items traen "level" (los idiomas) se pinta como
+      // lista de barras de dominio en vez de como chips sueltos.
+      const isLevelGroup = g.skills.some(s => s.level !== null);
+      const body = isLevelGroup ? renderLevelList(g.skills) : renderTagList(g);
+      return `
       <article class="skill-card">
         <h3>${g.emoji ? g.emoji + ' ' : ''}${t(g.label, g.name)}</h3>
-        <ul class="skill-tags">
+        ${body}
+      </article>`;
+    }).join('') || '<p style="text-align:center;">No skills found.</p>';
+
+    // Los textos con data-i18n recién insertados (p. ej. "Usado en")
+    // necesitan traducirse; renderGrid corre después de i18n.js.
+    if (window.applyI18n) window.applyI18n(container);
+  }
+
+  // Lista normal de chips desplegables
+  function renderTagList(g) {
+    return `<ul class="skill-tags">
           ${g.skills.map(s => {
             const key = `${g.name}::${s.name}`;
             const hasDetail = skillHasDetail(s);
@@ -86,9 +132,28 @@
                       ${expanded ? renderDetail(s) : ''}
                     </li>`;
           }).join('')}
-        </ul>
-      </article>
-    `).join('') || '<p style="text-align:center;">No skills found.</p>';
+        </ul>`;
+  }
+
+  // Idiomas: bandera, nombre, nivel MCER y barra de porcentaje.
+  // La barra es decorativa (aria-hidden); el porcentaje ya va en texto,
+  // asi que un lector de pantalla no pierde informacion.
+  function renderLevelList(skills) {
+    return `<ul class="lang-list">
+      ${skills.map(s => {
+        const pct = Math.max(0, Math.min(100, s.level ?? 0));
+        return `<li class="lang-item">
+          <div class="lang-head">
+            <span class="lang-flag" aria-hidden="true">${s.flag}</span>
+            <span class="lang-name">${esc(s.name)}</span>
+            ${s.levelLabel ? `<span class="lang-level">${esc(s.levelLabel)}</span>` : ''}
+            <span class="lang-pct">${pct}%</span>
+          </div>
+          <div class="lang-bar" aria-hidden="true"><span style="width:${pct}%"></span></div>
+          ${s.description ? `<p class="lang-desc">${esc(s.description)}</p>` : ''}
+        </li>`;
+      }).join('')}
+    </ul>`;
   }
 
   // Busca una skill por su clave "grupo::nombre"
@@ -108,6 +173,17 @@
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     groups = data.groups || [];
+
+    // Títulos de proyecto para los chips "Used in". Es opcional: si falla,
+    // los chips muestran el id y la página sigue funcionando igual.
+    try {
+      const pr = await fetch('./data/projects.json?t=' + Date.now(), { cache: 'no-store' });
+      if (pr.ok) {
+        const pj = await pr.json();
+        (pj.projects || []).forEach(p => { projectTitles[p.id] = p.title || p.id; });
+      }
+    } catch (e) { /* sin títulos: se usan los ids */ }
+
     renderChips();
     renderGrid();
   } catch (err) {
@@ -140,6 +216,14 @@
     if (e.key !== 'Enter' && e.key !== ' ') return;
     const li = e.target.closest('.tag.has-detail');
     if (li) { e.preventDefault(); toggleSkill(li); }
+  });
+
+  // Al cambiar de idioma hay que re-dibujar: los títulos de grupo salen
+  // de label{es,en,pt} y las barras de idioma llevan texto traducible.
+  document.addEventListener('i18n:updated', () => {
+    if (!groups.length) return;
+    renderChips();
+    renderGrid();
   });
 
   // Buscador en vivo

@@ -1,18 +1,24 @@
 {
-  "_documentacion": "Trayectoria profesional (página Timeline). Lo lee timeline.js. Secciones: experience, research, leadership, education. Cada entrada: org, role, start (AAAA-MM), end (AAAA-MM o null = Presente), bullets (lista de logros).",
+  "_documentacion": "Trayectoria profesional (página Timeline). Lo lee timeline.js. Secciones: experience, research, leadership, education. Cada entrada: org, role, start (AAAA-MM), end (AAAA-MM o null = Presente), bullets (lista de logros) y, opcionales, employment (jornada), location (ciudad/modalidad) y skills (lista de tecnologías). La duración en años y meses la calcula timeline.js a partir de start/end.",
   "experience": [
     {
-      "role": "Test",
-      "org": "Test",
-      "start": "2026",
-      "end": "2025",
+      "org": "Genius Sports",
+      "role": "Software Engineer I",
+      "employment": "Full-time",
+      "location": "Medellín, Antioquia, Colombia · Híbrido",
+      "start": "2025-08",
+      "end": null,
+      "skills": [
+        "InfluxDB",
+        "GStreamer"
+      ],
       "bullets": []
     },
     {
       "org": "Genius Sports",
       "role": "Operational Engineer – Streaming Specialist",
       "start": "2023-10",
-      "end": null,
+      "end": "2025-07",
       "bullets": [
         "Live support with development teams.",
         "Grafana dashboards and Python runbooks for troubleshooting.",
@@ -150,7 +156,7 @@
       "org": "Universidad EAFIT",
       "role": "Master’s in Engineering",
       "start": "2024-01",
-      "end": null,
+      "end": "2026-12",
       "bullets": [
         "Focus: Sustainability & Software Development."
       ]
@@ -179,6 +185,20 @@
       "start": "2013-01",
       "end": "2014-12",
       "bullets": []
+    },
+    {
+      "org": "Universidade de São Paulo (USP) – Ribeirão Preto",
+      "role": "Intercambio académico",
+      "location": "Ribeirão Preto, São Paulo, Brasil",
+      "start": null,
+      "end": null,
+      "bullets": [
+        "Machine Learning",
+        "Ciência de Dados",
+        "Mercados e Instrumentos Financeiros",
+        "Mindfulness",
+        "Gestão Empresarial"
+      ]
     }
   ]
 }

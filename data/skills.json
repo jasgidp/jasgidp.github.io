@@ -1,5 +1,5 @@
 {
-  "_documentacion": "Habilidades agrupadas (página Skills). Lo lee skills.js. groups[]: name (clave), emoji, label {es,en,pt}, items[]. Cada item puede ser un string (\"Python\") o un objeto {name, description, docs:[{label,url}]}.",
+  "_documentacion": "Habilidades agrupadas (página Skills). Lo lee skills.js. groups[]: name (clave), emoji, label {es,en,pt}, items[]. Cada item puede ser un string (\"Python\") o un objeto {name, description, docs:[{label,url}], projects:[ids de data/projects.json]}. Los idiomas además usan {flag, level (0-100), levelLabel} para pintar la barra de dominio.",
   "groups": [
     {
       "name": "programmingData",
@@ -18,17 +18,117 @@
               "label": "Documentación oficial",
               "url": "https://docs.python.org/3/"
             }
+          ],
+          "projects": [
+            "kory",
+            "clean-dataset",
+            "forecast-gl",
+            "db-automation",
+            "alerts-nfl",
+            "runbooks",
+            "fixture-manager"
           ]
         },
         {
           "name": "Pandas",
-          "description": "Test"
+          "description": "Manipulación y limpieza de datos tabulares: carga, filtrado, agregaciones y series temporales.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://pandas.pydata.org/docs/"
+            }
+          ],
+          "projects": [
+            "clean-dataset",
+            "forecast-gl"
+          ]
         },
-        "SQL",
-        "JSON",
-        "APIs",
-        "Grafana",
-        "Jupyter Notebooks"
+        {
+          "name": "SQL",
+          "description": "Consultas y modelado relacional para extraer y cruzar información de las bases de datos internas.",
+          "docs": [
+            {
+              "label": "Tutorial de PostgreSQL",
+              "url": "https://www.postgresql.org/docs/current/tutorial.html"
+            }
+          ],
+          "projects": [
+            "db-automation",
+            "permission-system",
+            "sbs"
+          ]
+        },
+        {
+          "name": "JSON",
+          "description": "Formato de intercambio de datos entre APIs, configuraciones y el contenido de este portafolio.",
+          "docs": [
+            {
+              "label": "Especificación",
+              "url": "https://www.json.org/json-es.html"
+            }
+          ],
+          "projects": [
+            "web-jonathan",
+            "fixture-manager"
+          ]
+        },
+        {
+          "name": "APIs",
+          "description": "Consumo e integración de APIs REST: autenticación, paginación y manejo de errores.",
+          "docs": [
+            {
+              "label": "Guía de MDN sobre HTTP",
+              "url": "https://developer.mozilla.org/es/docs/Web/HTTP"
+            }
+          ],
+          "projects": [
+            "hermes-improvements",
+            "fixture-manager",
+            "alerts-nfl"
+          ]
+        },
+        {
+          "name": "Grafana",
+          "description": "Tableros de monitoreo y alertas sobre métricas de streaming en producción.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://grafana.com/docs/grafana/latest/"
+            }
+          ],
+          "projects": [
+            "grafana-improvement",
+            "runbooks",
+            "alerts-nfl"
+          ]
+        },
+        {
+          "name": "InfluxDB",
+          "description": "Base de datos de series temporales para métricas de streaming en vivo.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://docs.influxdata.com/influxdb/"
+            }
+          ],
+          "projects": [
+            "grafana-improvement"
+          ]
+        },
+        {
+          "name": "Jupyter Notebooks",
+          "description": "Exploración de datos y prototipado de análisis con resultados reproducibles.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://docs.jupyter.org/en/latest/"
+            }
+          ],
+          "projects": [
+            "clean-dataset",
+            "forecast-gl"
+          ]
+        }
       ]
     },
     {
@@ -40,8 +140,45 @@
         "pt": "Desenvolvimento Web"
       },
       "items": [
-        "HTML",
-        "CSS"
+        {
+          "name": "HTML",
+          "description": "Estructura semántica y accesible de páginas web.",
+          "docs": [
+            {
+              "label": "Referencia de MDN",
+              "url": "https://developer.mozilla.org/es/docs/Web/HTML"
+            }
+          ],
+          "projects": [
+            "web-jonathan"
+          ]
+        },
+        {
+          "name": "CSS",
+          "description": "Maquetación responsive, variables personalizadas y temas claro/oscuro.",
+          "docs": [
+            {
+              "label": "Referencia de MDN",
+              "url": "https://developer.mozilla.org/es/docs/Web/CSS"
+            }
+          ],
+          "projects": [
+            "web-jonathan"
+          ]
+        },
+        {
+          "name": "JavaScript",
+          "description": "Interactividad del lado del cliente: carga de datos, filtros y componentes propios.",
+          "docs": [
+            {
+              "label": "Referencia de MDN",
+              "url": "https://developer.mozilla.org/es/docs/Web/JavaScript"
+            }
+          ],
+          "projects": [
+            "web-jonathan"
+          ]
+        }
       ]
     },
     {
@@ -53,14 +190,108 @@
         "pt": "Ferramentas e Plataformas"
       },
       "items": [
-        "GitHub",
-        "GitLab",
-        "Jira",
-        "Confluence",
-        "Docker",
-        "Linux",
-        "Hasura",
-        "AWS (EC2, S3, MediaConnect)"
+        {
+          "name": "GitHub",
+          "description": "Control de versiones, ramas y revisión de código; también despliega este sitio con Pages.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://docs.github.com/es"
+            }
+          ],
+          "projects": [
+            "web-jonathan"
+          ]
+        },
+        {
+          "name": "GitLab",
+          "description": "Repositorios y pipelines de CI/CD en el entorno de trabajo.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://docs.gitlab.com/"
+            }
+          ]
+        },
+        {
+          "name": "Jira",
+          "description": "Seguimiento de incidencias y planificación de sprints.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://support.atlassian.com/jira-software-cloud/"
+            }
+          ]
+        },
+        {
+          "name": "Confluence",
+          "description": "Documentación interna: runbooks, guías de troubleshooting y traspasos de turno.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://support.atlassian.com/confluence-cloud/"
+            }
+          ],
+          "projects": [
+            "runbooks"
+          ]
+        },
+        {
+          "name": "Docker",
+          "description": "Contenedores para reproducir entornos de desarrollo y desplegar herramientas internas.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://docs.docker.com/"
+            }
+          ]
+        },
+        {
+          "name": "Linux",
+          "description": "Administración por línea de comandos, logs y diagnóstico de servidores de streaming.",
+          "docs": [
+            {
+              "label": "Manual de Bash",
+              "url": "https://www.gnu.org/software/bash/manual/"
+            }
+          ],
+          "projects": [
+            "runbooks"
+          ]
+        },
+        {
+          "name": "GStreamer",
+          "description": "Pipelines multimedia para transporte y transformación de vídeo en vivo.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://gstreamer.freedesktop.org/documentation/"
+            }
+          ]
+        },
+        {
+          "name": "Hasura",
+          "description": "API GraphQL instantánea sobre la base de datos para herramientas internas.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://hasura.io/docs/latest/index/"
+            }
+          ],
+          "projects": [
+            "permission-system"
+          ]
+        },
+        {
+          "name": "AWS (EC2, S3, MediaConnect)",
+          "description": "Infraestructura en la nube para cómputo, almacenamiento y transporte de vídeo en directo.",
+          "docs": [
+            {
+              "label": "Documentación de AWS",
+              "url": "https://docs.aws.amazon.com/"
+            }
+          ]
+        }
       ]
     },
     {
@@ -72,14 +303,121 @@
         "pt": "Design e Visualização"
       },
       "items": [
-        "Illustrator",
-        "Photoshop",
-        "After Effects",
-        "Lightroom",
-        "Creo",
-        "Fusion",
-        "Rhino",
-        "Electronic Prototyping"
+        {
+          "name": "Illustrator",
+          "description": "Identidad visual, logotipos e ilustración vectorial para eventos y marcas.",
+          "docs": [
+            {
+              "label": "Tutoriales de Adobe",
+              "url": "https://helpx.adobe.com/es/illustrator/tutorials.html"
+            }
+          ],
+          "projects": [
+            "aiesec-awards",
+            "zonalito-2020-2",
+            "zonalito-2019",
+            "brand-sbs",
+            "social-liveseo",
+            "ilustracion-minimalism"
+          ]
+        },
+        {
+          "name": "Photoshop",
+          "description": "Retoque, composición y piezas gráficas para redes y material impreso.",
+          "docs": [
+            {
+              "label": "Tutoriales de Adobe",
+              "url": "https://helpx.adobe.com/es/photoshop/tutorials.html"
+            }
+          ],
+          "projects": [
+            "aiesec-awards",
+            "social-opg",
+            "pub-maxifrio",
+            "ilustracion-liveseo"
+          ]
+        },
+        {
+          "name": "After Effects",
+          "description": "Animación y motion graphics para piezas audiovisuales.",
+          "docs": [
+            {
+              "label": "Tutoriales de Adobe",
+              "url": "https://helpx.adobe.com/es/after-effects/tutorials.html"
+            }
+          ],
+          "projects": [
+            "social-liveseo"
+          ]
+        },
+        {
+          "name": "Lightroom",
+          "description": "Revelado y tratamiento de color de fotografía.",
+          "docs": [
+            {
+              "label": "Tutoriales de Adobe",
+              "url": "https://helpx.adobe.com/es/lightroom-cc/tutorials.html"
+            }
+          ]
+        },
+        {
+          "name": "Creo",
+          "description": "CAD paramétrico para modelado de piezas y ensamblajes mecánicos.",
+          "docs": [
+            {
+              "label": "Ayuda de PTC Creo",
+              "url": "https://support.ptc.com/help/creo/creo_pma/usascii/index.html"
+            }
+          ],
+          "projects": [
+            "fwd",
+            "kory"
+          ]
+        },
+        {
+          "name": "Fusion",
+          "description": "CAD/CAM en la nube para modelado, ensamblajes y preparación de fabricación.",
+          "docs": [
+            {
+              "label": "Documentación de Autodesk",
+              "url": "https://help.autodesk.com/view/fusion360/ESP/"
+            }
+          ],
+          "projects": [
+            "center-box",
+            "stad",
+            "diesel-chair"
+          ]
+        },
+        {
+          "name": "Rhino",
+          "description": "Modelado 3D de superficies complejas y formas orgánicas.",
+          "docs": [
+            {
+              "label": "Documentación oficial",
+              "url": "https://docs.mcneel.com/rhino/8/help/es-es/index.htm"
+            }
+          ],
+          "projects": [
+            "tengu",
+            "overlap"
+          ]
+        },
+        {
+          "name": "Electronic Prototyping",
+          "description": "Prototipado electrónico: sensores, actuadores y control para piezas interactivas.",
+          "docs": [
+            {
+              "label": "Referencia de Arduino",
+              "url": "https://docs.arduino.cc/"
+            }
+          ],
+          "projects": [
+            "kory",
+            "mi-centro",
+            "thor-machine"
+          ]
+        }
       ]
     },
     {
@@ -91,14 +429,69 @@
         "pt": "Habilidades Sociais"
       },
       "items": [
-        "Leadership",
-        "Adaptability",
-        "Teamwork",
-        "Critical Thinking",
-        "Project Management",
-        "Research",
-        "Planning",
-        "Working under pressure"
+        {
+          "name": "Leadership",
+          "description": "Dirección de equipos y de áreas en AIESEC, y referencia técnica en soporte en vivo.",
+          "projects": [
+            "aiesec-awards",
+            "zonalito-2020-2"
+          ]
+        },
+        {
+          "name": "Adaptability",
+          "description": "Cambio de contexto entre diseño, datos y operaciones según lo que el equipo necesite.",
+          "projects": [
+            "mi-centro"
+          ]
+        },
+        {
+          "name": "Teamwork",
+          "description": "Trabajo en equipos multidisciplinares de hasta ocho personas entre diseño e ingeniería.",
+          "projects": [
+            "kory",
+            "mi-centro",
+            "thor-machine"
+          ]
+        },
+        {
+          "name": "Critical Thinking",
+          "description": "Diagnóstico de incidencias en directo: aislar la causa antes de tocar el sistema.",
+          "projects": [
+            "runbooks"
+          ]
+        },
+        {
+          "name": "Project Management",
+          "description": "Planificación, alcance y entrega de proyectos académicos y de herramientas internas.",
+          "projects": [
+            "fwd",
+            "permission-system"
+          ]
+        },
+        {
+          "name": "Research",
+          "description": "Investigación aplicada en energías renovables, con publicación revisada por pares.",
+          "projects": [
+            "grid-5",
+            "grid-3",
+            "tensoestructuras"
+          ]
+        },
+        {
+          "name": "Planning",
+          "description": "Organización de entregas y calendarios de eventos con muchas partes implicadas.",
+          "projects": [
+            "zonalito-2019"
+          ]
+        },
+        {
+          "name": "Working under pressure",
+          "description": "Soporte de eventos deportivos en directo, donde una caída no admite espera.",
+          "projects": [
+            "alerts-nfl",
+            "fixture-manager"
+          ]
+        }
       ]
     },
     {
@@ -110,9 +503,27 @@
         "pt": "Idiomas"
       },
       "items": [
-        "Spanish (Native)",
-        "English (Advanced)",
-        "Portuguese (Intermediate)"
+        {
+          "name": "Español",
+          "flag": "🇨🇴",
+          "level": 100,
+          "levelLabel": "Nativo",
+          "description": "Lengua materna. Toda mi formación académica y profesional en Colombia."
+        },
+        {
+          "name": "Inglés",
+          "flag": "🇬🇧",
+          "level": 80,
+          "levelLabel": "B2 · Avanzado",
+          "description": "Idioma de trabajo diario con equipos de desarrollo y clientes internacionales."
+        },
+        {
+          "name": "Portugués",
+          "flag": "🇧🇷",
+          "level": 65,
+          "levelLabel": "B1 · Intermedio",
+          "description": "Aprendido en Brasil: intercambio en la USP y prácticas de diseño en LiveSEO."
+        }
       ]
     }
   ]

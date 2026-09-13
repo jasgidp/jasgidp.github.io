@@ -151,7 +151,7 @@
 
       const features = (p.features||[]).map(f => `<li>${f}</li>`).join('');
       const results = (p.results||[]).map(r => `<li>${r}</li>`).join('');
-      const gallery = (Array.isArray(p.images)? p.images.slice(0,6) : []).map(src => `<img src="${src}" alt="${p.title} screenshot">`).join('');
+      const gallery = (Array.isArray(p.images)? p.images.slice(0,6) : []).map((src, i) => `<img src="${src}" alt="${p.title} ${i+1}" loading="lazy" tabindex="0" role="button" aria-label="Ampliar imagen ${i+1} de ${p.title}">`).join('');
 
       const panel = document.createElement('div');
       panel.className = 'project-details-panel';
@@ -185,6 +185,116 @@
       `;
       return panel;
     }
+
+    /* ------------------------------------------------------------
+       ENLACE DIRECTO A UN PROYECTO  (portfolio.html?p=<id>)
+       La página de Habilidades enlaza aquí desde cada chip de
+       proyecto, así que al llegar hay que abrir ese panel solo.
+       ------------------------------------------------------------ */
+    function openFromQuery(){
+      const id = new URLSearchParams(location.search).get('p');
+      if (!id) return;
+      const p = projects.find(pp => pp.id === id);
+      if (!p || p.visible === false) return;
+      // Si el proyecto está fuera del filtro actual, pasamos a "todos"
+      if (!matches(p)) {
+        state.filter = 'all';
+        state.q = '';
+        if (searchInput) searchInput.value = '';
+        document.querySelectorAll('.filters [data-filter]').forEach(b =>
+          b.classList.toggle('active', b.getAttribute('data-filter') === 'all'));
+        render();
+      }
+      const card = container.querySelector(`.project-tile[data-id="${CSS.escape(id)}"]`);
+      if (card) card.click();
+    }
+
+    /* ------------------------------------------------------------
+       LIGHTBOX: ampliar las imágenes de la galería
+       Se crea una sola vez y se reutiliza. Se cierra con Escape,
+       con la X o pulsando el fondo; las flechas cambian de imagen.
+       ------------------------------------------------------------ */
+    const lb = (() => {
+      let el = null, imgs = [], idx = 0, lastFocus = null;
+
+      function build(){
+        el = document.createElement('div');
+        el.className = 'lightbox';
+        el.setAttribute('role','dialog');
+        el.setAttribute('aria-modal','true');
+        el.setAttribute('aria-label','Imagen ampliada');
+        el.hidden = true;
+        el.innerHTML = `
+          <button class="lightbox-close" type="button" aria-label="Cerrar"><i class="ri-close-line" aria-hidden="true"></i></button>
+          <button class="lightbox-nav prev" type="button" aria-label="Anterior"><i class="ri-arrow-left-s-line" aria-hidden="true"></i></button>
+          <figure class="lightbox-figure">
+            <img alt="">
+            <figcaption class="lightbox-caption"></figcaption>
+          </figure>
+          <button class="lightbox-nav next" type="button" aria-label="Siguiente"><i class="ri-arrow-right-s-line" aria-hidden="true"></i></button>`;
+        document.body.appendChild(el);
+
+        el.addEventListener('click', (e) => {
+          if (e.target.closest('.lightbox-close')) return close();
+          if (e.target.closest('.lightbox-nav.prev')) return step(-1);
+          if (e.target.closest('.lightbox-nav.next')) return step(1);
+          // Clic en el fondo (fuera de la figura) también cierra
+          if (!e.target.closest('.lightbox-figure')) close();
+        });
+        document.addEventListener('keydown', (e) => {
+          if (el.hidden) return;
+          if (e.key === 'Escape') close();
+          else if (e.key === 'ArrowLeft') step(-1);
+          else if (e.key === 'ArrowRight') step(1);
+        });
+      }
+
+      function show(){
+        const img = el.querySelector('img');
+        img.src = imgs[idx].src;
+        img.alt = imgs[idx].alt || '';
+        el.querySelector('.lightbox-caption').textContent = `${idx+1} / ${imgs.length}`;
+        // Con una sola imagen las flechas no aportan nada
+        const many = imgs.length > 1;
+        el.querySelectorAll('.lightbox-nav').forEach(b => { b.hidden = !many; });
+      }
+      function step(d){ if (!imgs.length) return; idx = (idx + d + imgs.length) % imgs.length; show(); }
+
+      function open(list, start){
+        if (!el) build();
+        imgs = list; idx = start;
+        lastFocus = document.activeElement;
+        el.hidden = false;
+        document.body.classList.add('lightbox-open');
+        show();
+        el.querySelector('.lightbox-close').focus();
+      }
+      function close(){
+        el.hidden = true;
+        document.body.classList.remove('lightbox-open');
+        // Devolver el foco a la miniatura desde la que se abrió
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      return { open };
+    })();
+
+    // Clic en una miniatura de la galería → abrir el lightbox
+    container.addEventListener('click', (e) => {
+      const img = e.target.closest('.project-details-panel .gallery img');
+      if (!img) return;
+      e.stopPropagation(); // que no se cierre el panel de detalles
+      const all = [...img.closest('.gallery').querySelectorAll('img')];
+      lb.open(all.map(i => ({ src: i.src, alt: i.alt })), all.indexOf(img));
+    });
+
+    // Teclado en las miniaturas (son focusables vía tabindex)
+    container.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const img = e.target.closest('.project-details-panel .gallery img');
+      if (!img) return;
+      e.preventDefault(); e.stopPropagation();
+      img.click();
+    });
 
     // Clic en una tarjeta: abrir/cerrar su panel de detalles
     container.addEventListener('click', (e) => {
@@ -232,6 +342,7 @@
     if (searchInput) searchInput.addEventListener('input', (e) => { state.q = normalize(e.target.value); render(); });
 
     render(); // primer dibujado
+    openFromQuery(); // ?p=<id> → abrir ese proyecto directamente
   } catch (err) {
     console.error('Failed to load projects', err);
     container.innerHTML = '<p style="padding:12px;">Projects could not load. Please serve the site with a local server or open the deployed GitHub Pages site.</p>';
