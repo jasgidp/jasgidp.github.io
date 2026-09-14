@@ -159,13 +159,25 @@
       }))
       .filter(g => g.skills.length > 0);
 
+    /* MODO FOCO
+       Con "All" caben las 9 tarjetas en rejilla y los chips cerrados son
+       lo correcto: es un indice. Al elegir una sola categoria queda una
+       tarjeta de 220px flotando en una pantalla vacia, que era justo la
+       queja. Entonces esa vista cambia de proposito: la tarjeta ocupa el
+       ancho completo y cada habilidad se despliega sola, con nivel,
+       descripcion, documentacion y proyectos a la vista. Sin clics. */
+    const focus = state.group !== 'all';
+    container.classList.toggle('focus', focus);
+
     container.innerHTML = filtered.map(g => {
       /* Los idiomas se pintan como lista de barras con bandera; el resto,
          como chips. Antes esto se decidía por "tiene level", pero ahora
          todas las habilidades lo tienen, así que se distingue por la
          bandera, que solo llevan los idiomas. */
       const isLevelGroup = g.skills.some(s => s.flag);
-      const body = isLevelGroup ? renderLevelList(g.skills) : renderTagList(g);
+      const body = isLevelGroup
+        ? renderLevelList(g.skills)
+        : (focus ? renderPanelList(g) : renderTagList(g));
       return `
       <article class="skill-card">
         <h3>${g.emoji ? g.emoji + ' ' : ''}${t(g.label, g.name)}</h3>
@@ -195,6 +207,37 @@
                     </li>`;
           }).join('')}
         </ul>`;
+  }
+
+  /* Panel expandido para el modo foco: todo visible de una vez.
+     El --i lo usa el CSS para escalonar la entrada, asi las fichas
+     aparecen en cascada en lugar de todas de golpe. */
+  function renderPanelList(g) {
+    return `<div class="skill-panels">
+      ${g.skills.map((s, i) => {
+        const icon = s.icon ? `<i class="${s.icon} skill-icon" aria-hidden="true"></i>` : '';
+        const tier = s.level === null ? '' :
+          `<span class="skill-panel-tier">${tierLabel(dotsFor(s.level))}</span>`;
+        const docs = (s.docs || []).map(d =>
+          `<a href="${d.url}" target="_blank" rel="noopener" class="skill-doc"><i class="ri-links-line" aria-hidden="true"></i>${esc(d.label || d.url)}</a>`
+        ).join('');
+        /* OJO: <div>, no <header>. main.css estiliza el selector suelto
+           `header` para la barra de navegacion (position:fixed, z-index,
+           view-transition-name), asi que un <header> aqui se sacaba del
+           flujo y ademas duplicaba el view-transition-name del sitio. */
+        return `<article class="skill-panel" style="--i:${i}">
+          <div class="skill-panel-head">
+            ${icon}
+            <h4 class="skill-panel-name">${esc(s.name)}</h4>
+            ${renderDots(s.level)}
+          </div>
+          ${tier}
+          ${s.description ? `<p class="skill-desc">${esc(s.description)}</p>` : ''}
+          ${docs ? `<div class="skill-docs">${docs}</div>` : ''}
+          ${renderProjects(s)}
+        </article>`;
+      }).join('')}
+    </div>`;
   }
 
   // Idiomas: bandera, nombre, nivel MCER y barra de porcentaje.

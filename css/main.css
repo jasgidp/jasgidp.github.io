@@ -601,6 +601,88 @@ a {
 }
 .lang-desc { color: var(--text-muted); font-size:12.5px; line-height:1.55; margin:2px 0 0; }
 
+/* ============================================================
+   MODO FOCO — una sola categoría seleccionada
+   Con "All" la rejilla de 9 tarjetas y los chips cerrados funcionan
+   como índice. Al filtrar queda UNA tarjeta de 220px en una pantalla
+   vacía, que no dice nada. Así que al filtrar la vista cambia de
+   propósito: la tarjeta ocupa el ancho completo y cada habilidad se
+   abre sola en su ficha, sin tener que hacer clic una por una.
+   ============================================================ */
+.skills-grid.focus {
+  grid-template-columns: 1fr;
+  max-width: 1180px;
+}
+/* El levantarse al pasar el cursor tenía sentido en una rejilla de
+   tarjetas comparables; con una sola a pantalla completa, molesta. */
+.skills-grid.focus .skill-card { padding: 20px 22px 22px; }
+.skills-grid.focus .skill-card:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.skills-grid.focus .skill-card h3 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+.skill-panel {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px 14px;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  /* Entrada escalonada: --i lo pone skills.js con el índice */
+  animation: skill-panel-in .42s cubic-bezier(.22,.61,.36,1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+@keyframes skill-panel-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.skill-panel:hover {
+  border-color: var(--brand);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+  transform: translateY(-2px);
+}
+.skill-panel-head { display: flex; align-items: center; gap: 8px; }
+.skill-panel-head .skill-icon { font-size: 18px; }
+.skill-panel-name {
+  flex: 1 1 auto; margin: 0;
+  font-size: 15px; font-weight: 700; color: var(--text-strong);
+}
+/* Las barritas del chip son de 10px; aquí hay sitio para que se lean */
+.skill-panel-head .skill-signal { height: 13px; gap: 2px; }
+.skill-panel-head .skill-lvl-bar { width: 3px; }
+.skill-panel-tier {
+  display: inline-block; margin: 6px 0 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: .04em;
+  color: var(--brand-strong);
+  background: var(--brand-soft);
+  border: 1px solid var(--brand-soft-border);
+  border-radius: 999px; padding: 2px 9px;
+}
+.skill-panel .skill-desc { margin-bottom: 8px; }
+
+/* Idiomas en modo foco: caben en columnas en vez de una tira larga */
+.skills-grid.focus .lang-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-panel { animation: none; }
+  .skill-panel:hover { transform: none; }
+}
+
 /* En móvil el porcentaje cabe mejor debajo del nombre que al lado */
 @media (max-width: 480px) {
   .lang-pct { margin-left:0; }
