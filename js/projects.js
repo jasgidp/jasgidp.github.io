@@ -289,9 +289,9 @@
         <article class="index-row" data-category="${p.category}" data-id="${p.id}"
                  data-thumb="${isPlaceholder ? '' : thumb}"
                  tabindex="0" role="button" aria-label="${L('openDetails','Ver detalles de')} ${p.title}">
-          <span class="ix-num" aria-hidden="true">${String(n).padStart(2,'0')}</span>
+          <span class="ix-dot" aria-hidden="true"></span>
+          <h3 class="ix-title"><span class="ix-num" aria-hidden="true">${String(n).padStart(2,'0')}</span>${p.title}${isNew(p) ? ` <span class="ix-new" data-i18n="filters.nuevo">Nuevo</span>` : ''}</h3>
           <span class="ix-year">${p.year || ''}</span>
-          <h3 class="ix-title">${p.title}${isNew(p) ? ` <span class="ix-new" data-i18n="filters.nuevo">Nuevo</span>` : ''}</h3>
           <i class="ri-arrow-right-up-line ix-arrow" aria-hidden="true"></i>
           <div class="ix-body"><div class="ix-body-inner">
             ${summary ? `<p class="ix-summary">${summary}</p>` : ''}

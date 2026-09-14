@@ -970,8 +970,15 @@ a {
    ------------------------------------------------------------
    Con un filtro puesto la rejilla de portadas funciona. En "Todo"
    eran 77 fichas con el mismo logo de fondo y el título recortado:
-   no distinguían nada. Aquí manda la tipografía; la portada aparece
-   solo cuando el cursor está sobre una fila, junto al cursor.
+   no distinguían nada.
+
+   La primera versión resolvía eso pero se leía como una tabla: todas
+   las filas del mismo alto, el mismo cuerpo de letra y una línea
+   entre cada una. Aquí manda la tipografía: títulos grandes, mucho
+   aire, y la retícula de columnas desaparece (el número se mete
+   dentro del título como voladita, el año se va al margen). Al pasar
+   el cursor por una fila las demás se apagan, que es lo que separa un
+   índice de estudio de un listado.
    ============================================================ */
 #projects-container.index {
   display: block;
@@ -981,90 +988,120 @@ a {
 }
 
 .ix-heading {
-  display: flex; align-items: center; gap: 12px;
-  margin: 40px 0 0; padding-bottom: 10px;
-  font-size: 13px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .14em;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border);
+  display: flex; align-items: baseline; gap: 12px;
+  margin: 56px 0 6px;
+  font-size: clamp(13px, 1.5vw, 15px); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .18em;
+  color: var(--brand-strong);
 }
-.ix-heading:first-child { margin-top: 8px; }
-.ix-heading-name { color: var(--brand-strong); }
+.ix-heading:first-child { margin-top: 12px; }
 .ix-heading-count {
-  font-size: 11px; letter-spacing: .04em;
+  font-size: 11px; letter-spacing: .04em; font-weight: 600;
   color: var(--text-muted);
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 999px; padding: 1px 8px;
 }
+.ix-heading-count::before { content: "— "; }
+
+/* Las filas de un mismo tema se apagan cuando el cursor está sobre una
+   de ellas. Es el gesto que más cambia la lectura: en vez de recorrer
+   una tabla, se enfoca un proyecto y el resto retrocede. */
+/* Se apaga con filter y no con opacity: las filas llevan la animación
+   revealUp ligada al scroll, que anima "opacity" con fill-mode "both",
+   y una animación gana a una declaración normal en la cascada. Con
+   opacity la regla no hacía nada; filter no lo pisa nadie. */
+.ix-rows:hover .index-row:not(:hover) { filter: opacity(.38); }
+.ix-rows .index-row { transition: filter .3s ease, background .3s ease; }
 
 .index-row {
   display: grid;
-  /* nº · año · título · flecha. El año va a la IZQUIERDA y no al borde
-     derecho: esa franja se reserva para la portada flotante, que si no
-     se planta justo encima del año de la fila que estás mirando. */
-  grid-template-columns: 42px 48px 1fr 28px;
+  grid-template-columns: 14px 1fr auto 26px;
   align-items: baseline;
-  column-gap: 14px;
-  padding: 14px 10px 14px 6px;
-  border-bottom: 1px solid var(--border);
-  border-radius: 10px;
+  column-gap: 16px;
+  padding: 18px 14px 18px 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background .25s ease, padding-left .25s ease;
+  position: relative;
 }
-.index-row:hover,
-.index-row:focus-visible { background: var(--surface-2); padding-left: 14px; }
+/* Una línea muy tenue, solo para no perder el renglón. La versión
+   anterior usaba el borde de la retícula y pesaba como una tabla. */
+.index-row::after {
+  content: ""; position: absolute; left: 8px; right: 14px; bottom: 0;
+  height: 1px; background: var(--border); opacity: .55;
+}
+.index-row:last-child::after { display: none; }
+.index-row:hover, .index-row:focus-visible { background: var(--surface-2); }
 .index-row:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
 
-.ix-num {
-  font-size: 11px; font-variant-numeric: tabular-nums;
-  letter-spacing: .08em; color: var(--text-muted);
+/* Punto del color de la categoría: el índice deja de ser monocromo */
+.ix-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ix-color, var(--brand));
+  translate: 0 -4px;
+  transition: scale .25s ease;
 }
+.index-row:hover .ix-dot { scale: 1.5; }
+.index-row[data-category="software"]    { --ix-color: var(--cat-software); }
+.index-row[data-category="graphic"]     { --ix-color: var(--cat-graphic); }
+.index-row[data-category="design"]      { --ix-color: var(--cat-design); }
+.index-row[data-category="research"]    { --ix-color: var(--cat-research); }
+.index-row[data-category="engineering"] { --ix-color: var(--cat-engineering); }
+.index-row[data-category="experience"]  { --ix-color: var(--cat-experience); }
+
 .ix-title {
-  margin: 0; font-size: clamp(17px, 2.1vw, 23px); font-weight: 700;
-  line-height: 1.25; color: var(--text-strong);
-  transition: color .2s ease;
+  margin: 0;
+  font-size: clamp(21px, 3vw, 34px);
+  font-weight: 700; line-height: 1.12; letter-spacing: -.02em;
+  color: var(--text-strong);
+  transition: color .25s ease, translate .3s cubic-bezier(.22,.61,.36,1);
 }
 .index-row:hover .ix-title,
-.index-row:focus-visible .ix-title { color: var(--brand-strong); }
+.index-row:focus-visible .ix-title { color: var(--ix-color, var(--brand)); translate: 10px 0; }
+
+/* El número, dentro del título como voladita: cuando era una columna
+   propia obligaba a una retícula, y la retícula es lo que hacía que
+   esto pareciese una hoja de cálculo. */
+.ix-num {
+  font-size: .38em; font-weight: 600; vertical-align: super;
+  letter-spacing: .06em; color: var(--text-muted);
+  margin-right: .5em;
+}
 .ix-new {
   display: inline-block; vertical-align: middle;
   font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
   color: var(--brand-strong); background: var(--brand-soft);
   border: 1px solid var(--brand-soft-border);
-  border-radius: 999px; padding: 1px 7px; margin-left: 6px;
+  border-radius: 999px; padding: 1px 7px; margin-left: 8px;
 }
 .ix-year {
-  font-size: 13px; font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
+  font-size: 12px; font-variant-numeric: tabular-nums;
+  letter-spacing: .08em; color: var(--text-muted);
 }
 .ix-arrow {
-  justify-self: end; font-size: 18px; color: var(--text-muted);
-  opacity: 0; translate: -6px 0;
-  transition: opacity .25s ease, translate .25s ease, color .2s ease;
+  justify-self: end; font-size: 20px; color: var(--ix-color, var(--brand));
+  opacity: 0; translate: -8px 0;
+  transition: opacity .25s ease, translate .25s ease;
 }
 .index-row:hover .ix-arrow,
-.index-row:focus-visible .ix-arrow { opacity: 1; translate: 0 0; color: var(--brand); }
+.index-row:focus-visible .ix-arrow { opacity: 1; translate: 0 0; }
 
 /* El resumen se abre con grid-template-rows 0fr -> 1fr, que es la
    única forma de animar "hasta la altura del contenido" sin fijar un
    max-height inventado que recorte los textos largos. */
 .ix-body {
-  grid-column: 3 / -1;
+  grid-column: 2 / -1;
   display: grid; grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows .38s cubic-bezier(.22,.61,.36,1), opacity .28s ease;
+  transition: grid-template-rows .4s cubic-bezier(.22,.61,.36,1), opacity .3s ease;
 }
 .ix-body-inner { overflow: hidden; }
 .index-row:hover .ix-body,
 .index-row:focus-visible .ix-body { grid-template-rows: 1fr; opacity: 1; }
 .ix-summary {
-  margin: 8px 0 0; max-width: 62ch;
-  font-size: 14px; line-height: 1.6; color: var(--text);
+  margin: 12px 0 0 10px; max-width: 58ch;
+  font-size: 15px; line-height: 1.6; color: var(--text);
 }
 .ix-tech {
-  margin: 6px 0 0; font-size: 12px; letter-spacing: .02em;
-  color: var(--text-muted);
+  margin: 7px 0 0 10px; font-size: 11.5px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--text-muted);
 }
 
 /* Portada que sigue al cursor. Las medidas duras (position, tamaño)
@@ -1079,17 +1116,21 @@ a {
 @media (hover: none) {
   .ix-body { grid-template-rows: 1fr; opacity: 1; }
   .ix-arrow { opacity: .5; translate: 0 0; }
+  .ix-rows:hover .index-row:not(:hover) { opacity: 1; }
 }
 
 @media (max-width: 560px) {
   #projects-container.index { padding: 0 16px; }
-  .index-row { grid-template-columns: 30px 42px 1fr; column-gap: 8px; }
+  .index-row { grid-template-columns: 10px 1fr auto; column-gap: 10px; padding: 14px 6px; }
   .ix-arrow { display: none; }
-  .ix-body { grid-column: 3 / -1; }
+  .ix-body { grid-column: 2 / -1; }
+  .ix-summary, .ix-tech { margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .index-row, .ix-body, .ix-arrow, .ix-cover { transition: none; }
+  .index-row, .ix-body, .ix-arrow, .ix-cover, .ix-title, .ix-dot { transition: none; }
+  .ix-rows:hover .index-row:not(:hover) { filter: none; }
+  .index-row:hover .ix-title { translate: none; }
 }
 
 /* Tarjeta base (borde, sombra, hover que "levanta" la card) */
