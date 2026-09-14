@@ -114,9 +114,10 @@
     if (level === null) return '';
     const n = dotsFor(level);
     const label = `${(window.t ? window.t('skills.level', 'Nivel') : 'Nivel')}: ${tierLabel(n)}, ${n}/${DOTS}`;
-    const dots = Array.from({ length: DOTS }, (_, i) =>
-      `<span class="skill-dot${i < n ? ' on' : ''}"></span>`).join('');
-    return `<span class="skill-dots ${cls || ''}" role="img" aria-label="${esc(label)}">${dots}</span>`;
+    // Barritas de altura creciente, como la cobertura de un móvil
+    const bars = Array.from({ length: DOTS }, (_, i) =>
+      `<span class="skill-lvl-bar${i < n ? ' on' : ''}"></span>`).join('');
+    return `<span class="skill-signal ${cls || ''}" role="img" aria-label="${esc(label)}">${bars}</span>`;
   }
 
   /* Barra de nivel para el detalle expandido. El chip ya insinúa el
