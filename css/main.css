@@ -780,7 +780,9 @@ a {
 /* Un color por sección, heredado por la leyenda y por las barras */
 .tl-legend-item[data-section="work"],       .tl-row[data-section="work"]       { --tl-color: var(--cat-engineering); }
 .tl-legend-item[data-section="research"],   .tl-row[data-section="research"]   { --tl-color: var(--cat-research); }
-.tl-legend-item[data-section="leadership"], .tl-row[data-section="leadership"] { --tl-color: var(--cat-experience); }
+/* Liderazgo va en NARANJA y no en el turquesa de "experiencia": era el
+   único acento cálido del mapa y el turquesa oscuro tira a verde. */
+.tl-legend-item[data-section="leadership"], .tl-row[data-section="leadership"] { --tl-color: var(--cat-software); }
 .tl-legend-item[data-section="education"],  .tl-row[data-section="education"]  { --tl-color: var(--cat-design); }
 
 /* El eje son 14 años: por debajo de ~820px no caben legibles, así que
@@ -793,12 +795,39 @@ a {
 /* Sin esto el track cae en la columna 1 (la de los rótulos) y las 14
    marcas de año se amontonan a la izquierda en 250px. */
 .tl-axis-track { grid-column: 2; position: relative; height: 18px; }
+/* Cada año es un botón que abarca su franja completa, de enero a
+   diciembre. Antes era una marca de un píxel: había que apuntar al
+   número exacto y no invitaba a pulsarlo. */
 .tl-tick {
-  position: absolute; top: 0; transform: translateX(-50%);
-  font-size: 11px; font-variant-numeric: tabular-nums; color: var(--text-muted);
+  position: absolute; top: 0; height: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  font: inherit; font-size: 11px; font-variant-numeric: tabular-nums;
+  color: var(--text-muted); background: none; border: 0;
+  border-radius: 6px; cursor: pointer; padding: 0;
+  transition: background .18s ease, color .18s ease;
 }
+.tl-tick:hover, .tl-tick.on { background: var(--surface-2); color: var(--brand-strong); }
+.tl-tick:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
 .tl-tick b { font-weight: 600; }
 .tl-tick b::before { content: "’"; }
+/* Cuántas etapas tocan ese año. Solo aparece al señalarlo: catorce
+   números permanentes sobre el eje serían ruido. */
+.tl-tick-n {
+  font-size: 9.5px; font-weight: 700; line-height: 1;
+  color: #fff; background: var(--brand);
+  border-radius: 999px; padding: 2px 5px;
+  opacity: 0; transition: opacity .18s ease;
+}
+.tl-tick:hover .tl-tick-n, .tl-tick.on .tl-tick-n { opacity: 1; }
+
+/* Franja del año señalado, detrás de las barras */
+.tl-band {
+  position: absolute; top: 0; bottom: 0;
+  background: var(--brand); opacity: .07; border-radius: 4px;
+  pointer-events: none;
+}
+/* Las etapas que no tocan ese año se apagan */
+.tl-row.off { filter: opacity(.22); }
 
 .tl-body { position: relative; }
 /* Las líneas de año viven en una capa propia bajo las filas: así
@@ -823,10 +852,7 @@ a {
    opacity porque las tarjetas llevan animaciones que animan opacity. */
 .tl-body:hover .tl-row:not(:hover) { filter: opacity(.3); }
 .tl-body .tl-row { transition: filter .25s ease, background .18s ease; }
-/* Señalada, la etiqueta deja de recortarse y se lee entera. La
-   organización se esconde para dejarle todo el ancho: sin eso, el rol
-   completo se pintaba encima de ella. No se pierde nada, la ficha de
-   detalle la muestra igual. */
+/* Señalada, la etiqueta deja de recortarse y se lee entera. */
 /* Se deja que el rol SALTE DE LÍNEA en vez de desbordar a lo ancho:
    desbordando, "Director de Experiencia Digital y Eventos; Ventas/RI;
    Talento Humano y Comunicaciones" se pintaba encima de su propia
@@ -838,9 +864,6 @@ a {
 }
 .tl-row:hover .tl-row-label,
 .tl-row:focus-visible .tl-row-label { align-items: center; }
-.tl-row:hover .tl-row-org,
-.tl-row:focus-visible .tl-row-org { opacity: 0; }
-.tl-row-org { transition: opacity .15s ease; }
 .tl-row:hover .tl-bar { height: 22px; top: 2px; }
 .tl-bar { transition: height .18s ease, top .18s ease, filter .18s ease; }
 
@@ -860,11 +883,9 @@ a {
   color: var(--text-strong); font-weight: 600;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.tl-row-org {
-  flex: 0 1 auto; min-width: 0;
-  color: var(--text-muted); font-size: 11px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
+/* La organización ya no se pinta en la etiqueta: recortada a cuatro
+   letras ("EAFIT –...", "Geniu...") no decía nada y le robaba el ancho
+   al puesto. La ficha de detalle la muestra entera. */
 
 .tl-track { position: relative; height: 26px; }
 .tl-bar {
@@ -897,7 +918,6 @@ a {
 @media (max-width: 720px) {
   .timeline-map { --tl-label: 150px; padding: 0 16px; }
   .tl-chart { min-width: 680px; }
-  .tl-row-org { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -954,12 +974,17 @@ a {
    Cambiar aquí un color lo actualiza en todo el portafolio.
    ------------------------------------------------------------ */
 :root {
-  --cat-graphic: #EA4C89;     /* pink */
-  --cat-experience: #F59E0B;  /* amber */
-  --cat-engineering: #2563EB; /* blue */
-  --cat-research: #0EA5E9;    /* cyan */
-  --cat-software: #10B981;    /* green */
-  --cat-design: #8B5CF6;      /* violet */
+  /* Seis colores separados a mano. Con el verde descartado quedan pocos
+     huecos en la rueda, así que dos pares se separan por LUZ además de
+     por tono: research (cian claro) contra experience (turquesa
+     oscuro), 13° de tono pero 17 % de luz; y engineering contra
+     research, 32° y 11 %. Si se cambia alguno, comprobar los dos. */
+  --cat-software: #EA580C;    /* naranja */
+  --cat-graphic: #EC4899;     /* rosa */
+  --cat-design: #8B5CF6;      /* violeta */
+  --cat-engineering: #2563EB; /* azul */
+  --cat-research: #06B6D4;    /* cian */
+  --cat-experience: #0F766E;  /* turquesa oscuro */
 }
 
 /* Cada chip de filtro toma el color de su categoría */
@@ -2720,4 +2745,52 @@ header { view-transition-name: site-header; }
 @media (prefers-reduced-motion: reduce) {
   .tl-pop, .tl-bar, .tl-row { transition: none; }
   .tl-body:hover .tl-row:not(:hover) { filter: none; }
+}
+
+/* ============================================================
+   RESUMEN DE UN AÑO
+   ------------------------------------------------------------
+   Sale al señalar un año del eje y lista lo que había en marcha.
+   Es la pregunta que la vista invita a hacer ("¿y en 2019 qué estaba
+   haciendo?") y hasta ahora había que resolverla a ojo, siguiendo una
+   columna vertical entre veintiún carriles.
+   ============================================================ */
+.tl-year {
+  margin: 16px auto 0; max-width: 1120px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 18px 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.05);
+}
+.tl-year-title {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 0 10px; text-align: left; padding: 0;
+  font-size: 20px; font-weight: 700; color: var(--text-strong);
+  font-variant-numeric: tabular-nums;
+}
+.tl-year-count {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--text-muted);
+}
+.tl-year-list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 7px 22px;
+}
+.tl-year-list li {
+  display: flex; align-items: baseline; gap: 7px;
+  font-size: 13px; min-width: 0;
+}
+.tl-year-list li i { color: var(--tl-color); font-size: 13px; flex: 0 0 auto; }
+.tl-year-list li[data-section="work"]       { --tl-color: var(--cat-engineering); }
+.tl-year-list li[data-section="research"]   { --tl-color: var(--cat-research); }
+.tl-year-list li[data-section="leadership"] { --tl-color: var(--cat-software); }
+.tl-year-list li[data-section="education"]  { --tl-color: var(--cat-design); }
+.tl-year-role {
+  color: var(--text-strong); font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.tl-year-org { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-tick, .tl-tick-n { transition: none; }
 }

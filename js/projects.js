@@ -490,7 +490,7 @@
       const badges = `
         ${p.category ? `<span class="badge"><i class="ri-price-tag-3-line" aria-hidden="true"></i>${p.category}</span>` : ''}
         ${tx(p.status) ? `<span class="badge badge--status"><i class="ri-checkbox-circle-line" aria-hidden="true"></i>${tx(p.status)}</span>` : ''}
-        ${p.importance ? `<span class="badge badge--importance"><i class="ri-star-smile-line" aria-hidden="true"></i>${p.importance}</span>` : ''}
+        ${tx(p.importance) ? `<span class="badge badge--importance"><i class="ri-star-smile-line" aria-hidden="true"></i>${tx(p.importance)}</span>` : ''}
       `;
 
       const metaItems = [
@@ -843,7 +843,14 @@
       const p = projects.find(pp => pp.id === projectId);
       if (!p) return;
       const panel = buildDetailsPanel(p);
-      card.insertAdjacentElement('afterend', panel); // justo debajo de la tarjeta
+      /* En el índice el panel NO va pegado a la fila: la fila vive en una
+         columna de 551px y el panel heredaba ese ancho, con las secciones
+         apretadas en tiras de 200px donde no se leía nada. Se cuelga del
+         grupo de la categoría, que ocupa el ancho completo. En la rejilla
+         filtrada sí va pegado a la ficha, que es lo que se espera ahí. */
+      const grupo = card.closest('.ix-group');
+      if (grupo) grupo.insertAdjacentElement('afterend', panel);
+      else card.insertAdjacentElement('afterend', panel);
       openPanel = panel;
       openProjectId = projectId;
       setTimeout(() => panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 0);

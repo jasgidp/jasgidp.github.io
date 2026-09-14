@@ -122,7 +122,9 @@
     "all": "Todo",
     "mapHint": "Cada barra es una etapa. Las que se cruzan en vertical ocurrieron a la vez. Pulsa una para acercar el eje a su periodo.",
     "zoomHint": "Pulsa para acercar a este periodo",
-    "showAll": "Ver todo el recorrido"
+    "showAll": "Ver todo el recorrido",
+    "stage": "etapa",
+    "stages": "etapas"
   },
   "programming": {
     "title": "Repositorios de GitHub",

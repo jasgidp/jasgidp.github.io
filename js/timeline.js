@@ -33,6 +33,8 @@
   let activeSection = 'all';
   // Rango visible del mapa temporal. null = todo. Se fija al pulsar una barra.
   let zoom = null;
+  // Datos del último mapa dibujado, para el resumen por año
+  let mapState = null;
   let searchTerm = '';
 
   // Observador: cuando un .reveal entra en pantalla, le pone .visible (animación CSS)
@@ -164,7 +166,11 @@
     const out = [];
     SECTIONS.forEach(sec => {
       if (!sec.dataKey) return;
-      (data[sec.dataKey] || []).forEach(it => out.push({ ...it, _section: sec.key, _icon: sec.icon }));
+      (data[sec.dataKey] || []).forEach((it, n) => out.push({
+        ...it, _section: sec.key, _icon: sec.icon,
+        // Clave estable para casar la lista del año con su barra
+        _key: sec.key + ':' + n
+      }));
     });
     return out;
   }
@@ -219,8 +225,20 @@
     for (let y = minY; y <= maxY; y++) years.push(y);
     // Con pocos años caben los cuatro dígitos; con muchos, solo dos
     const corto = years.length > 8;
-    const axis = years.map(y =>
-      `<span class="tl-tick" style="left:${pct(y * 12)}%"><b>${corto ? String(y).slice(2) : y}</b></span>`).join('');
+    /* Cada año es pulsable. La franja abarca del 1 de enero al 31 de
+       diciembre, así que el ancho es el de un año del eje y no hace
+       falta calcular a mano dónde empieza y acaba. */
+    const anchoAnio = (12 / span) * 100;
+    const axis = years.map(y => {
+      const cuantos = items.filter(it =>
+        toMonths(it.start) <= (y * 12 + 11) && fin_(it) >= y * 12).length;
+      return `<button type="button" class="tl-tick" data-year="${y}"
+                 style="left:${pct(y * 12)}%; width:${anchoAnio}%"
+                 aria-label="${y}: ${cuantos}">
+                <b>${corto ? String(y).slice(2) : y}</b>
+                <span class="tl-tick-n">${cuantos}</span>
+              </button>`;
+    }).join('');
     const grid = years.map(y =>
       `<span class="tl-grid-line" style="left:${pct(y * 12)}%"></span>`).join('');
 
@@ -255,14 +273,13 @@
       const metaLine = [tx(it.employment), tx(it.location)].filter(Boolean).join(' · ');
 
       return `
-        <div class="tl-row" data-section="${it._section}" data-i="${i}"
+        <div class="tl-row" data-section="${it._section}" data-i="${i}" data-key="${esc(it._key)}"
              tabindex="0" role="button"
              data-from="${a}" data-to="${bRaw}">
           <div class="tl-row-label">
             <i class="${it._icon}" aria-hidden="true"></i>
             <span class="tl-row-role">${tx(it.role)}</span>
             ${bandera ? `<span class="tl-flag" title="${esc(PAIS[it.country] || it.country)}">${bandera}</span>` : ''}
-            <span class="tl-row-org">${tx(it.org)}</span>
           </div>
           <div class="tl-track">
             <div class="tl-bar${ongoing ? ' ongoing' : ''}" style="left:${left}%; width:${width}%"></div>
@@ -307,6 +324,7 @@
             <div class="tl-axis"><div class="tl-axis-track">${axis}</div></div>
             <div class="tl-body">
               <div class="tl-gridlines">${grid}
+                <span class="tl-band" hidden></span>
                 ${nowM >= from && nowM <= to ? `<span class="tl-now" style="left:${pct(nowM)}%"></span>` : ''}
               </div>
               ${rows}
@@ -315,6 +333,12 @@
         </div>
         <p class="tl-hint" data-i18n="timeline.mapHint">Cada barra es una etapa; las que se cruzan en vertical ocurrieron a la vez.</p>
       </section>`;
+
+    /* El resumen por año necesita el rango del eje y las entradas
+       visibles; se guardan aquí para no recalcularlos en cada pasada
+       del cursor sobre el eje. */
+    mapState = { items, from, span, anchoAnio, pct, fin_, present };
+    anioFijado = null;
 
     if (window.applyI18n) window.applyI18n(container);
   }
@@ -389,6 +413,98 @@
     renderSection(activeSection);
   }
 
+  /* ------------------------------------------------------------
+     RESUMEN POR AÑO
+     Pasar el cursor por un año del eje marca su franja y saca la lista
+     de lo que había en marcha ese año. Es la pregunta que la vista
+     invita a hacer ("¿y en 2019 qué estaba haciendo?") y hasta ahora
+     había que resolverla a ojo, siguiendo una columna vertical entre
+     veintiún carriles.
+
+     Pulsar el año lo FIJA, para poder leer la lista con calma y pasar
+     el ratón por encima; volver a pulsarlo lo suelta.
+     ------------------------------------------------------------ */
+  let anioFijado = null;
+
+  function entradasDeAnio(y){
+    if (!mapState) return [];
+    const ini = y * 12, fin = y * 12 + 11;
+    return mapState.items.filter(it => toMonths(it.start) <= fin && mapState.fin_(it) >= ini);
+  }
+
+  function pintarAnio(y){
+    const mapa = container.querySelector('.timeline-map');
+    if (!mapa || !mapState) return;
+    const banda = mapa.querySelector('.tl-band');
+    const panel = mapa.querySelector('.tl-year');
+
+    mapa.querySelectorAll('.tl-tick').forEach(t =>
+      t.classList.toggle('on', y !== null && +t.dataset.year === y));
+
+    if (y === null) {
+      if (banda) banda.hidden = true;
+      mapa.querySelectorAll('.tl-row').forEach(r => r.classList.remove('off'));
+      if (panel) panel.remove();
+      return;
+    }
+
+    if (banda) {
+      banda.hidden = false;
+      banda.style.left = mapState.pct(y * 12) + '%';
+      banda.style.width = mapState.anchoAnio + '%';
+    }
+
+    // Las etapas que no tocan ese año se apagan
+    const dentro = new Set(entradasDeAnio(y).map(it => it._key));
+    mapa.querySelectorAll('.tl-row').forEach(r => r.classList.toggle('off', !dentro.has(r.dataset.key)));
+
+    const lista = entradasDeAnio(y);
+    const T = (k, fb) => (window.t ? window.t('timeline.' + k, fb) : fb);
+    const html = `
+      <div class="tl-year" data-year="${y}">
+        <h3 class="tl-year-title">
+          <span>${y}</span>
+          <span class="tl-year-count">${lista.length} ${lista.length === 1 ? T('stage', 'etapa') : T('stages', 'etapas')}</span>
+        </h3>
+        <ul class="tl-year-list">
+          ${lista.map(it => `
+            <li data-section="${it._section}">
+              <i class="${it._icon}" aria-hidden="true"></i>
+              <span class="tl-year-role">${tx(it.role)}</span>
+              ${flagOf(it.country) ? `<span class="tl-flag">${flagOf(it.country)}</span>` : ''}
+              <span class="tl-year-org">${tx(it.org)}</span>
+            </li>`).join('')}
+        </ul>
+      </div>`;
+    if (panel) panel.outerHTML = html;
+    else mapa.querySelector('.tl-scroll').insertAdjacentHTML('afterend', html);
+  }
+
+  function attachYearEvents(){
+    container.addEventListener('mouseover', (e) => {
+      const t = e.target.closest('.tl-tick');
+      if (!t || anioFijado !== null) return;
+      pintarAnio(+t.dataset.year);
+    });
+    container.addEventListener('mouseleave', () => {
+      if (anioFijado === null) pintarAnio(null);
+    });
+    container.addEventListener('click', (e) => {
+      const t = e.target.closest('.tl-tick');
+      if (!t) return;
+      const y = +t.dataset.year;
+      anioFijado = (anioFijado === y) ? null : y;
+      pintarAnio(anioFijado);
+    });
+    container.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const t = e.target.closest('.tl-tick');
+      if (!t) return;
+      e.preventDefault();
+      t.click();
+    });
+  }
+
   /* ZOOM DEL MAPA
      Pulsar una fila acerca el eje a su periodo con un año de margen.
      Pulsar la misma otra vez, o el botón de volver, muestra todo.
@@ -418,6 +534,7 @@
   // Enlaza eventos de pestañas, buscador e idioma
   function attachEvents(){
     attachMapEvents();
+    attachYearEvents();
     if (tabsNav) {
       tabsNav.addEventListener('click', (e)=>{
         const btn=e.target.closest('.tab');

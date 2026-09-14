@@ -122,7 +122,9 @@
     "all": "All",
     "mapHint": "Each bar is a stage. Bars that line up vertically happened at the same time. Click one to zoom the axis into its period.",
     "zoomHint": "Click to zoom into this period",
-    "showAll": "Show the whole journey"
+    "showAll": "Show the whole journey",
+    "stage": "stage",
+    "stages": "stages"
   },
   "programming": {
     "title": "GitHub Repositories",
