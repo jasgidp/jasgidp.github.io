@@ -502,40 +502,58 @@ a {
 
 /* ============================================================
    CHIP DE HABILIDAD CON NIVEL
-   El propio chip hace de barra: se rellena de izquierda a derecha
-   hasta el porcentaje que marca --lvl (lo pone skills.js). El corte
-   duro entre los dos colores es intencional: así se lee como una
-   barra y no como un degradado decorativo.
-   El nivel exacto en cifras está al expandir y en el title del chip,
-   de modo que el relleno no es el único portador del dato.
+   El nivel son 5 barritas de altura creciente, como la cobertura de
+   un movil: se lee de inmediato sin leyenda. Antes se probo rellenando
+   el chip entero (demasiada tinta: la cuadricula quedaba manchada) y
+   con puntos iguales (mejor, pero sin la lectura de "mas alto = mas").
+   Ademas no aparentan una precision al 1% que estas estimaciones no
+   tienen: son 3 de 5, no un 65%.
    ============================================================ */
-.skill-tags .tag.has-level {
-  /* --spot-rgb es el azul de marca y está definido en ambos temas, así
-     que el relleno se ve tanto en claro como en oscuro. --brand-soft
-     quedaba casi igual que el fondo del chip y no se leía. */
-  background-image: linear-gradient(to right,
-    rgba(var(--spot-rgb), .28) var(--lvl, 0%), rgba(var(--spot-rgb), 0) var(--lvl, 0%));
-  background-repeat: no-repeat;
-  transition: background-image .4s var(--ease, ease);
+.skill-signal {
+  display: inline-flex;
+  align-items: flex-end;      /* apoyadas en la misma linea de base */
+  gap: 1.5px;
+  height: 10px;
+  flex: 0 0 auto;
+  margin-left: 3px;
 }
-.skill-tags .tag.has-level:hover { border-color: var(--brand); }
-/* Abierto: el relleno estorba, la barra de dentro ya lo cuenta */
-.skill-tags .tag.open.has-level { background-image: none; }
+.skill-lvl-bar {
+  width: 2.5px;
+  border-radius: 1px;
+  background: var(--border);
+  transition: background .2s ease;
+}
+/* Alturas crecientes: 1 de 5 la mas baja, 5 de 5 la mas alta */
+.skill-lvl-bar:nth-child(1) { height: 30%; }
+.skill-lvl-bar:nth-child(2) { height: 45%; }
+.skill-lvl-bar:nth-child(3) { height: 60%; }
+.skill-lvl-bar:nth-child(4) { height: 80%; }
+.skill-lvl-bar:nth-child(5) { height: 100%; }
+.skill-lvl-bar.on { background: var(--brand); }
+.skill-tags .tag:hover .skill-lvl-bar.on { background: var(--brand-strong); }
+
+/* Version grande, dentro del detalle desplegado */
+.skill-signal.big { height: 16px; gap: 2.5px; }
+.skill-signal.big .skill-lvl-bar { width: 4px; border-radius: 1.5px; }
 
 .skill-icon { font-size: 14px; line-height: 1; color: var(--brand-strong); flex: 0 0 auto; }
 .skill-tags .tag { display: inline-flex; align-items: center; gap: 5px; }
 .skill-name { white-space: nowrap; }
-.skill-tags .tag.open { align-items: flex-start; }
+.skill-tags .tag.open { align-items: flex-start; flex-wrap: wrap; }
 .skill-tags .tag.open .skill-name { white-space: normal; }
+/* Abierto, las barritas del chip sobran: el detalle ya las muestra */
+.skill-tags .tag.open > .skill-signal { display: none; }
 
-/* Barra de nivel dentro del detalle expandido */
-.skill-level { width: 100%; margin-bottom: 8px; }
-.skill-level-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+/* Nivel dentro del detalle: rotulo + barritas + tramo con nombre */
+.skill-level {
+  width: 100%; display: flex; align-items: center; gap: 8px;
+  margin-bottom: 8px; flex-wrap: wrap;
+}
 .skill-level-label {
   font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
   color: var(--text-muted);
 }
-.skill-level-pct { margin-left: auto; color: var(--brand-strong); font-weight: 700; font-size: 13px; }
+.skill-level-tier { color: var(--brand-strong); font-weight: 600; font-size: 12.5px; }
 .skill-detail { width:100%; margin-top:6px; }
 .skill-desc { color: var(--text); font-size:13px; line-height:1.6; margin:0 0 6px; font-family:inherit; }
 .skill-docs { display:flex; flex-wrap:wrap; gap:6px; }

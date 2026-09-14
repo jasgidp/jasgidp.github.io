@@ -98,7 +98,13 @@
   "skills": {
     "title": "Skills",
     "usedIn": "Used in",
-    "level": "Level"
+    "level": "Level",
+    "levels": {
+      "basic": "Basic",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "expert": "Expert"
+    }
   },
   "timeline": {
     "title": "Timeline",

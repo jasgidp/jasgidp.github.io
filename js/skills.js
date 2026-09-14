@@ -91,19 +91,46 @@
     return !!(s.description || (s.docs && s.docs.length) || (s.projects && s.projects.length) || s.level !== null);
   }
 
+  /* NIVEL EN PUNTOS
+     El nivel se guarda de 0 a 100 (es lo que se edita en el admin) pero
+     se muestra como 5 puntos. Un "65 %" aparenta una precisión que no
+     existe: son estimaciones, no medidas. Tres de cinco es honesto.  */
+  const DOTS = 5;
+  function dotsFor(level) {
+    return Math.max(1, Math.min(DOTS, Math.round(level / (100 / DOTS))));
+  }
+  // Tramo con nombre, para el texto accesible y el detalle
+  function tierKey(n) {
+    return n >= 5 ? 'expert' : n === 4 ? 'advanced' : n === 3 ? 'intermediate' : 'basic';
+  }
+  function tierLabel(n) {
+    const fb = { expert: 'Experto', advanced: 'Avanzado', intermediate: 'Intermedio', basic: 'Básico' };
+    const k = tierKey(n);
+    return (window.t ? window.t('skills.levels.' + k, fb[k]) : fb[k]);
+  }
+  /* Los puntos son una imagen: se anuncian con su texto equivalente
+     ("Nivel: Avanzado, 4 de 5"), así el color no es el único portador. */
+  function renderDots(level, cls) {
+    if (level === null) return '';
+    const n = dotsFor(level);
+    const label = `${(window.t ? window.t('skills.level', 'Nivel') : 'Nivel')}: ${tierLabel(n)}, ${n}/${DOTS}`;
+    // Barritas de altura creciente, como la cobertura de un móvil
+    const bars = Array.from({ length: DOTS }, (_, i) =>
+      `<span class="skill-lvl-bar${i < n ? ' on' : ''}"></span>`).join('');
+    return `<span class="skill-signal ${cls || ''}" role="img" aria-label="${esc(label)}">${bars}</span>`;
+  }
+
   /* Barra de nivel para el detalle expandido. El chip ya insinúa el
      nivel con su relleno; aquí se ve la cifra exacta. El porcentaje va
      también en texto, así que no depende solo del color. */
   function renderLevelBar(s) {
     if (s.level === null) return '';
-    const pct = Math.max(0, Math.min(100, s.level));
+    const n = dotsFor(s.level);
     return `
       <div class="skill-level">
-        <div class="skill-level-head">
-          <span class="skill-level-label" data-i18n="skills.level">Nivel</span>
-          <span class="skill-level-pct">${pct}%</span>
-        </div>
-        <div class="lang-bar" aria-hidden="true"><span style="width:${pct}%"></span></div>
+        <span class="skill-level-label" data-i18n="skills.level">Nivel</span>
+        ${renderDots(s.level, 'big')}
+        <span class="skill-level-tier">${tierLabel(n)}</span>
       </div>`;
   }
 
@@ -158,14 +185,12 @@
             const key = `${g.name}::${s.name}`;
             const hasDetail = skillHasDetail(s);
             const expanded = openKey === key;
-            const pct = s.level === null ? null : Math.max(0, Math.min(100, s.level));
-            // --lvl alimenta el degradado de fondo del chip en main.css
-            const lvlStyle = pct === null ? '' : ` style="--lvl:${pct}%"`;
             const icon = s.icon ? `<i class="${s.icon} skill-icon" aria-hidden="true"></i>` : '';
-            return `<li class="tag${hasDetail ? ' has-detail' : ''}${expanded ? ' open' : ''}${pct === null ? '' : ' has-level'}"${lvlStyle}
-                        ${hasDetail ? `role="button" tabindex="0" aria-expanded="${expanded}" data-skill-key="${key}"` : ''}
-                        ${pct === null ? '' : `title="${esc(s.name)} — ${pct}%"`}>
-                      ${icon}<span class="skill-name">${esc(s.name)}</span>${hasDetail ? '<i class="ri-arrow-down-s-line skill-caret" aria-hidden="true"></i>' : ''}
+            const dots = renderDots(s.level);
+            const title = s.level === null ? '' : ` title="${esc(s.name)} — ${tierLabel(dotsFor(s.level))}"`;
+            return `<li class="tag${hasDetail ? ' has-detail' : ''}${expanded ? ' open' : ''}"${title}
+                        ${hasDetail ? `role="button" tabindex="0" aria-expanded="${expanded}" data-skill-key="${key}"` : ''}>
+                      ${icon}<span class="skill-name">${esc(s.name)}</span>${dots}${hasDetail ? '<i class="ri-arrow-down-s-line skill-caret" aria-hidden="true"></i>' : ''}
                       ${expanded ? renderDetail(s) : ''}
                     </li>`;
           }).join('')}

@@ -98,7 +98,13 @@
   "skills": {
     "title": "Habilidades",
     "usedIn": "Usado en",
-    "level": "Nivel"
+    "level": "Nivel",
+    "levels": {
+      "basic": "Básico",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado",
+      "expert": "Experto"
+    }
   },
   "timeline": {
     "title": "Cronología",

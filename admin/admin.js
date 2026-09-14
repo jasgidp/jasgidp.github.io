@@ -421,7 +421,7 @@
             <div class="admin-field">
               <label>Nivel (0-100)</label>
               <input data-sfield="level" type="number" min="0" max="100" value="${esc(s.level)}">
-              <p class="admin-hint">Rellena el chip y pinta la barra al desplegarlo. Vacío = sin barra.</p>
+              <p class="admin-hint">Se muestra como 5 puntos (0-20 = 1 punto, 81-100 = 5). Vacío = sin puntos.</p>
             </div>
             <div class="admin-field">
               <label>Icono (clase Remix Icon)</label>
