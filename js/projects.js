@@ -307,7 +307,6 @@
           <h3 class="ix-title">${p.title}</h3>
           <span class="ix-lead" aria-hidden="true"></span>
           <span class="ix-meta">
-            ${isNew(p) ? `<span class="ix-new" data-i18n="filters.nuevo">Nuevo</span>` : ''}
             <span class="ix-year">${p.year || ''}</span>
           </span>
           <i class="ri-arrow-right-up-line ix-arrow" aria-hidden="true"></i>
@@ -418,12 +417,11 @@
         // cover-bg = la ficha usa la portada de su categoría, no el degradado.
         // Las portadas claras necesitan un velo más oscuro o el título no se lee.
         const cls = isPlaceholder ? (coverReady[p.category] ? ' no-image cover-bg' : ' no-image') : '';
-        const newBadge = isNew(p)
-          ? `<span class="tile-badge-nuevo" data-i18n="filters.nuevo">Nuevo</span>`
-          : '';
+        /* Sin etiqueta "Nuevo": la llevaban 40 de 77 proyectos, y cuando
+           casi todo es nuevo la etiqueta no dice nada y solo mete ruido.
+           El filtro "Nuevo" sí se queda: ahí la marca sigue sirviendo. */
         return `
           <article class="project-card project-tile${cls}" data-category="${p.category}" data-id="${p.id}"${bgStyle} tabindex="0" aria-label="View ${p.title} details">
-            ${newBadge}
             <div class="project-overlay">
               <h3 class="project-title">${p.title}</h3>
               ${p.year ? `<span class="project-year">${p.year}</span>` : ''}
@@ -490,7 +488,6 @@
       `;
 
       const badges = `
-        ${isNew(p) ? `<span class="badge badge--nuevo"><i class="ri-sparkling-line" aria-hidden="true"></i><span data-i18n="filters.nuevo">Nuevo</span></span>` : ''}
         ${p.category ? `<span class="badge"><i class="ri-price-tag-3-line" aria-hidden="true"></i>${p.category}</span>` : ''}
         ${tx(p.status) ? `<span class="badge badge--status"><i class="ri-checkbox-circle-line" aria-hidden="true"></i>${tx(p.status)}</span>` : ''}
         ${p.importance ? `<span class="badge badge--importance"><i class="ri-star-smile-line" aria-hidden="true"></i>${p.importance}</span>` : ''}

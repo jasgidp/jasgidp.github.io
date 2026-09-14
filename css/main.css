@@ -1155,13 +1155,6 @@ a {
    título y en los largos se caía sola a una segunda línea, que parecía
    un error de maquetación. */
 .ix-meta { display: flex; align-items: center; gap: 8px; }
-.ix-new {
-  display: inline-block; vertical-align: middle; white-space: nowrap;
-  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
-  color: var(--brand-strong); background: var(--brand-soft);
-  border: 1px solid var(--brand-soft-border);
-  border-radius: 999px; padding: 1px 7px;
-}
 .ix-year {
   font-size: 12px; font-variant-numeric: tabular-nums;
   letter-spacing: .08em; color: var(--text-muted);
@@ -1267,35 +1260,8 @@ a {
 .project-details-panel .project-badges { display:flex; flex-wrap:wrap; gap:6px; }
 .badge--status { background:#ecfdf5; border:1px solid #d1fae5; color:#065f46; }
 .badge--importance { background:#fff7ed; border:1px solid #ffedd5; color:#9a3412; }
-.badge--nuevo {
-  background: #f0fdfa;
-  border: 1px solid #99f6e4;
-  color: #0f766e;
-  font-weight: 600;
-}
-[data-theme="dark"] .badge--nuevo {
-  background: rgba(13, 148, 136, 0.16);
-  border-color: rgba(45, 212, 191, 0.35);
-  color: #5eead4;
-}
-
+[data-theme="dark"] 
 /* Etiqueta "Nuevo" sobre la tarjeta del portafolio */
-.project-tile .tile-badge-nuevo {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 2;
-  padding: 3px 9px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #fff;
-  background: #0d9488;
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
-  pointer-events: none;
-}
 /* Cuerpo del panel: en desktop 2 columnas, en móvil 1 */
 .project-details-panel .project-sections { display:grid; grid-template-columns: 1fr; gap:16px; margin-top:12px; }
 @media (min-width: 900px){ .project-details-panel .project-sections { grid-template-columns: 1.1fr 0.9fr; } }
@@ -2528,18 +2494,38 @@ header { view-transition-name: site-header; }
    línea de cierre abajo. En móvil se apilan.
    ============================================================ */
 .site-footer {
+  position: relative;
   margin-top: 72px;
   border-top: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
+  overflow: hidden;   /* la marca de agua se desborda a propósito */
 }
+
+/* MARCA DE AGUA
+   El logotipo grande y casi transparente detrás del contenido. Se sale
+   por la derecha a propósito: recortado se lee como una textura de
+   marca y no como una imagen mal colocada. Va en un pseudo-elemento
+   propio y no como background del <footer> para poder darle opacidad
+   sin tocar la del texto. */
+.footer-mark {
+  position: absolute; top: 50%; right: -4%;
+  translate: 0 -50%;
+  width: min(560px, 60%); aspect-ratio: 5 / 2;
+  background: url('../assets/img/brand/HOme.png') center right / contain no-repeat;
+  opacity: .05;
+  pointer-events: none;
+}
+[data-theme="dark"] .footer-mark { opacity: .08; }
+/* El contenido por encima de la marca */
+.footer-inner, .footer-quotes, .footer-bottom { position: relative; z-index: 1; }
 .footer-inner {
   max-width: 1180px; margin: 0 auto;
   padding: 44px 20px 30px;
   display: grid;
-  grid-template-columns: 1.6fr auto;
-  gap: 30px 48px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 26px 48px;
+  align-items: center;
 }
 /* text-align y padding explícitos: la regla global de h2 centra todos
    los títulos del sitio, y aquí dejaba el rótulo desalineado de su
@@ -2551,41 +2537,22 @@ header { view-transition-name: site-header; }
 }
 .footer-logo { display: inline-block; border-bottom: none; }
 .footer-logo img { height: 40px; width: auto; }
+/* En UNA línea: es la frase que define el perfil y partida en dos
+   perdía fuerza. Se encoge con el ancho en vez de saltar de renglón, y
+   solo por debajo de 900px se deja que salte. */
 .footer-tagline {
-  margin: 14px 0 0; max-width: 42ch;
-  font-size: 13.5px; line-height: 1.65; color: var(--text-muted);
+  margin: 12px 0 0;
+  font-size: clamp(11.5px, 1.15vw, 14px);
+  line-height: 1.5; color: var(--text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+@media (max-width: 900px) {
+  .footer-tagline { white-space: normal; font-size: 13px; max-width: 46ch; }
 }
 .footer-loc {
   margin: 10px 0 0; display: flex; align-items: center; gap: 6px;
   font-size: 12.5px; color: var(--text-muted);
 }
-
-/* Navegación en una sola fila, a todo el ancho, separada por puntos.
-   En columna vertical ocupaba cinco renglones para seis enlaces
-   cortos y dejaba un hueco grande al lado. */
-.footer-nav {
-  max-width: 1180px; margin: 0 auto; padding: 0 20px 20px;
-}
-.footer-nav ul {
-  list-style: none; margin: 0; padding: 18px 0 0;
-  border-top: 1px solid var(--border);
-  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0;
-}
-.footer-nav li { display: flex; align-items: center; }
-/* El separador va en el ::before del hermano y no en el ::after del
-   anterior: así nunca queda un punto suelto al final de una línea. */
-.footer-nav li + li::before {
-  content: "·"; color: var(--text-muted); opacity: .6; padding: 0 12px;
-  /* line-height fijo: con el heredado, el punto levantaba su <li> dos
-     píxeles respecto al primero, que no lleva separador. */
-  line-height: 1;
-}
-.footer-nav a {
-  font-size: 13.5px; color: var(--text); text-decoration: none; border-bottom: none;
-  transition: color .2s ease;
-}
-.footer-nav a:hover { color: var(--brand-strong); }
-.footer-nav a.active { color: var(--brand-strong); font-weight: 700; }
 
 .footer-mail {
   display: inline-block; font-size: 13.5px; color: var(--text);
@@ -2627,13 +2594,13 @@ header { view-transition-name: site-header; }
 .footer-top:hover { color: var(--brand-strong); border-color: var(--brand); background: var(--brand-soft); }
 
 @media (max-width: 760px) {
-  .footer-inner { grid-template-columns: 1fr; gap: 28px; padding-block: 34px 22px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 24px; padding-block: 34px 22px; align-items: start; }
+  .footer-mark { width: 78%; right: -12%; opacity: .04; }
   .footer-bottom { justify-content: center; text-align: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-nav a, .footer-social, .footer-top, .footer-mail { transition: none; }
-  .footer-nav a:hover { padding-left: 0; }
+  .footer-social, .footer-top, .footer-mail { transition: none; }
   .footer-social:hover { translate: none; }
 }
 

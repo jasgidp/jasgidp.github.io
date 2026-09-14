@@ -1,5 +1,5 @@
 {
-  "_documentacion": "Frases que pasan en la cinta del pie de página. Las lee js/footer.js. Cada una lleva 'text' con los tres idiomas y 'author'. Añade, quita o reordena a gusto: la cinta se adapta sola al número de frases. Elegidas todas de fuentes verificables; si añades una, comprueba antes a quién es de verdad (circulan muchas mal atribuidas).",
+  "_documentacion": "Frases que pasan en la cinta del pie de página. Las lee js/footer.js. Cada una lleva 'text' con los tres idiomas y 'author'. Añade, quita o reordena a gusto: la cinta se adapta sola al número de frases y la velocidad no cambia. Las de autor con nombre están tomadas de fuentes verificables; circulan muchas citas famosas mal atribuidas, así que si añades una comprueba antes de quién es de verdad. Los dichos populares van como 'Dicho colombiano' o 'Dicho paisa' porque no tienen autor conocido, y lo que es broma propia va marcado como tal.",
   "quotes": [
     {
       "text": {
@@ -80,6 +80,102 @@
         "pt": "A medida do sucesso não é se você tem um problema difícil, mas se é o mesmo do ano passado."
       },
       "author": "John Foster Dulles"
+    },
+    {
+      "text": {
+        "es": "Solo hay dos cosas difíciles en informática: invalidar la caché y ponerle nombre a las cosas.",
+        "en": "There are only two hard things in computer science: cache invalidation and naming things.",
+        "pt": "Só há duas coisas difíceis em computação: invalidar o cache e dar nome às coisas."
+      },
+      "author": "Phil Karlton"
+    },
+    {
+      "text": {
+        "es": "Depurar es el doble de difícil que escribir el código. Así que si lo escribes lo más ingenioso posible, por definición no eres lo bastante listo para depurarlo.",
+        "en": "Debugging is twice as hard as writing the code in the first place. So if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
+        "pt": "Depurar é duas vezes mais difícil que escrever o código. Então, se você o escreve da forma mais engenhosa possível, por definição não é esperto o bastante para depurá-lo."
+      },
+      "author": "Brian Kernighan"
+    },
+    {
+      "text": {
+        "es": "Cualquier tonto puede escribir código que una máquina entienda. Un buen programador escribe código que entienden las personas.",
+        "en": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+        "pt": "Qualquer tolo escreve código que a máquina entende. Bons programadores escrevem código que as pessoas entendem."
+      },
+      "author": "Martin Fowler"
+    },
+    {
+      "text": {
+        "es": "La optimización prematura es la raíz de todos los males.",
+        "en": "Premature optimization is the root of all evil.",
+        "pt": "A otimização prematura é a raiz de todos os males."
+      },
+      "author": "Donald Knuth"
+    },
+    {
+      "text": {
+        "es": "Si depurar es el proceso de quitar errores, entonces programar tiene que ser el de meterlos.",
+        "en": "If debugging is the process of removing bugs, then programming must be the process of putting them in.",
+        "pt": "Se depurar é o processo de remover bugs, então programar deve ser o de colocá-los."
+      },
+      "author": "Edsger W. Dijkstra"
+    },
+    {
+      "text": {
+        "es": "El que no arriesga un huevo, no saca un pollo.",
+        "en": "Nothing ventured, nothing gained. (Colombian saying)",
+        "pt": "Quem não arrisca, não petisca. (ditado colombiano)"
+      },
+      "author": "Dicho colombiano"
+    },
+    {
+      "text": {
+        "es": "Camarón que se duerme, se lo lleva la corriente.",
+        "en": "The shrimp that falls asleep gets carried off by the current. (Colombian saying)",
+        "pt": "Camarão que dorme, a corrente leva. (ditado colombiano)"
+      },
+      "author": "Dicho colombiano"
+    },
+    {
+      "text": {
+        "es": "Más vale paso que dure y no trote que canse.",
+        "en": "Better a steady walk than a tiring run. (paisa saying)",
+        "pt": "Melhor um passo que dure do que um trote que canse. (ditado paisa)"
+      },
+      "author": "Dicho paisa"
+    },
+    {
+      "text": {
+        "es": "El que mucho abarca, poco aprieta.",
+        "en": "Whoever grasps at too much holds on to little. (Colombian saying)",
+        "pt": "Quem muito abarca, pouco aperta. (ditado colombiano)"
+      },
+      "author": "Dicho colombiano"
+    },
+    {
+      "text": {
+        "es": "No hay mal que dure cien años, ni cuerpo que lo resista.",
+        "en": "No trouble lasts a hundred years, nor a body to endure it. (Colombian saying)",
+        "pt": "Não há mal que dure cem anos, nem corpo que aguente. (ditado colombiano)"
+      },
+      "author": "Dicho colombiano"
+    },
+    {
+      "text": {
+        "es": "Hágale, parce, que después es peor.",
+        "en": "Just do it, mate — later is worse. (Colombian office wisdom)",
+        "pt": "Vai lá, parceiro, depois é pior. (sabedoria de escritório colombiana)"
+      },
+      "author": "Sabiduría de oficina"
+    },
+    {
+      "text": {
+        "es": "En mi máquina sí funcionaba.",
+        "en": "It worked on my machine.",
+        "pt": "Na minha máquina funcionava."
+      },
+      "author": "Todo programador, alguna vez"
     }
   ]
 }

@@ -15,23 +15,11 @@
     esa fila en vez de quedarse a medias.
   - El año del copyright se calcula, no se escribe: un año fijo se
     queda viejo en enero y nadie se acuerda de tocarlo.
-  - Marca el enlace de la página en la que estás.
   - Se traduce con el mismo sistema que el resto (data-i18n) y se
     vuelve a pintar al cambiar de idioma.
   ============================================================
 */
 (() => {
-  const NAV = [
-    { href: 'index.html',     key: 'nav.home',      label: 'Inicio' },
-    { href: 'about.html',     key: 'nav.about',     label: 'Sobre mí' },
-    { href: 'portfolio.html', key: 'nav.portfolio', label: 'Portafolio' },
-    { href: 'skills.html',    key: 'nav.skills',    label: 'Habilidades' },
-    { href: 'timeline.html',  key: 'nav.timeline',  label: 'Cronología' },
-    { href: 'contact.html',   key: 'nav.contact',   label: 'Contacto' }
-  ];
-
-  const current = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-
   function esc(str) {
     return String(str == null ? '' : str)
       .replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
@@ -56,7 +44,8 @@
      cinta parece infinita. Sin duplicar, se vería el hueco al reiniciar.
 
      La duración se calcula con el número de frases para que la
-     velocidad no cambie al añadir o quitar: unos 9 segundos por frase.
+     velocidad no cambie al añadir o quitar. 18 s por frase: a 9 pasaban
+     demasiado rápido para leerlas de reojo mientras se recorre el pie.
 
      aria-hidden porque es decoración: un lector de pantalla leyendo
      diez citas en bucle al final de cada página es ruido. */
@@ -67,7 +56,7 @@
         <span class="footer-quote-text">${esc(tx(q.text, ''))}</span>
         <span class="footer-quote-author">${esc(q.author || '')}</span>
       </span>`).join('');
-    const segundos = Math.max(60, quotes.length * 9);
+    const segundos = Math.max(90, quotes.length * 18);
     return `
       <div class="footer-quotes" aria-hidden="true">
         <div class="footer-quotes-track" style="--dur:${segundos}s">${uno}${uno}</div>
@@ -76,11 +65,6 @@
 
   function html() {
     const year = new Date().getFullYear();
-
-    const links = NAV.map(n => {
-      const active = n.href.toLowerCase() === current ? ' class="active" aria-current="page"' : '';
-      return `<li><a href="${n.href}"${active} data-i18n="${n.key}">${n.label}</a></li>`;
-    }).join('');
 
     const socials = (contact && Array.isArray(contact.socials) ? contact.socials : [])
       .map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener me"
@@ -93,6 +77,9 @@
 
     return `
       <footer class="site-footer">
+        <!-- Marca de agua: el logotipo grande y casi transparente detrás
+             del contenido. Decoración pura, de ahí el aria-hidden. -->
+        <div class="footer-mark" aria-hidden="true"></div>
         <div class="footer-inner">
 
           <div class="footer-brand">
@@ -109,10 +96,6 @@
           </div>
 
         </div>
-
-        <nav class="footer-nav" aria-label="Footer">
-          <ul>${links}</ul>
-        </nav>
 
         ${quotesHtml()}
 
