@@ -189,7 +189,14 @@
        plana: con 25 proyectos de software, saber cuál es de qué
        importa más que verlos todos seguidos.
        ------------------------------------------------------------ */
-    const TYPE_ORDER = ['frontend','backend','media','infra','data','observability','docs'];
+    const TYPE_ORDER = [
+      // software
+      'frontend','backend','media','infra','data','observability','docs',
+      // diseño gráfico
+      'digital-experience','brand','illustration','infographic','social','publicity',
+      // diseño de producto
+      'furniture','modeling','concept','maker'
+    ];
 
     function typeLabel(t){
       return (window.t ? window.t('portfolio.types.' + t, t) : t);

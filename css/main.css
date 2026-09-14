@@ -1834,10 +1834,14 @@ header { view-transition-name: site-header; }
     .project-details-panel {
       animation: revealUp linear both;
       animation-timeline: view();
-      /* Empieza cuando asoma un 8% y acaba cuando lleva un 28%
-         recorrido: la animacion termina pronto y el contenido
-         queda quieto mientras se lee. */
-      animation-range: entry 8% cover 28%;
+      /* El rango termina DENTRO de la fase "entry", no en "cover".
+         "cover" solo avanza mientras se sigue bajando, asi que los
+         ultimos elementos de la pagina no tenian scroll suficiente
+         para completarlo y se quedaban a medias: visibles pero
+         translucidos (opacity ~0.2). Al acabar en "entry 60%" la
+         animacion se completa en cuanto el elemento esta dentro,
+         haya o no mas pagina debajo. */
+      animation-range: entry 0% entry 60%;
     }
   }
 }
