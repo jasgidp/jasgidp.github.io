@@ -120,7 +120,9 @@
     "present": "Atualmente",
     "noResults": "Nenhum item corresponde à sua busca.",
     "all": "Tudo",
-    "mapHint": "Cada barra é uma etapa. As que se cruzam na vertical aconteceram ao mesmo tempo."
+    "mapHint": "Cada barra é uma etapa. As que se cruzam na vertical aconteceram ao mesmo tempo. Clique numa para aproximar o eixo ao seu período.",
+    "zoomHint": "Clique para aproximar este período",
+    "showAll": "Ver todo o percurso"
   },
   "programming": {
     "title": "Repositórios do GitHub",

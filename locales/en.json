@@ -120,7 +120,9 @@
     "present": "Present",
     "noResults": "No items match your search.",
     "all": "All",
-    "mapHint": "Each bar is a stage. Bars that line up vertically happened at the same time."
+    "mapHint": "Each bar is a stage. Bars that line up vertically happened at the same time. Click one to zoom the axis into its period.",
+    "zoomHint": "Click to zoom into this period",
+    "showAll": "Show the whole journey"
   },
   "programming": {
     "title": "GitHub Repositories",
