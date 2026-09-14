@@ -287,7 +287,7 @@
       return flat.slice(0, 5).join(' · ');
     }
 
-    function indexRowHtml(p, n){
+    function indexRowHtml(p){
       /* Todas las imágenes del proyecto, no solo la primera: la portada
          flotante las pasa sola mientras el cursor está encima. Se
          descarta el logo genérico, que no dice nada de un proyecto. */
@@ -304,8 +304,12 @@
                  data-imgs="${esc(imgs.join('|'))}"
                  tabindex="0" role="button" aria-label="${L('openDetails','Ver detalles de')} ${p.title}">
           <span class="ix-dot" aria-hidden="true"></span>
-          <h3 class="ix-title"><span class="ix-num" aria-hidden="true">${String(n).padStart(2,'0')}</span>${p.title}${isNew(p) ? ` <span class="ix-new" data-i18n="filters.nuevo">Nuevo</span>` : ''}</h3>
-          <span class="ix-year">${p.year || ''}</span>
+          <h3 class="ix-title">${p.title}</h3>
+          <span class="ix-lead" aria-hidden="true"></span>
+          <span class="ix-meta">
+            ${isNew(p) ? `<span class="ix-new" data-i18n="filters.nuevo">Nuevo</span>` : ''}
+            <span class="ix-year">${p.year || ''}</span>
+          </span>
           <i class="ri-arrow-right-up-line ix-arrow" aria-hidden="true"></i>
           <div class="ix-body"><div class="ix-body-inner">
             ${summary ? `<p class="ix-summary">${summary}</p>` : ''}
@@ -329,25 +333,65 @@
        global se mantiene. */
     const INDEX_COLS = 2;
 
-    function splitColumns(list, cols){
-      const per = Math.ceil(list.length / cols);
-      const out = [];
-      for (let i = 0; i < list.length; i += per) out.push(list.slice(i, i + per));
-      return out;
+    /* Reparte bloques entre columnas equilibrando el número de FILAS,
+       no el de bloques: "Software" tiene subtipos de 2 y de 6, así que
+       repartir 4 y 3 bloques dejaba una columna al doble de alto. */
+    function balancear(bloques, cols){
+      const cubos = Array.from({ length: cols }, () => ({ items: [], n: 0 }));
+      bloques.forEach(b => {
+        const menor = cubos.reduce((a, c) => (c.n < a.n ? c : a), cubos[0]);
+        menor.items.push(b); menor.n += b.count;
+      });
+      return cubos.map(c => c.items);
     }
 
+    function subHeadingHtml(type, count){
+      return `<h3 class="ix-sub-heading">
+          <span>${typeLabel(type)}</span><span class="ix-sub-count">${count}</span>
+        </h3>`;
+    }
+
+    /* SUBCATEGORÍAS DENTRO DE CADA TEMA
+       Software, Diseño gráfico y Diseño de producto ya tenían subtipos
+       (frontend/backend/infra, marca/ilustración..., mobiliario/maker...)
+       pero solo se usaban al filtrar. En "Todo" se perdían y cada tema
+       era un bloque plano de 25 filas. Ahora cada subtipo es un bloque
+       con su rótulo y su cuenta.
+
+       Los tres temas sin subtipo (Investigación, Ingeniería, Experiencia)
+       se parten en dos columnas como antes: inventarles un subtítulo
+       falso solo para igualar sería peor. */
     function indexHtml(items){
-      let n = 0;
       return `<div class="project-index">` + groupByCategory(items).map(([cat, list]) => {
-        // El número se asigna antes de repartir, así no depende de la columna
-        const numbered = list.map(p => ({ p, n: ++n }));
-        const cols = splitColumns(numbered, INDEX_COLS)
-          .map(col => `<div class="ix-rows">${col.map(({ p, n }) => indexRowHtml(p, n)).join('')}</div>`)
-          .join('');
+        const porTipo = groupByType(list).filter(([type]) => type);
+        const conTipo = porTipo.reduce((n, [, l]) => n + l.length, 0);
+        const usarSub = conTipo === list.length && porTipo.length > 1;
+
+        let cuerpo;
+        if (usarSub) {
+          const bloques = porTipo.map(([type, l]) => ({
+            count: l.length,
+            html: `<section class="ix-sub">${subHeadingHtml(type, l.length)}
+                     <div class="ix-rows">${l.map(indexRowHtml).join('')}</div>
+                   </section>`
+          }));
+          cuerpo = balancear(bloques, INDEX_COLS)
+            .map(col => `<div class="ix-col">${col.map(b => b.html).join('')}</div>`).join('');
+        } else {
+          /* Sin subtipos se parte por MITADES y no con balancear(): ese
+             reparte alternando, y con filas sueltas eso rompe el orden
+             de lectura al bajar por cada columna. */
+          const per = Math.ceil(list.length / INDEX_COLS);
+          const trozos = [];
+          for (let i = 0; i < list.length; i += per) trozos.push(list.slice(i, i + per));
+          cuerpo = trozos
+            .map(col => `<div class="ix-col"><div class="ix-rows">${col.map(indexRowHtml).join('')}</div></div>`).join('');
+        }
+
         return `<section class="ix-group" data-category="${esc(cat)}">
             <h2 class="ix-heading"><span class="ix-heading-name">${catLabel(cat)}</span>`
              + `<span class="ix-heading-count">${list.length}</span></h2>
-            <div class="ix-cols">${cols}</div>
+            <div class="ix-cols">${cuerpo}</div>
           </section>`;
       }).join('') + `</div>`;
     }
@@ -673,10 +717,24 @@
        caché y el JS nuevo pintaría un div suelto en medio de la página
        (es exactamente lo que pasó con el visor de imágenes).
        ------------------------------------------------------------ */
+    /* ------------------------------------------------------------
+       IMAGEN A MEDIA PANTALLA
+       Antes era una ficha de 330x208 flotando a un lado, y se leía
+       como un tooltip: rectángulo pequeño, esquinas redondeadas,
+       sombra, aparecía de golpe. Ese vocabulario es de "ayuda
+       contextual", no de "mira esta obra", y por eso parecía que
+       saliera sin querer.
+
+       Ahora ocupa media ventana a sangre, de arriba abajo, en el lado
+       CONTRARIO a la columna que estás mirando: así no tapa nunca ni
+       la fila señalada ni su resumen. El borde interior se desvanece
+       hacia el fondo de la página para que no corte en seco.
+
+       Solo en punteros finos con hover: en táctil no hay cursor.
+       ------------------------------------------------------------ */
     const hoverCover = (() => {
-      const W = 330, H = 208, PAD = 16, MS = 1100;
-      let el = null, a = null, bImg = null, top = 0;   // dos capas para el cruce
-      let raf = 0, nextX = 0, nextY = 0, side = 'right';
+      const MS = 1100;
+      let el = null, capas = [], arriba = 0;
       let list = [], i = 0, timer = 0;
 
       function ensure(){
@@ -684,76 +742,59 @@
         el = document.createElement('div');
         el.className = 'ix-cover';
         el.setAttribute('aria-hidden', 'true');
+        /* Las medidas duras van aquí y no solo en el CSS: main.css se
+           enlaza sin versión, así que un navegador con el CSS viejo en
+           caché y el JS nuevo pintaría un div suelto en medio de la
+           página (es lo que pasó con el visor de imágenes). */
         Object.assign(el.style, {
-          position: 'fixed', top: '0', left: '0', zIndex: '6',
-          width: W + 'px', height: H + 'px', borderRadius: '14px',
-          overflow: 'hidden', pointerEvents: 'none', opacity: '0'
+          position: 'fixed', top: '0', bottom: '0', height: '100vh',
+          width: '50vw', zIndex: '5', overflow: 'hidden',
+          pointerEvents: 'none', opacity: '0'
         });
-        /* Dos capas superpuestas en vez de cambiar la imagen de fondo:
-           cambiándola en un solo elemento, el navegador parpadea en
-           blanco mientras descarga la siguiente. Se cruzan opacidades. */
-        [a, bImg] = [0, 1].map(() => {
-          const layer = document.createElement('div');
-          Object.assign(layer.style, {
-            position: 'absolute', inset: '0',
+        capas = [0, 1].map(() => {
+          const c = document.createElement('div');
+          Object.assign(c.style, {
+            position: 'absolute', top: '0', right: '0', bottom: '0', left: '0',
             backgroundSize: 'cover', backgroundPosition: 'center',
-            opacity: '0', transition: 'opacity .5s ease'
+            opacity: '0', transition: 'opacity .55s ease'
           });
-          el.appendChild(layer);
-          return layer;
+          el.appendChild(c);
+          return c;
         });
         document.body.appendChild(el);
         return el;
       }
 
-      // El movimiento se aplica una vez por frame: mousemove dispara
-      // muchas más veces de las que la pantalla puede pintar.
-      function flush(){
-        raf = 0;
-        if (!el) return;
-        /* La X NO sigue al cursor: se va a la MITAD CONTRARIA a la
-           columna que estás mirando. Siguiendo al cursor se plantaba
-           encima del resumen recién abierto, y anclada siempre a la
-           derecha tapaba la columna derecha entera. Al cruzarse de
-           lado, nunca cubre ni la fila señalada ni su resumen; lo que
-           queda debajo es la otra columna, que ya está atenuada.
-           La Y sí sigue al cursor: es lo que da la sensación de que la
-           imagen acompaña a la fila. */
-        const rect = container.getBoundingClientRect();
-        const x = side === 'right'
-          ? Math.min(rect.right - W - 4, window.innerWidth - W - PAD)
-          : Math.max(rect.left + 4, PAD);
-        const y = Math.min(Math.max(nextY - H / 2, PAD), window.innerHeight - H - PAD);
-        el.style.transform = `translate(${Math.round(Math.max(PAD, x))}px, ${Math.round(y)}px)`;
-      }
-
-      // Pinta la imagen n en la capa que toca y cruza las opacidades
+      /* Dos capas superpuestas en vez de cambiar la imagen de fondo de
+         un solo elemento: cambiándola, el navegador parpadea en blanco
+         mientras descarga la siguiente. */
       function paint(n){
         const src = list[n];
         if (!src) return;
-        const shown = top ? bImg : a, hidden = top ? a : bImg;
-        hidden.style.backgroundImage = `url('${src}')`;
-        hidden.style.opacity = '1';
-        shown.style.opacity = '0';
-        top = top ? 0 : 1;
+        const ver = capas[arriba], ocultar = capas[arriba ? 0 : 1];
+        ver.style.backgroundImage = `url('${src}')`;
+        ver.style.opacity = '1';
+        ocultar.style.opacity = '0';
+        arriba = arriba ? 0 : 1;
       }
 
       function stop(){ if (timer) { clearInterval(timer); timer = 0; } }
 
       return {
-        /* srcs = todas las imágenes del proyecto. Si hay más de una,
-           van pasando solas cada 1.1 s mientras el cursor siga encima. */
-        show(srcs, x, y, onLeftHalf){
+        show(srcs, alaDerecha){
           const e = ensure();
-          nextX = x; nextY = y;
-          side = onLeftHalf ? 'right' : 'left';
-          if (!raf) raf = requestAnimationFrame(flush);
+          e.style.left = alaDerecha ? 'auto' : '0';
+          e.style.right = alaDerecha ? '0' : 'auto';
+          e.classList.toggle('from-right', alaDerecha);
+          e.classList.toggle('from-left', !alaDerecha);
           const key = srcs.join('|');
           if (e.dataset.key !== key) {
             e.dataset.key = key;
-            list = srcs; i = 0;
+            list = srcs; i = 0; arriba = 0;
             stop();
+            capas.forEach(c => { c.style.opacity = '0'; });
             paint(0);
+            // Si el proyecto tiene varias, van pasando solas
             if (list.length > 1) {
               timer = setInterval(() => { i = (i + 1) % list.length; paint(i); }, MS);
             }
@@ -778,13 +819,12 @@
         const cat = row.getAttribute('data-category');
         const srcs = own.length ? own : (coverReady[cat] ? [coverUrl(cat)] : []);
         if (!srcs.length) return hoverCover.hide();
-        const rect = container.getBoundingClientRect();
-        const rowRect = row.getBoundingClientRect();
-        const enLaIzquierda = (rowRect.left + rowRect.right) / 2 < (rect.left + rect.right) / 2;
-        hoverCover.show(srcs, e.clientX, e.clientY, enLaIzquierda);
+        // La imagen se va al lado contrario de la fila señalada
+        const r = row.getBoundingClientRect();
+        hoverCover.show(srcs, (r.left + r.right) / 2 < window.innerWidth / 2);
       });
       container.addEventListener('mouseleave', () => hoverCover.hide());
-      // Al abrir un panel la portada estorba justo donde hay que leer
+      // Al abrir un panel la imagen estorba justo donde hay que leer
       container.addEventListener('click', () => hoverCover.hide());
     }
 
