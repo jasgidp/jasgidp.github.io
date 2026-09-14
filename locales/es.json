@@ -97,7 +97,8 @@
   },
   "skills": {
     "title": "Habilidades",
-    "usedIn": "Usado en"
+    "usedIn": "Usado en",
+    "level": "Nivel"
   },
   "timeline": {
     "title": "Cronología",

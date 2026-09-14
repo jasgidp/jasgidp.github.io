@@ -97,7 +97,8 @@
   },
   "skills": {
     "title": "Skills",
-    "usedIn": "Used in"
+    "usedIn": "Used in",
+    "level": "Level"
   },
   "timeline": {
     "title": "Timeline",
