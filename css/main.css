@@ -1124,8 +1124,64 @@ a {
    Con filter y no con opacity porque las filas llevan la animación
    revealUp ligada al scroll, que anima "opacity" con fill-mode "both",
    y una animación gana a una declaración normal en la cascada. */
-.ix-cols:hover .index-row:not(:hover) { filter: opacity(.34); }
+.ix-cols:hover .index-row:not(:hover):not(.peek) { filter: opacity(.34); }
 .ix-cols .index-row { transition: filter .3s ease, background .3s ease; }
+
+/* TIRA DE PORTADAS DE UNA SUBSECCIÓN
+   Sirve de aperitivo: ves el bloque entero de un vistazo y la imagen te
+   lleva al título, en vez de al revés. Señalar una hace lo mismo que
+   señalar su fila; pulsarla abre el panel completo. */
+/* Una sola fila que se desplaza en horizontal, no varias que envuelven:
+   envolviendo, un subtipo de 8 dejaba una segunda fila con tres huérfanas
+   y cada bloque crecía el doble. Con 17 subtipos eso alarga mucho la
+   página, que era el reparo de esta idea. */
+.ix-strip {
+  display: flex; gap: 8px; flex-wrap: nowrap;
+  margin: 0 8px 12px; padding: 4px 2px 6px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+.ix-strip::-webkit-scrollbar { height: 5px; }
+.ix-strip::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+.ix-strip::-webkit-scrollbar-track { background: transparent; }
+.ix-thumb {
+  position: relative; flex: 0 0 auto;
+  width: 84px; aspect-ratio: 16 / 10;
+  border: 1px solid var(--border); border-radius: 9px;
+  background-size: cover; background-position: center;
+  padding: 0; cursor: pointer; overflow: hidden;
+  filter: saturate(.85);
+  transition: transform .22s cubic-bezier(.22,.61,.36,1), filter .22s ease, border-color .2s ease;
+}
+.ix-thumb:hover, .ix-thumb:focus-visible {
+  transform: translateY(-3px) scale(1.06);
+  filter: saturate(1.1);
+  border-color: var(--ix-color, var(--brand));
+  z-index: 2;
+}
+.ix-thumb:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+/* El nombre solo al señalar: doce rótulos permanentes sobre miniaturas
+   de 84px serían ilegibles y taparían justo lo que hay que ver. */
+.ix-thumb-name {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 10px 5px 4px;
+  font-size: 9px; font-weight: 700; line-height: 1.2; color: #fff;
+  text-align: left; text-shadow: 0 1px 2px rgba(0,0,0,.8);
+  background: linear-gradient(transparent, rgba(0,0,0,.75));
+  opacity: 0; transition: opacity .2s ease;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ix-thumb:hover .ix-thumb-name, .ix-thumb:focus-visible .ix-thumb-name { opacity: 1; }
+
+@media (max-width: 560px) {
+  .ix-strip { margin-inline: 0; gap: 6px; }
+  .ix-thumb { width: 66px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ix-thumb, .ix-thumb-name { transition: none; }
+  .ix-thumb:hover { transform: none; }
+}
 
 .index-row {
   display: grid;
@@ -1145,7 +1201,7 @@ a {
   height: 1px; background: var(--ix-color, var(--border)); opacity: .22;
 }
 .index-row:last-child::after { display: none; }
-.index-row:hover, .index-row:focus-visible { background: var(--surface-2); }
+.index-row:hover, .index-row:focus-visible, .index-row.peek { background: var(--surface-2); }
 .index-row:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
 
 /* Punto del color de la categoría: el índice deja de ser monocromo */
@@ -1155,7 +1211,7 @@ a {
   translate: 0 -4px;
   transition: scale .25s ease;
 }
-.index-row:hover .ix-dot { scale: 1.5; }
+.index-row:hover .ix-dot, .index-row.peek .ix-dot { scale: 1.5; }
 
 .ix-title {
   margin: 0;
@@ -1166,7 +1222,8 @@ a {
   transition: color .25s ease, translate .3s cubic-bezier(.22,.61,.36,1);
 }
 .index-row:hover .ix-title,
-.index-row:focus-visible .ix-title { color: var(--ix-color, var(--brand)); translate: 10px 0; }
+.index-row:focus-visible .ix-title,
+.index-row.peek .ix-title { color: var(--ix-color, var(--brand)); translate: 10px 0; }
 
 /* Guía de puntos entre el título y el año. Sin ella el año quedaba
    huérfano al otro lado de medio renglón vacío y el ojo perdía la fila
@@ -1192,9 +1249,10 @@ a {
 }
 /* Con la flecha visible, el año se aparta para no solaparse */
 .ix-year { transition: opacity .2s ease; }
-.index-row:hover .ix-year { opacity: 0; }
+.index-row:hover .ix-year, .index-row.peek .ix-year { opacity: 0; }
 .index-row:hover .ix-arrow,
-.index-row:focus-visible .ix-arrow { opacity: 1; translate: 0 0; }
+.index-row:focus-visible .ix-arrow,
+.index-row.peek .ix-arrow { opacity: 1; translate: 0 0; }
 
 /* El resumen se abre con grid-template-rows 0fr -> 1fr, que es la
    única forma de animar "hasta la altura del contenido" sin fijar un
@@ -1207,7 +1265,8 @@ a {
 }
 .ix-body-inner { overflow: hidden; }
 .index-row:hover .ix-body,
-.index-row:focus-visible .ix-body { grid-template-rows: 1fr; opacity: 1; }
+.index-row:focus-visible .ix-body,
+.index-row.peek .ix-body { grid-template-rows: 1fr; opacity: 1; }
 .ix-summary {
   margin: 10px 0 0 8px; max-width: 48ch;
   font-size: 13.5px; line-height: 1.6; color: var(--text);

@@ -110,7 +110,7 @@
        filtro concreto son las fichas con portada (.project-tile); con
        "Todo" son las filas del índice (.index-row). El resto del código
        (clic, teclado, ?p=<id>) no necesita saber cuál de las dos es. */
-    const CARD_SEL = '.project-tile, .index-row';
+    const CARD_SEL = '.project-tile, .index-row, .ix-thumb';
     let openPanel = null;     // panel de detalles abierto ahora mismo
     let openProjectId = null; // id del proyecto abierto (para toggle)
 
@@ -287,13 +287,17 @@
       return flat.slice(0, 5).join(' · ');
     }
 
-    function indexRowHtml(p){
-      /* Todas las imágenes del proyecto, no solo la primera: la portada
-         flotante las pasa sola mientras el cursor está encima. Se
-         descarta el logo genérico, que no dice nada de un proyecto. */
-      const gallery = [p.thumb, ...(Array.isArray(p.images) ? p.images : [])]
+    /* Todas las imágenes del proyecto, sin el logotipo genérico, que no
+       dice nada de un proyecto concreto. Lo usan la fila, la tira de
+       miniaturas y la imagen a media pantalla. */
+    function imagesOf(p){
+      const todas = [p.thumb, ...(Array.isArray(p.images) ? p.images : [])]
         .filter(src => src && !/HOme\.png$/i.test(src));
-      const imgs = [...new Set(gallery)];
+      return [...new Set(todas)];
+    }
+
+    function indexRowHtml(p){
+      const imgs = imagesOf(p);
       const thumb = imgs[0] || '';
       const isPlaceholder = !thumb;
       const tech = techLine(p);
@@ -344,6 +348,32 @@
       return cubos.map(c => c.items);
     }
 
+    /* TIRA DE PORTADAS DE UNA SUBSECCIÓN
+       Bajo el rótulo del subtipo, sus portadas en pequeño. Sirve de
+       aperitivo: ves el bloque entero de un vistazo y la imagen te
+       lleva al título, en vez de al revés.
+
+       Al señalar una miniatura se abre la fila de ese proyecto (con su
+       resumen) y sale su imagen a media pantalla, igual que al señalar
+       la fila. Al pulsarla se abre el panel completo. Es decir, la
+       miniatura y la fila hacen exactamente lo mismo: así no hay que
+       aprender dos comportamientos distintos en la misma página.
+
+       Los proyectos sin imagen propia no salen en la tira: un hueco gris
+       con el logotipo genérico no es un aperitivo de nada. */
+    function stripHtml(list){
+      const conImagen = list.filter(p => imagesOf(p).length);
+      if (conImagen.length < 2) return '';
+      return `<div class="ix-strip">
+        ${conImagen.map(p => `
+          <button type="button" class="ix-thumb" data-id="${esc(p.id)}"
+                  style="background-image:url('${esc(imagesOf(p)[0])}')"
+                  aria-label="${esc(p.title)}">
+            <span class="ix-thumb-name">${esc(p.title)}</span>
+          </button>`).join('')}
+      </div>`;
+    }
+
     function subHeadingHtml(type, count){
       return `<h3 class="ix-sub-heading">
           <span>${typeLabel(type)}</span><span class="ix-sub-count">${count}</span>
@@ -371,6 +401,7 @@
           const bloques = porTipo.map(([type, l]) => ({
             count: l.length,
             html: `<section class="ix-sub">${subHeadingHtml(type, l.length)}
+                     ${stripHtml(l)}
                      <div class="ix-rows">${l.map(indexRowHtml).join('')}</div>
                    </section>`
           }));
@@ -806,7 +837,30 @@
     })();
 
     if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      /* La miniatura de la tira y la fila hacen lo mismo al señalarlas:
+         abren el resumen de ese proyecto y sacan su imagen a media
+         pantalla. Así no hay dos comportamientos que aprender en la
+         misma página. La fila señalada desde la tira se marca con
+         .peek, que en CSS va emparejada con :hover. */
+      function marcarFila(id){
+        container.querySelectorAll('.index-row.peek').forEach(r => r.classList.remove('peek'));
+        if (!id) return null;
+        const fila = container.querySelector(`.index-row[data-id="${CSS.escape(id)}"]`);
+        if (fila) fila.classList.add('peek');
+        return fila;
+      }
+
       container.addEventListener('mousemove', (e) => {
+        const thumb = e.target.closest('.ix-thumb');
+        if (thumb) {
+          const fila = marcarFila(thumb.getAttribute('data-id'));
+          const srcs = (fila && (fila.getAttribute('data-imgs') || '').split('|').filter(Boolean)) || [];
+          if (!srcs.length) return hoverCover.hide();
+          const r = thumb.getBoundingClientRect();
+          return hoverCover.show(srcs, (r.left + r.right) / 2 < window.innerWidth / 2);
+        }
+        marcarFila(null);
+
         const row = e.target.closest('.index-row');
         if (!row) return hoverCover.hide();
         /* Sin imágenes propias cae a la portada de la categoría. Se
@@ -820,9 +874,9 @@
         const r = row.getBoundingClientRect();
         hoverCover.show(srcs, (r.left + r.right) / 2 < window.innerWidth / 2);
       });
-      container.addEventListener('mouseleave', () => hoverCover.hide());
+      container.addEventListener('mouseleave', () => { marcarFila(null); hoverCover.hide(); });
       // Al abrir un panel la imagen estorba justo donde hay que leer
-      container.addEventListener('click', () => hoverCover.hide());
+      container.addEventListener('click', () => { marcarFila(null); hoverCover.hide(); });
     }
 
     // Clic en una tarjeta: abrir/cerrar su panel de detalles
