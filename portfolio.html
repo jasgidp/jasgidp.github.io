@@ -92,6 +92,7 @@
   <script src="js/analytics.js" defer></script>
   <script src="js/header.js" defer></script>
   <script src="js/i18n.js" defer></script>
+  <script src="js/footer.js" defer></script>
   <!-- Carga y dibuja los proyectos desde data/projects.json -->
   <script src="js/projects.js" defer></script>
   <script src="js/script.js" defer></script>
@@ -100,5 +101,8 @@
   <script>
     document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
   </script>
+  <!-- Pie compartido: lo rellena js/footer.js -->
+  <div id="site-footer"></div>
+
 </body>
 </html>

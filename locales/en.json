@@ -151,5 +151,11 @@
       "error": "Please fill in all required fields.",
       "invalidEmail": "Please enter a valid email."
     }
+  },
+  "footer": {
+    "navigate": "Navigate",
+    "talk": "Let's talk",
+    "backToTop": "Back to top",
+    "tagline": "Product Design Engineer specialised in software development focused on streaming."
   }
 }

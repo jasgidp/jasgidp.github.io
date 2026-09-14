@@ -72,6 +72,7 @@
 <script src="js/analytics.js" defer></script>
 <script src="js/header.js" defer></script>
 <script src="js/i18n.js" defer></script>
+<script src="js/footer.js" defer></script>
 <!-- Repos públicos desde la API de GitHub -->
 <script src="js/github-repos.js" defer></script>
 <!-- Toggle del demo iframe + menú móvil -->
@@ -81,5 +82,8 @@
 <script>
   document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
 </script>
+  <!-- Pie compartido: lo rellena js/footer.js -->
+  <div id="site-footer"></div>
+
 </body>
 </html>

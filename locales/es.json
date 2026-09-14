@@ -151,5 +151,11 @@
       "error": "Por favor completa los campos obligatorios.",
       "invalidEmail": "Ingresa un correo válido."
     }
+  },
+  "footer": {
+    "navigate": "Navegación",
+    "talk": "Hablemos",
+    "backToTop": "Volver arriba",
+    "tagline": "Ingeniero de Diseño de Producto especialista en desarrollo de software enfocado en streaming."
   }
 }
