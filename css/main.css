@@ -499,6 +499,43 @@ a {
 .skill-tags .tag .skill-caret { font-size:14px; line-height:1; transition: transform .2s ease; }
 .skill-tags .tag.open { flex-basis:100%; flex-direction:column; align-items:flex-start; background: var(--surface); border-color: var(--brand); padding:8px 10px; }
 .skill-tags .tag.open .skill-caret { transform: rotate(180deg); }
+
+/* ============================================================
+   CHIP DE HABILIDAD CON NIVEL
+   El propio chip hace de barra: se rellena de izquierda a derecha
+   hasta el porcentaje que marca --lvl (lo pone skills.js). El corte
+   duro entre los dos colores es intencional: así se lee como una
+   barra y no como un degradado decorativo.
+   El nivel exacto en cifras está al expandir y en el title del chip,
+   de modo que el relleno no es el único portador del dato.
+   ============================================================ */
+.skill-tags .tag.has-level {
+  /* --spot-rgb es el azul de marca y está definido en ambos temas, así
+     que el relleno se ve tanto en claro como en oscuro. --brand-soft
+     quedaba casi igual que el fondo del chip y no se leía. */
+  background-image: linear-gradient(to right,
+    rgba(var(--spot-rgb), .28) var(--lvl, 0%), rgba(var(--spot-rgb), 0) var(--lvl, 0%));
+  background-repeat: no-repeat;
+  transition: background-image .4s var(--ease, ease);
+}
+.skill-tags .tag.has-level:hover { border-color: var(--brand); }
+/* Abierto: el relleno estorba, la barra de dentro ya lo cuenta */
+.skill-tags .tag.open.has-level { background-image: none; }
+
+.skill-icon { font-size: 14px; line-height: 1; color: var(--brand-strong); flex: 0 0 auto; }
+.skill-tags .tag { display: inline-flex; align-items: center; gap: 5px; }
+.skill-name { white-space: nowrap; }
+.skill-tags .tag.open { align-items: flex-start; }
+.skill-tags .tag.open .skill-name { white-space: normal; }
+
+/* Barra de nivel dentro del detalle expandido */
+.skill-level { width: 100%; margin-bottom: 8px; }
+.skill-level-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+.skill-level-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-muted);
+}
+.skill-level-pct { margin-left: auto; color: var(--brand-strong); font-weight: 700; font-size: 13px; }
 .skill-detail { width:100%; margin-top:6px; }
 .skill-desc { color: var(--text); font-size:13px; line-height:1.6; margin:0 0 6px; font-family:inherit; }
 .skill-docs { display:flex; flex-wrap:wrap; gap:6px; }

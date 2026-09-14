@@ -1,5 +1,5 @@
 {
-  "_documentacion": "Habilidades agrupadas (página Skills). Lo lee skills.js. groups[]: name (clave), emoji, label {es,en,pt}, items[]. Cada item puede ser un string (\"Python\") o un objeto {name, description, docs:[{label,url}], projects:[ids de data/projects.json]}. name, description y label admiten texto plano o un objeto {es,en,pt}: skills.js elige según el idioma activo y cae a 'en' si falta. Los idiomas además usan {flag, level (0-100), levelLabel} para pintar la barra de dominio.",
+  "_documentacion": "Habilidades agrupadas (página Skills). Lo lee skills.js. groups[]: name (clave), emoji, label {es,en,pt}, items[]. Cada item puede ser un string (\"Python\") o un objeto {name, description, docs:[{label,url}], projects:[ids de data/projects.json]}. name, description y label admiten texto plano o un objeto {es,en,pt}: skills.js elige según el idioma activo y cae a 'en' si falta. level (0-100) pinta el relleno del chip y, al expandirlo, una barra; icon es una clase de Remix Icon que se muestra dentro del chip. Los idiomas además usan {flag, levelLabel} para su bandera y nivel MCER.",
   "groups": [
     {
       "name": "languagesCode",
@@ -12,6 +12,8 @@
       "items": [
         {
           "name": "Python",
+          "icon": "ri-code-s-slash-line",
+          "level": 90,
           "description": {
             "es": "Lenguaje principal: runbooks, automatización de operaciones, servicios de IA y funciones sin servidor.",
             "en": "Main language: runbooks, operations automation, AI services and serverless functions.",
@@ -37,6 +39,8 @@
         },
         {
           "name": "Rust",
+          "icon": "ri-cpu-line",
+          "level": 65,
           "description": {
             "es": "Plugins de GStreamer y desarrollo sobre el transcoder de video.",
             "en": "GStreamer plugins and development on the video transcoder.",
@@ -58,6 +62,8 @@
         },
         {
           "name": "Kotlin",
+          "icon": "ri-code-box-line",
+          "level": 70,
           "description": {
             "es": "Backend de la plataforma de video: integraciones e ingesta.",
             "en": "Video platform backend: integrations and ingest.",
@@ -79,6 +85,8 @@
         },
         {
           "name": "Java",
+          "icon": "ri-cup-line",
+          "level": 65,
           "description": {
             "es": "Servicios JVM de la plataforma interna de video.",
             "en": "JVM services on the internal video platform.",
@@ -100,6 +108,8 @@
         },
         {
           "name": "TypeScript",
+          "icon": "ri-code-box-line",
+          "level": 65,
           "description": {
             "es": "Herramientas internas y frontend de plataforma con tipos.",
             "en": "Internal tooling and platform frontend, typed.",
@@ -121,6 +131,8 @@
         },
         {
           "name": "JavaScript",
+          "icon": "ri-javascript-line",
+          "level": 80,
           "description": {
             "es": "Interactividad del lado del cliente y herramientas web internas.",
             "en": "Client-side interactivity and internal web tools.",
@@ -143,6 +155,8 @@
         },
         {
           "name": "SQL",
+          "icon": "ri-database-2-line",
+          "level": 80,
           "description": {
             "es": "Consultas, campos de auditoría y limpieza de datos en bases relacionales.",
             "en": "Queries, audit fields and data clean-up in relational databases.",
@@ -165,6 +179,8 @@
         },
         {
           "name": "Bash",
+          "icon": "ri-terminal-box-line",
+          "level": 75,
           "description": {
             "es": "Scripts de operaciones, benchmarks y automatización de despliegues.",
             "en": "Operations scripts, benchmarks and deployment automation.",
@@ -186,6 +202,8 @@
         },
         {
           "name": "HTML",
+          "icon": "ri-html5-line",
+          "level": 85,
           "description": {
             "es": "Estructura semántica y accesible de páginas web.",
             "en": "Semantic, accessible structure for web pages.",
@@ -207,6 +225,8 @@
         },
         {
           "name": "CSS",
+          "icon": "ri-css3-line",
+          "level": 85,
           "description": {
             "es": "Maquetación responsive, variables personalizadas y temas claro/oscuro.",
             "en": "Responsive layout, custom properties and light/dark theming.",
@@ -239,6 +259,8 @@
       "items": [
         {
           "name": "Pandas",
+          "icon": "ri-table-line",
+          "level": 80,
           "description": {
             "es": "Limpieza y transformación de datos tabulares.",
             "en": "Cleaning and transforming tabular data.",
@@ -261,6 +283,8 @@
         },
         {
           "name": "Jupyter Notebooks",
+          "icon": "ri-book-open-line",
+          "level": 90,
           "description": {
             "es": "Runbooks operativos y exploración de datos reproducible.",
             "en": "Operational runbooks and reproducible data exploration.",
@@ -283,6 +307,8 @@
         },
         {
           "name": "APIs",
+          "icon": "ri-links-line",
+          "level": 85,
           "description": {
             "es": "Consumo e integración de APIs REST: autenticación, paginación y manejo de errores.",
             "en": "Consuming and integrating REST APIs: authentication, pagination and error handling.",
@@ -305,6 +331,8 @@
         },
         {
           "name": "JSON",
+          "icon": "ri-braces-line",
+          "level": 85,
           "description": {
             "es": "Formato de intercambio entre APIs, configuraciones y contenido.",
             "en": "Interchange format between APIs, configuration and content.",
@@ -326,6 +354,8 @@
         },
         {
           "name": "Excel",
+          "icon": "ri-file-excel-2-line",
+          "level": 75,
           "description": {
             "es": "Puente entre las hojas que usa el negocio y las APIs internas.",
             "en": "Bridge between the spreadsheets the business uses and the internal APIs.",
@@ -337,6 +367,8 @@
         },
         {
           "name": "Temporal",
+          "icon": "ri-time-line",
+          "level": 60,
           "description": {
             "es": "Workflows y workers duraderos para ingesta y backfill.",
             "en": "Durable workflows and workers for ingest and backfill.",
@@ -358,6 +390,8 @@
         },
         {
           "name": "RAG",
+          "icon": "ri-robot-line",
+          "level": 70,
           "description": {
             "es": "Recuperación aumentada sobre documentación técnica para asistentes de IA.",
             "en": "Retrieval-augmented generation over technical documentation for AI assistants.",
@@ -380,6 +414,8 @@
       "items": [
         {
           "name": "Grafana",
+          "icon": "ri-line-chart-line",
+          "level": 90,
           "description": {
             "es": "Tableros de monitoreo y alertas sobre métricas de streaming en producción.",
             "en": "Monitoring dashboards and alerts over live streaming metrics in production.",
@@ -402,6 +438,8 @@
         },
         {
           "name": "Prometheus / Mimir",
+          "icon": "ri-pulse-line",
+          "level": 70,
           "description": {
             "es": "Recolección y almacenamiento de métricas a largo plazo.",
             "en": "Metrics collection and long-term storage.",
@@ -423,6 +461,8 @@
         },
         {
           "name": "InfluxDB",
+          "icon": "ri-database-line",
+          "level": 65,
           "description": {
             "es": "Base de datos de series temporales para métricas de streaming en vivo.",
             "en": "Time-series database for live streaming metrics.",
@@ -444,6 +484,8 @@
         },
         {
           "name": "Graylog",
+          "icon": "ri-file-search-line",
+          "level": 80,
           "description": {
             "es": "Búsqueda y correlación de logs durante incidentes.",
             "en": "Log search and correlation during incidents.",
@@ -466,6 +508,8 @@
         },
         {
           "name": "Stream QC suite",
+          "icon": "ri-shield-check-line",
+          "level": 60,
           "description": {
             "es": "Control de calidad de stream y señales objetivas de salud.",
             "en": "Stream quality control and objective health signals.",
@@ -477,6 +521,8 @@
         },
         {
           "name": "Akamai CDN",
+          "icon": "ri-global-line",
+          "level": 65,
           "description": {
             "es": "Métricas de entrega: latencia p99 y errores de DRM.",
             "en": "Delivery metrics: p99 latency and DRM errors.",
@@ -488,6 +534,8 @@
         },
         {
           "name": "Slack",
+          "icon": "ri-slack-fill",
+          "level": 85,
           "description": {
             "es": "Canales de alertas, automatización de hilos e integración de asistentes.",
             "en": "Alert channels, thread automation and assistant integration.",
@@ -522,6 +570,8 @@
       "items": [
         {
           "name": "GStreamer",
+          "icon": "ri-film-line",
+          "level": 70,
           "description": {
             "es": "Pipelines multimedia para transporte y transformación de video en vivo.",
             "en": "Multimedia pipelines for transporting and transforming live video.",
@@ -544,6 +594,8 @@
         },
         {
           "name": "GPAC",
+          "icon": "ri-movie-2-line",
+          "level": 55,
           "description": {
             "es": "Herramientas de empaquetado y análisis de contenido multimedia.",
             "en": "Packaging and analysis tooling for multimedia content.",
@@ -565,6 +617,8 @@
         },
         {
           "name": "RTMP",
+          "icon": "ri-broadcast-line",
+          "level": 75,
           "description": {
             "es": "Protocolo de ingesta y salida de video, con gestión de claves de stream.",
             "en": "Video ingest and output protocol, with stream key management.",
@@ -577,6 +631,8 @@
         },
         {
           "name": "SRT",
+          "icon": "ri-signal-tower-line",
+          "level": 75,
           "description": {
             "es": "Transporte fiable de video sobre redes no fiables, con autenticación por passkey.",
             "en": "Reliable video transport over unreliable networks, with passkey authentication.",
@@ -599,6 +655,8 @@
         },
         {
           "name": "WebRTC",
+          "icon": "ri-video-chat-line",
+          "level": 60,
           "description": {
             "es": "Video en tiempo real de baja latencia hacia el navegador.",
             "en": "Low-latency real-time video to the browser.",
@@ -620,6 +678,8 @@
         },
         {
           "name": "MediaMTX",
+          "icon": "ri-server-line",
+          "level": 60,
           "description": {
             "es": "Servidor multimedia evaluado para entrega en tiempo real.",
             "en": "Media server evaluated for real-time delivery.",
@@ -641,6 +701,8 @@
         },
         {
           "name": "HLS / OTT",
+          "icon": "ri-play-circle-line",
+          "level": 70,
           "description": {
             "es": "Entrega de video por HTTP hacia reproductores y plataformas OTT.",
             "en": "HTTP video delivery to players and OTT platforms.",
@@ -652,6 +714,8 @@
         },
         {
           "name": "AWS MediaConnect",
+          "icon": "ri-cloud-line",
+          "level": 70,
           "description": {
             "es": "Transporte de video en directo entre proveedores y destinos.",
             "en": "Live video transport between providers and destinations.",
@@ -673,6 +737,8 @@
         },
         {
           "name": "Packagers y Origins",
+          "icon": "ri-archive-line",
+          "level": 65,
           "description": {
             "es": "Empaquetado y servido del video hacia la red de distribución.",
             "en": "Packaging and serving video towards the distribution network.",
@@ -684,6 +750,8 @@
         },
         {
           "name": "DRM",
+          "icon": "ri-shield-keyhole-line",
+          "level": 70,
           "description": {
             "es": "Protección de contenido y monitoreo de sus errores de entrega.",
             "en": "Content protection and monitoring of its delivery errors.",
@@ -707,6 +775,8 @@
       "items": [
         {
           "name": "AWS (EC2, S3, Lambda, SQS)",
+          "icon": "ri-cloud-line",
+          "level": 75,
           "description": {
             "es": "Cómputo, almacenamiento, funciones sin servidor y colas de eventos.",
             "en": "Compute, storage, serverless functions and event queues.",
@@ -729,6 +799,8 @@
         },
         {
           "name": "Docker",
+          "icon": "ri-box-3-line",
+          "level": 75,
           "description": {
             "es": "Contenedores para reproducir entornos y desplegar herramientas internas.",
             "en": "Containers to reproduce environments and deploy internal tools.",
@@ -751,6 +823,8 @@
         },
         {
           "name": "Linux",
+          "icon": "ri-terminal-line",
+          "level": 80,
           "description": {
             "es": "Administración por línea de comandos, logs y diagnóstico de servidores.",
             "en": "Command-line administration, logs and server diagnosis.",
@@ -773,6 +847,8 @@
         },
         {
           "name": "Auth0",
+          "icon": "ri-key-2-line",
+          "level": 60,
           "description": {
             "es": "Autenticación y sesiones, incluidas las que se reparten entre réplicas.",
             "en": "Authentication and sessions, including those shared across replicas.",
@@ -794,6 +870,8 @@
         },
         {
           "name": "Hasura",
+          "icon": "ri-node-tree",
+          "level": 60,
           "description": {
             "es": "API GraphQL instantánea sobre la base de datos para herramientas internas.",
             "en": "Instant GraphQL API over the database for internal tools.",
@@ -826,6 +904,8 @@
       "items": [
         {
           "name": "GitHub",
+          "icon": "ri-github-fill",
+          "level": 85,
           "description": {
             "es": "Control de versiones, ramas y revisión de código; también publica este sitio.",
             "en": "Version control, branching and code review; it also publishes this site.",
@@ -847,6 +927,8 @@
         },
         {
           "name": "GitLab",
+          "icon": "ri-gitlab-fill",
+          "level": 70,
           "description": {
             "es": "Repositorios y pipelines de CI/CD en el entorno de trabajo.",
             "en": "Repositories and CI/CD pipelines in the work environment.",
@@ -865,6 +947,8 @@
         },
         {
           "name": "Jira",
+          "icon": "ri-kanban-view",
+          "level": 85,
           "description": {
             "es": "Seguimiento de incidencias y planificación de trabajo.",
             "en": "Issue tracking and work planning.",
@@ -883,6 +967,8 @@
         },
         {
           "name": "Linear",
+          "icon": "ri-list-check-2",
+          "level": 65,
           "description": {
             "es": "Seguimiento de trabajo en equipos de producto.",
             "en": "Work tracking in product teams.",
@@ -901,6 +987,8 @@
         },
         {
           "name": "Confluence",
+          "icon": "ri-book-2-line",
+          "level": 85,
           "description": {
             "es": "Documentación interna: runbooks, guías y traspasos de turno.",
             "en": "Internal documentation: runbooks, guides and shift handovers.",
@@ -923,6 +1011,8 @@
         },
         {
           "name": "Monday.com",
+          "icon": "ri-calendar-check-line",
+          "level": 55,
           "description": {
             "es": "Seguimiento de producción integrado en el monitoreo.",
             "en": "Production tracking integrated into monitoring.",
@@ -934,6 +1024,8 @@
         },
         {
           "name": "TechDocs",
+          "icon": "ri-file-text-line",
+          "level": 65,
           "description": {
             "es": "Documentación técnica publicada junto al código.",
             "en": "Technical documentation published alongside the code.",
@@ -956,6 +1048,8 @@
       "items": [
         {
           "name": "Illustrator",
+          "icon": "ri-pen-nib-line",
+          "level": 90,
           "description": {
             "es": "Identidad visual, logotipos e ilustración vectorial para eventos y marcas.",
             "en": "Visual identity, logos and vector illustration for events and brands.",
@@ -982,6 +1076,8 @@
         },
         {
           "name": "Photoshop",
+          "icon": "ri-image-edit-line",
+          "level": 85,
           "description": {
             "es": "Retoque, composición y piezas gráficas para redes y material impreso.",
             "en": "Retouching, compositing and graphic pieces for social media and print.",
@@ -1006,6 +1102,8 @@
         },
         {
           "name": "After Effects",
+          "icon": "ri-movie-line",
+          "level": 60,
           "description": {
             "es": "Animación y motion graphics para piezas audiovisuales.",
             "en": "Animation and motion graphics for audiovisual pieces.",
@@ -1027,6 +1125,8 @@
         },
         {
           "name": "Lightroom",
+          "icon": "ri-camera-lens-line",
+          "level": 65,
           "description": {
             "es": "Revelado y tratamiento de color de fotografía.",
             "en": "Photo developing and colour grading.",
@@ -1045,6 +1145,8 @@
         },
         {
           "name": "Creo",
+          "icon": "ri-shape-line",
+          "level": 75,
           "description": {
             "es": "CAD paramétrico para modelado de piezas y ensamblajes mecánicos.",
             "en": "Parametric CAD for modelling mechanical parts and assemblies.",
@@ -1067,6 +1169,8 @@
         },
         {
           "name": "Fusion",
+          "icon": "ri-shape-2-line",
+          "level": 75,
           "description": {
             "es": "CAD/CAM en la nube para modelado, ensamblajes y preparación de fabricación.",
             "en": "Cloud CAD/CAM for modelling, assemblies and manufacturing prep.",
@@ -1090,6 +1194,8 @@
         },
         {
           "name": "Rhino",
+          "icon": "ri-compasses-2-line",
+          "level": 65,
           "description": {
             "es": "Modelado 3D de superficies complejas y formas orgánicas.",
             "en": "3D modelling of complex surfaces and organic shapes.",
@@ -1112,6 +1218,8 @@
         },
         {
           "name": "Electronic Prototyping",
+          "icon": "ri-cpu-line",
+          "level": 70,
           "description": {
             "es": "Prototipado electrónico: sensores, actuadores y control para piezas interactivas.",
             "en": "Electronic prototyping: sensors, actuators and control for interactive pieces.",
@@ -1146,6 +1254,8 @@
       "items": [
         {
           "name": "Leadership",
+          "icon": "ri-user-star-line",
+          "level": 85,
           "description": {
             "es": "Dirección de equipos y de áreas en AIESEC, y referencia técnica en soporte en vivo.",
             "en": "Leading teams and departments at AIESEC, and acting as technical reference in live support.",
@@ -1158,6 +1268,8 @@
         },
         {
           "name": "Adaptability",
+          "icon": "ri-refresh-line",
+          "level": 90,
           "description": {
             "es": "Cambio de contexto entre diseño, datos y operaciones según lo que el equipo necesite.",
             "en": "Switching between design, data and operations depending on what the team needs.",
@@ -1169,6 +1281,8 @@
         },
         {
           "name": "Teamwork",
+          "icon": "ri-team-line",
+          "level": 90,
           "description": {
             "es": "Trabajo en equipos multidisciplinares de hasta ocho personas entre diseño e ingeniería.",
             "en": "Working in multidisciplinary teams of up to eight people across design and engineering.",
@@ -1182,6 +1296,8 @@
         },
         {
           "name": "Critical Thinking",
+          "icon": "ri-lightbulb-line",
+          "level": 85,
           "description": {
             "es": "Diagnóstico de incidencias en directo: aislar la causa antes de tocar el sistema.",
             "en": "Diagnosing live incidents: isolate the cause before touching the system.",
@@ -1193,6 +1309,8 @@
         },
         {
           "name": "Project Management",
+          "icon": "ri-clipboard-line",
+          "level": 80,
           "description": {
             "es": "Planificación, alcance y entrega de proyectos académicos y de herramientas internas.",
             "en": "Planning, scoping and delivering academic projects and internal tooling.",
@@ -1205,6 +1323,8 @@
         },
         {
           "name": "Research",
+          "icon": "ri-search-eye-line",
+          "level": 80,
           "description": {
             "es": "Investigación aplicada en energías renovables, con publicación revisada por pares.",
             "en": "Applied research in renewable energy, with a peer-reviewed publication.",
@@ -1218,6 +1338,8 @@
         },
         {
           "name": "Planning",
+          "icon": "ri-calendar-line",
+          "level": 80,
           "description": {
             "es": "Organización de entregas y calendarios de eventos con muchas partes implicadas.",
             "en": "Organising deliveries and event schedules with many moving parts.",
@@ -1229,6 +1351,8 @@
         },
         {
           "name": "Working under pressure",
+          "icon": "ri-fire-line",
+          "level": 90,
           "description": {
             "es": "Soporte de eventos deportivos en directo, donde una caída no admite espera.",
             "en": "Supporting live sports events, where an outage cannot wait.",

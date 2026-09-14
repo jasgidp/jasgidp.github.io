@@ -45,6 +45,8 @@
       })),
       // Proyectos de data/projects.json donde se usó esta habilidad
       projects: Array.isArray(item.projects) ? item.projects : [],
+      // Clase de Remix Icon que se pinta dentro del chip
+      icon: item.icon || '',
       // Solo los idiomas traen estos tres: pintan bandera y barra de dominio
       flag: item.flag || '',
       level: typeof item.level === 'number' ? item.level : null,
@@ -86,7 +88,23 @@
   }
 
   function skillHasDetail(s) {
-    return !!(s.description || (s.docs && s.docs.length) || (s.projects && s.projects.length));
+    return !!(s.description || (s.docs && s.docs.length) || (s.projects && s.projects.length) || s.level !== null);
+  }
+
+  /* Barra de nivel para el detalle expandido. El chip ya insinúa el
+     nivel con su relleno; aquí se ve la cifra exacta. El porcentaje va
+     también en texto, así que no depende solo del color. */
+  function renderLevelBar(s) {
+    if (s.level === null) return '';
+    const pct = Math.max(0, Math.min(100, s.level));
+    return `
+      <div class="skill-level">
+        <div class="skill-level-head">
+          <span class="skill-level-label" data-i18n="skills.level">Nivel</span>
+          <span class="skill-level-pct">${pct}%</span>
+        </div>
+        <div class="lang-bar" aria-hidden="true"><span style="width:${pct}%"></span></div>
+      </div>`;
   }
 
   // HTML del panel expandido (descripción + docs)
@@ -97,6 +115,7 @@
     ).join('');
     return `
       <div class="skill-detail">
+        ${renderLevelBar(s)}
         ${s.description ? `<p class="skill-desc">${s.description}</p>` : ''}
         ${docs ? `<div class="skill-docs">${docs}</div>` : ''}
         ${renderProjects(s)}
@@ -114,9 +133,11 @@
       .filter(g => g.skills.length > 0);
 
     container.innerHTML = filtered.map(g => {
-      // Un grupo cuyos items traen "level" (los idiomas) se pinta como
-      // lista de barras de dominio en vez de como chips sueltos.
-      const isLevelGroup = g.skills.some(s => s.level !== null);
+      /* Los idiomas se pintan como lista de barras con bandera; el resto,
+         como chips. Antes esto se decidía por "tiene level", pero ahora
+         todas las habilidades lo tienen, así que se distingue por la
+         bandera, que solo llevan los idiomas. */
+      const isLevelGroup = g.skills.some(s => s.flag);
       const body = isLevelGroup ? renderLevelList(g.skills) : renderTagList(g);
       return `
       <article class="skill-card">
@@ -137,9 +158,14 @@
             const key = `${g.name}::${s.name}`;
             const hasDetail = skillHasDetail(s);
             const expanded = openKey === key;
-            return `<li class="tag${hasDetail ? ' has-detail' : ''}${expanded ? ' open' : ''}"
-                        ${hasDetail ? `role="button" tabindex="0" aria-expanded="${expanded}" data-skill-key="${key}"` : ''}>
-                      ${s.name}${hasDetail ? '<i class="ri-arrow-down-s-line skill-caret" aria-hidden="true"></i>' : ''}
+            const pct = s.level === null ? null : Math.max(0, Math.min(100, s.level));
+            // --lvl alimenta el degradado de fondo del chip en main.css
+            const lvlStyle = pct === null ? '' : ` style="--lvl:${pct}%"`;
+            const icon = s.icon ? `<i class="${s.icon} skill-icon" aria-hidden="true"></i>` : '';
+            return `<li class="tag${hasDetail ? ' has-detail' : ''}${expanded ? ' open' : ''}${pct === null ? '' : ' has-level'}"${lvlStyle}
+                        ${hasDetail ? `role="button" tabindex="0" aria-expanded="${expanded}" data-skill-key="${key}"` : ''}
+                        ${pct === null ? '' : `title="${esc(s.name)} — ${pct}%"`}>
+                      ${icon}<span class="skill-name">${esc(s.name)}</span>${hasDetail ? '<i class="ri-arrow-down-s-line skill-caret" aria-hidden="true"></i>' : ''}
                       ${expanded ? renderDetail(s) : ''}
                     </li>`;
           }).join('')}

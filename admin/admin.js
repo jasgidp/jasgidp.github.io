@@ -378,9 +378,21 @@
      Jerarquía: Grupo → Skills → Docs (enlaces).
      Permite traducir el título del grupo a ES/EN/PT.
      ============================================================ */
+  /* Pasa cada habilidad a forma de objeto editable.
+     OJO: hay que conservar TODAS las claves. Antes esta función
+     reconstruía el objeto con solo {name, description, docs}, así que
+     abrir la pestaña de Habilidades y guardar borraba de golpe los
+     proyectos enlazados, el nivel, el icono y las banderas e indicadores
+     MCER de los idiomas. Ahora se copia el objeto entero y solo se
+     garantiza la forma de los tres campos que el editor toca. */
   function normalizeSkillItem(item) {
     if (typeof item === 'string') return { name: item, description: '', docs: [] };
-    return { name: item.name || '', description: item.description || '', docs: Array.isArray(item.docs) ? item.docs : [] };
+    return {
+      ...item,
+      name: item.name || '',
+      description: item.description || '',
+      docs: Array.isArray(item.docs) ? item.docs : []
+    };
   }
 
   function renderSkills(c, actions) {
@@ -405,6 +417,18 @@
             </div>
           </div>
           <div class="admin-field"><label>Habilidad</label><input data-sfield="name" value="${esc(tv(s.name))}"></div>
+          <div class="admin-grid-2">
+            <div class="admin-field">
+              <label>Nivel (0-100)</label>
+              <input data-sfield="level" type="number" min="0" max="100" value="${esc(s.level)}">
+              <p class="admin-hint">Rellena el chip y pinta la barra al desplegarlo. Vacío = sin barra.</p>
+            </div>
+            <div class="admin-field">
+              <label>Icono (clase Remix Icon)</label>
+              <input data-sfield="icon" value="${esc(s.icon)}" placeholder="ri-code-s-slash-line">
+              <p class="admin-hint">Nombres en <a href="https://remixicon.com/" target="_blank" rel="noopener">remixicon.com</a>. Vacío = sin icono.</p>
+            </div>
+          </div>
           <div class="admin-field"><label>Descripción <span class="admin-subtle">· ${adminLang.toUpperCase()}</span></label><textarea data-sfield="description">${esc(tv(s.description))}</textarea></div>
           <label class="admin-field" style="margin-bottom:4px"><span style="font-size:13px;font-weight:600;color:#334155">Documentación</span></label>
           <div class="admin-rows">
@@ -454,8 +478,14 @@
       const s = g.items[+sCard.dataset.si];
       if (e.target.dataset.sfield) {
         const f = e.target.dataset.sfield;
+        if (f === 'level') {
+          // número o nada: un string rompería la barra
+          const n = e.target.value === '' ? undefined : Number(e.target.value);
+          if (n === undefined || Number.isNaN(n)) delete s.level;
+          else s.level = Math.max(0, Math.min(100, n));
+        }
         // name y description son traducibles; el resto va tal cual
-        s[f] = (f === 'description' || f === 'name') ? tset(s[f], e.target.value) : e.target.value;
+        else s[f] = (f === 'description' || f === 'name') ? tset(s[f], e.target.value) : e.target.value;
         markDirty(); return;
       }
       const row = e.target.closest('[data-di]');
