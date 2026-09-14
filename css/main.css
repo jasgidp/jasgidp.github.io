@@ -990,6 +990,12 @@ a {
 /* El color de la categoría se declara una vez en el grupo y lo heredan
    el rótulo, el punto, la línea y el título al pasar el cursor. Antes
    solo lo llevaba el punto y el índice se veía casi monocromo. */
+/* padding: 0 explícito. main.css aplica `section { padding: 0 8% }` a
+   todos los <section> del sitio, y .ix-group y .ix-sub lo son: cada
+   nivel se comía un 8 % por lado y las columnas acababan a 386px en vez
+   de 551, partiendo casi todos los títulos en dos líneas. */
+.ix-group, .ix-sub { padding: 0; }
+
 .ix-group[data-category="software"]    { --ix-color: var(--cat-software); }
 .ix-group[data-category="graphic"]     { --ix-color: var(--cat-graphic); }
 .ix-group[data-category="design"]      { --ix-color: var(--cat-design); }
@@ -1009,8 +1015,25 @@ a {
 .ix-group:first-child .ix-heading { margin-top: 12px; }
 
 /* Dos columnas con flujo independiente (ver projects.js) */
-.ix-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 34px; }
+.ix-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 38px; align-items: start; }
 @media (max-width: 860px) { .ix-cols { grid-template-columns: 1fr; gap: 0; } }
+
+/* Rótulo de subtipo (Frontend, Marca, Mobiliario...). Los subtipos ya
+   existían en los datos pero solo se usaban al filtrar; en "Todo" cada
+   tema era un bloque plano de 25 filas. */
+.ix-sub + .ix-sub { margin-top: 26px; }
+.ix-sub-heading {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 0 4px; padding: 0 10px 6px 8px; text-align: left;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .13em;
+  color: var(--text-muted);
+}
+.ix-sub-heading span:first-child { color: var(--ix-color, var(--text-muted)); }
+.ix-sub-count {
+  margin-left: auto; font-size: 10.5px; font-weight: 600; letter-spacing: .04em;
+  color: var(--text-muted); background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 999px; padding: 1px 7px;
+}
 .ix-heading-count {
   font-size: 11px; letter-spacing: .04em; font-weight: 600;
   color: var(--text-muted);
@@ -1035,10 +1058,10 @@ a {
 
 .index-row {
   display: grid;
-  grid-template-columns: 12px 1fr auto;
+  grid-template-columns: 12px auto 1fr auto;
   align-items: baseline;
-  column-gap: 13px;
-  padding: 14px 10px 14px 8px;
+  column-gap: 11px;
+  padding: 13px 10px 13px 8px;
   border-radius: 12px;
   cursor: pointer;
   position: relative;
@@ -1074,20 +1097,24 @@ a {
 .index-row:hover .ix-title,
 .index-row:focus-visible .ix-title { color: var(--ix-color, var(--brand)); translate: 10px 0; }
 
-/* El número, dentro del título como voladita: cuando era una columna
-   propia obligaba a una retícula, y la retícula es lo que hacía que
-   esto pareciese una hoja de cálculo. */
-.ix-num {
-  font-size: .44em; font-weight: 700; vertical-align: super;
-  letter-spacing: .06em; color: var(--ix-color, var(--text-muted));
-  opacity: .75; margin-right: .5em;
+/* Guía de puntos entre el título y el año. Sin ella el año quedaba
+   huérfano al otro lado de medio renglón vacío y el ojo perdía la fila
+   a mitad de camino. */
+.ix-lead {
+  min-width: 16px; translate: 0 -5px;
+  border-bottom: 1px dotted var(--ix-color, var(--border));
+  opacity: .45;
 }
+/* El año y la etiqueta, juntos al margen. "Nuevo" iba dentro del
+   título y en los largos se caía sola a una segunda línea, que parecía
+   un error de maquetación. */
+.ix-meta { display: flex; align-items: center; gap: 8px; }
 .ix-new {
-  display: inline-block; vertical-align: middle;
+  display: inline-block; vertical-align: middle; white-space: nowrap;
   font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
   color: var(--brand-strong); background: var(--brand-soft);
   border: 1px solid var(--brand-soft-border);
-  border-radius: 999px; padding: 1px 7px; margin-left: 8px;
+  border-radius: 999px; padding: 1px 7px;
 }
 .ix-year {
   font-size: 12px; font-variant-numeric: tabular-nums;
@@ -1126,12 +1153,20 @@ a {
   text-transform: uppercase; color: var(--text-muted);
 }
 
-/* Portada que sigue al cursor. Las medidas duras (position, tamaño)
-   las pone projects.js; aquí solo el acabado. */
-.ix-cover {
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-lg);
-  transition: opacity .22s ease;
+/* Imagen a media pantalla. Las medidas duras (position, tamaño) las
+   pone projects.js; aquí solo el acabado: el degradado que funde el
+   borde interior con el fondo de la página, para que la foto no corte
+   en seco contra el texto. */
+.ix-cover { transition: opacity .35s ease; }
+.ix-cover::after {
+  content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+  pointer-events: none;
+}
+.ix-cover.from-right::after {
+  background: linear-gradient(270deg, transparent 62%, var(--bg) 100%);
+}
+.ix-cover.from-left::after {
+  background: linear-gradient(90deg, transparent 62%, var(--bg) 100%);
 }
 
 /* En táctil no hay cursor que seguir: las filas van siempre abiertas */
@@ -1143,7 +1178,7 @@ a {
 
 @media (max-width: 560px) {
   #projects-container.index { padding: 0 16px; }
-  .index-row { grid-template-columns: 10px 1fr auto; column-gap: 10px; padding: 13px 6px; }
+  .index-row { grid-template-columns: 10px auto 1fr auto; column-gap: 8px; padding: 12px 6px; }
   .ix-arrow { display: none; }
   .index-row:hover .ix-year { opacity: 1; }
   .ix-body { grid-column: 2 / -1; }
@@ -2456,8 +2491,9 @@ header { view-transition-name: site-header; }
   max-width: 1180px; margin: 0 auto;
   padding: 44px 20px 30px;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1.1fr;
-  gap: 30px 40px;
+  grid-template-columns: 1.6fr auto;
+  gap: 30px 48px;
+  align-items: start;
 }
 /* text-align y padding explícitos: la regla global de h2 centra todos
    los títulos del sitio, y aquí dejaba el rótulo desalineado de su
@@ -2478,15 +2514,32 @@ header { view-transition-name: site-header; }
   font-size: 12.5px; color: var(--text-muted);
 }
 
-.footer-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+/* Navegación en una sola fila, a todo el ancho, separada por puntos.
+   En columna vertical ocupaba cinco renglones para seis enlaces
+   cortos y dejaba un hueco grande al lado. */
+.footer-nav {
+  max-width: 1180px; margin: 0 auto; padding: 0 20px 20px;
+}
+.footer-nav ul {
+  list-style: none; margin: 0; padding: 18px 0 0;
+  border-top: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0;
+}
+.footer-nav li { display: flex; align-items: center; }
+/* El separador va en el ::before del hermano y no en el ::after del
+   anterior: así nunca queda un punto suelto al final de una línea. */
+.footer-nav li + li::before {
+  content: "·"; color: var(--text-muted); opacity: .6; padding: 0 12px;
+  /* line-height fijo: con el heredado, el punto levantaba su <li> dos
+     píxeles respecto al primero, que no lleva separador. */
+  line-height: 1;
+}
 .footer-nav a {
   font-size: 13.5px; color: var(--text); text-decoration: none; border-bottom: none;
-  transition: color .2s ease, padding-left .2s ease;
+  transition: color .2s ease;
 }
-.footer-nav a:hover { color: var(--brand-strong); padding-left: 5px; }
-/* La página en la que estás, marcada con un guion delante */
-.footer-nav a.active { color: var(--brand-strong); font-weight: 600; }
-.footer-nav a.active::before { content: "— "; }
+.footer-nav a:hover { color: var(--brand-strong); }
+.footer-nav a.active { color: var(--brand-strong); font-weight: 700; }
 
 .footer-mail {
   display: inline-block; font-size: 13.5px; color: var(--text);
@@ -2495,7 +2548,8 @@ header { view-transition-name: site-header; }
   overflow-wrap: anywhere;
 }
 .footer-mail:hover { color: var(--brand-strong); border-color: var(--brand); }
-.footer-socials { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.footer-socials { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.footer-contact { display: flex; flex-direction: column; align-items: flex-start; }
 .footer-social {
   display: inline-flex; align-items: center; justify-content: center;
   width: 36px; height: 36px; border-radius: 10px;
@@ -2535,4 +2589,62 @@ header { view-transition-name: site-header; }
   .footer-nav a, .footer-social, .footer-top, .footer-mail { transition: none; }
   .footer-nav a:hover { padding-left: 0; }
   .footer-social:hover { translate: none; }
+}
+
+/* ============================================================
+   CINTA DE FRASES DEL PIE
+   ------------------------------------------------------------
+   Se desliza despacio de derecha a izquierda. La lista va pintada dos
+   veces (lo hace footer.js) y la animación recorre exactamente el 50 %
+   del ancho: al terminar, la segunda copia está justo donde empezó la
+   primera, así que el salto de vuelta no se ve y la cinta parece no
+   acabarse nunca.
+   ============================================================ */
+.footer-quotes {
+  overflow: hidden;
+  border-block: 1px solid var(--border);
+  background: var(--surface-2);
+  padding: 13px 0;
+  /* Los bordes se difuminan para que las frases no aparezcan y
+     desaparezcan de golpe contra el filo de la pantalla. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.footer-quotes-track {
+  display: flex; align-items: center;
+  width: max-content;
+  animation: footer-quotes-slide var(--dur, 90s) linear infinite;
+}
+@keyframes footer-quotes-slide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+/* Al pasar el cursor se para, para poder leer la que esté a la vista */
+.footer-quotes:hover .footer-quotes-track { animation-play-state: paused; }
+
+.footer-quote {
+  display: inline-flex; align-items: baseline; gap: 10px;
+  padding: 0 34px; white-space: nowrap;
+  border-right: 1px solid var(--border);
+}
+.footer-quote-text {
+  font-size: 13.5px; font-style: italic; color: var(--text);
+}
+.footer-quote-text::before { content: "“"; }
+.footer-quote-text::after  { content: "”"; }
+.footer-quote-author {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--brand-strong); white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .footer-quote { padding: 0 22px; }
+  .footer-quote-text { font-size: 12.5px; white-space: normal; max-width: 60vw; }
+  .footer-quote { align-items: center; }
+}
+
+/* Sin movimiento: la cinta se queda quieta y se recorre a mano */
+@media (prefers-reduced-motion: reduce) {
+  .footer-quotes-track { animation: none; }
+  .footer-quotes { overflow-x: auto; }
 }
