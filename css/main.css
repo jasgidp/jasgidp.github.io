@@ -780,7 +780,9 @@ a {
 /* Un color por sección, heredado por la leyenda y por las barras */
 .tl-legend-item[data-section="work"],       .tl-row[data-section="work"]       { --tl-color: var(--cat-engineering); }
 .tl-legend-item[data-section="research"],   .tl-row[data-section="research"]   { --tl-color: var(--cat-research); }
-.tl-legend-item[data-section="leadership"], .tl-row[data-section="leadership"] { --tl-color: var(--cat-experience); }
+/* Liderazgo va en NARANJA y no en el turquesa de "experiencia": era el
+   único acento cálido del mapa y el turquesa oscuro tira a verde. */
+.tl-legend-item[data-section="leadership"], .tl-row[data-section="leadership"] { --tl-color: var(--cat-software); }
 .tl-legend-item[data-section="education"],  .tl-row[data-section="education"]  { --tl-color: var(--cat-design); }
 
 /* El eje son 14 años: por debajo de ~820px no caben legibles, así que
@@ -793,12 +795,39 @@ a {
 /* Sin esto el track cae en la columna 1 (la de los rótulos) y las 14
    marcas de año se amontonan a la izquierda en 250px. */
 .tl-axis-track { grid-column: 2; position: relative; height: 18px; }
+/* Cada año es un botón que abarca su franja completa, de enero a
+   diciembre. Antes era una marca de un píxel: había que apuntar al
+   número exacto y no invitaba a pulsarlo. */
 .tl-tick {
-  position: absolute; top: 0; transform: translateX(-50%);
-  font-size: 11px; font-variant-numeric: tabular-nums; color: var(--text-muted);
+  position: absolute; top: 0; height: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  font: inherit; font-size: 11px; font-variant-numeric: tabular-nums;
+  color: var(--text-muted); background: none; border: 0;
+  border-radius: 6px; cursor: pointer; padding: 0;
+  transition: background .18s ease, color .18s ease;
 }
+.tl-tick:hover, .tl-tick.on { background: var(--surface-2); color: var(--brand-strong); }
+.tl-tick:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
 .tl-tick b { font-weight: 600; }
 .tl-tick b::before { content: "’"; }
+/* Cuántas etapas tocan ese año. Solo aparece al señalarlo: catorce
+   números permanentes sobre el eje serían ruido. */
+.tl-tick-n {
+  font-size: 9.5px; font-weight: 700; line-height: 1;
+  color: #fff; background: var(--brand);
+  border-radius: 999px; padding: 2px 5px;
+  opacity: 0; transition: opacity .18s ease;
+}
+.tl-tick:hover .tl-tick-n, .tl-tick.on .tl-tick-n { opacity: 1; }
+
+/* Franja del año señalado, detrás de las barras */
+.tl-band {
+  position: absolute; top: 0; bottom: 0;
+  background: var(--brand); opacity: .07; border-radius: 4px;
+  pointer-events: none;
+}
+/* Las etapas que no tocan ese año se apagan */
+.tl-row.off { filter: opacity(.22); }
 
 .tl-body { position: relative; }
 /* Las líneas de año viven en una capa propia bajo las filas: así
@@ -823,10 +852,7 @@ a {
    opacity porque las tarjetas llevan animaciones que animan opacity. */
 .tl-body:hover .tl-row:not(:hover) { filter: opacity(.3); }
 .tl-body .tl-row { transition: filter .25s ease, background .18s ease; }
-/* Señalada, la etiqueta deja de recortarse y se lee entera. La
-   organización se esconde para dejarle todo el ancho: sin eso, el rol
-   completo se pintaba encima de ella. No se pierde nada, la ficha de
-   detalle la muestra igual. */
+/* Señalada, la etiqueta deja de recortarse y se lee entera. */
 /* Se deja que el rol SALTE DE LÍNEA en vez de desbordar a lo ancho:
    desbordando, "Director de Experiencia Digital y Eventos; Ventas/RI;
    Talento Humano y Comunicaciones" se pintaba encima de su propia
@@ -838,9 +864,6 @@ a {
 }
 .tl-row:hover .tl-row-label,
 .tl-row:focus-visible .tl-row-label { align-items: center; }
-.tl-row:hover .tl-row-org,
-.tl-row:focus-visible .tl-row-org { opacity: 0; }
-.tl-row-org { transition: opacity .15s ease; }
 .tl-row:hover .tl-bar { height: 22px; top: 2px; }
 .tl-bar { transition: height .18s ease, top .18s ease, filter .18s ease; }
 
@@ -860,11 +883,9 @@ a {
   color: var(--text-strong); font-weight: 600;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.tl-row-org {
-  flex: 0 1 auto; min-width: 0;
-  color: var(--text-muted); font-size: 11px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
+/* La organización ya no se pinta en la etiqueta: recortada a cuatro
+   letras ("EAFIT –...", "Geniu...") no decía nada y le robaba el ancho
+   al puesto. La ficha de detalle la muestra entera. */
 
 .tl-track { position: relative; height: 26px; }
 .tl-bar {
@@ -897,7 +918,6 @@ a {
 @media (max-width: 720px) {
   .timeline-map { --tl-label: 150px; padding: 0 16px; }
   .tl-chart { min-width: 680px; }
-  .tl-row-org { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -954,12 +974,17 @@ a {
    Cambiar aquí un color lo actualiza en todo el portafolio.
    ------------------------------------------------------------ */
 :root {
-  --cat-graphic: #EA4C89;     /* pink */
-  --cat-experience: #F59E0B;  /* amber */
-  --cat-engineering: #2563EB; /* blue */
-  --cat-research: #0EA5E9;    /* cyan */
-  --cat-software: #10B981;    /* green */
-  --cat-design: #8B5CF6;      /* violet */
+  /* Seis colores separados a mano. Con el verde descartado quedan pocos
+     huecos en la rueda, así que dos pares se separan por LUZ además de
+     por tono: research (cian claro) contra experience (turquesa
+     oscuro), 13° de tono pero 17 % de luz; y engineering contra
+     research, 32° y 11 %. Si se cambia alguno, comprobar los dos. */
+  --cat-software: #EA580C;    /* naranja */
+  --cat-graphic: #EC4899;     /* rosa */
+  --cat-design: #8B5CF6;      /* violeta */
+  --cat-engineering: #2563EB; /* azul */
+  --cat-research: #06B6D4;    /* cian */
+  --cat-experience: #0F766E;  /* turquesa oscuro */
 }
 
 /* Cada chip de filtro toma el color de su categoría */
@@ -1099,8 +1124,64 @@ a {
    Con filter y no con opacity porque las filas llevan la animación
    revealUp ligada al scroll, que anima "opacity" con fill-mode "both",
    y una animación gana a una declaración normal en la cascada. */
-.ix-cols:hover .index-row:not(:hover) { filter: opacity(.34); }
+.ix-cols:hover .index-row:not(:hover):not(.peek) { filter: opacity(.34); }
 .ix-cols .index-row { transition: filter .3s ease, background .3s ease; }
+
+/* TIRA DE PORTADAS DE UNA SUBSECCIÓN
+   Sirve de aperitivo: ves el bloque entero de un vistazo y la imagen te
+   lleva al título, en vez de al revés. Señalar una hace lo mismo que
+   señalar su fila; pulsarla abre el panel completo. */
+/* Una sola fila que se desplaza en horizontal, no varias que envuelven:
+   envolviendo, un subtipo de 8 dejaba una segunda fila con tres huérfanas
+   y cada bloque crecía el doble. Con 17 subtipos eso alarga mucho la
+   página, que era el reparo de esta idea. */
+.ix-strip {
+  display: flex; gap: 8px; flex-wrap: nowrap;
+  margin: 0 8px 12px; padding: 4px 2px 6px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+.ix-strip::-webkit-scrollbar { height: 5px; }
+.ix-strip::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+.ix-strip::-webkit-scrollbar-track { background: transparent; }
+.ix-thumb {
+  position: relative; flex: 0 0 auto;
+  width: 84px; aspect-ratio: 16 / 10;
+  border: 1px solid var(--border); border-radius: 9px;
+  background-size: cover; background-position: center;
+  padding: 0; cursor: pointer; overflow: hidden;
+  filter: saturate(.85);
+  transition: transform .22s cubic-bezier(.22,.61,.36,1), filter .22s ease, border-color .2s ease;
+}
+.ix-thumb:hover, .ix-thumb:focus-visible {
+  transform: translateY(-3px) scale(1.06);
+  filter: saturate(1.1);
+  border-color: var(--ix-color, var(--brand));
+  z-index: 2;
+}
+.ix-thumb:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+/* El nombre solo al señalar: doce rótulos permanentes sobre miniaturas
+   de 84px serían ilegibles y taparían justo lo que hay que ver. */
+.ix-thumb-name {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 10px 5px 4px;
+  font-size: 9px; font-weight: 700; line-height: 1.2; color: #fff;
+  text-align: left; text-shadow: 0 1px 2px rgba(0,0,0,.8);
+  background: linear-gradient(transparent, rgba(0,0,0,.75));
+  opacity: 0; transition: opacity .2s ease;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ix-thumb:hover .ix-thumb-name, .ix-thumb:focus-visible .ix-thumb-name { opacity: 1; }
+
+@media (max-width: 560px) {
+  .ix-strip { margin-inline: 0; gap: 6px; }
+  .ix-thumb { width: 66px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ix-thumb, .ix-thumb-name { transition: none; }
+  .ix-thumb:hover { transform: none; }
+}
 
 .index-row {
   display: grid;
@@ -1120,7 +1201,7 @@ a {
   height: 1px; background: var(--ix-color, var(--border)); opacity: .22;
 }
 .index-row:last-child::after { display: none; }
-.index-row:hover, .index-row:focus-visible { background: var(--surface-2); }
+.index-row:hover, .index-row:focus-visible, .index-row.peek { background: var(--surface-2); }
 .index-row:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
 
 /* Punto del color de la categoría: el índice deja de ser monocromo */
@@ -1130,7 +1211,7 @@ a {
   translate: 0 -4px;
   transition: scale .25s ease;
 }
-.index-row:hover .ix-dot { scale: 1.5; }
+.index-row:hover .ix-dot, .index-row.peek .ix-dot { scale: 1.5; }
 
 .ix-title {
   margin: 0;
@@ -1141,7 +1222,8 @@ a {
   transition: color .25s ease, translate .3s cubic-bezier(.22,.61,.36,1);
 }
 .index-row:hover .ix-title,
-.index-row:focus-visible .ix-title { color: var(--ix-color, var(--brand)); translate: 10px 0; }
+.index-row:focus-visible .ix-title,
+.index-row.peek .ix-title { color: var(--ix-color, var(--brand)); translate: 10px 0; }
 
 /* Guía de puntos entre el título y el año. Sin ella el año quedaba
    huérfano al otro lado de medio renglón vacío y el ojo perdía la fila
@@ -1155,13 +1237,6 @@ a {
    título y en los largos se caía sola a una segunda línea, que parecía
    un error de maquetación. */
 .ix-meta { display: flex; align-items: center; gap: 8px; }
-.ix-new {
-  display: inline-block; vertical-align: middle; white-space: nowrap;
-  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
-  color: var(--brand-strong); background: var(--brand-soft);
-  border: 1px solid var(--brand-soft-border);
-  border-radius: 999px; padding: 1px 7px;
-}
 .ix-year {
   font-size: 12px; font-variant-numeric: tabular-nums;
   letter-spacing: .08em; color: var(--text-muted);
@@ -1174,9 +1249,10 @@ a {
 }
 /* Con la flecha visible, el año se aparta para no solaparse */
 .ix-year { transition: opacity .2s ease; }
-.index-row:hover .ix-year { opacity: 0; }
+.index-row:hover .ix-year, .index-row.peek .ix-year { opacity: 0; }
 .index-row:hover .ix-arrow,
-.index-row:focus-visible .ix-arrow { opacity: 1; translate: 0 0; }
+.index-row:focus-visible .ix-arrow,
+.index-row.peek .ix-arrow { opacity: 1; translate: 0 0; }
 
 /* El resumen se abre con grid-template-rows 0fr -> 1fr, que es la
    única forma de animar "hasta la altura del contenido" sin fijar un
@@ -1189,7 +1265,8 @@ a {
 }
 .ix-body-inner { overflow: hidden; }
 .index-row:hover .ix-body,
-.index-row:focus-visible .ix-body { grid-template-rows: 1fr; opacity: 1; }
+.index-row:focus-visible .ix-body,
+.index-row.peek .ix-body { grid-template-rows: 1fr; opacity: 1; }
 .ix-summary {
   margin: 10px 0 0 8px; max-width: 48ch;
   font-size: 13.5px; line-height: 1.6; color: var(--text);
@@ -1267,35 +1344,8 @@ a {
 .project-details-panel .project-badges { display:flex; flex-wrap:wrap; gap:6px; }
 .badge--status { background:#ecfdf5; border:1px solid #d1fae5; color:#065f46; }
 .badge--importance { background:#fff7ed; border:1px solid #ffedd5; color:#9a3412; }
-.badge--nuevo {
-  background: #f0fdfa;
-  border: 1px solid #99f6e4;
-  color: #0f766e;
-  font-weight: 600;
-}
-[data-theme="dark"] .badge--nuevo {
-  background: rgba(13, 148, 136, 0.16);
-  border-color: rgba(45, 212, 191, 0.35);
-  color: #5eead4;
-}
-
+[data-theme="dark"] 
 /* Etiqueta "Nuevo" sobre la tarjeta del portafolio */
-.project-tile .tile-badge-nuevo {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 2;
-  padding: 3px 9px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #fff;
-  background: #0d9488;
-  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
-  pointer-events: none;
-}
 /* Cuerpo del panel: en desktop 2 columnas, en móvil 1 */
 .project-details-panel .project-sections { display:grid; grid-template-columns: 1fr; gap:16px; margin-top:12px; }
 @media (min-width: 900px){ .project-details-panel .project-sections { grid-template-columns: 1.1fr 0.9fr; } }
@@ -2528,18 +2578,38 @@ header { view-transition-name: site-header; }
    línea de cierre abajo. En móvil se apilan.
    ============================================================ */
 .site-footer {
+  position: relative;
   margin-top: 72px;
   border-top: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
+  overflow: hidden;   /* la marca de agua se desborda a propósito */
 }
+
+/* MARCA DE AGUA
+   El logotipo grande y casi transparente detrás del contenido. Se sale
+   por la derecha a propósito: recortado se lee como una textura de
+   marca y no como una imagen mal colocada. Va en un pseudo-elemento
+   propio y no como background del <footer> para poder darle opacidad
+   sin tocar la del texto. */
+.footer-mark {
+  position: absolute; top: 50%; right: -4%;
+  translate: 0 -50%;
+  width: min(560px, 60%); aspect-ratio: 5 / 2;
+  background: url('../assets/img/brand/HOme.png') center right / contain no-repeat;
+  opacity: .05;
+  pointer-events: none;
+}
+[data-theme="dark"] .footer-mark { opacity: .08; }
+/* El contenido por encima de la marca */
+.footer-inner, .footer-quotes, .footer-bottom { position: relative; z-index: 1; }
 .footer-inner {
   max-width: 1180px; margin: 0 auto;
   padding: 44px 20px 30px;
   display: grid;
-  grid-template-columns: 1.6fr auto;
-  gap: 30px 48px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 26px 48px;
+  align-items: center;
 }
 /* text-align y padding explícitos: la regla global de h2 centra todos
    los títulos del sitio, y aquí dejaba el rótulo desalineado de su
@@ -2551,41 +2621,22 @@ header { view-transition-name: site-header; }
 }
 .footer-logo { display: inline-block; border-bottom: none; }
 .footer-logo img { height: 40px; width: auto; }
+/* En UNA línea: es la frase que define el perfil y partida en dos
+   perdía fuerza. Se encoge con el ancho en vez de saltar de renglón, y
+   solo por debajo de 900px se deja que salte. */
 .footer-tagline {
-  margin: 14px 0 0; max-width: 42ch;
-  font-size: 13.5px; line-height: 1.65; color: var(--text-muted);
+  margin: 12px 0 0;
+  font-size: clamp(11.5px, 1.15vw, 14px);
+  line-height: 1.5; color: var(--text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+@media (max-width: 900px) {
+  .footer-tagline { white-space: normal; font-size: 13px; max-width: 46ch; }
 }
 .footer-loc {
   margin: 10px 0 0; display: flex; align-items: center; gap: 6px;
   font-size: 12.5px; color: var(--text-muted);
 }
-
-/* Navegación en una sola fila, a todo el ancho, separada por puntos.
-   En columna vertical ocupaba cinco renglones para seis enlaces
-   cortos y dejaba un hueco grande al lado. */
-.footer-nav {
-  max-width: 1180px; margin: 0 auto; padding: 0 20px 20px;
-}
-.footer-nav ul {
-  list-style: none; margin: 0; padding: 18px 0 0;
-  border-top: 1px solid var(--border);
-  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0;
-}
-.footer-nav li { display: flex; align-items: center; }
-/* El separador va en el ::before del hermano y no en el ::after del
-   anterior: así nunca queda un punto suelto al final de una línea. */
-.footer-nav li + li::before {
-  content: "·"; color: var(--text-muted); opacity: .6; padding: 0 12px;
-  /* line-height fijo: con el heredado, el punto levantaba su <li> dos
-     píxeles respecto al primero, que no lleva separador. */
-  line-height: 1;
-}
-.footer-nav a {
-  font-size: 13.5px; color: var(--text); text-decoration: none; border-bottom: none;
-  transition: color .2s ease;
-}
-.footer-nav a:hover { color: var(--brand-strong); }
-.footer-nav a.active { color: var(--brand-strong); font-weight: 700; }
 
 .footer-mail {
   display: inline-block; font-size: 13.5px; color: var(--text);
@@ -2627,13 +2678,13 @@ header { view-transition-name: site-header; }
 .footer-top:hover { color: var(--brand-strong); border-color: var(--brand); background: var(--brand-soft); }
 
 @media (max-width: 760px) {
-  .footer-inner { grid-template-columns: 1fr; gap: 28px; padding-block: 34px 22px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 24px; padding-block: 34px 22px; align-items: start; }
+  .footer-mark { width: 78%; right: -12%; opacity: .04; }
   .footer-bottom { justify-content: center; text-align: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-nav a, .footer-social, .footer-top, .footer-mail { transition: none; }
-  .footer-nav a:hover { padding-left: 0; }
+  .footer-social, .footer-top, .footer-mail { transition: none; }
   .footer-social:hover { translate: none; }
 }
 
@@ -2753,4 +2804,52 @@ header { view-transition-name: site-header; }
 @media (prefers-reduced-motion: reduce) {
   .tl-pop, .tl-bar, .tl-row { transition: none; }
   .tl-body:hover .tl-row:not(:hover) { filter: none; }
+}
+
+/* ============================================================
+   RESUMEN DE UN AÑO
+   ------------------------------------------------------------
+   Sale al señalar un año del eje y lista lo que había en marcha.
+   Es la pregunta que la vista invita a hacer ("¿y en 2019 qué estaba
+   haciendo?") y hasta ahora había que resolverla a ojo, siguiendo una
+   columna vertical entre veintiún carriles.
+   ============================================================ */
+.tl-year {
+  margin: 16px auto 0; max-width: 1120px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 18px 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.05);
+}
+.tl-year-title {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 0 10px; text-align: left; padding: 0;
+  font-size: 20px; font-weight: 700; color: var(--text-strong);
+  font-variant-numeric: tabular-nums;
+}
+.tl-year-count {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--text-muted);
+}
+.tl-year-list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 7px 22px;
+}
+.tl-year-list li {
+  display: flex; align-items: baseline; gap: 7px;
+  font-size: 13px; min-width: 0;
+}
+.tl-year-list li i { color: var(--tl-color); font-size: 13px; flex: 0 0 auto; }
+.tl-year-list li[data-section="work"]       { --tl-color: var(--cat-engineering); }
+.tl-year-list li[data-section="research"]   { --tl-color: var(--cat-research); }
+.tl-year-list li[data-section="leadership"] { --tl-color: var(--cat-software); }
+.tl-year-list li[data-section="education"]  { --tl-color: var(--cat-design); }
+.tl-year-role {
+  color: var(--text-strong); font-weight: 600;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.tl-year-org { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-tick, .tl-tick-n { transition: none; }
 }
