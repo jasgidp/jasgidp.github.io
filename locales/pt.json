@@ -42,7 +42,8 @@
       "hidePreview": "Ocultar demo",
       "githubCard": "Portfólio do GitHub",
       "githubCardHint": "Todos os meus repositórios públicos",
-      "backToSoftware": "Ver projetos de software"
+      "backToSoftware": "Ver projetos de software",
+      "openDetails": "Ver detalhes de"
     },
     "types": {
       "frontend": "Frontend",
