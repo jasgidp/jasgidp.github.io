@@ -35,6 +35,14 @@
   /* Resuelve un campo de datos que puede venir como texto plano o como
      {es,en,pt}. Igual que en skills.js: así los proyectos ya traducidos
      conviven con los que todavía están en un solo idioma. */
+  /* Escapa texto que se mete en un atributo HTML. Las rutas de imagen y
+     las claves de categoría salen del JSON, así que una comilla suelta
+     rompería el atributo y con él la fila entera. */
+  function esc(str){
+    return String(str == null ? '' : str)
+      .replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  }
+
   function tx(value, fallback){
     if (value == null) return fallback || '';
     if (typeof value === 'string') return value;
@@ -280,14 +288,20 @@
     }
 
     function indexRowHtml(p, n){
-      const thumb = p.thumb || (Array.isArray(p.images) && p.images[0]) || '';
-      // El logo genérico no aporta nada flotando junto al cursor
-      const isPlaceholder = !thumb || /HOme\.png$/i.test(thumb);
+      /* Todas las imágenes del proyecto, no solo la primera: la portada
+         flotante las pasa sola mientras el cursor está encima. Se
+         descarta el logo genérico, que no dice nada de un proyecto. */
+      const gallery = [p.thumb, ...(Array.isArray(p.images) ? p.images : [])]
+        .filter(src => src && !/HOme\.png$/i.test(src));
+      const imgs = [...new Set(gallery)];
+      const thumb = imgs[0] || '';
+      const isPlaceholder = !thumb;
       const tech = techLine(p);
       const summary = tx(p.summary);
       return `
         <article class="index-row" data-category="${p.category}" data-id="${p.id}"
                  data-thumb="${isPlaceholder ? '' : thumb}"
+                 data-imgs="${esc(imgs.join('|'))}"
                  tabindex="0" role="button" aria-label="${L('openDetails','Ver detalles de')} ${p.title}">
           <span class="ix-dot" aria-hidden="true"></span>
           <h3 class="ix-title"><span class="ix-num" aria-hidden="true">${String(n).padStart(2,'0')}</span>${p.title}${isNew(p) ? ` <span class="ix-new" data-i18n="filters.nuevo">Nuevo</span>` : ''}</h3>
@@ -300,13 +314,41 @@
         </article>`;
     }
 
+    /* DOS COLUMNAS, Y CADA UNA CON SU PROPIO FLUJO
+       Una sola columna de 77 filas se leía como una lista por larga.
+       Partirla en dos la acorta a la mitad y la acerca a un índice
+       impreso. Son dos <div> independientes y no una rejilla de dos
+       columnas a propósito: en una rejilla, abrir el resumen de una
+       fila estira toda la franja y empuja también la fila de al lado,
+       que da un salto molesto al mover el ratón en diagonal. Con dos
+       listas, abrir algo en la izquierda no toca la derecha.
+
+       Se reparte por mitades (1..n en la izquierda, n+1.. en la
+       derecha) y no alternando, para que la numeración siga siendo
+       corrida al bajar por cada columna. En móvil se apilan y el orden
+       global se mantiene. */
+    const INDEX_COLS = 2;
+
+    function splitColumns(list, cols){
+      const per = Math.ceil(list.length / cols);
+      const out = [];
+      for (let i = 0; i < list.length; i += per) out.push(list.slice(i, i + per));
+      return out;
+    }
+
     function indexHtml(items){
       let n = 0;
       return `<div class="project-index">` + groupByCategory(items).map(([cat, list]) => {
-        const rows = list.map(p => indexRowHtml(p, ++n)).join('');
-        return `<h2 class="ix-heading"><span class="ix-heading-name">${catLabel(cat)}</span>`
-             + `<span class="ix-heading-count">${list.length}</span></h2>`
-             + `<div class="ix-rows">${rows}</div>`;
+        // El número se asigna antes de repartir, así no depende de la columna
+        const numbered = list.map(p => ({ p, n: ++n }));
+        const cols = splitColumns(numbered, INDEX_COLS)
+          .map(col => `<div class="ix-rows">${col.map(({ p, n }) => indexRowHtml(p, n)).join('')}</div>`)
+          .join('');
+        return `<section class="ix-group" data-category="${esc(cat)}">
+            <h2 class="ix-heading"><span class="ix-heading-name">${catLabel(cat)}</span>`
+             + `<span class="ix-heading-count">${list.length}</span></h2>
+            <div class="ix-cols">${cols}</div>
+          </section>`;
       }).join('') + `</div>`;
     }
 
@@ -632,7 +674,11 @@
        (es exactamente lo que pasó con el visor de imágenes).
        ------------------------------------------------------------ */
     const hoverCover = (() => {
-      let el = null, raf = 0, nextX = 0, nextY = 0;
+      const W = 330, H = 208, PAD = 16, MS = 1100;
+      let el = null, a = null, bImg = null, top = 0;   // dos capas para el cruce
+      let raf = 0, nextX = 0, nextY = 0, side = 'right';
+      let list = [], i = 0, timer = 0;
+
       function ensure(){
         if (el) return el;
         el = document.createElement('div');
@@ -640,43 +686,84 @@
         el.setAttribute('aria-hidden', 'true');
         Object.assign(el.style, {
           position: 'fixed', top: '0', left: '0', zIndex: '6',
-          width: '210px', height: '132px', borderRadius: '12px',
-          backgroundSize: 'cover', backgroundPosition: 'center',
-          pointerEvents: 'none', opacity: '0'
+          width: W + 'px', height: H + 'px', borderRadius: '14px',
+          overflow: 'hidden', pointerEvents: 'none', opacity: '0'
+        });
+        /* Dos capas superpuestas en vez de cambiar la imagen de fondo:
+           cambiándola en un solo elemento, el navegador parpadea en
+           blanco mientras descarga la siguiente. Se cruzan opacidades. */
+        [a, bImg] = [0, 1].map(() => {
+          const layer = document.createElement('div');
+          Object.assign(layer.style, {
+            position: 'absolute', inset: '0',
+            backgroundSize: 'cover', backgroundPosition: 'center',
+            opacity: '0', transition: 'opacity .5s ease'
+          });
+          el.appendChild(layer);
+          return layer;
         });
         document.body.appendChild(el);
         return el;
       }
-      /* El movimiento se aplica una vez por frame: mousemove dispara
-         muchas más veces de las que la pantalla puede pintar.
 
-         La X NO sigue al cursor: se ancla al borde derecho del índice.
-         Siguiéndolo, la portada se plantaba encima del resumen que
-         acababa de abrirse, que es justo lo que hay que leer. El
-         resumen se corta a 62ch, así que la franja derecha siempre
-         está libre. La Y sí sigue al cursor, que es lo que da la
-         sensación de que la imagen acompaña a la fila. */
+      // El movimiento se aplica una vez por frame: mousemove dispara
+      // muchas más veces de las que la pantalla puede pintar.
       function flush(){
         raf = 0;
         if (!el) return;
-        const w = 210, h = 132, pad = 16;
+        /* La X NO sigue al cursor: se va a la MITAD CONTRARIA a la
+           columna que estás mirando. Siguiendo al cursor se plantaba
+           encima del resumen recién abierto, y anclada siempre a la
+           derecha tapaba la columna derecha entera. Al cruzarse de
+           lado, nunca cubre ni la fila señalada ni su resumen; lo que
+           queda debajo es la otra columna, que ya está atenuada.
+           La Y sí sigue al cursor: es lo que da la sensación de que la
+           imagen acompaña a la fila. */
         const rect = container.getBoundingClientRect();
-        let x = rect.right - w - 8;
-        // Pantallas estrechas: si no cabe a la derecha, junto al cursor
-        if (x < nextX + 24) x = Math.min(nextX + 24, window.innerWidth - w - pad);
-        x = Math.max(pad, Math.min(x, window.innerWidth - w - pad));
-        const y = Math.min(Math.max(nextY - h / 2, pad), window.innerHeight - h - pad);
-        el.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
+        const x = side === 'right'
+          ? Math.min(rect.right - W - 4, window.innerWidth - W - PAD)
+          : Math.max(rect.left + 4, PAD);
+        const y = Math.min(Math.max(nextY - H / 2, PAD), window.innerHeight - H - PAD);
+        el.style.transform = `translate(${Math.round(Math.max(PAD, x))}px, ${Math.round(y)}px)`;
       }
+
+      // Pinta la imagen n en la capa que toca y cruza las opacidades
+      function paint(n){
+        const src = list[n];
+        if (!src) return;
+        const shown = top ? bImg : a, hidden = top ? a : bImg;
+        hidden.style.backgroundImage = `url('${src}')`;
+        hidden.style.opacity = '1';
+        shown.style.opacity = '0';
+        top = top ? 0 : 1;
+      }
+
+      function stop(){ if (timer) { clearInterval(timer); timer = 0; } }
+
       return {
-        show(src, x, y){
+        /* srcs = todas las imágenes del proyecto. Si hay más de una,
+           van pasando solas cada 1.1 s mientras el cursor siga encima. */
+        show(srcs, x, y, onLeftHalf){
           const e = ensure();
-          if (e.dataset.src !== src) { e.dataset.src = src; e.style.backgroundImage = `url('${src}')`; }
           nextX = x; nextY = y;
+          side = onLeftHalf ? 'right' : 'left';
           if (!raf) raf = requestAnimationFrame(flush);
+          const key = srcs.join('|');
+          if (e.dataset.key !== key) {
+            e.dataset.key = key;
+            list = srcs; i = 0;
+            stop();
+            paint(0);
+            if (list.length > 1) {
+              timer = setInterval(() => { i = (i + 1) % list.length; paint(i); }, MS);
+            }
+          }
           e.style.opacity = '1';
         },
-        hide(){ if (el) { el.style.opacity = '0'; el.dataset.src = ''; } }
+        hide(){
+          stop();
+          if (el) { el.style.opacity = '0'; el.dataset.key = ''; }
+        }
       };
     })();
 
@@ -684,13 +771,17 @@
       container.addEventListener('mousemove', (e) => {
         const row = e.target.closest('.index-row');
         if (!row) return hoverCover.hide();
-        /* Sin miniatura propia cae a la portada de la categoría. Se
+        /* Sin imágenes propias cae a la portada de la categoría. Se
            resuelve aquí y no al pintar la fila porque las portadas se
            cargan después del primer render. */
-        const src = row.getAttribute('data-thumb')
-          || (coverReady[row.getAttribute('data-category')] ? coverUrl(row.getAttribute('data-category')) : '');
-        if (!src) return hoverCover.hide();
-        hoverCover.show(src, e.clientX, e.clientY);
+        const own = (row.getAttribute('data-imgs') || '').split('|').filter(Boolean);
+        const cat = row.getAttribute('data-category');
+        const srcs = own.length ? own : (coverReady[cat] ? [coverUrl(cat)] : []);
+        if (!srcs.length) return hoverCover.hide();
+        const rect = container.getBoundingClientRect();
+        const rowRect = row.getBoundingClientRect();
+        const enLaIzquierda = (rowRect.left + rowRect.right) / 2 < (rect.left + rect.right) / 2;
+        hoverCover.show(srcs, e.clientX, e.clientY, enLaIzquierda);
       });
       container.addEventListener('mouseleave', () => hoverCover.hide());
       // Al abrir un panel la portada estorba justo donde hay que leer
