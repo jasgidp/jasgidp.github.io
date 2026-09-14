@@ -42,7 +42,8 @@
       "hidePreview": "Hide demo",
       "githubCard": "GitHub Portfolio",
       "githubCardHint": "All my public repositories",
-      "backToSoftware": "See software projects"
+      "backToSoftware": "See software projects",
+      "openDetails": "View details for"
     },
     "types": {
       "frontend": "Frontend",

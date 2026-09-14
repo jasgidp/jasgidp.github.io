@@ -97,6 +97,12 @@
 
     // Estado de la UI: filtro activo + texto de búsqueda
     const state = { filter: 'all', q: '' };
+
+    /* Lo que se puede pulsar para abrir el panel de detalles. Con un
+       filtro concreto son las fichas con portada (.project-tile); con
+       "Todo" son las filas del índice (.index-row). El resto del código
+       (clic, teclado, ?p=<id>) no necesita saber cuál de las dos es. */
+    const CARD_SEL = '.project-tile, .index-row';
     let openPanel = null;     // panel de detalles abierto ahora mismo
     let openProjectId = null; // id del proyecto abierto (para toggle)
 
@@ -222,10 +228,96 @@
       return `<h3 class="type-heading">${typeLabel(type)}<span class="type-count">${count}</span></h3>`;
     }
 
+    /* ------------------------------------------------------------
+       ÍNDICE EDITORIAL  (vista "Todo")
+       Con un filtro puesto, la rejilla de portadas funciona: son pocos
+       proyectos de un mismo tipo y la imagen distingue. Pero en "Todo"
+       son 77 fichas iguales, con el mismo logo de fondo, donde no se
+       lee nada salvo el título recortado.
+
+       Así que "Todo" deja de ser una rejilla y pasa a ser un índice:
+       una fila por proyecto, agrupadas por tema. Al pasar el cursor la
+       fila se abre y entra el resumen, y la portada flota junto al
+       cursor. Se agrupa por TEMA y no por año a propósito: los años
+       viejos son casi todo diseño gráfico y los nuevos casi todo
+       software, así que un índice cronológico se leería como un
+       cambio de oficio en vez de como dos oficios a la vez. El año va
+       igual en cada fila, así que no se pierde.
+       ------------------------------------------------------------ */
+    const CATEGORY_ORDER = ['software','design','graphic','engineering','research','experience'];
+
+    // El nombre visible de la categoría sale del botón de filtro, que
+    // i18n.js ya mantiene traducido. Así no hay una segunda lista que
+    // se quede desincronizada.
+    function catLabel(cat){
+      const chip = document.querySelector(`.filters [data-filter="${cat}"] span`);
+      return chip ? chip.textContent.trim() : cat;
+    }
+
+    function groupByCategory(items){
+      const groups = new Map();
+      items.forEach(p => {
+        const key = p.category || '';
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(p);
+      });
+      return [...groups.entries()].sort((a,b) => {
+        const ia = CATEGORY_ORDER.indexOf(a[0]); const ib = CATEGORY_ORDER.indexOf(b[0]);
+        return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib);
+      });
+    }
+
+    // Tecnologías en una línea, como pie de la fila. Admite array plano
+    // y el objeto agrupado {languages, frameworks, tools}.
+    function techLine(p){
+      if (!p.tech) return '';
+      const flat = Array.isArray(p.tech) ? p.tech : [
+        ...(Array.isArray(p.tech.languages) ? p.tech.languages : []),
+        ...(Array.isArray(p.tech.frameworks) ? p.tech.frameworks : []),
+        ...(Array.isArray(p.tech.tools) ? p.tech.tools : [])
+      ];
+      return flat.slice(0, 5).join(' · ');
+    }
+
+    function indexRowHtml(p, n){
+      const thumb = p.thumb || (Array.isArray(p.images) && p.images[0]) || '';
+      // El logo genérico no aporta nada flotando junto al cursor
+      const isPlaceholder = !thumb || /HOme\.png$/i.test(thumb);
+      const tech = techLine(p);
+      const summary = tx(p.summary);
+      return `
+        <article class="index-row" data-category="${p.category}" data-id="${p.id}"
+                 data-thumb="${isPlaceholder ? '' : thumb}"
+                 tabindex="0" role="button" aria-label="${L('openDetails','Ver detalles de')} ${p.title}">
+          <span class="ix-num" aria-hidden="true">${String(n).padStart(2,'0')}</span>
+          <span class="ix-year">${p.year || ''}</span>
+          <h3 class="ix-title">${p.title}${isNew(p) ? ` <span class="ix-new" data-i18n="filters.nuevo">Nuevo</span>` : ''}</h3>
+          <i class="ri-arrow-right-up-line ix-arrow" aria-hidden="true"></i>
+          <div class="ix-body"><div class="ix-body-inner">
+            ${summary ? `<p class="ix-summary">${summary}</p>` : ''}
+            ${tech ? `<p class="ix-tech">${tech}</p>` : ''}
+          </div></div>
+        </article>`;
+    }
+
+    function indexHtml(items){
+      let n = 0;
+      return `<div class="project-index">` + groupByCategory(items).map(([cat, list]) => {
+        const rows = list.map(p => indexRowHtml(p, ++n)).join('');
+        return `<h2 class="ix-heading"><span class="ix-heading-name">${catLabel(cat)}</span>`
+             + `<span class="ix-heading-count">${list.length}</span></h2>`
+             + `<div class="ix-rows">${rows}</div>`;
+      }).join('') + `</div>`;
+    }
+
     // Dibuja (o re-dibuja) todas las tarjetas visibles
     function render(){
       const items = sortProjects(projects.filter(matches));
-      if (!items.length) { container.innerHTML = bannerHtml() + '<p class="empty-state">No projects found.</p>' + githubCardHtml(); return; }
+      if (!items.length) {
+        container.classList.remove('index');
+        container.innerHTML = bannerHtml() + '<p class="empty-state">No projects found.</p>' + githubCardHtml();
+        return;
+      }
 
       /* Agrupamos solo dentro de una categoría concreta. Con "Todo" no:
          ahí conviven proyectos con tipo y sin él, y saldrían unos cuantos
@@ -255,10 +347,18 @@
 
       // La tarjeta de GitHub va al final: arriba dejaba media fila vacía,
       // porque el encabezado del primer grupo empieza línea nueva.
-      container.innerHTML = bannerHtml() + (useGroups
-        ? groupByType(items).map(([type, list]) =>
-            groupHeadingHtml(type, list.length) + list.map(tileHtml).join('')).join('')
-        : items.map(tileHtml).join('')) + githubCardHtml();
+      /* "Todo" usa el índice editorial; cualquier filtro concreto sigue
+         usando la rejilla de portadas, que es donde las miniaturas sí
+         distinguen unos proyectos de otros. */
+      const useIndex = state.filter === 'all';
+      container.classList.toggle('index', useIndex);
+
+      container.innerHTML = useIndex
+        ? indexHtml(items)
+        : bannerHtml() + (useGroups
+            ? groupByType(items).map(([type, list]) =>
+                groupHeadingHtml(type, list.length) + list.map(tileHtml).join('')).join('')
+            : items.map(tileHtml).join('')) + githubCardHtml();
 
       // Al re-renderizar, cualquier panel abierto desaparece
       openPanel = null;
@@ -387,7 +487,7 @@
           b.classList.toggle('active', b.getAttribute('data-filter') === 'all'));
         render();
       }
-      const card = container.querySelector(`.project-tile[data-id="${CSS.escape(id)}"]`);
+      const card = container.querySelector(`[data-id="${CSS.escape(id)}"]`);
       if (card) card.click();
     }
 
@@ -519,9 +619,87 @@
       img.click();
     });
 
+    /* ------------------------------------------------------------
+       PORTADA FLOTANTE DEL ÍNDICE
+       Sigue al cursor mientras se recorre una fila. Solo en punteros
+       finos con hover: en táctil no hay cursor al que seguir, y allí
+       las filas ya se muestran abiertas con su resumen.
+
+       El elemento se crea una vez y se reutiliza. Los estilos que lo
+       sacan del flujo van aquí, en JS, y no solo en el CSS: main.css
+       se enlaza sin versión, así que un navegador con el CSS viejo en
+       caché y el JS nuevo pintaría un div suelto en medio de la página
+       (es exactamente lo que pasó con el visor de imágenes).
+       ------------------------------------------------------------ */
+    const hoverCover = (() => {
+      let el = null, raf = 0, nextX = 0, nextY = 0;
+      function ensure(){
+        if (el) return el;
+        el = document.createElement('div');
+        el.className = 'ix-cover';
+        el.setAttribute('aria-hidden', 'true');
+        Object.assign(el.style, {
+          position: 'fixed', top: '0', left: '0', zIndex: '6',
+          width: '210px', height: '132px', borderRadius: '12px',
+          backgroundSize: 'cover', backgroundPosition: 'center',
+          pointerEvents: 'none', opacity: '0'
+        });
+        document.body.appendChild(el);
+        return el;
+      }
+      /* El movimiento se aplica una vez por frame: mousemove dispara
+         muchas más veces de las que la pantalla puede pintar.
+
+         La X NO sigue al cursor: se ancla al borde derecho del índice.
+         Siguiéndolo, la portada se plantaba encima del resumen que
+         acababa de abrirse, que es justo lo que hay que leer. El
+         resumen se corta a 62ch, así que la franja derecha siempre
+         está libre. La Y sí sigue al cursor, que es lo que da la
+         sensación de que la imagen acompaña a la fila. */
+      function flush(){
+        raf = 0;
+        if (!el) return;
+        const w = 210, h = 132, pad = 16;
+        const rect = container.getBoundingClientRect();
+        let x = rect.right - w - 8;
+        // Pantallas estrechas: si no cabe a la derecha, junto al cursor
+        if (x < nextX + 24) x = Math.min(nextX + 24, window.innerWidth - w - pad);
+        x = Math.max(pad, Math.min(x, window.innerWidth - w - pad));
+        const y = Math.min(Math.max(nextY - h / 2, pad), window.innerHeight - h - pad);
+        el.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
+      }
+      return {
+        show(src, x, y){
+          const e = ensure();
+          if (e.dataset.src !== src) { e.dataset.src = src; e.style.backgroundImage = `url('${src}')`; }
+          nextX = x; nextY = y;
+          if (!raf) raf = requestAnimationFrame(flush);
+          e.style.opacity = '1';
+        },
+        hide(){ if (el) { el.style.opacity = '0'; el.dataset.src = ''; } }
+      };
+    })();
+
+    if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      container.addEventListener('mousemove', (e) => {
+        const row = e.target.closest('.index-row');
+        if (!row) return hoverCover.hide();
+        /* Sin miniatura propia cae a la portada de la categoría. Se
+           resuelve aquí y no al pintar la fila porque las portadas se
+           cargan después del primer render. */
+        const src = row.getAttribute('data-thumb')
+          || (coverReady[row.getAttribute('data-category')] ? coverUrl(row.getAttribute('data-category')) : '');
+        if (!src) return hoverCover.hide();
+        hoverCover.show(src, e.clientX, e.clientY);
+      });
+      container.addEventListener('mouseleave', () => hoverCover.hide());
+      // Al abrir un panel la portada estorba justo donde hay que leer
+      container.addEventListener('click', () => hoverCover.hide());
+    }
+
     // Clic en una tarjeta: abrir/cerrar su panel de detalles
     container.addEventListener('click', (e) => {
-      const card = e.target.closest('.project-tile');
+      const card = e.target.closest(CARD_SEL);
       if (!card) return;
       const projectId = card.getAttribute('data-id');
       // Cerrar el panel anterior si había uno
@@ -546,7 +724,7 @@
     // Teclado: Enter o Espacio abren el panel (accesibilidad)
     container.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
-      const card = e.target.closest('.project-tile');
+      const card = e.target.closest(CARD_SEL);
       if (!card) return;
       e.preventDefault();
       card.click();
@@ -570,7 +748,7 @@
       const reopen = openProjectId;
       render();
       if (reopen) {
-        const card = container.querySelector(`.project-tile[data-id="${CSS.escape(reopen)}"]`);
+        const card = container.querySelector(`[data-id="${CSS.escape(reopen)}"]`);
         if (card) card.click();
       }
     });
@@ -588,7 +766,7 @@
       const reopen = openProjectId;
       render();
       if (reopen) {
-        const card = container.querySelector(`.project-tile[data-id="${CSS.escape(reopen)}"]`);
+        const card = container.querySelector(`[data-id="${CSS.escape(reopen)}"]`);
         if (card) card.click();
       }
     });
