@@ -105,7 +105,11 @@
       "intermediate": "Intermedio",
       "advanced": "Avanzado",
       "expert": "Experto"
-    }
+    },
+    "backToAll": "Todas",
+    "since": "desde",
+    "year": "año",
+    "years": "años"
   },
   "timeline": {
     "title": "Cronología",
@@ -114,7 +118,9 @@
     "leadership": "Liderazgo y Voluntariado",
     "education": "Educación",
     "present": "Actualidad",
-    "noResults": "No hay elementos que coincidan con tu búsqueda."
+    "noResults": "No hay elementos que coincidan con tu búsqueda.",
+    "all": "Todo",
+    "mapHint": "Cada barra es una etapa. Las que se cruzan en vertical ocurrieron a la vez."
   },
   "programming": {
     "title": "Repositorios de GitHub",
@@ -145,5 +151,11 @@
       "error": "Por favor completa los campos obligatorios.",
       "invalidEmail": "Ingresa un correo válido."
     }
+  },
+  "footer": {
+    "navigate": "Navegación",
+    "talk": "Hablemos",
+    "backToTop": "Volver arriba",
+    "tagline": "Ingeniero de Diseño de Producto especialista en desarrollo de software enfocado en streaming."
   }
 }

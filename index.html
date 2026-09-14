@@ -176,6 +176,7 @@
   <script src="js/header.js" defer></script>
   <!-- Sistema de idiomas (ES / EN / PT) -->
   <script src="js/i18n.js" defer></script>
+  <script src="js/footer.js" defer></script>
   <!-- Menú móvil + animaciones de entrada -->
   <script src="js/script.js" defer></script>
   <!-- Brillo que sigue al cursor en las tarjetas -->
@@ -185,6 +186,9 @@
     // Al cambiar de idioma, volver a aplicar las traducciones a toda la página.
     document.addEventListener('i18n:updated', () => { if (window.applyI18n) window.applyI18n(document); });
   </script>
+
+  <!-- Pie compartido: lo rellena js/footer.js -->
+  <div id="site-footer"></div>
 
 </body>
 

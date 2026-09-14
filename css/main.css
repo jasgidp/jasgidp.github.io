@@ -620,6 +620,28 @@ a {
   transform: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
+/* La tarjeta de grupo es pulsable en "All": al clic enfoca el grupo.
+   El icono de expandir solo aparece al pasar por encima para no
+   ensuciar la rejilla con nueve iconos permanentes. */
+.skill-card.is-openable { cursor: pointer; }
+.skill-card h3 { display: flex; align-items: center; gap: 8px; }
+.skill-card-expand {
+  margin-left: auto; font-size: 15px; color: var(--text-muted);
+  opacity: 0; transition: opacity .2s ease, color .2s ease;
+}
+.skill-card.is-openable:hover .skill-card-expand,
+.skill-card.is-openable:focus-visible .skill-card-expand { opacity: 1; color: var(--brand); }
+.skill-card.is-openable:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.skill-card-back {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
+  font: inherit; font-size: 12px; font-weight: 600;
+  color: var(--brand-strong); background: var(--brand-soft);
+  border: 1px solid var(--brand-soft-border); border-radius: 999px;
+  padding: 4px 11px; cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.skill-card-back:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+
 .skills-grid.focus .skill-card h3 {
   font-size: 20px;
   margin-bottom: 16px;
@@ -669,6 +691,30 @@ a {
   border: 1px solid var(--brand-soft-border);
   border-radius: 999px; padding: 2px 9px;
 }
+/* Tramo de nivel y años de uso, en la misma línea bajo el nombre */
+.skill-panel-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0 8px; }
+.skill-panel-meta .skill-panel-tier { margin: 0; }
+
+/* Cuánto tiempo lleva usando la herramienta. En color si la sigue
+   usando; apagado (.past) si ya no, para que se distinga de un vistazo
+   lo vigente de lo que fue. */
+.skill-years {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600; letter-spacing: .02em;
+  color: var(--brand-strong);
+  background: var(--brand-soft);
+  border: 1px solid var(--brand-soft-border);
+  border-radius: 999px; padding: 2px 9px;
+  white-space: nowrap;
+}
+.skill-years i { font-size: 12px; }
+.skill-years.past {
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+.skill-level .skill-years { margin-left: auto; }
+
 .skill-panel .skill-desc { margin-bottom: 8px; }
 
 /* Idiomas en modo foco: caben en columnas en vez de una tira larga */
@@ -698,6 +744,120 @@ a {
 .timeline-title { text-align:center; margin: 12px 0 8px; color: var(--heading); }
 .timeline-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; margin: 8px auto 16px; max-width: 960px; }
 .tabs { display:flex; gap:8px; flex-wrap:wrap; }
+
+/* ============================================================
+   MAPA TEMPORAL — pestaña "Todo" de la cronología
+   ------------------------------------------------------------
+   Las pestañas por sección cuentan cada hilo por separado y esconden
+   lo que más dice de la trayectoria: que muchas cosas pasaron a la
+   vez. Aquí cada etapa es una barra sobre un eje de años común, así
+   que mirar una columna vertical dice qué había en marcha ese año.
+   El color lleva la sección; las filas van en orden cronológico y no
+   agrupadas, porque agrupando dos cosas simultáneas quedan lejos en
+   vertical y el solapamiento deja de leerse.
+   ============================================================ */
+.timeline-map { --tl-label: 286px; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+.tl-legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 4px 0 14px; }
+.tl-legend-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text-muted);
+}
+.tl-legend-dot { width: 10px; height: 10px; border-radius: 3px; background: var(--tl-color); }
+
+/* Un color por sección, heredado por la leyenda y por las barras */
+.tl-legend-item[data-section="work"],       .tl-row[data-section="work"]       { --tl-color: var(--cat-engineering); }
+.tl-legend-item[data-section="research"],   .tl-row[data-section="research"]   { --tl-color: var(--cat-research); }
+.tl-legend-item[data-section="leadership"], .tl-row[data-section="leadership"] { --tl-color: var(--cat-experience); }
+.tl-legend-item[data-section="education"],  .tl-row[data-section="education"]  { --tl-color: var(--cat-design); }
+
+/* El eje son 14 años: por debajo de ~820px no caben legibles, así que
+   el gráfico scrollea en horizontal dentro de su caja en vez de
+   comprimirse hasta ser ilegible. La página nunca scrollea en X. */
+.tl-scroll { overflow-x: auto; overflow-y: hidden; padding-bottom: 6px; }
+.tl-chart { min-width: 820px; }
+
+.tl-axis { display: grid; grid-template-columns: var(--tl-label) 1fr; margin-bottom: 6px; }
+/* Sin esto el track cae en la columna 1 (la de los rótulos) y las 14
+   marcas de año se amontonan a la izquierda en 250px. */
+.tl-axis-track { grid-column: 2; position: relative; height: 18px; }
+.tl-tick {
+  position: absolute; top: 0; transform: translateX(-50%);
+  font-size: 11px; font-variant-numeric: tabular-nums; color: var(--text-muted);
+}
+.tl-tick b { font-weight: 600; }
+.tl-tick b::before { content: "’"; }
+
+.tl-body { position: relative; }
+/* Las líneas de año viven en una capa propia bajo las filas: así
+   cruzan todo el alto del gráfico sin repetirse en cada fila. */
+.tl-gridlines { position: absolute; inset: 0 0 0 var(--tl-label); pointer-events: none; }
+.tl-grid-line { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); opacity: .6; }
+.tl-now { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--brand); opacity: .55; }
+
+.tl-row {
+  display: grid; grid-template-columns: var(--tl-label) 1fr;
+  align-items: center; column-gap: 12px;
+  padding: 3px 0;
+}
+.tl-row-label {
+  display: flex; align-items: baseline; gap: 6px;
+  min-width: 0; font-size: 12.5px; line-height: 1.3;
+}
+.tl-row-label i { color: var(--tl-color); font-size: 13px; flex: 0 0 auto; }
+/* El rol manda: con una organización larga ("Universidade de São Paulo
+   (USP) – Ribeirão Preto") el nombre del puesto se quedaba en 0px y la
+   fila aparecía sin título. Ahora los dos pueden encogerse y el rol se
+   lleva el espacio primero. */
+.tl-row-role {
+  flex: 1 1 auto; min-width: 5ch;
+  color: var(--text-strong); font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tl-row-org {
+  flex: 0 1 auto; min-width: 0;
+  color: var(--text-muted); font-size: 11px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.tl-track { position: relative; height: 26px; }
+.tl-bar {
+  position: absolute; top: 4px; height: 18px;
+  border-radius: 5px;
+  background: var(--tl-color);
+  color: #fff;
+  cursor: default;
+  transition: filter .18s ease, transform .18s ease;
+}
+.tl-bar:hover { filter: brightness(1.08); transform: translateY(-1px); }
+/* Lo que sigue abierto se desvanece a la derecha en vez de cortarse
+   en seco: un borde recto insinúa una fecha de fin que no existe. */
+.tl-bar.ongoing {
+  -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+          mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+}
+/* Fecha de la etapa, siempre al lado de la barra (ver timeline.js) */
+.tl-bar-out {
+  position: absolute; top: 50%; translate: 0 -50%;
+  font-size: 10.5px; font-variant-numeric: tabular-nums;
+  white-space: nowrap; color: var(--text-muted);
+  padding-left: 6px; pointer-events: none;
+}
+.tl-bar-out.end { padding-left: 0; padding-right: 6px; }
+
+.tl-hint { margin: 14px 0 0; font-size: 12px; color: var(--text-muted); text-align: center; }
+.tl-empty { text-align: center; color: var(--text-muted); margin: 12px 0; }
+
+@media (max-width: 720px) {
+  .timeline-map { --tl-label: 150px; padding: 0 16px; }
+  .tl-chart { min-width: 680px; }
+  .tl-row-org { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-bar { transition: none; }
+  .tl-bar:hover { transform: none; }
+}
 .tabs .tab { border:1px solid #0d252d; color: var(--text-strong); background: var(--surface); padding:6px 12px; border-radius:999px; cursor:pointer; font-size: 14px; }
 .tabs .tab.active, .tabs .tab:hover { background:#0d252d; color:#f0f0e8; }
 
@@ -810,8 +970,15 @@ a {
    ------------------------------------------------------------
    Con un filtro puesto la rejilla de portadas funciona. En "Todo"
    eran 77 fichas con el mismo logo de fondo y el título recortado:
-   no distinguían nada. Aquí manda la tipografía; la portada aparece
-   solo cuando el cursor está sobre una fila, junto al cursor.
+   no distinguían nada.
+
+   La primera versión resolvía eso pero se leía como una tabla: todas
+   las filas del mismo alto, el mismo cuerpo de letra y una línea
+   entre cada una. Aquí manda la tipografía: títulos grandes, mucho
+   aire, y la retícula de columnas desaparece (el número se mete
+   dentro del título como voladita, el año se va al margen). Al pasar
+   el cursor por una fila las demás se apagan, que es lo que separa un
+   índice de estudio de un listado.
    ============================================================ */
 #projects-container.index {
   display: block;
@@ -820,91 +987,143 @@ a {
   margin: 0 auto 48px;
 }
 
+/* El color de la categoría se declara una vez en el grupo y lo heredan
+   el rótulo, el punto, la línea y el título al pasar el cursor. Antes
+   solo lo llevaba el punto y el índice se veía casi monocromo. */
+.ix-group[data-category="software"]    { --ix-color: var(--cat-software); }
+.ix-group[data-category="graphic"]     { --ix-color: var(--cat-graphic); }
+.ix-group[data-category="design"]      { --ix-color: var(--cat-design); }
+.ix-group[data-category="research"]    { --ix-color: var(--cat-research); }
+.ix-group[data-category="engineering"] { --ix-color: var(--cat-engineering); }
+.ix-group[data-category="experience"]  { --ix-color: var(--cat-experience); }
+.ix-group { margin-bottom: 8px; }
+
 .ix-heading {
-  display: flex; align-items: center; gap: 12px;
-  margin: 40px 0 0; padding-bottom: 10px;
-  font-size: 13px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .14em;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+  margin: 56px 0 10px; padding-bottom: 10px;
+  font-size: clamp(13px, 1.5vw, 15px); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .18em;
+  color: var(--ix-color, var(--brand-strong));
+  border-bottom: 2px solid currentColor;
 }
-.ix-heading:first-child { margin-top: 8px; }
-.ix-heading-name { color: var(--brand-strong); }
+.ix-group:first-child .ix-heading { margin-top: 12px; }
+
+/* Dos columnas con flujo independiente (ver projects.js) */
+.ix-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 34px; }
+@media (max-width: 860px) { .ix-cols { grid-template-columns: 1fr; gap: 0; } }
 .ix-heading-count {
-  font-size: 11px; letter-spacing: .04em;
+  font-size: 11px; letter-spacing: .04em; font-weight: 600;
   color: var(--text-muted);
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 999px; padding: 1px 8px;
 }
+.ix-heading-count { margin-left: auto; }
+
+/* Las filas de un mismo tema se apagan cuando el cursor está sobre una
+   de ellas. Es el gesto que más cambia la lectura: en vez de recorrer
+   una tabla, se enfoca un proyecto y el resto retrocede. */
+/* Se apaga con filter y no con opacity: las filas llevan la animación
+   revealUp ligada al scroll, que anima "opacity" con fill-mode "both",
+   y una animación gana a una declaración normal en la cascada. Con
+   opacity la regla no hacía nada; filter no lo pisa nadie. */
+/* Se apaga TODO el tema, las dos columnas: colgado de .ix-rows solo se
+   apagaba la columna donde estaba el cursor y la otra quedaba a plena
+   luz, que era peor que no apagar nada.
+   Con filter y no con opacity porque las filas llevan la animación
+   revealUp ligada al scroll, que anima "opacity" con fill-mode "both",
+   y una animación gana a una declaración normal en la cascada. */
+.ix-cols:hover .index-row:not(:hover) { filter: opacity(.34); }
+.ix-cols .index-row { transition: filter .3s ease, background .3s ease; }
 
 .index-row {
   display: grid;
-  /* nº · año · título · flecha. El año va a la IZQUIERDA y no al borde
-     derecho: esa franja se reserva para la portada flotante, que si no
-     se planta justo encima del año de la fila que estás mirando. */
-  grid-template-columns: 42px 48px 1fr 28px;
+  grid-template-columns: 12px 1fr auto;
   align-items: baseline;
-  column-gap: 14px;
-  padding: 14px 10px 14px 6px;
-  border-bottom: 1px solid var(--border);
-  border-radius: 10px;
+  column-gap: 13px;
+  padding: 14px 10px 14px 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background .25s ease, padding-left .25s ease;
+  position: relative;
 }
-.index-row:hover,
-.index-row:focus-visible { background: var(--surface-2); padding-left: 14px; }
+/* Una línea muy tenue, solo para no perder el renglón. La versión
+   anterior usaba el borde de la retícula y pesaba como una tabla. */
+/* La línea toma el color de la categoría, muy diluido */
+.index-row::after {
+  content: ""; position: absolute; left: 8px; right: 10px; bottom: 0;
+  height: 1px; background: var(--ix-color, var(--border)); opacity: .22;
+}
+.index-row:last-child::after { display: none; }
+.index-row:hover, .index-row:focus-visible { background: var(--surface-2); }
 .index-row:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
 
-.ix-num {
-  font-size: 11px; font-variant-numeric: tabular-nums;
-  letter-spacing: .08em; color: var(--text-muted);
+/* Punto del color de la categoría: el índice deja de ser monocromo */
+.ix-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ix-color, var(--brand));
+  translate: 0 -4px;
+  transition: scale .25s ease;
 }
+.index-row:hover .ix-dot { scale: 1.5; }
+
 .ix-title {
-  margin: 0; font-size: clamp(17px, 2.1vw, 23px); font-weight: 700;
-  line-height: 1.25; color: var(--text-strong);
-  transition: color .2s ease;
+  margin: 0;
+  /* A media anchura, 34px partía casi todos los títulos en dos líneas */
+  font-size: clamp(18px, 1.9vw, 25px);
+  font-weight: 700; line-height: 1.18; letter-spacing: -.015em;
+  color: var(--text-strong);
+  transition: color .25s ease, translate .3s cubic-bezier(.22,.61,.36,1);
 }
 .index-row:hover .ix-title,
-.index-row:focus-visible .ix-title { color: var(--brand-strong); }
+.index-row:focus-visible .ix-title { color: var(--ix-color, var(--brand)); translate: 10px 0; }
+
+/* El número, dentro del título como voladita: cuando era una columna
+   propia obligaba a una retícula, y la retícula es lo que hacía que
+   esto pareciese una hoja de cálculo. */
+.ix-num {
+  font-size: .44em; font-weight: 700; vertical-align: super;
+  letter-spacing: .06em; color: var(--ix-color, var(--text-muted));
+  opacity: .75; margin-right: .5em;
+}
 .ix-new {
   display: inline-block; vertical-align: middle;
   font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
   color: var(--brand-strong); background: var(--brand-soft);
   border: 1px solid var(--brand-soft-border);
-  border-radius: 999px; padding: 1px 7px; margin-left: 6px;
+  border-radius: 999px; padding: 1px 7px; margin-left: 8px;
 }
 .ix-year {
-  font-size: 13px; font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
+  font-size: 12px; font-variant-numeric: tabular-nums;
+  letter-spacing: .08em; color: var(--text-muted);
 }
 .ix-arrow {
-  justify-self: end; font-size: 18px; color: var(--text-muted);
-  opacity: 0; translate: -6px 0;
-  transition: opacity .25s ease, translate .25s ease, color .2s ease;
+  position: absolute; right: 10px; top: 14px;
+  font-size: 17px; color: var(--ix-color, var(--brand));
+  opacity: 0; translate: -8px 0;
+  transition: opacity .25s ease, translate .25s ease;
 }
+/* Con la flecha visible, el año se aparta para no solaparse */
+.ix-year { transition: opacity .2s ease; }
+.index-row:hover .ix-year { opacity: 0; }
 .index-row:hover .ix-arrow,
-.index-row:focus-visible .ix-arrow { opacity: 1; translate: 0 0; color: var(--brand); }
+.index-row:focus-visible .ix-arrow { opacity: 1; translate: 0 0; }
 
 /* El resumen se abre con grid-template-rows 0fr -> 1fr, que es la
    única forma de animar "hasta la altura del contenido" sin fijar un
    max-height inventado que recorte los textos largos. */
 .ix-body {
-  grid-column: 3 / -1;
+  grid-column: 2 / -1;
   display: grid; grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows .38s cubic-bezier(.22,.61,.36,1), opacity .28s ease;
+  transition: grid-template-rows .4s cubic-bezier(.22,.61,.36,1), opacity .3s ease;
 }
 .ix-body-inner { overflow: hidden; }
 .index-row:hover .ix-body,
 .index-row:focus-visible .ix-body { grid-template-rows: 1fr; opacity: 1; }
 .ix-summary {
-  margin: 8px 0 0; max-width: 62ch;
-  font-size: 14px; line-height: 1.6; color: var(--text);
+  margin: 10px 0 0 8px; max-width: 48ch;
+  font-size: 13.5px; line-height: 1.6; color: var(--text);
 }
 .ix-tech {
-  margin: 6px 0 0; font-size: 12px; letter-spacing: .02em;
-  color: var(--text-muted);
+  margin: 6px 0 0 8px; font-size: 10.5px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--text-muted);
 }
 
 /* Portada que sigue al cursor. Las medidas duras (position, tamaño)
@@ -919,17 +1138,22 @@ a {
 @media (hover: none) {
   .ix-body { grid-template-rows: 1fr; opacity: 1; }
   .ix-arrow { opacity: .5; translate: 0 0; }
+  .ix-cols:hover .index-row:not(:hover) { filter: none; }
 }
 
 @media (max-width: 560px) {
   #projects-container.index { padding: 0 16px; }
-  .index-row { grid-template-columns: 30px 42px 1fr; column-gap: 8px; }
+  .index-row { grid-template-columns: 10px 1fr auto; column-gap: 10px; padding: 13px 6px; }
   .ix-arrow { display: none; }
-  .ix-body { grid-column: 3 / -1; }
+  .index-row:hover .ix-year { opacity: 1; }
+  .ix-body { grid-column: 2 / -1; }
+  .ix-summary, .ix-tech { margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .index-row, .ix-body, .ix-arrow, .ix-cover { transition: none; }
+  .index-row, .ix-body, .ix-arrow, .ix-cover, .ix-title, .ix-dot { transition: none; }
+  .ix-cols:hover .index-row:not(:hover) { filter: none; }
+  .index-row:hover .ix-title { translate: none; }
 }
 
 /* Tarjeta base (borde, sombra, hover que "levanta" la card) */
@@ -2212,4 +2436,103 @@ header { view-transition-name: site-header; }
   .hero-card > p:not(.hero-eyebrow),
   .hero-card > .hero-ctas,
   .hero-card > .hero-social { animation: none; }
+}
+
+
+/* ============================================================
+   PIE DE PÁGINA (lo inyecta js/footer.js en las siete páginas)
+   ------------------------------------------------------------
+   Antes no había ninguno: la página terminaba en seco al acabar el
+   contenido. Tres bloques arriba (marca, navegación, contacto) y una
+   línea de cierre abajo. En móvil se apilan.
+   ============================================================ */
+.site-footer {
+  margin-top: 72px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+.footer-inner {
+  max-width: 1180px; margin: 0 auto;
+  padding: 44px 20px 30px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.1fr;
+  gap: 30px 40px;
+}
+/* text-align y padding explícitos: la regla global de h2 centra todos
+   los títulos del sitio, y aquí dejaba el rótulo desalineado de su
+   propia columna. */
+.footer-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .16em; color: var(--text-muted);
+  text-align: left; margin: 0 0 14px; padding: 0;
+}
+.footer-logo { display: inline-block; border-bottom: none; }
+.footer-logo img { height: 40px; width: auto; }
+.footer-tagline {
+  margin: 14px 0 0; max-width: 42ch;
+  font-size: 13.5px; line-height: 1.65; color: var(--text-muted);
+}
+.footer-loc {
+  margin: 10px 0 0; display: flex; align-items: center; gap: 6px;
+  font-size: 12.5px; color: var(--text-muted);
+}
+
+.footer-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.footer-nav a {
+  font-size: 13.5px; color: var(--text); text-decoration: none; border-bottom: none;
+  transition: color .2s ease, padding-left .2s ease;
+}
+.footer-nav a:hover { color: var(--brand-strong); padding-left: 5px; }
+/* La página en la que estás, marcada con un guion delante */
+.footer-nav a.active { color: var(--brand-strong); font-weight: 600; }
+.footer-nav a.active::before { content: "— "; }
+
+.footer-mail {
+  display: inline-block; font-size: 13.5px; color: var(--text);
+  text-decoration: none; border-bottom: 1px solid var(--border);
+  padding-bottom: 2px; transition: color .2s ease, border-color .2s ease;
+  overflow-wrap: anywhere;
+}
+.footer-mail:hover { color: var(--brand-strong); border-color: var(--brand); }
+.footer-socials { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.footer-social {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--surface-2);
+  color: var(--text-strong); font-size: 18px; border-bottom: 1px solid var(--border);
+  transition: background .2s ease, color .2s ease, border-color .2s ease, translate .2s ease;
+}
+.footer-social:hover {
+  background: var(--brand); color: #fff; border-color: var(--brand);
+  translate: 0 -2px;
+}
+
+.footer-bottom {
+  max-width: 1180px; margin: 0 auto;
+  padding: 16px 20px 26px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+}
+.footer-bottom p { margin: 0; font-size: 12.5px; color: var(--text-muted); }
+.footer-top {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: inherit; font-size: 12.5px; font-weight: 600;
+  color: var(--text-muted); background: none;
+  border: 1px solid var(--border); border-radius: 999px;
+  padding: 6px 13px; cursor: pointer;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+}
+.footer-top:hover { color: var(--brand-strong); border-color: var(--brand); background: var(--brand-soft); }
+
+@media (max-width: 760px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 28px; padding-block: 34px 22px; }
+  .footer-bottom { justify-content: center; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-nav a, .footer-social, .footer-top, .footer-mail { transition: none; }
+  .footer-nav a:hover { padding-left: 0; }
+  .footer-social:hover { translate: none; }
 }

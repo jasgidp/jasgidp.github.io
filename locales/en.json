@@ -105,7 +105,11 @@
       "intermediate": "Intermediate",
       "advanced": "Advanced",
       "expert": "Expert"
-    }
+    },
+    "backToAll": "All",
+    "since": "since",
+    "year": "yr",
+    "years": "yrs"
   },
   "timeline": {
     "title": "Timeline",
@@ -114,7 +118,9 @@
     "leadership": "Leadership & Volunteering",
     "education": "Education",
     "present": "Present",
-    "noResults": "No items match your search."
+    "noResults": "No items match your search.",
+    "all": "All",
+    "mapHint": "Each bar is a stage. Bars that line up vertically happened at the same time."
   },
   "programming": {
     "title": "GitHub Repositories",
@@ -145,5 +151,11 @@
       "error": "Please fill in all required fields.",
       "invalidEmail": "Please enter a valid email."
     }
+  },
+  "footer": {
+    "navigate": "Navigate",
+    "talk": "Let's talk",
+    "backToTop": "Back to top",
+    "tagline": "Product Design Engineer specialised in software development focused on streaming."
   }
 }

@@ -47,6 +47,13 @@
       projects: Array.isArray(item.projects) ? item.projects : [],
       // Clase de Remix Icon que se pinta dentro del chip
       icon: item.icon || '',
+      /* Años de uso. since = año en que empezó a usarla; until = año en
+         que dejó de usarla (ausente = la sigue usando). Son años y no
+         fechas completas a propósito: nadie recuerda el mes en que
+         empezó con una herramienta, y un "mar 2019" fingiría una
+         precisión que no existe. */
+      since: Number.isFinite(+item.since) && +item.since > 1900 ? +item.since : null,
+      until: Number.isFinite(+item.until) && +item.until > 1900 ? +item.until : null,
       // Solo los idiomas traen estos tres: pintan bandera y barra de dominio
       flag: item.flag || '',
       level: typeof item.level === 'number' ? item.level : null,
@@ -124,13 +131,15 @@
      nivel con su relleno; aquí se ve la cifra exacta. El porcentaje va
      también en texto, así que no depende solo del color. */
   function renderLevelBar(s) {
-    if (s.level === null) return '';
+    const years = yearsBadge(s);
+    if (s.level === null) return years ? `<div class="skill-level">${years}</div>` : '';
     const n = dotsFor(s.level);
     return `
       <div class="skill-level">
         <span class="skill-level-label" data-i18n="skills.level">Nivel</span>
         ${renderDots(s.level, 'big')}
         <span class="skill-level-tier">${tierLabel(n)}</span>
+        ${years}
       </div>`;
   }
 
@@ -178,9 +187,23 @@
       const body = isLevelGroup
         ? renderLevelList(g.skills)
         : (focus ? renderPanelList(g) : renderTagList(g));
+      /* En "All" la tarjeta entera es pulsable: al clic enfoca ese
+         grupo, igual que su chip de filtro. Los chips de habilidad que
+         lleva dentro siguen funcionando: el manejador ignora los clics
+         que caen dentro de un .tag. */
+      const head = focus
+        ? `<h3>${g.emoji ? g.emoji + ' ' : ''}${t(g.label, g.name)}
+             <button type="button" class="skill-card-back" data-group="all">
+               <i class="ri-arrow-left-line" aria-hidden="true"></i><span data-i18n="skills.backToAll">Todas</span>
+             </button>
+           </h3>`
+        : `<h3>${g.emoji ? g.emoji + ' ' : ''}${t(g.label, g.name)}
+             <i class="ri-expand-diagonal-line skill-card-expand" aria-hidden="true"></i>
+           </h3>`;
       return `
-      <article class="skill-card">
-        <h3>${g.emoji ? g.emoji + ' ' : ''}${t(g.label, g.name)}</h3>
+      <article class="skill-card${focus ? '' : ' is-openable'}" data-group="${esc(g.name)}"
+               ${focus ? '' : `role="button" tabindex="0" aria-label="${esc(t(g.label, g.name))}"`}>
+        ${head}
         ${body}
       </article>`;
     }).join('') || '<p style="text-align:center;">No skills found.</p>';
@@ -199,7 +222,11 @@
             const expanded = openKey === key;
             const icon = s.icon ? `<i class="${s.icon} skill-icon" aria-hidden="true"></i>` : '';
             const dots = renderDots(s.level);
-            const title = s.level === null ? '' : ` title="${esc(s.name)} — ${tierLabel(dotsFor(s.level))}"`;
+            const yrs = yearsText(s);
+            const tipParts = [s.name];
+            if (s.level !== null) tipParts.push(tierLabel(dotsFor(s.level)));
+            if (yrs) tipParts.push(yrs);
+            const title = tipParts.length > 1 ? ` title="${esc(tipParts.join(' — '))}"` : '';
             return `<li class="tag${hasDetail ? ' has-detail' : ''}${expanded ? ' open' : ''}"${title}
                         ${hasDetail ? `role="button" tabindex="0" aria-expanded="${expanded}" data-skill-key="${key}"` : ''}>
                       ${icon}<span class="skill-name">${esc(s.name)}</span>${dots}${hasDetail ? '<i class="ri-arrow-down-s-line skill-caret" aria-hidden="true"></i>' : ''}
@@ -207,6 +234,28 @@
                     </li>`;
           }).join('')}
         </ul>`;
+  }
+
+  /* "6 años · desde 2020" si la sigue usando, "3 años · 2019-2022" si
+     no. Se cuenta el año de inicio, así que usar algo desde este mismo
+     año da "1 año" y no "0". */
+  function yearsText(s) {
+    if (!s.since) return '';
+    const T = (k, fb) => (window.t ? window.t('skills.' + k, fb) : fb);
+    const end = s.until || new Date().getFullYear();
+    const n = Math.max(1, end - s.since + (s.until ? 1 : 0));
+    const unit = n === 1 ? T('year', 'año') : T('years', 'años');
+    const range = s.until ? `${s.since}–${s.until}` : `${T('since', 'desde')} ${s.since}`;
+    return `${n} ${unit} · ${range}`;
+  }
+
+  function yearsBadge(s) {
+    const txt = yearsText(s);
+    if (!txt) return '';
+    // .past marca lo que ya no se usa: se pinta apagado, no en color
+    return `<span class="skill-years${s.until ? ' past' : ''}">
+        <i class="ri-time-line" aria-hidden="true"></i>${esc(txt)}
+      </span>`;
   }
 
   /* Panel expandido para el modo foco: todo visible de una vez.
@@ -218,6 +267,7 @@
         const icon = s.icon ? `<i class="${s.icon} skill-icon" aria-hidden="true"></i>` : '';
         const tier = s.level === null ? '' :
           `<span class="skill-panel-tier">${tierLabel(dotsFor(s.level))}</span>`;
+        const years = yearsBadge(s);
         const docs = (s.docs || []).map(d =>
           `<a href="${d.url}" target="_blank" rel="noopener" class="skill-doc"><i class="ri-links-line" aria-hidden="true"></i>${esc(d.label || d.url)}</a>`
         ).join('');
@@ -231,7 +281,7 @@
             <h4 class="skill-panel-name">${esc(s.name)}</h4>
             ${renderDots(s.level)}
           </div>
-          ${tier}
+          ${tier || years ? `<div class="skill-panel-meta">${tier}${years}</div>` : ''}
           ${s.description ? `<p class="skill-desc">${esc(s.description)}</p>` : ''}
           ${docs ? `<div class="skill-docs">${docs}</div>` : ''}
           ${renderProjects(s)}
@@ -304,6 +354,33 @@
     openKey = null;
     renderChips();
     renderGrid();
+  });
+
+  /* Clic en la tarjeta de un grupo -> enfocar ese grupo.
+     Se ignora si el clic cayó dentro de un chip de habilidad (ese
+     tiene su propio despliegue) o en el botón de volver. */
+  function focusGroup(name) {
+    state.group = name;
+    openKey = null;
+    renderChips();
+    renderGrid();
+    const chips = document.getElementById('group-chips');
+    if (chips) chips.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  container.addEventListener('click', (e) => {
+    const back = e.target.closest('.skill-card-back');
+    if (back) { e.stopPropagation(); return focusGroup('all'); }
+    const card = e.target.closest('.skill-card.is-openable');
+    if (!card || e.target.closest('.tag')) return;
+    focusGroup(card.getAttribute('data-group'));
+  });
+  container.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.skill-card.is-openable');
+    if (!card || e.target.closest('.tag')) return;
+    e.preventDefault();
+    focusGroup(card.getAttribute('data-group'));
   });
 
   // Expandir / contraer detalle de una skill

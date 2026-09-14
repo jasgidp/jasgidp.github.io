@@ -429,6 +429,18 @@
               <p class="admin-hint">Nombres en <a href="https://remixicon.com/" target="_blank" rel="noopener">remixicon.com</a>. Vacío = sin icono.</p>
             </div>
           </div>
+          <div class="admin-grid-2">
+            <div class="admin-field">
+              <label>La uso desde (año)</label>
+              <input data-sfield="since" type="number" min="1980" max="2100" step="1" value="${esc(s.since)}" placeholder="2020">
+              <p class="admin-hint">Año en que empezaste a usarla. Vacío = no se muestra nada.</p>
+            </div>
+            <div class="admin-field">
+              <label>Dejé de usarla en (año)</label>
+              <input data-sfield="until" type="number" min="1980" max="2100" step="1" value="${esc(s.until)}" placeholder="—">
+              <p class="admin-hint">Solo si ya no la usas. Vacío = la sigues usando y cuenta hasta hoy.</p>
+            </div>
+          </div>
           <div class="admin-field"><label>Descripción <span class="admin-subtle">· ${adminLang.toUpperCase()}</span></label><textarea data-sfield="description">${esc(tv(s.description))}</textarea></div>
           <label class="admin-field" style="margin-bottom:4px"><span style="font-size:13px;font-weight:600;color:#334155">Documentación</span></label>
           <div class="admin-rows">
@@ -483,6 +495,13 @@
           const n = e.target.value === '' ? undefined : Number(e.target.value);
           if (n === undefined || Number.isNaN(n)) delete s.level;
           else s.level = Math.max(0, Math.min(100, n));
+        }
+        else if (f === 'since' || f === 'until') {
+          // Años: número entero o nada. Un año suelto que no sea número
+          // dejaría "NaN años" en la página.
+          const n = e.target.value === '' ? undefined : parseInt(e.target.value, 10);
+          if (n === undefined || Number.isNaN(n)) delete s[f];
+          else s[f] = Math.max(1980, Math.min(2100, n));
         }
         // name y description son traducibles; el resto va tal cual
         else s[f] = (f === 'description' || f === 'name') ? tset(s[f], e.target.value) : e.target.value;
