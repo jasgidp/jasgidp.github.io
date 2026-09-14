@@ -46,6 +46,33 @@
   }
 
   let contact = null;
+  let quotes = [];
+
+  /* CINTA DE FRASES
+     Se desliza de derecha a izquierda, muy lenta. La lista se pinta
+     DOS veces seguidas y la animación recorre exactamente la mitad del
+     ancho: al llegar al final, la segunda copia está justo donde
+     empezó la primera, así que el salto de vuelta es invisible y la
+     cinta parece infinita. Sin duplicar, se vería el hueco al reiniciar.
+
+     La duración se calcula con el número de frases para que la
+     velocidad no cambie al añadir o quitar: unos 9 segundos por frase.
+
+     aria-hidden porque es decoración: un lector de pantalla leyendo
+     diez citas en bucle al final de cada página es ruido. */
+  function quotesHtml() {
+    if (!quotes.length) return '';
+    const uno = quotes.map(q => `
+      <span class="footer-quote">
+        <span class="footer-quote-text">${esc(tx(q.text, ''))}</span>
+        <span class="footer-quote-author">${esc(q.author || '')}</span>
+      </span>`).join('');
+    const segundos = Math.max(60, quotes.length * 9);
+    return `
+      <div class="footer-quotes" aria-hidden="true">
+        <div class="footer-quotes-track" style="--dur:${segundos}s">${uno}${uno}</div>
+      </div>`;
+  }
 
   function html() {
     const year = new Date().getFullYear();
@@ -76,18 +103,18 @@
             ${loc ? `<p class="footer-loc"><i class="ri-map-pin-line" aria-hidden="true"></i>${esc(loc)}</p>` : ''}
           </div>
 
-          <nav class="footer-nav" aria-label="Footer">
-            <h2 class="footer-title" data-i18n="footer.navigate">Navegación</h2>
-            <ul>${links}</ul>
-          </nav>
-
           <div class="footer-contact">
-            <h2 class="footer-title" data-i18n="footer.talk">Hablemos</h2>
             ${email ? `<a class="footer-mail" href="mailto:${esc(email)}">${esc(email)}</a>` : ''}
             ${socials ? `<div class="footer-socials">${socials}</div>` : ''}
           </div>
 
         </div>
+
+        <nav class="footer-nav" aria-label="Footer">
+          <ul>${links}</ul>
+        </nav>
+
+        ${quotesHtml()}
 
         <div class="footer-bottom">
           <p>© ${year} Jonathan Alejandro Sandoval Guerrero</p>
@@ -114,10 +141,19 @@
   // petición de red para existir. Cuando llegue, se repinta con las redes.
   paint();
 
-  fetch('./data/contact.json?t=' + Date.now(), { cache: 'no-store' })
-    .then(r => r.ok ? r.json() : null)
-    .then(d => { if (d) { contact = d; paint(); } })
-    .catch(() => { /* sin servidor: el pie se queda sin redes, y ya */ });
+  /* Las dos peticiones juntas y UN solo repintado: por separado, el pie
+     se redibujaba dos veces y la cinta arrancaba su animación desde
+     cero en mitad del recorrido. */
+  Promise.all([
+    fetch('./data/contact.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch('./data/quotes.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : null).catch(() => null)
+  ]).then(([c, q]) => {
+    if (c) contact = c;
+    if (q && Array.isArray(q.quotes)) quotes = q.quotes;
+    if (c || q) paint();
+  });
 
   document.addEventListener('i18n:updated', paint);
 

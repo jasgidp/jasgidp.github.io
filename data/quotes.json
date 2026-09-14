@@ -1,0 +1,85 @@
+{
+  "_documentacion": "Frases que pasan en la cinta del pie de página. Las lee js/footer.js. Cada una lleva 'text' con los tres idiomas y 'author'. Añade, quita o reordena a gusto: la cinta se adapta sola al número de frases. Elegidas todas de fuentes verificables; si añades una, comprueba antes a quién es de verdad (circulan muchas mal atribuidas).",
+  "quotes": [
+    {
+      "text": {
+        "es": "El diseño no es solo cómo se ve y cómo se siente. El diseño es cómo funciona.",
+        "en": "Design is not just what it looks like and feels like. Design is how it works.",
+        "pt": "Design não é só como parece e como se sente. Design é como funciona."
+      },
+      "author": "Steve Jobs"
+    },
+    {
+      "text": {
+        "es": "Los programas deben escribirse para que los lean las personas, y solo de paso para que los ejecuten las máquinas.",
+        "en": "Programs must be written for people to read, and only incidentally for machines to execute.",
+        "pt": "Programas devem ser escritos para as pessoas lerem, e só incidentalmente para as máquinas executarem."
+      },
+      "author": "Abelson y Sussman, SICP"
+    },
+    {
+      "text": {
+        "es": "La perfección se alcanza no cuando no hay nada más que añadir, sino cuando no hay nada más que quitar.",
+        "en": "Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.",
+        "pt": "A perfeição é atingida não quando não há mais nada a acrescentar, mas quando não há mais nada a retirar."
+      },
+      "author": "Antoine de Saint-Exupéry"
+    },
+    {
+      "text": {
+        "es": "Hazlo funcionar, hazlo bien, hazlo rápido.",
+        "en": "Make it work, make it right, make it fast.",
+        "pt": "Faça funcionar, faça certo, faça rápido."
+      },
+      "author": "Kent Beck"
+    },
+    {
+      "text": {
+        "es": "La mejor manera de predecir el futuro es inventarlo.",
+        "en": "The best way to predict the future is to invent it.",
+        "pt": "A melhor maneira de prever o futuro é inventá-lo."
+      },
+      "author": "Alan Kay"
+    },
+    {
+      "text": {
+        "es": "Todos los modelos son erróneos, pero algunos son útiles.",
+        "en": "All models are wrong, but some are useful.",
+        "pt": "Todos os modelos estão errados, mas alguns são úteis."
+      },
+      "author": "George Box"
+    },
+    {
+      "text": {
+        "es": "Cualquier tecnología lo bastante avanzada es indistinguible de la magia.",
+        "en": "Any sufficiently advanced technology is indistinguishable from magic.",
+        "pt": "Qualquer tecnologia suficientemente avançada é indistinguível de magia."
+      },
+      "author": "Arthur C. Clarke"
+    },
+    {
+      "text": {
+        "es": "El buen diseño es tan poco diseño como sea posible.",
+        "en": "Good design is as little design as possible.",
+        "pt": "Bom design é o mínimo de design possível."
+      },
+      "author": "Dieter Rams"
+    },
+    {
+      "text": {
+        "es": "Caminante, no hay camino, se hace camino al andar.",
+        "en": "Wanderer, there is no path; the path is made by walking.",
+        "pt": "Caminhante, não há caminho, faz-se caminho ao andar."
+      },
+      "author": "Antonio Machado"
+    },
+    {
+      "text": {
+        "es": "La medida del éxito no es si tienes un problema difícil, sino si es el mismo que tenías el año pasado.",
+        "en": "The measure of success is not whether you have a tough problem, but whether it is the same problem you had last year.",
+        "pt": "A medida do sucesso não é se você tem um problema difícil, mas se é o mesmo do ano passado."
+      },
+      "author": "John Foster Dulles"
+    }
+  ]
+}
