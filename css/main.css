@@ -758,7 +758,19 @@ a {
    ============================================================ */
 .timeline-map { --tl-label: 286px; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 
-.tl-legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 4px 0 14px; }
+.tl-top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin: 4px 0 14px; }
+.tl-legend { display: flex; flex-wrap: wrap; gap: 14px; }
+/* Botón de volver a la vista completa. Solo aparece con el eje recortado */
+.tl-reset {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 7px;
+  font: inherit; font-size: 12.5px; font-weight: 600;
+  color: var(--brand-strong); background: var(--brand-soft);
+  border: 1px solid var(--brand-soft-border); border-radius: 999px;
+  padding: 5px 13px; cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.tl-reset:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+.tl-reset b { font-variant-numeric: tabular-nums; opacity: .8; font-weight: 700; }
 .tl-legend-item {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 12px; color: var(--text-muted);
@@ -795,11 +807,45 @@ a {
 .tl-grid-line { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); opacity: .6; }
 .tl-now { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--brand); opacity: .55; }
 
+/* La fila entera es pulsable: acerca el eje a su periodo. Con 14 años
+   a la vez, las etapas de tres meses se amontonaban en cuatro píxeles. */
 .tl-row {
+  position: relative;
   display: grid; grid-template-columns: var(--tl-label) 1fr;
   align-items: center; column-gap: 12px;
-  padding: 3px 0;
+  padding: 3px 0; border-radius: 8px; cursor: pointer;
+  transition: background .18s ease;
 }
+.tl-row:hover, .tl-row:focus-visible { background: var(--surface-2); }
+.tl-row:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+/* Al señalar una fila, las demás se apagan: con 21 barras cruzándose,
+   seguir una sola era el problema de lectura. Con filter y no con
+   opacity porque las tarjetas llevan animaciones que animan opacity. */
+.tl-body:hover .tl-row:not(:hover) { filter: opacity(.3); }
+.tl-body .tl-row { transition: filter .25s ease, background .18s ease; }
+/* Señalada, la etiqueta deja de recortarse y se lee entera. La
+   organización se esconde para dejarle todo el ancho: sin eso, el rol
+   completo se pintaba encima de ella. No se pierde nada, la ficha de
+   detalle la muestra igual. */
+/* Se deja que el rol SALTE DE LÍNEA en vez de desbordar a lo ancho:
+   desbordando, "Director de Experiencia Digital y Eventos; Ventas/RI;
+   Talento Humano y Comunicaciones" se pintaba encima de su propia
+   barra. Saltando de línea se queda siempre dentro de su columna. */
+.tl-row:hover .tl-row-role,
+.tl-row:focus-visible .tl-row-role {
+  overflow: visible; text-overflow: clip;
+  white-space: normal; line-height: 1.25;
+}
+.tl-row:hover .tl-row-label,
+.tl-row:focus-visible .tl-row-label { align-items: center; }
+.tl-row:hover .tl-row-org,
+.tl-row:focus-visible .tl-row-org { opacity: 0; }
+.tl-row-org { transition: opacity .15s ease; }
+.tl-row:hover .tl-bar { height: 22px; top: 2px; }
+.tl-bar { transition: height .18s ease, top .18s ease, filter .18s ease; }
+
+/* Bandera de las etapas fuera de Colombia */
+.tl-flag { font-size: 13px; line-height: 1; flex: 0 0 auto; }
 .tl-row-label {
   display: flex; align-items: baseline; gap: 6px;
   min-width: 0; font-size: 12.5px; line-height: 1.3;
@@ -2647,4 +2693,64 @@ header { view-transition-name: site-header; }
 @media (prefers-reduced-motion: reduce) {
   .footer-quotes-track { animation: none; }
   .footer-quotes { overflow-x: auto; }
+}
+
+/* ============================================================
+   FICHA DE DETALLE DE UNA ETAPA
+   ------------------------------------------------------------
+   Antes esto era un title nativo: tardaba un segundo en salir, no se
+   podía dar estilo, se cortaba y en móvil no existía. Ahora es una
+   ficha propia que sale al instante con las viñetas y las tecnologías
+   de esa etapa, que hasta ahora solo se veían en la pestaña de su
+   sección.
+   ============================================================ */
+.tl-pop {
+  position: absolute; left: var(--tl-label); top: calc(100% - 4px);
+  z-index: 8; width: min(420px, 78vw);
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  padding: 13px 15px 12px;
+  opacity: 0; visibility: hidden; translate: 0 -6px;
+  transition: opacity .18s ease, translate .18s ease, visibility .18s;
+  pointer-events: none;
+}
+.tl-row:hover .tl-pop, .tl-row:focus-visible .tl-pop {
+  opacity: 1; visibility: visible; translate: 0 0;
+}
+/* Las últimas filas la abren hacia arriba para no salirse por abajo */
+.tl-row:nth-last-child(-n+4) .tl-pop { top: auto; bottom: calc(100% - 4px); }
+
+.tl-pop-head { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 8px; }
+.tl-pop-head i { color: var(--tl-color); font-size: 16px; margin-top: 2px; }
+.tl-pop-head strong { display: block; font-size: 14px; color: var(--text-strong); line-height: 1.3; }
+.tl-pop-org { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.tl-pop-dates {
+  margin: 0 0 6px; font-size: 12px; font-weight: 600;
+  font-variant-numeric: tabular-nums; color: var(--tl-color);
+}
+.tl-pop-meta { margin: 0 0 8px; font-size: 11.5px; color: var(--text-muted); }
+.tl-pop-bullets { margin: 0 0 8px; padding-left: 17px; font-size: 12.5px; line-height: 1.55; }
+.tl-pop-bullets li { margin-bottom: 3px; }
+.tl-pop-skills { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+.tl-pop-skill {
+  font-size: 10.5px; color: var(--text-muted);
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 999px; padding: 2px 8px;
+}
+.tl-pop-hint {
+  margin: 0; padding-top: 8px; border-top: 1px solid var(--border);
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--text-muted);
+}
+
+@media (hover: none) {
+  /* Sin cursor no hay "señalar": la ficha estorbaría al desplazarse */
+  .tl-pop { display: none; }
+  .tl-body:hover .tl-row:not(:hover) { filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-pop, .tl-bar, .tl-row { transition: none; }
+  .tl-body:hover .tl-row:not(:hover) { filter: none; }
 }

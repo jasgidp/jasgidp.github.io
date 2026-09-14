@@ -31,6 +31,8 @@
 
   let data = { experience: [], research: [], leadership: [], education: [] };
   let activeSection = 'all';
+  // Rango visible del mapa temporal. null = todo. Se fija al pulsar una barra.
+  let zoom = null;
   let searchTerm = '';
 
   // Observador: cuando un .reveal entra en pantalla, le pone .visible (animación CSS)
@@ -67,6 +69,12 @@
     if (typeof value === 'string') return value;
     const l = document.documentElement.lang || 'es';
     return value[l] || value.en || value.es || fallback || '';
+  }
+
+  // Escapa texto que se inserta en un atributo HTML
+  function esc(str){
+    return String(str == null ? '' : str)
+      .replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   }
 
   // Convierte "2023-01" en un objeto Date para poder ordenar
@@ -141,6 +149,16 @@
      color lleva la sección, con su leyenda.
      ============================================================ */
 
+  /* Bandera solo de las etapas FUERA de Colombia, que es lo que hay que
+     señalar. Emoji y no imagen: no hay que cargar nada, escala con el
+     texto y funciona en cualquier sistema. El código ISO se convierte
+     en emoji sumando el desplazamiento de las letras regionales. */
+  const PAIS = { BR: 'Brasil', MX: 'México', CO: 'Colombia', US: 'Estados Unidos', PT: 'Portugal', ES: 'España' };
+  function flagOf(code){
+    if (!code || code.length !== 2) return '';
+    return String.fromCodePoint(...[...code.toUpperCase()].map(c => 0x1F1E6 + c.charCodeAt(0) - 65));
+  }
+
   // Todas las entradas de las cuatro secciones, con su sección marcada
   function allEntries(){
     const out = [];
@@ -158,37 +176,51 @@
   }
 
   function renderMap(){
-    const items = allEntries().filter(it => matchSearch(it, searchTerm));
-    if (!items.length) {
+    const todas = allEntries().filter(it => matchSearch(it, searchTerm));
+    if (!todas.length) {
       container.innerHTML = `<p class="tl-empty">${(window.t ? window.t('timeline.noResults', 'No items match your search.') : 'No items match your search.')}</p>`;
       return;
     }
 
     const now = new Date();
     const nowM = now.getFullYear() * 12 + now.getMonth();
+    const fin_ = it => (it.end ? toMonths(it.end) : nowM);
 
-    // Rango del eje: de enero del año más antiguo a diciembre del más
-    // reciente, así los extremos caen en un límite de año y las marcas
-    // del eje cuadran con las barras.
+    /* ZOOM
+       Con 14 años en pantalla, las etapas de tres meses de 2018-2019 se
+       amontonan en cuatro píxeles y no hay quien las lea. Al pulsar una
+       barra el eje se recorta a ese periodo con un año de margen, y
+       entonces las cortas se separan. Las etapas que no tocan el rango
+       se quedan fuera: menos filas y más aire. */
+    let items = todas;
+    if (zoom) {
+      items = todas.filter(it => toMonths(it.start) <= zoom.to && fin_(it) >= zoom.from);
+    }
+
     const starts = items.map(it => toMonths(it.start)).filter(v => v !== null);
-    const ends = items.map(it => it.end ? toMonths(it.end) : nowM).filter(v => v !== null);
     if (!starts.length) { container.innerHTML = '<p class="tl-empty">—</p>'; return; }
-    const minY = Math.floor(Math.min(...starts) / 12);
-    const maxY = Math.floor(Math.max(...ends, nowM) / 12);
+    const ends = items.map(fin_).filter(v => v !== null);
+
+    /* Rango del eje: de enero del año más antiguo a diciembre del más
+       reciente, así los extremos caen en un límite de año y las marcas
+       del eje cuadran con las barras. */
+    const minY = Math.floor((zoom ? zoom.from : Math.min(...starts)) / 12);
+    const maxY = Math.floor((zoom ? zoom.to : Math.max(...ends, nowM)) / 12);
     const from = minY * 12, to = (maxY + 1) * 12;
     const span = to - from;
     const pct = m => ((m - from) / span) * 100;
 
-    // Orden cronológico ascendente: la vista se lee como un descenso
-    // en el tiempo, de lo más antiguo arriba a lo más reciente abajo.
-    items.sort((a, b) => (toMonths(a.start) ?? 0) - (toMonths(b.start) ?? 0));
+    items = items.slice().sort((a, b) => (toMonths(a.start) ?? 0) - (toMonths(b.start) ?? 0));
 
     const present = (window.t ? window.t('timeline.present', 'Present') : 'Present');
+    const T = (k, fb) => (window.t ? window.t('timeline.' + k, fb) : fb);
 
     const years = [];
     for (let y = minY; y <= maxY; y++) years.push(y);
+    // Con pocos años caben los cuatro dígitos; con muchos, solo dos
+    const corto = years.length > 8;
     const axis = years.map(y =>
-      `<span class="tl-tick" style="left:${pct(y * 12)}%"><b>${String(y).slice(2)}</b></span>`).join('');
+      `<span class="tl-tick" style="left:${pct(y * 12)}%"><b>${corto ? String(y).slice(2) : y}</b></span>`).join('');
     const grid = years.map(y =>
       `<span class="tl-grid-line" style="left:${pct(y * 12)}%"></span>`).join('');
 
@@ -197,59 +229,85 @@
           <span class="tl-legend-dot"></span><span data-i18n="timeline.${sec.key}">${sec.key}</span>
         </span>`).join('');
 
-    const rows = items.map(it => {
+    const rows = items.map((it, i) => {
       const a = toMonths(it.start);
-      const bRaw = it.end ? toMonths(it.end) : nowM;
+      const bRaw = fin_(it);
       const ongoing = !it.end;
       // Una barra de un solo mes sería invisible: se le da un mínimo
       const b = Math.max((bRaw ?? a) + 1, (a ?? 0) + 2);
-      const left = pct(a), width = Math.max(pct(b) - pct(a), 1.2);
+      const left = Math.max(0, pct(a));
+      const width = Math.max(Math.min(pct(b), 100) - left, 1.2);
       const endTxt = ongoing ? present : formatDate(it.end);
       const dur = formatDuration(it.start, it.end);
       const label = `${formatDate(it.start)} – ${endTxt}${dur ? ` · ${dur}` : ''}`;
-      const title = `${tx(it.role)} — ${tx(it.org)} · ${formatDate(it.start)} – ${endTxt}${dur ? ` (${dur})` : ''}`;
+      const bandera = flagOf(it.country);
 
-      /* Una etapa de unos meses ocupa un 2-3 % del eje: el texto no cabe
-         dentro y quedaba cortado a media palabra. Si la barra es estrecha
-         la fecha se escribe al lado; y si la barra termina pegada al
-         borde derecho, se escribe a su izquierda para no salirse. */
-      /* La fecha va SIEMPRE al lado de la barra, nunca dentro. Dentro
-         solo cabía en las tres o cuatro barras más largas, y mezclar
-         texto blanco dentro con texto gris fuera hacía saltar la vista
-         de fila en fila. Fuera además se lee mejor: texto oscuro sobre
-         el fondo de la página en vez de blanco sobre color.
-         Se escribe a la izquierda cuando la barra termina tan a la
-         derecha que el texto no cabría. */
+      /* La fecha va SIEMPRE al lado de la barra, nunca dentro: dentro
+         solo cabía en las barras más largas y mezclar texto blanco
+         dentro con gris fuera hacía saltar la vista de fila en fila. */
       const atEnd = left + width > 72;
       const outside = atEnd
         ? `<span class="tl-bar-out end" style="right:${(100 - left).toFixed(3)}%">${label}</span>`
         : `<span class="tl-bar-out" style="left:${(left + width).toFixed(3)}%">${label}</span>`;
 
+      const bullets = (it.bullets || []).slice(0, 4).map(x => `<li>${tx(x)}</li>`).join('');
+      const skills = (it.skills || []).map(sk => `<span class="tl-pop-skill">${sk}</span>`).join('');
+      const metaLine = [tx(it.employment), tx(it.location)].filter(Boolean).join(' · ');
+
       return `
-        <div class="tl-row" data-section="${it._section}">
-          <div class="tl-row-label" title="${title.replace(/"/g, '&quot;')}">
+        <div class="tl-row" data-section="${it._section}" data-i="${i}"
+             tabindex="0" role="button"
+             data-from="${a}" data-to="${bRaw}">
+          <div class="tl-row-label">
             <i class="${it._icon}" aria-hidden="true"></i>
             <span class="tl-row-role">${tx(it.role)}</span>
+            ${bandera ? `<span class="tl-flag" title="${esc(PAIS[it.country] || it.country)}">${bandera}</span>` : ''}
             <span class="tl-row-org">${tx(it.org)}</span>
           </div>
           <div class="tl-track">
-            <div class="tl-bar${ongoing ? ' ongoing' : ''}"
-                 style="left:${left}%; width:${width}%"
-                 title="${title.replace(/"/g, '&quot;')}"></div>
+            <div class="tl-bar${ongoing ? ' ongoing' : ''}" style="left:${left}%; width:${width}%"></div>
             ${outside}
+          </div>
+
+          <!-- Ficha de detalle. Antes era un title nativo: tardaba un
+               segundo en salir, no se podía dar estilo y se cortaba. -->
+          <div class="tl-pop">
+            <div class="tl-pop-head">
+              <i class="${it._icon}" aria-hidden="true"></i>
+              <div>
+                <strong>${tx(it.role)}</strong>
+                <span class="tl-pop-org">${bandera ? bandera + ' ' : ''}${tx(it.org)}</span>
+              </div>
+            </div>
+            <p class="tl-pop-dates">${formatDate(it.start)} – ${endTxt}${dur ? ` · ${dur}` : ''}</p>
+            ${metaLine ? `<p class="tl-pop-meta">${metaLine}</p>` : ''}
+            ${bullets ? `<ul class="tl-pop-bullets">${bullets}</ul>` : ''}
+            ${skills ? `<div class="tl-pop-skills">${skills}</div>` : ''}
+            <p class="tl-pop-hint" data-i18n="timeline.zoomHint">Pulsa para acercar a este periodo</p>
           </div>
         </div>`;
     }).join('');
 
+    const zoomBar = zoom
+      ? `<button type="button" class="tl-reset">
+           <i class="ri-close-line" aria-hidden="true"></i>
+           <span data-i18n="timeline.showAll">Ver todo el recorrido</span>
+           <b>${minY}–${maxY}</b>
+         </button>`
+      : '';
+
     container.innerHTML = `
       <section class="timeline-map">
-        <div class="tl-legend">${legend}</div>
+        <div class="tl-top">
+          <div class="tl-legend">${legend}</div>
+          ${zoomBar}
+        </div>
         <div class="tl-scroll">
           <div class="tl-chart">
             <div class="tl-axis"><div class="tl-axis-track">${axis}</div></div>
             <div class="tl-body">
               <div class="tl-gridlines">${grid}
-                <span class="tl-now" style="left:${pct(nowM)}%"></span>
+                ${nowM >= from && nowM <= to ? `<span class="tl-now" style="left:${pct(nowM)}%"></span>` : ''}
               </div>
               ${rows}
             </div>
@@ -319,6 +377,7 @@
 
   // Cambia de pestaña y re-dibuja
   function setActive(sectionKey){
+    if (sectionKey !== activeSection) zoom = null;
     activeSection = sectionKey;
     if (tabsNav) {
       tabsNav.querySelectorAll('.tab').forEach(btn => {
@@ -330,8 +389,35 @@
     renderSection(activeSection);
   }
 
+  /* ZOOM DEL MAPA
+     Pulsar una fila acerca el eje a su periodo con un año de margen.
+     Pulsar la misma otra vez, o el botón de volver, muestra todo.
+     Va delegado en el contenedor porque el mapa se repinta entero en
+     cada cambio y un listener puesto sobre una fila moriría con ella. */
+  function attachMapEvents(){
+    container.addEventListener('click', (e) => {
+      if (e.target.closest('.tl-reset')) { zoom = null; return renderMap(); }
+      const row = e.target.closest('.tl-row');
+      if (!row) return;
+      const a = +row.dataset.from, b = +row.dataset.to;
+      if (!Number.isFinite(a) || !Number.isFinite(b)) return;
+      const nuevo = { from: a - 12, to: b + 12 };
+      // Pulsar la fila ya enfocada vuelve a la vista completa
+      zoom = (zoom && zoom.from === nuevo.from && zoom.to === nuevo.to) ? null : nuevo;
+      renderMap();
+    });
+    container.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const row = e.target.closest('.tl-row');
+      if (!row) return;
+      e.preventDefault();
+      row.click();
+    });
+  }
+
   // Enlaza eventos de pestañas, buscador e idioma
   function attachEvents(){
+    attachMapEvents();
     if (tabsNav) {
       tabsNav.addEventListener('click', (e)=>{
         const btn=e.target.closest('.tab');
@@ -344,6 +430,8 @@
     if (searchInput) {
       searchInput.addEventListener('input', (e)=>{
         searchTerm = e.target.value||'';
+        // Buscando, el recorte a un periodo estorba más que ayuda
+        zoom = null;
         renderSection(activeSection);
       });
     }
