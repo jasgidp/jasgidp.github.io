@@ -106,7 +106,10 @@
       "advanced": "Avançado",
       "expert": "Especialista"
     },
-    "backToAll": "Todas"
+    "backToAll": "Todas",
+    "since": "desde",
+    "year": "ano",
+    "years": "anos"
   },
   "timeline": {
     "title": "Linha do Tempo",

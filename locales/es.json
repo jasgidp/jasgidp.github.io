@@ -106,7 +106,10 @@
       "advanced": "Avanzado",
       "expert": "Experto"
     },
-    "backToAll": "Todas"
+    "backToAll": "Todas",
+    "since": "desde",
+    "year": "año",
+    "years": "años"
   },
   "timeline": {
     "title": "Cronología",

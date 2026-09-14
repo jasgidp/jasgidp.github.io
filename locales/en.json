@@ -106,7 +106,10 @@
       "advanced": "Advanced",
       "expert": "Expert"
     },
-    "backToAll": "All"
+    "backToAll": "All",
+    "since": "since",
+    "year": "yr",
+    "years": "yrs"
   },
   "timeline": {
     "title": "Timeline",
