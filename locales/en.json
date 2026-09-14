@@ -105,7 +105,8 @@
       "intermediate": "Intermediate",
       "advanced": "Advanced",
       "expert": "Expert"
-    }
+    },
+    "backToAll": "All"
   },
   "timeline": {
     "title": "Timeline",
@@ -114,7 +115,9 @@
     "leadership": "Leadership & Volunteering",
     "education": "Education",
     "present": "Present",
-    "noResults": "No items match your search."
+    "noResults": "No items match your search.",
+    "all": "All",
+    "mapHint": "Each bar is a stage. Bars that line up vertically happened at the same time."
   },
   "programming": {
     "title": "GitHub Repositories",

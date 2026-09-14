@@ -19,6 +19,10 @@
 
   // Definición de secciones: key = id interno, dataKey = campo en el JSON, icon = Remix Icon
   const SECTIONS = [
+    /* "all" no tiene dataKey propio: junta las cuatro secciones en un
+       mapa temporal. Va primero porque es la vista panorámica; las
+       pestañas siguientes siguen siendo el detalle en tarjetas. */
+    { key: 'all', dataKey: null, icon: 'ri-calendar-2-line' },
     { key: 'work', dataKey: 'experience', icon: 'ri-briefcase-line' },
     { key: 'research', dataKey: 'research', icon: 'ri-flask-line' },
     { key: 'leadership', dataKey: 'leadership', icon: 'ri-group-line' },
@@ -26,7 +30,7 @@
   ];
 
   let data = { experience: [], research: [], leadership: [], education: [] };
-  let activeSection = 'work';
+  let activeSection = 'all';
   let searchTerm = '';
 
   // Observador: cuando un .reveal entra en pantalla, le pone .visible (animación CSS)
@@ -41,7 +45,7 @@
     if (!tabsNav) return;
     tabsNav.innerHTML = '';
     SECTIONS.forEach(sec => {
-      const items = data[sec.dataKey] || [];
+      const items = sec.dataKey ? (data[sec.dataKey] || []) : allEntries();
       if (!items.length) return;
       const btn = document.createElement('button');
       btn.className = 'tab' + (activeSection === sec.key ? ' active' : '');
@@ -118,10 +122,148 @@
   }
 
   // ¿La entrada coincide con el texto del buscador?
-  function matchSearch(it, q){ if(!q) return true; const hay=[tx(it.role),it.org,it.start,it.end,tx(it.location),tx(it.employment),...(it.skills||[]),...((it.bullets||[]).map(b=>tx(b)))].filter(Boolean).join(' \n ').toLowerCase(); return hay.includes(q.toLowerCase()); }
+  function matchSearch(it, q){ if(!q) return true; const hay=[tx(it.role),tx(it.org),it.start,it.end,tx(it.location),tx(it.employment),...(it.skills||[]),...((it.bullets||[]).map(b=>tx(b)))].filter(Boolean).join(' \n ').toLowerCase(); return hay.includes(q.toLowerCase()); }
+
+  /* ============================================================
+     VISTA "TODO" — mapa temporal
+     ------------------------------------------------------------
+     Las pestañas por sección cuentan cada hilo por separado, pero
+     esconden lo que más dice de la trayectoria: que muchas cosas
+     pasaron A LA VEZ (trabajar en Genius mientras se era monitor de
+     investigación, dirigir AIESEC y estudiar, la maestría encima del
+     trabajo). Aquí cada entrada es una barra sobre un eje de años
+     común, así que los solapamientos se ven solos: basta con mirar
+     una columna vertical para saber qué había en marcha ese año.
+
+     Las filas van ordenadas por fecha de inicio, no agrupadas por
+     sección: agrupando, dos cosas simultáneas de secciones distintas
+     quedan lejos en vertical y el solapamiento deja de leerse. El
+     color lleva la sección, con su leyenda.
+     ============================================================ */
+
+  // Todas las entradas de las cuatro secciones, con su sección marcada
+  function allEntries(){
+    const out = [];
+    SECTIONS.forEach(sec => {
+      if (!sec.dataKey) return;
+      (data[sec.dataKey] || []).forEach(it => out.push({ ...it, _section: sec.key, _icon: sec.icon }));
+    });
+    return out;
+  }
+
+  // Fecha -> número de meses desde el año 0, para calcular proporciones
+  function toMonths(d){
+    const dt = parseDate(d);
+    return dt && !isNaN(dt) ? dt.getFullYear() * 12 + dt.getMonth() : null;
+  }
+
+  function renderMap(){
+    const items = allEntries().filter(it => matchSearch(it, searchTerm));
+    if (!items.length) {
+      container.innerHTML = `<p class="tl-empty">${(window.t ? window.t('timeline.noResults', 'No items match your search.') : 'No items match your search.')}</p>`;
+      return;
+    }
+
+    const now = new Date();
+    const nowM = now.getFullYear() * 12 + now.getMonth();
+
+    // Rango del eje: de enero del año más antiguo a diciembre del más
+    // reciente, así los extremos caen en un límite de año y las marcas
+    // del eje cuadran con las barras.
+    const starts = items.map(it => toMonths(it.start)).filter(v => v !== null);
+    const ends = items.map(it => it.end ? toMonths(it.end) : nowM).filter(v => v !== null);
+    if (!starts.length) { container.innerHTML = '<p class="tl-empty">—</p>'; return; }
+    const minY = Math.floor(Math.min(...starts) / 12);
+    const maxY = Math.floor(Math.max(...ends, nowM) / 12);
+    const from = minY * 12, to = (maxY + 1) * 12;
+    const span = to - from;
+    const pct = m => ((m - from) / span) * 100;
+
+    // Orden cronológico ascendente: la vista se lee como un descenso
+    // en el tiempo, de lo más antiguo arriba a lo más reciente abajo.
+    items.sort((a, b) => (toMonths(a.start) ?? 0) - (toMonths(b.start) ?? 0));
+
+    const present = (window.t ? window.t('timeline.present', 'Present') : 'Present');
+
+    const years = [];
+    for (let y = minY; y <= maxY; y++) years.push(y);
+    const axis = years.map(y =>
+      `<span class="tl-tick" style="left:${pct(y * 12)}%"><b>${String(y).slice(2)}</b></span>`).join('');
+    const grid = years.map(y =>
+      `<span class="tl-grid-line" style="left:${pct(y * 12)}%"></span>`).join('');
+
+    const legend = SECTIONS.filter(sec => sec.dataKey && (data[sec.dataKey] || []).length)
+      .map(sec => `<span class="tl-legend-item" data-section="${sec.key}">
+          <span class="tl-legend-dot"></span><span data-i18n="timeline.${sec.key}">${sec.key}</span>
+        </span>`).join('');
+
+    const rows = items.map(it => {
+      const a = toMonths(it.start);
+      const bRaw = it.end ? toMonths(it.end) : nowM;
+      const ongoing = !it.end;
+      // Una barra de un solo mes sería invisible: se le da un mínimo
+      const b = Math.max((bRaw ?? a) + 1, (a ?? 0) + 2);
+      const left = pct(a), width = Math.max(pct(b) - pct(a), 1.2);
+      const endTxt = ongoing ? present : formatDate(it.end);
+      const dur = formatDuration(it.start, it.end);
+      const label = `${formatDate(it.start)} – ${endTxt}${dur ? ` · ${dur}` : ''}`;
+      const title = `${tx(it.role)} — ${tx(it.org)} · ${formatDate(it.start)} – ${endTxt}${dur ? ` (${dur})` : ''}`;
+
+      /* Una etapa de unos meses ocupa un 2-3 % del eje: el texto no cabe
+         dentro y quedaba cortado a media palabra. Si la barra es estrecha
+         la fecha se escribe al lado; y si la barra termina pegada al
+         borde derecho, se escribe a su izquierda para no salirse. */
+      /* La fecha va SIEMPRE al lado de la barra, nunca dentro. Dentro
+         solo cabía en las tres o cuatro barras más largas, y mezclar
+         texto blanco dentro con texto gris fuera hacía saltar la vista
+         de fila en fila. Fuera además se lee mejor: texto oscuro sobre
+         el fondo de la página en vez de blanco sobre color.
+         Se escribe a la izquierda cuando la barra termina tan a la
+         derecha que el texto no cabría. */
+      const atEnd = left + width > 72;
+      const outside = atEnd
+        ? `<span class="tl-bar-out end" style="right:${(100 - left).toFixed(3)}%">${label}</span>`
+        : `<span class="tl-bar-out" style="left:${(left + width).toFixed(3)}%">${label}</span>`;
+
+      return `
+        <div class="tl-row" data-section="${it._section}">
+          <div class="tl-row-label" title="${title.replace(/"/g, '&quot;')}">
+            <i class="${it._icon}" aria-hidden="true"></i>
+            <span class="tl-row-role">${tx(it.role)}</span>
+            <span class="tl-row-org">${tx(it.org)}</span>
+          </div>
+          <div class="tl-track">
+            <div class="tl-bar${ongoing ? ' ongoing' : ''}"
+                 style="left:${left}%; width:${width}%"
+                 title="${title.replace(/"/g, '&quot;')}"></div>
+            ${outside}
+          </div>
+        </div>`;
+    }).join('');
+
+    container.innerHTML = `
+      <section class="timeline-map">
+        <div class="tl-legend">${legend}</div>
+        <div class="tl-scroll">
+          <div class="tl-chart">
+            <div class="tl-axis"><div class="tl-axis-track">${axis}</div></div>
+            <div class="tl-body">
+              <div class="tl-gridlines">${grid}
+                <span class="tl-now" style="left:${pct(nowM)}%"></span>
+              </div>
+              ${rows}
+            </div>
+          </div>
+        </div>
+        <p class="tl-hint" data-i18n="timeline.mapHint">Cada barra es una etapa; las que se cruzan en vertical ocurrieron a la vez.</p>
+      </section>`;
+
+    if (window.applyI18n) window.applyI18n(container);
+  }
 
   // Dibuja la sección activa
   function renderSection(sectionKey) {
+    if (sectionKey === 'all') return renderMap();
     const meta = SECTIONS.find(s => s.key === sectionKey) || SECTIONS[0];
     let items = (data[meta.dataKey] || []).filter(it => matchSearch(it, searchTerm));
     // Orden descendente por fecha de inicio
@@ -152,7 +294,7 @@
                   <div class="timeline-header">
                     <div class="title-wrap">
                       <i class="timeline-icon ${meta.icon}" aria-hidden="true"></i>
-                      <h3>${tx(it.role)} — <span class="org">${it.org}</span></h3>
+                      <h3>${tx(it.role)} — <span class="org">${tx(it.org)}</span></h3>
                     </div>
                     ${range ? `<span class="dates">${range}${dur ? `<span class="duration">${dur}</span>` : ''}</span>` : ''}
                   </div>
@@ -210,7 +352,7 @@
 
   // Arranque de la UI: elige la primera sección con datos
   function initUI(){
-    const available = SECTIONS.find(s => (data[s.dataKey]||[]).length>0);
+    const available = SECTIONS.find(s => (s.dataKey ? (data[s.dataKey]||[]).length : allEntries().length) > 0);
     activeSection = available ? available.key : 'work';
     buildTabs();
     setActive(activeSection);

@@ -620,6 +620,28 @@ a {
   transform: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
+/* La tarjeta de grupo es pulsable en "All": al clic enfoca el grupo.
+   El icono de expandir solo aparece al pasar por encima para no
+   ensuciar la rejilla con nueve iconos permanentes. */
+.skill-card.is-openable { cursor: pointer; }
+.skill-card h3 { display: flex; align-items: center; gap: 8px; }
+.skill-card-expand {
+  margin-left: auto; font-size: 15px; color: var(--text-muted);
+  opacity: 0; transition: opacity .2s ease, color .2s ease;
+}
+.skill-card.is-openable:hover .skill-card-expand,
+.skill-card.is-openable:focus-visible .skill-card-expand { opacity: 1; color: var(--brand); }
+.skill-card.is-openable:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.skill-card-back {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 5px;
+  font: inherit; font-size: 12px; font-weight: 600;
+  color: var(--brand-strong); background: var(--brand-soft);
+  border: 1px solid var(--brand-soft-border); border-radius: 999px;
+  padding: 4px 11px; cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.skill-card-back:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+
 .skills-grid.focus .skill-card h3 {
   font-size: 20px;
   margin-bottom: 16px;
@@ -698,6 +720,120 @@ a {
 .timeline-title { text-align:center; margin: 12px 0 8px; color: var(--heading); }
 .timeline-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center; margin: 8px auto 16px; max-width: 960px; }
 .tabs { display:flex; gap:8px; flex-wrap:wrap; }
+
+/* ============================================================
+   MAPA TEMPORAL — pestaña "Todo" de la cronología
+   ------------------------------------------------------------
+   Las pestañas por sección cuentan cada hilo por separado y esconden
+   lo que más dice de la trayectoria: que muchas cosas pasaron a la
+   vez. Aquí cada etapa es una barra sobre un eje de años común, así
+   que mirar una columna vertical dice qué había en marcha ese año.
+   El color lleva la sección; las filas van en orden cronológico y no
+   agrupadas, porque agrupando dos cosas simultáneas quedan lejos en
+   vertical y el solapamiento deja de leerse.
+   ============================================================ */
+.timeline-map { --tl-label: 286px; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+.tl-legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 4px 0 14px; }
+.tl-legend-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text-muted);
+}
+.tl-legend-dot { width: 10px; height: 10px; border-radius: 3px; background: var(--tl-color); }
+
+/* Un color por sección, heredado por la leyenda y por las barras */
+.tl-legend-item[data-section="work"],       .tl-row[data-section="work"]       { --tl-color: var(--cat-engineering); }
+.tl-legend-item[data-section="research"],   .tl-row[data-section="research"]   { --tl-color: var(--cat-research); }
+.tl-legend-item[data-section="leadership"], .tl-row[data-section="leadership"] { --tl-color: var(--cat-experience); }
+.tl-legend-item[data-section="education"],  .tl-row[data-section="education"]  { --tl-color: var(--cat-design); }
+
+/* El eje son 14 años: por debajo de ~820px no caben legibles, así que
+   el gráfico scrollea en horizontal dentro de su caja en vez de
+   comprimirse hasta ser ilegible. La página nunca scrollea en X. */
+.tl-scroll { overflow-x: auto; overflow-y: hidden; padding-bottom: 6px; }
+.tl-chart { min-width: 820px; }
+
+.tl-axis { display: grid; grid-template-columns: var(--tl-label) 1fr; margin-bottom: 6px; }
+/* Sin esto el track cae en la columna 1 (la de los rótulos) y las 14
+   marcas de año se amontonan a la izquierda en 250px. */
+.tl-axis-track { grid-column: 2; position: relative; height: 18px; }
+.tl-tick {
+  position: absolute; top: 0; transform: translateX(-50%);
+  font-size: 11px; font-variant-numeric: tabular-nums; color: var(--text-muted);
+}
+.tl-tick b { font-weight: 600; }
+.tl-tick b::before { content: "’"; }
+
+.tl-body { position: relative; }
+/* Las líneas de año viven en una capa propia bajo las filas: así
+   cruzan todo el alto del gráfico sin repetirse en cada fila. */
+.tl-gridlines { position: absolute; inset: 0 0 0 var(--tl-label); pointer-events: none; }
+.tl-grid-line { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); opacity: .6; }
+.tl-now { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--brand); opacity: .55; }
+
+.tl-row {
+  display: grid; grid-template-columns: var(--tl-label) 1fr;
+  align-items: center; column-gap: 12px;
+  padding: 3px 0;
+}
+.tl-row-label {
+  display: flex; align-items: baseline; gap: 6px;
+  min-width: 0; font-size: 12.5px; line-height: 1.3;
+}
+.tl-row-label i { color: var(--tl-color); font-size: 13px; flex: 0 0 auto; }
+/* El rol manda: con una organización larga ("Universidade de São Paulo
+   (USP) – Ribeirão Preto") el nombre del puesto se quedaba en 0px y la
+   fila aparecía sin título. Ahora los dos pueden encogerse y el rol se
+   lleva el espacio primero. */
+.tl-row-role {
+  flex: 1 1 auto; min-width: 5ch;
+  color: var(--text-strong); font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tl-row-org {
+  flex: 0 1 auto; min-width: 0;
+  color: var(--text-muted); font-size: 11px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.tl-track { position: relative; height: 26px; }
+.tl-bar {
+  position: absolute; top: 4px; height: 18px;
+  border-radius: 5px;
+  background: var(--tl-color);
+  color: #fff;
+  cursor: default;
+  transition: filter .18s ease, transform .18s ease;
+}
+.tl-bar:hover { filter: brightness(1.08); transform: translateY(-1px); }
+/* Lo que sigue abierto se desvanece a la derecha en vez de cortarse
+   en seco: un borde recto insinúa una fecha de fin que no existe. */
+.tl-bar.ongoing {
+  -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+          mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+}
+/* Fecha de la etapa, siempre al lado de la barra (ver timeline.js) */
+.tl-bar-out {
+  position: absolute; top: 50%; translate: 0 -50%;
+  font-size: 10.5px; font-variant-numeric: tabular-nums;
+  white-space: nowrap; color: var(--text-muted);
+  padding-left: 6px; pointer-events: none;
+}
+.tl-bar-out.end { padding-left: 0; padding-right: 6px; }
+
+.tl-hint { margin: 14px 0 0; font-size: 12px; color: var(--text-muted); text-align: center; }
+.tl-empty { text-align: center; color: var(--text-muted); margin: 12px 0; }
+
+@media (max-width: 720px) {
+  .timeline-map { --tl-label: 150px; padding: 0 16px; }
+  .tl-chart { min-width: 680px; }
+  .tl-row-org { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-bar { transition: none; }
+  .tl-bar:hover { transform: none; }
+}
 .tabs .tab { border:1px solid #0d252d; color: var(--text-strong); background: var(--surface); padding:6px 12px; border-radius:999px; cursor:pointer; font-size: 14px; }
 .tabs .tab.active, .tabs .tab:hover { background:#0d252d; color:#f0f0e8; }
 

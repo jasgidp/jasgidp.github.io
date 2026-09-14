@@ -105,7 +105,8 @@
       "intermediate": "Intermedio",
       "advanced": "Avanzado",
       "expert": "Experto"
-    }
+    },
+    "backToAll": "Todas"
   },
   "timeline": {
     "title": "Cronología",
@@ -114,7 +115,9 @@
     "leadership": "Liderazgo y Voluntariado",
     "education": "Educación",
     "present": "Actualidad",
-    "noResults": "No hay elementos que coincidan con tu búsqueda."
+    "noResults": "No hay elementos que coincidan con tu búsqueda.",
+    "all": "Todo",
+    "mapHint": "Cada barra es una etapa. Las que se cruzan en vertical ocurrieron a la vez."
   },
   "programming": {
     "title": "Repositorios de GitHub",

@@ -105,7 +105,8 @@
       "intermediate": "Intermediário",
       "advanced": "Avançado",
       "expert": "Especialista"
-    }
+    },
+    "backToAll": "Todas"
   },
   "timeline": {
     "title": "Linha do Tempo",
@@ -114,7 +115,9 @@
     "leadership": "Liderança e Voluntariado",
     "education": "Educação",
     "present": "Atualmente",
-    "noResults": "Nenhum item corresponde à sua busca."
+    "noResults": "Nenhum item corresponde à sua busca.",
+    "all": "Tudo",
+    "mapHint": "Cada barra é uma etapa. As que se cruzam na vertical aconteceram ao mesmo tempo."
   },
   "programming": {
     "title": "Repositórios do GitHub",

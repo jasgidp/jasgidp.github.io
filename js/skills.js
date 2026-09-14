@@ -178,9 +178,23 @@
       const body = isLevelGroup
         ? renderLevelList(g.skills)
         : (focus ? renderPanelList(g) : renderTagList(g));
+      /* En "All" la tarjeta entera es pulsable: al clic enfoca ese
+         grupo, igual que su chip de filtro. Los chips de habilidad que
+         lleva dentro siguen funcionando: el manejador ignora los clics
+         que caen dentro de un .tag. */
+      const head = focus
+        ? `<h3>${g.emoji ? g.emoji + ' ' : ''}${t(g.label, g.name)}
+             <button type="button" class="skill-card-back" data-group="all">
+               <i class="ri-arrow-left-line" aria-hidden="true"></i><span data-i18n="skills.backToAll">Todas</span>
+             </button>
+           </h3>`
+        : `<h3>${g.emoji ? g.emoji + ' ' : ''}${t(g.label, g.name)}
+             <i class="ri-expand-diagonal-line skill-card-expand" aria-hidden="true"></i>
+           </h3>`;
       return `
-      <article class="skill-card">
-        <h3>${g.emoji ? g.emoji + ' ' : ''}${t(g.label, g.name)}</h3>
+      <article class="skill-card${focus ? '' : ' is-openable'}" data-group="${esc(g.name)}"
+               ${focus ? '' : `role="button" tabindex="0" aria-label="${esc(t(g.label, g.name))}"`}>
+        ${head}
         ${body}
       </article>`;
     }).join('') || '<p style="text-align:center;">No skills found.</p>';
@@ -304,6 +318,33 @@
     openKey = null;
     renderChips();
     renderGrid();
+  });
+
+  /* Clic en la tarjeta de un grupo -> enfocar ese grupo.
+     Se ignora si el clic cayó dentro de un chip de habilidad (ese
+     tiene su propio despliegue) o en el botón de volver. */
+  function focusGroup(name) {
+    state.group = name;
+    openKey = null;
+    renderChips();
+    renderGrid();
+    const chips = document.getElementById('group-chips');
+    if (chips) chips.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  container.addEventListener('click', (e) => {
+    const back = e.target.closest('.skill-card-back');
+    if (back) { e.stopPropagation(); return focusGroup('all'); }
+    const card = e.target.closest('.skill-card.is-openable');
+    if (!card || e.target.closest('.tag')) return;
+    focusGroup(card.getAttribute('data-group'));
+  });
+  container.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.skill-card.is-openable');
+    if (!card || e.target.closest('.tag')) return;
+    e.preventDefault();
+    focusGroup(card.getAttribute('data-group'));
   });
 
   // Expandir / contraer detalle de una skill
