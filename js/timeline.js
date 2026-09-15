@@ -358,7 +358,7 @@
 
     const present = (window.t ? window.t('timeline.present', 'Present') : 'Present');
     const html = `
-      <section class="timeline-section">
+      <section class="timeline-section" data-section="${sectionKey}">
         <h2 class="visually-hidden" data-i18n="timeline.${sectionKey}">${sectionKey}</h2>
         <ul class="timeline-list">
           ${items.map(it => {

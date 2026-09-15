@@ -105,6 +105,8 @@
 
     // Estado de la UI: filtro activo + texto de búsqueda
     const state = { filter: 'all', q: '' };
+    // hideCover se rellena cuando existe la preview a media pantalla (solo Todo)
+    let hideCover = () => {};
 
     /* Lo que se puede pulsar para abrir el panel de detalles. Con un
        filtro concreto son las fichas con portada (.project-tile); con
@@ -128,17 +130,10 @@
       });
     }
 
-    // ¿Tiene el tag "nuevo"? (proyectos recién documentados desde Proyectos/)
-    function isNew(p){
-      return Array.isArray(p.tags) && p.tags.map(t => String(t).toLowerCase()).includes('nuevo');
-    }
-
     // ¿Este proyecto debe mostrarse con el filtro/búsqueda actuales?
     function matches(p){
       if (p.visible === false) return false; // ocultos a propósito
-      if (state.filter === 'nuevo') {
-        if (!isNew(p)) return false;
-      } else if (state.filter !== 'all' && p.category !== state.filter) {
+      if (state.filter !== 'all' && p.category !== state.filter) {
         return false;
       }
       if (!state.q) return true;
@@ -165,11 +160,13 @@
        No aparece con "Todo", con "nuevo", ni si esa portada no existe. */
     function bannerHtml(){
       const cat = state.filter;
-      if (!cat || cat === 'all' || cat === 'nuevo' || !coverReady[cat]) return '';
+      if (!cat || cat === 'all' || !coverReady[cat]) return '';
       // El nombre visible sale del propio botón de filtro, que ya está traducido
       const chip = document.querySelector(`.filters [data-filter="${cat}"] span`);
       const label = chip ? chip.textContent.trim() : cat;
-      return `<div class="category-banner"><div class="category-banner-img" style="background-image:url('${coverUrl(cat)}')" role="img" aria-label="${label}"></div></div>`;
+      return `<div class="category-banner">
+        <div class="category-banner-img" style="background-image:url('${coverUrl(cat)}')" role="img" aria-label="${esc(label)}"></div>
+      </div>`;
     }
 
     // Repinta solo si el banner cambia (las portadas llegan tarde, async)
@@ -183,11 +180,12 @@
        listado automático de repositorios de GitHub. Va en la propia
        rejilla, como una tarjeta cualquiera, en vez de como un botón
        suelto debajo. */
-    function githubCardHtml(){
-      if (state.filter !== 'software') return '';
+    function githubCardHtml(force){
+      if (!force && state.filter !== 'software') return '';
       return `
         <a class="project-card project-tile github-tile" href="programming.html" data-category="software"
            aria-label="${L('githubCard','Portafolio de GitHub')}">
+          <div class="project-tile-shot"></div>
           <div class="project-overlay">
             <h3 class="project-title"><i class="ri-github-fill" aria-hidden="true"></i> ${L('githubCard','Portafolio de GitHub')}</h3>
             <span class="project-year">${L('githubCardHint','Todos mis repositorios públicos')}</span>
@@ -252,7 +250,8 @@
        cambio de oficio en vez de como dos oficios a la vez. El año va
        igual en cada fila, así que no se pierde.
        ------------------------------------------------------------ */
-    const CATEGORY_ORDER = ['software','design','graphic','engineering','research','experience'];
+    // Software al final: en "Todo" primero lo visual y el código al cierre.
+    const CATEGORY_ORDER = ['design','graphic','engineering','research','experience','software'];
 
     // El nombre visible de la categoría sale del botón de filtro, que
     // i18n.js ya mantiene traducido. Así no hay una segunda lista que
@@ -348,27 +347,25 @@
       return cubos.map(c => c.items);
     }
 
-    /* TIRA DE PORTADAS DE UNA SUBSECCIÓN
-       Bajo el rótulo del subtipo, sus portadas en pequeño. Sirve de
-       aperitivo: ves el bloque entero de un vistazo y la imagen te
-       lleva al título, en vez de al revés.
+    /* TIRA DE PORTADAS
+       Con subtipos: bajo cada rótulo (Frontend, Marca…).
+       Sin subtipos (Ingeniería, Investigación, Experiencia): una sola
+       tira centrada bajo el título de la sección grande.
 
        Al señalar una miniatura se abre la fila de ese proyecto (con su
        resumen) y sale su imagen a media pantalla, igual que al señalar
-       la fila. Al pulsarla se abre el panel completo. Es decir, la
-       miniatura y la fila hacen exactamente lo mismo: así no hay que
-       aprender dos comportamientos distintos en la misma página.
+       la fila. Al pulsarla se abre el panel completo.
 
-       Los proyectos sin imagen propia no salen en la tira: un hueco gris
-       con el logotipo genérico no es un aperitivo de nada. */
-    function stripHtml(list){
+       Los proyectos sin imagen propia no salen en la tira. */
+    function stripHtml(list, { centered = false, min = 2 } = {}){
       const conImagen = list.filter(p => imagesOf(p).length);
-      if (conImagen.length < 2) return '';
-      return `<div class="ix-strip">
+      if (conImagen.length < min) return '';
+      const cls = centered ? 'ix-strip ix-strip--section' : 'ix-strip';
+      return `<div class="${cls}">
         ${conImagen.map(p => `
           <button type="button" class="ix-thumb" data-id="${esc(p.id)}"
-                  style="background-image:url('${esc(imagesOf(p)[0])}')"
                   aria-label="${esc(p.title)}">
+            <span class="ix-thumb-media" style="background-image:url('${esc(imagesOf(p)[0])}')" aria-hidden="true"></span>
             <span class="ix-thumb-name">${esc(p.title)}</span>
           </button>`).join('')}
       </div>`;
@@ -381,15 +378,23 @@
     }
 
     /* SUBCATEGORÍAS DENTRO DE CADA TEMA
-       Software, Diseño gráfico y Diseño de producto ya tenían subtipos
-       (frontend/backend/infra, marca/ilustración..., mobiliario/maker...)
-       pero solo se usaban al filtrar. En "Todo" se perdían y cada tema
-       era un bloque plano de 25 filas. Ahora cada subtipo es un bloque
-       con su rótulo y su cuenta.
+       Con subtipos (Software, Gráfico, Producto): la tira va BAJO cada
+       subtipo, en la misma columna que sus filas. Así no pasa que el
+       proyecto esté a la izquierda y su miniatura "flote" a la derecha
+       (como Center Box en Mobiliario vs la galería del otro lado).
 
-       Los tres temas sin subtipo (Investigación, Ingeniería, Experiencia)
-       se parten en dos columnas como antes: inventarles un subtítulo
-       falso solo para igualar sería peor. */
+       Sin subtipos (Ingeniería, Investigación, Experiencia): una sola
+       tira centrada bajo el título de la sección grande. */
+    // Enlace a Programming/GitHub al pie del bloque Software en "Todo".
+    function indexGithubHtml(){
+      return `<a class="ix-github" href="programming.html">
+          <i class="ri-github-fill" aria-hidden="true"></i>
+          <span class="ix-github-label">${L('githubCard','Portafolio de GitHub')}</span>
+          <span class="ix-github-hint">${L('githubCardHint','Todos mis repositorios públicos')}</span>
+          <i class="ri-arrow-right-up-line" aria-hidden="true"></i>
+        </a>`;
+    }
+
     function indexHtml(items){
       return `<div class="project-index">` + groupByCategory(items).map(([cat, list]) => {
         const porTipo = groupByType(list).filter(([type]) => type);
@@ -397,20 +402,19 @@
         const usarSub = conTipo === list.length && porTipo.length > 1;
 
         let cuerpo;
+        let sectionStrip = '';
         if (usarSub) {
           const bloques = porTipo.map(([type, l]) => ({
             count: l.length,
             html: `<section class="ix-sub">${subHeadingHtml(type, l.length)}
-                     ${stripHtml(l)}
+                     ${stripHtml(l, { min: 1 })}
                      <div class="ix-rows">${l.map(indexRowHtml).join('')}</div>
                    </section>`
           }));
           cuerpo = balancear(bloques, INDEX_COLS)
             .map(col => `<div class="ix-col">${col.map(b => b.html).join('')}</div>`).join('');
         } else {
-          /* Sin subtipos se parte por MITADES y no con balancear(): ese
-             reparte alternando, y con filas sueltas eso rompe el orden
-             de lectura al bajar por cada columna. */
+          sectionStrip = stripHtml(list, { centered: true, min: 1 });
           const per = Math.ceil(list.length / INDEX_COLS);
           const trozos = [];
           for (let i = 0; i < list.length; i += per) trozos.push(list.slice(i, i + per));
@@ -418,10 +422,13 @@
             .map(col => `<div class="ix-col"><div class="ix-rows">${col.map(indexRowHtml).join('')}</div></div>`).join('');
         }
 
+        const github = cat === 'software' ? indexGithubHtml() : '';
         return `<section class="ix-group" data-category="${esc(cat)}">
             <h2 class="ix-heading"><span class="ix-heading-name">${catLabel(cat)}</span>`
              + `<span class="ix-heading-count">${list.length}</span></h2>
+            ${sectionStrip}
             <div class="ix-cols">${cuerpo}</div>
+            ${github}
           </section>`;
       }).join('') + `</div>`;
     }
@@ -431,54 +438,58 @@
       const items = sortProjects(projects.filter(matches));
       if (!items.length) {
         container.classList.remove('index');
-        container.innerHTML = bannerHtml() + '<p class="empty-state">No projects found.</p>' + githubCardHtml();
+        let html = bannerHtml() + '<p class="empty-state">No projects found.</p>';
+        if (state.filter === 'software') {
+          container.classList.add('index');
+          html += `<div class="project-index">${indexGithubHtml()}</div>`;
+        }
+        container.innerHTML = html;
+        hideCover();
         return;
       }
 
-      /* Agrupamos solo dentro de una categoría concreta. Con "Todo" no:
-         ahí conviven proyectos con tipo y sin él, y saldrían unos cuantos
-         encabezados seguidos de un bloque enorme sin encabezar. */
-      const inOneCategory = state.filter && state.filter !== 'all' && state.filter !== 'nuevo';
-      const useGroups = inOneCategory && items.some(p => p.type && TYPE_ORDER.includes(p.type));
-      const tileHtml = p => {
-        const raw = p.thumb || (Array.isArray(p.images) && p.images[0]) || '';
-        // Si la imagen es el logo genérico, usamos un degradado CSS en su lugar
-        const isPlaceholder = !raw || /(^|\/)HOme\.png$/i.test(raw) || /assets\/img\/brand\/HOme\.png$/i.test(raw);
-        const bgStyle = isPlaceholder ? '' : ` style="background-image:url('${raw}')"`;
-        // cover-bg = la ficha usa la portada de su categoría, no el degradado.
-        // Las portadas claras necesitan un velo más oscuro o el título no se lee.
-        const cls = isPlaceholder ? (coverReady[p.category] ? ' no-image cover-bg' : ' no-image') : '';
-        /* Sin etiqueta "Nuevo": la llevaban 40 de 77 proyectos, y cuando
-           casi todo es nuevo la etiqueta no dice nada y solo mete ruido.
-           El filtro "Nuevo" sí se queda: ahí la marca sigue sirviendo. */
-        return `
-          <article class="project-card project-tile${cls}" data-category="${p.category}" data-id="${p.id}"${bgStyle} tabindex="0" aria-label="View ${p.title} details">
-            <div class="project-overlay">
-              <h3 class="project-title">${p.title}</h3>
-              ${p.year ? `<span class="project-year">${p.year}</span>` : ''}
-            </div>
-          </article>`;
-      };
+      /* Todo: índice actual. Categorías: tira grande + lista. */
+      container.classList.add('index');
+      if (state.filter === 'all') {
+        container.innerHTML = indexHtml(items);
+      } else {
+        container.innerHTML = bannerHtml() + filterIndexHtml(items);
+      }
 
-      // La tarjeta de GitHub va al final: arriba dejaba media fila vacía,
-      // porque el encabezado del primer grupo empieza línea nueva.
-      /* "Todo" usa el índice editorial; cualquier filtro concreto sigue
-         usando la rejilla de portadas, que es donde las miniaturas sí
-         distinguen unos proyectos de otros. */
-      const useIndex = state.filter === 'all';
-      container.classList.toggle('index', useIndex);
-
-      container.innerHTML = useIndex
-        ? indexHtml(items)
-        : bannerHtml() + (useGroups
-            ? groupByType(items).map(([type, list]) =>
-                groupHeadingHtml(type, list.length) + list.map(tileHtml).join('')).join('')
-            : items.map(tileHtml).join('')) + githubCardHtml();
-
-      // Al re-renderizar, cualquier panel abierto desaparece
       openPanel = null;
       openProjectId = null;
+      hideCover();
       if (window.applyI18n) window.applyI18n(document);
+    }
+
+    /* Vista filtrada: tira grande + lista (misma interacción que Todo). */
+    function filterIndexHtml(items){
+      if (!items.length) return '';
+      const cat = items[0].category || state.filter;
+      const porTipo = groupByType(items).filter(([type]) => type);
+      const conTipo = porTipo.reduce((n, [, l]) => n + l.length, 0);
+      const usarSub = conTipo === items.length && porTipo.length > 1;
+
+      let bloques;
+      if (usarSub) {
+        bloques = porTipo.map(([type, l]) => `
+          <section class="ix-sub">${subHeadingHtml(type, l.length)}
+            ${stripHtml(l, { centered: true, min: 1 })}
+            <div class="ix-rows">${l.map(indexRowHtml).join('')}</div>
+          </section>`).join('');
+      } else {
+        bloques = `
+          ${stripHtml(items, { centered: true, min: 1 })}
+          <div class="ix-rows">${items.map(indexRowHtml).join('')}</div>`;
+      }
+
+      const github = state.filter === 'software' ? indexGithubHtml() : '';
+      return `<div class="project-index">
+        <section class="ix-group ix-group--filter" data-category="${esc(cat)}">
+          ${bloques}
+          ${github}
+        </section>
+      </div>`;
     }
 
     /* ------------------------------------------------------------
@@ -733,47 +744,20 @@
       img.click();
     });
 
-    /* ------------------------------------------------------------
-       PORTADA FLOTANTE DEL ÍNDICE
-       Sigue al cursor mientras se recorre una fila. Solo en punteros
-       finos con hover: en táctil no hay cursor al que seguir, y allí
-       las filas ya se muestran abiertas con su resumen.
-
-       El elemento se crea una vez y se reutiliza. Los estilos que lo
-       sacan del flujo van aquí, en JS, y no solo en el CSS: main.css
-       se enlaza sin versión, así que un navegador con el CSS viejo en
-       caché y el JS nuevo pintaría un div suelto en medio de la página
-       (es exactamente lo que pasó con el visor de imágenes).
-       ------------------------------------------------------------ */
-    /* ------------------------------------------------------------
-       IMAGEN A MEDIA PANTALLA
-       Antes era una ficha de 330x208 flotando a un lado, y se leía
-       como un tooltip: rectángulo pequeño, esquinas redondeadas,
-       sombra, aparecía de golpe. Ese vocabulario es de "ayuda
-       contextual", no de "mira esta obra", y por eso parecía que
-       saliera sin querer.
-
-       Ahora ocupa media ventana a sangre, de arriba abajo, en el lado
-       CONTRARIO a la columna que estás mirando: así no tapa nunca ni
-       la fila señalada ni su resumen. El borde interior se desvanece
-       hacia el fondo de la página para que no corte en seco.
-
-       Solo en punteros finos con hover: en táctil no hay cursor.
-       ------------------------------------------------------------ */
+    /* Preview a media pantalla: solo en "Todo". Dentro de una categoría
+       basta con ampliar la fila; la imagen grande estorba. */
     const hoverCover = (() => {
       const MS = 1100;
+      const DELAY = 1000;
       let el = null, capas = [], arriba = 0;
-      let list = [], i = 0, timer = 0;
+      let list = [], i = 0, timer = 0, delayTimer = 0;
+      let waitingKey = '';
 
       function ensure(){
         if (el) return el;
         el = document.createElement('div');
         el.className = 'ix-cover';
         el.setAttribute('aria-hidden', 'true');
-        /* Las medidas duras van aquí y no solo en el CSS: main.css se
-           enlaza sin versión, así que un navegador con el CSS viejo en
-           caché y el JS nuevo pintaría un div suelto en medio de la
-           página (es lo que pasó con el visor de imágenes). */
         Object.assign(el.style, {
           position: 'fixed', top: '0', bottom: '0', height: '100vh',
           width: '50vw', zIndex: '5', overflow: 'hidden',
@@ -781,9 +765,11 @@
         });
         capas = [0, 1].map(() => {
           const c = document.createElement('div');
+          c.className = 'ix-cover-media';
           Object.assign(c.style, {
-            position: 'absolute', top: '0', right: '0', bottom: '0', left: '0',
-            backgroundSize: 'cover', backgroundPosition: 'center',
+            position: 'absolute', inset: '0',
+            backgroundSize: 'contain', backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
             opacity: '0', transition: 'opacity .55s ease'
           });
           el.appendChild(c);
@@ -793,9 +779,6 @@
         return el;
       }
 
-      /* Dos capas superpuestas en vez de cambiar la imagen de fondo de
-         un solo elemento: cambiándola, el navegador parpadea en blanco
-         mientras descarga la siguiente. */
       function paint(n){
         const src = list[n];
         if (!src) return;
@@ -808,74 +791,143 @@
 
       function stop(){ if (timer) { clearInterval(timer); timer = 0; } }
 
+      function place(alaDerecha){
+        const e = ensure();
+        e.style.left = alaDerecha ? 'auto' : '0';
+        e.style.right = alaDerecha ? '0' : 'auto';
+        e.classList.toggle('from-right', alaDerecha);
+        e.classList.toggle('from-left', !alaDerecha);
+      }
+
+      function reveal(srcs, alaDerecha){
+        const e = ensure();
+        place(alaDerecha);
+        const key = srcs.join('|');
+        if (e.dataset.key !== key) {
+          e.dataset.key = key;
+          list = srcs; i = 0; arriba = 0;
+          stop();
+          capas.forEach(c => { c.style.opacity = '0'; });
+          paint(0);
+          if (list.length > 1) {
+            timer = setInterval(() => { i = (i + 1) % list.length; paint(i); }, MS);
+          }
+        }
+        e.style.opacity = '1';
+      }
+
       return {
         show(srcs, alaDerecha){
-          const e = ensure();
-          e.style.left = alaDerecha ? 'auto' : '0';
-          e.style.right = alaDerecha ? '0' : 'auto';
-          e.classList.toggle('from-right', alaDerecha);
-          e.classList.toggle('from-left', !alaDerecha);
+          if (state.filter !== 'all') return this.hide();
+          if (!srcs || !srcs.length) return this.hide();
           const key = srcs.join('|');
-          if (e.dataset.key !== key) {
-            e.dataset.key = key;
-            list = srcs; i = 0; arriba = 0;
-            stop();
-            capas.forEach(c => { c.style.opacity = '0'; });
-            paint(0);
-            // Si el proyecto tiene varias, van pasando solas
-            if (list.length > 1) {
-              timer = setInterval(() => { i = (i + 1) % list.length; paint(i); }, MS);
-            }
+          const e = el;
+          if (e && e.dataset.key === key && e.style.opacity === '1') {
+            place(alaDerecha);
+            return;
           }
-          e.style.opacity = '1';
+          if (waitingKey === key && delayTimer) {
+            place(alaDerecha);
+            return;
+          }
+          if (delayTimer) { clearTimeout(delayTimer); delayTimer = 0; }
+          if (e && e.style.opacity === '1') {
+            e.style.opacity = '0';
+            stop();
+            e.dataset.key = '';
+          }
+          waitingKey = key;
+          ensure();
+          place(alaDerecha);
+          delayTimer = setTimeout(() => {
+            delayTimer = 0;
+            waitingKey = '';
+            if (state.filter !== 'all') return;
+            reveal(srcs, alaDerecha);
+          }, DELAY);
         },
         hide(){
+          waitingKey = '';
+          if (delayTimer) { clearTimeout(delayTimer); delayTimer = 0; }
           stop();
           if (el) { el.style.opacity = '0'; el.dataset.key = ''; }
         }
       };
     })();
+    hideCover = () => hoverCover.hide();
 
     if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      /* La miniatura de la tira y la fila hacen lo mismo al señalarlas:
-         abren el resumen de ese proyecto y sacan su imagen a media
-         pantalla. Así no hay dos comportamientos que aprender en la
-         misma página. La fila señalada desde la tira se marca con
-         .peek, que en CSS va emparejada con :hover. */
+      function syncThumb(id){
+        container.querySelectorAll('.ix-thumb.is-active').forEach(t => t.classList.remove('is-active'));
+        if (!id) return;
+        const thumb = container.querySelector(`.ix-thumb[data-id="${CSS.escape(id)}"]`);
+        if (!thumb) return;
+        thumb.classList.add('is-active');
+        const strip = thumb.closest('.ix-strip');
+        if (strip) {
+          const tr = thumb.getBoundingClientRect();
+          const sr = strip.getBoundingClientRect();
+          if (tr.left < sr.left || tr.right > sr.right) {
+            thumb.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+          }
+        }
+      }
+
       function marcarFila(id){
         container.querySelectorAll('.index-row.peek').forEach(r => r.classList.remove('peek'));
+        syncThumb(id);
         if (!id) return null;
         const fila = container.querySelector(`.index-row[data-id="${CSS.escape(id)}"]`);
         if (fila) fila.classList.add('peek');
         return fila;
       }
 
+      function coverSrcsFor(row){
+        if (!row) return [];
+        const own = (row.getAttribute('data-imgs') || '').split('|').filter(Boolean);
+        if (own.length) return own;
+        const cat = row.getAttribute('data-category');
+        return coverReady[cat] ? [coverUrl(cat)] : [];
+      }
+
       container.addEventListener('mousemove', (e) => {
+        /* En Todo con rejilla de tiles: preview a media pantalla */
+        const tile = e.target.closest('.project-tile:not(.github-tile)');
+        if (tile && state.filter === 'all') {
+          const srcs = (tile.getAttribute('data-imgs') || '').split('|').filter(Boolean);
+          if (!srcs.length) {
+            const cat = tile.getAttribute('data-category');
+            const fallback = coverReady[cat] ? [coverUrl(cat)] : [];
+            if (!fallback.length) return hoverCover.hide();
+            const r = tile.getBoundingClientRect();
+            return hoverCover.show(fallback, (r.left + r.right) / 2 < window.innerWidth / 2);
+          }
+          const r = tile.getBoundingClientRect();
+          return hoverCover.show(srcs, (r.left + r.right) / 2 < window.innerWidth / 2);
+        }
+
         const thumb = e.target.closest('.ix-thumb');
         if (thumb) {
           const fila = marcarFila(thumb.getAttribute('data-id'));
-          const srcs = (fila && (fila.getAttribute('data-imgs') || '').split('|').filter(Boolean)) || [];
+          const srcs = coverSrcsFor(fila);
           if (!srcs.length) return hoverCover.hide();
           const r = thumb.getBoundingClientRect();
           return hoverCover.show(srcs, (r.left + r.right) / 2 < window.innerWidth / 2);
         }
-        marcarFila(null);
 
         const row = e.target.closest('.index-row');
-        if (!row) return hoverCover.hide();
-        /* Sin imágenes propias cae a la portada de la categoría. Se
-           resuelve aquí y no al pintar la fila porque las portadas se
-           cargan después del primer render. */
-        const own = (row.getAttribute('data-imgs') || '').split('|').filter(Boolean);
-        const cat = row.getAttribute('data-category');
-        const srcs = own.length ? own : (coverReady[cat] ? [coverUrl(cat)] : []);
+        if (!row) {
+          marcarFila(null);
+          return hoverCover.hide();
+        }
+        container.querySelectorAll('.index-row.peek').forEach(r => r.classList.remove('peek'));
+        syncThumb(row.getAttribute('data-id'));
+        const srcs = coverSrcsFor(row);
         if (!srcs.length) return hoverCover.hide();
-        // La imagen se va al lado contrario de la fila señalada
         const r = row.getBoundingClientRect();
         hoverCover.show(srcs, (r.left + r.right) / 2 < window.innerWidth / 2);
       });
       container.addEventListener('mouseleave', () => { marcarFila(null); hoverCover.hide(); });
-      // Al abrir un panel la imagen estorba justo donde hay que leer
       container.addEventListener('click', () => { marcarFila(null); hoverCover.hide(); });
     }
 

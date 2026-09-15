@@ -924,48 +924,118 @@ a {
   .tl-bar { transition: none; }
   .tl-bar:hover { transform: none; }
 }
-.tabs .tab { border:1px solid #0d252d; color: var(--text-strong); background: var(--surface); padding:6px 12px; border-radius:999px; cursor:pointer; font-size: 14px; }
-.tabs .tab.active, .tabs .tab:hover { background:#0d252d; color:#f0f0e8; }
+.tabs .tab {
+  border:1px solid var(--border); color: var(--text-strong);
+  background: var(--surface); padding:6px 12px; border-radius:999px;
+  cursor:pointer; font-size: 14px;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+/* Todo: estilo neutro */
+.tabs .tab[data-section="all"].active,
+.tabs .tab[data-section="all"]:hover {
+  background: #0d252d; color:#f0f0e8; border-color: #0d252d;
+}
+/* Misma paleta que la leyenda del mapa */
+.tabs .tab[data-section="work"] { border-color: var(--cat-engineering); color: var(--cat-engineering); }
+.tabs .tab[data-section="work"].active,
+.tabs .tab[data-section="work"]:hover { background: var(--cat-engineering); color: var(--cat-engineering-ink); border-color: var(--cat-engineering); }
+
+.tabs .tab[data-section="research"] { border-color: var(--cat-research); color: var(--cat-research); }
+.tabs .tab[data-section="research"].active,
+.tabs .tab[data-section="research"]:hover { background: var(--cat-research); color: var(--cat-research-ink); border-color: var(--cat-research); }
+
+.tabs .tab[data-section="leadership"] { border-color: var(--cat-software); color: var(--cat-software); }
+.tabs .tab[data-section="leadership"].active,
+.tabs .tab[data-section="leadership"]:hover { background: var(--cat-software); color:#fff; border-color: var(--cat-software); }
+
+.tabs .tab[data-section="education"] { border-color: var(--cat-design); color: var(--cat-design); }
+.tabs .tab[data-section="education"].active,
+.tabs .tab[data-section="education"]:hover { background: var(--cat-design); color:#fff; border-color: var(--cat-design); }
 
 .timeline { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 16px; }
 .timeline:before { content:""; position:absolute; left: calc(50% - 1px); width: 2px; top:0; bottom:0; background: var(--border); }
 .timeline-section { position: relative; margin: 24px 0; }
+
+/* Vista filtrada: acento de la sección en iconos, puntos y borde */
+.timeline-section[data-section="work"]       { --tl-color: var(--cat-engineering); }
+.timeline-section[data-section="research"]   { --tl-color: var(--cat-research); }
+.timeline-section[data-section="leadership"] { --tl-color: var(--cat-software); }
+.timeline-section[data-section="education"]  { --tl-color: var(--cat-design); }
+.timeline-section[data-section] .timeline-icon { color: var(--tl-color); }
+.timeline-section[data-section] .timeline-card {
+  border-left: 3px solid var(--tl-color);
+}
+.timeline-section[data-section] .timeline-item.left::after,
+.timeline-section[data-section] .timeline-item.right::after {
+  background: var(--tl-color);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--tl-color) 25%, transparent);
+}
 .timeline-list { list-style: none; padding: 0; display: grid; gap: 16px; }
 .timeline-item { position: relative; width: calc(50% - 20px); }
 .timeline-item.left { justify-self: start; }
 .timeline-item.right { justify-self: end; }
 
-.timeline-card { background: var(--surface); border: 1px solid var(--border); border-radius:12px; padding:14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: transform .2s ease, box-shadow .2s ease; }
-.timeline-card:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
-.timeline-header { display:flex; justify-content:space-between; gap:8px; align-items:baseline; }
-.timeline-header h3 { color: var(--text-strong); font-size: 16px; }
-.timeline-header .org { color:#28536B; font-weight:500; }
-.timeline-header .dates { color: var(--text-muted); font-size: 12px; white-space: nowrap; }
-/* La duración ("1 año 2 meses") va bajo el rango de fechas, alineada
-   a la derecha igual que él, para que la columna de la derecha se lea
-   como un bloque solo. */
-.timeline-header .dates { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
-.timeline-header .duration {
-  color: var(--brand-strong); font-weight:600; font-size:11px;
-  background: var(--brand-soft); border:1px solid var(--brand-soft-border);
-  border-radius:999px; padding:1px 7px; white-space:nowrap;
+.timeline-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius:14px; padding:18px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
-/* Jornada y ubicación (Full-time · Medellín … · Híbrido) */
-.tl-meta { color: var(--text-muted); font-size:12.5px; margin:4px 0 0; }
+.timeline-card:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+.timeline-header { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+.timeline-header h3 {
+  color: var(--text-strong);
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  margin: 0;
+}
+.timeline-header .org {
+  color: var(--tl-color, var(--brand-strong));
+  font-weight: 650;
+}
+.timeline-header .dates {
+  color: var(--text-muted); font-size: 13px; white-space: nowrap;
+  display:flex; flex-direction:column; align-items:flex-end; gap:4px;
+  flex: 0 0 auto; padding-top: 2px;
+}
+.timeline-header .duration {
+  color: var(--tl-color, var(--brand-strong)); font-weight:700; font-size:12px;
+  background: color-mix(in srgb, var(--tl-color, var(--brand)) 12%, transparent);
+  border:1px solid color-mix(in srgb, var(--tl-color, var(--brand)) 28%, transparent);
+  border-radius:999px; padding:2px 9px; white-space:nowrap;
+}
+/* Jornada y ubicación */
+.tl-meta {
+  color: var(--text); font-size:13.5px; font-weight: 500;
+  margin:8px 0 0; line-height: 1.45;
+}
 /* Tecnologías del puesto */
-.tl-skills { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.tl-skills { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
 .tl-skill {
   background: var(--surface-2); color: var(--text-strong);
   border:1px solid var(--border); border-radius:12px;
-  padding:2px 8px; font-size:12px;
+  padding:4px 10px; font-size:12.5px; font-weight: 600;
 }
-/* En móvil el bloque de fechas se alinea a la izquierda con el resto */
 @media (max-width: 560px) {
   .timeline-header { flex-direction:column; align-items:flex-start; }
   .timeline-header .dates { align-items:flex-start; }
 }
-.timeline-item .bullets { margin: 6px 18px; }
-.timeline-item .bullets li { color: var(--text); margin: 4px 0; }
+.timeline-item .bullets {
+  margin: 12px 0 0 4px;
+  padding-left: 18px;
+}
+.timeline-item .bullets li {
+  color: var(--text-strong);
+  font-size: 14.5px;
+  line-height: 1.55;
+  font-weight: 500;
+  margin: 7px 0;
+}
+.timeline-item .bullets li::marker {
+  color: var(--tl-color, var(--brand));
+}
 
 
 /* ------------------------------------------------------------
@@ -974,31 +1044,40 @@ a {
    Cambiar aquí un color lo actualiza en todo el portafolio.
    ------------------------------------------------------------ */
 :root {
-  /* Seis colores separados a mano. Con el verde descartado quedan pocos
-     huecos en la rueda, así que dos pares se separan por LUZ además de
-     por tono: research (cian claro) contra experience (turquesa
-     oscuro), 13° de tono pero 17 % de luz; y engineering contra
-     research, 32° y 11 %. Si se cambia alguno, comprobar los dos. */
-  --cat-software: #EA580C;    /* naranja */
-  --cat-graphic: #EC4899;     /* rosa */
-  --cat-design: #8B5CF6;      /* violeta */
-  --cat-engineering: #2563EB; /* azul */
-  --cat-research: #06B6D4;    /* cian */
-  --cat-experience: #0F766E;  /* turquesa oscuro */
+  /* Parejas de portada: en claro el tono oscuro, en oscuro el claro.
+     Software / design / experience no cambian con el tema. */
+  --cat-software: #EA580C;
+  --cat-design: #24789C;
+  --cat-experience: #007878;
+
+  --cat-graphic: #5A0A82;       /* púrpura/magenta oscuro */
+  --cat-graphic-ink: #E484E4;   /* texto sobre chip activo */
+  --cat-engineering: #182430;   /* azul noche */
+  --cat-engineering-ink: #F0F0E4;
+  --cat-research: #0C5220;      /* verde bosque saturado */
+  --cat-research-ink: #B4FCA8;
+}
+[data-theme="dark"] {
+  --cat-graphic: #E484E4;       /* rosa lavanda */
+  --cat-graphic-ink: #5A0A82;
+  --cat-engineering: #F0F0E4;   /* off-white */
+  --cat-engineering-ink: #182430;
+  --cat-research: #B4FCA8;      /* lima menta */
+  --cat-research-ink: #0C5220;
 }
 
 /* Cada chip de filtro toma el color de su categoría */
 .group-chips .chip[data-filter="graphic"] { border-color: var(--cat-graphic); color: var(--cat-graphic); }
-.group-chips .chip[data-filter="graphic"].active, .group-chips .chip[data-filter="graphic"]:hover { background: var(--cat-graphic); color:#fff; }
+.group-chips .chip[data-filter="graphic"].active, .group-chips .chip[data-filter="graphic"]:hover { background: var(--cat-graphic); color: var(--cat-graphic-ink); border-color: var(--cat-graphic); }
 
 .group-chips .chip[data-filter="experience"] { border-color: var(--cat-experience); color: var(--cat-experience); }
 .group-chips .chip[data-filter="experience"].active, .group-chips .chip[data-filter="experience"]:hover { background: var(--cat-experience); color:#fff; }
 
 .group-chips .chip[data-filter="engineering"] { border-color: var(--cat-engineering); color: var(--cat-engineering); }
-.group-chips .chip[data-filter="engineering"].active, .group-chips .chip[data-filter="engineering"]:hover { background: var(--cat-engineering); color:#fff; }
+.group-chips .chip[data-filter="engineering"].active, .group-chips .chip[data-filter="engineering"]:hover { background: var(--cat-engineering); color: var(--cat-engineering-ink); border-color: var(--cat-engineering); }
 
 .group-chips .chip[data-filter="research"] { border-color: var(--cat-research); color: var(--cat-research); }
-.group-chips .chip[data-filter="research"].active, .group-chips .chip[data-filter="research"]:hover { background: var(--cat-research); color:#fff; }
+.group-chips .chip[data-filter="research"].active, .group-chips .chip[data-filter="research"]:hover { background: var(--cat-research); color: var(--cat-research-ink); border-color: var(--cat-research); }
 
 .group-chips .chip[data-filter="software"] { border-color: var(--cat-software); color: var(--cat-software); }
 .group-chips .chip[data-filter="software"].active, .group-chips .chip[data-filter="software"]:hover { background: var(--cat-software); color:#fff; }
@@ -1006,9 +1085,6 @@ a {
 .group-chips .chip[data-filter="design"] { border-color: var(--cat-design); color: var(--cat-design); }
 .group-chips .chip[data-filter="design"].active, .group-chips .chip[data-filter="design"]:hover { background: var(--cat-design); color:#fff; }
 
-/* Filtro "Nuevo": no es una categoría, es un tag transversal */
-.group-chips .chip[data-filter="nuevo"] { border-color: #0d9488; color: #0d9488; }
-.group-chips .chip[data-filter="nuevo"].active, .group-chips .chip[data-filter="nuevo"]:hover { background: #0d9488; color:#fff; }
 
 /* Barra de color a la izquierda de cada tarjeta según categoría */
 .project-card[data-category="graphic"] { border-left: 4px solid var(--cat-graphic); }
@@ -1073,7 +1149,92 @@ a {
 .ix-group[data-category="research"]    { --ix-color: var(--cat-research); }
 .ix-group[data-category="engineering"] { --ix-color: var(--cat-engineering); }
 .ix-group[data-category="experience"]  { --ix-color: var(--cat-experience); }
-.ix-group { margin-bottom: 8px; }
+.ix-group--filter .ix-sub { margin-top: 28px; }
+.ix-group--filter .ix-sub:first-child { margin-top: 8px; }
+.ix-group--filter .ix-sub-heading {
+  font-size: 13px;
+  padding-left: 0;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+.ix-group--filter .ix-sub-heading span:first-child {
+  margin-left: 0;
+}
+.ix-group--filter .ix-sub-count {
+  margin-left: 0;
+}
+.ix-group--filter .ix-rows {
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Categorías: thumbs grandes, centrados bajo el título (mismo eje). */
+.ix-group--filter .ix-strip,
+.ix-group--filter .ix-strip--section {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+  margin: 8px auto 16px;
+  padding: 0;
+  width: 100%;
+  max-width: none;
+}
+.ix-group--filter .ix-thumb {
+  /* ~4 por fila, grandes; el grupo queda centrado */
+  flex: 0 1 calc((100% - 48px) / 4);
+  width: calc((100% - 48px) / 4) !important;
+  max-width: 260px !important;
+  min-width: 0;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+}
+.ix-group--filter .ix-thumb-media {
+  background-size: cover;
+  background-position: center center;
+  filter: none;
+}
+.ix-group--filter .ix-thumb-name {
+  font-size: 12px;
+  padding: 14px 10px 8px;
+  opacity: 0;
+  z-index: 2;
+  text-align: center;
+}
+.ix-group--filter .ix-thumb:hover .ix-thumb-name,
+.ix-group--filter .ix-thumb.is-active .ix-thumb-name,
+.ix-group--filter .ix-thumb:focus-visible .ix-thumb-name {
+  opacity: 1;
+}
+.ix-group--filter .ix-thumb::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.08) 50%, transparent);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.ix-group--filter .ix-thumb:hover::after,
+.ix-group--filter .ix-thumb.is-active::after,
+.ix-group--filter .ix-thumb:focus-visible::after {
+  opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .ix-group--filter .ix-strip,
+  .ix-group--filter .ix-strip--section {
+    gap: 10px;
+  }
+  .ix-group--filter .ix-thumb {
+    flex: 0 1 calc((100% - 10px) / 2);
+    width: calc((100% - 10px) / 2) !important;
+    max-width: none !important;
+  }
+}
 
 .ix-heading {
   display: flex; align-items: center; gap: 10px;
@@ -1127,59 +1288,97 @@ a {
 .ix-cols:hover .index-row:not(:hover):not(.peek) { filter: opacity(.34); }
 .ix-cols .index-row { transition: filter .3s ease, background .3s ease; }
 
-/* TIRA DE PORTADAS DE UNA SUBSECCIÓN
-   Sirve de aperitivo: ves el bloque entero de un vistazo y la imagen te
-   lleva al título, en vez de al revés. Señalar una hace lo mismo que
-   señalar su fila; pulsarla abre el panel completo. */
-/* Una sola fila que se desplaza en horizontal, no varias que envuelven:
-   envolviendo, un subtipo de 8 dejaba una segunda fila con tres huérfanas
-   y cada bloque crecía el doble. Con 17 subtipos eso alarga mucho la
-   página, que era el reparo de esta idea. */
+/* TIRA DE PORTADAS — centrada, wrap, tamaño compacto (84px) */
 .ix-strip {
-  display: flex; gap: 8px; flex-wrap: nowrap;
-  margin: 0 8px 12px; padding: 4px 2px 6px;
-  overflow-x: auto; overscroll-behavior-x: contain;
-  scrollbar-width: thin;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 8px;
+  margin: 0 4px 12px;
+  padding: 4px 2px 6px;
+  overflow: visible;
 }
-.ix-strip::-webkit-scrollbar { height: 5px; }
-.ix-strip::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
-.ix-strip::-webkit-scrollbar-track { background: transparent; }
+.ix-strip--section {
+  margin: 4px 0 14px;
+  padding: 4px 8px 8px;
+  gap: 8px;
+}
 .ix-thumb {
   position: relative; flex: 0 0 auto;
-  width: 84px; aspect-ratio: 16 / 10;
-  border: 1px solid var(--border); border-radius: 9px;
-  background-size: cover; background-position: center;
+  width: 124px; aspect-ratio: 16 / 10;
+  border: 1px solid var(--border); border-radius: 10px;
   padding: 0; cursor: pointer; overflow: hidden;
-  filter: saturate(.85);
-  transition: transform .22s cubic-bezier(.22,.61,.36,1), filter .22s ease, border-color .2s ease;
+  background:
+    radial-gradient(120% 100% at 50% 40%,
+      color-mix(in srgb, var(--surface) 88%, var(--ix-color, var(--brand)) 12%),
+      var(--surface-2) 72%);
+  transition: transform .22s cubic-bezier(.22,.61,.36,1), border-color .2s ease, box-shadow .2s ease;
 }
-.ix-thumb:hover, .ix-thumb:focus-visible {
-  transform: translateY(-3px) scale(1.06);
-  filter: saturate(1.1);
+[data-theme="dark"] .ix-thumb {
+  background:
+    radial-gradient(120% 100% at 50% 40%,
+      color-mix(in srgb, var(--surface-2) 70%, var(--ix-color, var(--brand)) 30%),
+      color-mix(in srgb, var(--surface) 85%, #000 15%) 75%);
+}
+.ix-thumb-media {
+  position: absolute; inset: 0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: saturate(.92);
+  transition: filter .22s ease;
+  pointer-events: none;
+}
+.ix-strip--section .ix-thumb {
+  width: 124px;
+  border-radius: 10px;
+}
+
+.ix-thumb:hover, .ix-thumb:focus-visible, .ix-thumb.is-active {
+  transform: translateY(-3px) scale(1.03);
   border-color: var(--ix-color, var(--brand));
   z-index: 2;
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--ix-color, var(--brand)) 22%, transparent);
+}
+.ix-thumb:hover .ix-thumb-media,
+.ix-thumb:focus-visible .ix-thumb-media,
+.ix-thumb.is-active .ix-thumb-media {
+  filter: saturate(1.08);
 }
 .ix-thumb:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
-/* El nombre solo al señalar: doce rótulos permanentes sobre miniaturas
-   de 84px serían ilegibles y taparían justo lo que hay que ver. */
 .ix-thumb-name {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 10px 5px 4px;
-  font-size: 9px; font-weight: 700; line-height: 1.2; color: #fff;
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  padding: 12px 6px 5px;
+  font-size: 10px; font-weight: 700; line-height: 1.2; color: #fff;
   text-align: left; text-shadow: 0 1px 2px rgba(0,0,0,.8);
   background: linear-gradient(transparent, rgba(0,0,0,.75));
   opacity: 0; transition: opacity .2s ease;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.ix-thumb:hover .ix-thumb-name, .ix-thumb:focus-visible .ix-thumb-name { opacity: 1; }
+.ix-thumb:hover .ix-thumb-name,
+.ix-thumb:focus-visible .ix-thumb-name,
+.ix-thumb.is-active .ix-thumb-name { opacity: 1; }
 
 @media (max-width: 560px) {
   .ix-strip { margin-inline: 0; gap: 6px; }
-  .ix-thumb { width: 66px; }
+  .ix-thumb { width: 96px; }
+  .ix-strip--section .ix-thumb { width: 96px; }
+  /* Categorías: mitad y mitad, tamaño grande */
+  .ix-group--filter .ix-strip,
+  .ix-group--filter .ix-strip--section {
+    justify-content: center;
+    gap: 10px;
+  }
+  .ix-group--filter .ix-thumb {
+    flex: 0 1 calc((100% - 10px) / 2);
+    width: calc((100% - 10px) / 2) !important;
+    max-width: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ix-thumb, .ix-thumb-name { transition: none; }
+  .ix-thumb, .ix-thumb-media, .ix-thumb-name { transition: none; }
   .ix-thumb:hover { transform: none; }
 }
 
@@ -1188,7 +1387,7 @@ a {
   grid-template-columns: 12px auto 1fr auto;
   align-items: baseline;
   column-gap: 11px;
-  padding: 13px 10px 13px 8px;
+  padding: 9px 10px 9px 8px;
   border-radius: 12px;
   cursor: pointer;
   position: relative;
@@ -1204,6 +1403,27 @@ a {
 .index-row:hover, .index-row:focus-visible, .index-row.peek { background: var(--surface-2); }
 .index-row:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
 
+/* Acceso a GitHub al pie del bloque Software en "Todo" */
+.ix-github {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin: 18px 8px 8px; padding: 12px 14px;
+  border: 1px dashed var(--cat-software);
+  border-radius: 12px;
+  color: var(--cat-software);
+  text-decoration: none;
+  background: color-mix(in srgb, var(--cat-software) 8%, transparent);
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+}
+.ix-github:hover {
+  background: color-mix(in srgb, var(--cat-software) 16%, transparent);
+  border-style: solid;
+  transform: translateY(-1px);
+}
+.ix-github > i:first-child { font-size: 20px; }
+.ix-github-label { font-size: 14px; font-weight: 700; color: var(--text-strong); }
+.ix-github-hint { font-size: 12px; color: var(--text-muted); margin-right: auto; }
+.ix-github > i:last-child { font-size: 16px; color: var(--cat-software); margin-left: auto; }
+
 /* Punto del color de la categoría: el índice deja de ser monocromo */
 .ix-dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -1215,9 +1435,9 @@ a {
 
 .ix-title {
   margin: 0;
-  /* A media anchura, 34px partía casi todos los títulos en dos líneas */
-  font-size: clamp(18px, 1.9vw, 25px);
-  font-weight: 700; line-height: 1.18; letter-spacing: -.015em;
+  /* Más compacto: 25px partía títulos largos y pesaba el índice */
+  font-size: clamp(14px, 1.35vw, 17px);
+  font-weight: 650; line-height: 1.25; letter-spacing: -.01em;
   color: var(--text-strong);
   transition: color .25s ease, translate .3s cubic-bezier(.22,.61,.36,1);
 }
@@ -1277,19 +1497,17 @@ a {
 }
 
 /* Imagen a media pantalla. Las medidas duras (position, tamaño) las
-   pone projects.js; aquí solo el acabado: el degradado que funde el
-   borde interior con el fondo de la página, para que la foto no corte
-   en seco contra el texto. */
-.ix-cover { transition: opacity .35s ease; }
-.ix-cover::after {
-  content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
-  pointer-events: none;
+   pone projects.js; aquí solo el fondo neutro detrás de la foto
+   (contain, sin estirar) — sin fundido a los bordes. */
+.ix-cover {
+  transition: opacity .45s ease;
+  background: var(--surface);
 }
-.ix-cover.from-right::after {
-  background: linear-gradient(270deg, transparent 62%, var(--bg) 100%);
-}
-.ix-cover.from-left::after {
-  background: linear-gradient(90deg, transparent 62%, var(--bg) 100%);
+.ix-cover-media {
+  /* contain lo fija el JS; refuerzo por si hay CSS viejo en caché */
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
 }
 
 /* En táctil no hay cursor que seguir: las filas van siempre abiertas */
@@ -1319,14 +1537,67 @@ a {
 .project-card { border: 1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: transform .2s ease, box-shadow .2s ease; }
 .project-card:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
 
-/* TILE: miniatura con imagen de fondo + degradado oscuro + título */
-.project-tile { position: relative; background: var(--surface-2) center/cover no-repeat; height:160px; cursor: pointer; display:block; }
-.project-tile::before { content:""; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 45%, rgba(0,0,0,0)); }
-.project-overlay { position:absolute; left:0; right:0; bottom:0; padding:10px 12px; display:flex; align-items:baseline; justify-content:space-between; gap:10px; color:#fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-.project-overlay .project-title { color:#fff; font-size:16px; font-weight:600; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.project-overlay .project-year { color:#e5e7eb; font-size:12px; font-weight:500; }
-/* En tiles no queremos la barra lateral de color (solo en cards legacy) */
+/* TILE: imagen limpia; título + descripción solo al hover (como en Todo) */
+.project-tile {
+  position: relative;
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  overflow: hidden;
+}
+.project-tile-shot {
+  position: relative;
+  height: 168px;
+  background: var(--surface-2) center/cover no-repeat;
+  flex: 0 0 auto;
+}
+.project-tile.no-image .project-tile-shot {
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+}
+/* El velo oscuro solo cuando hay que leer el título */
+.project-tile-shot::before {
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0.12) 55%, rgba(0,0,0,0));
+  opacity: 0;
+  transition: opacity .28s ease;
+  pointer-events: none;
+}
+.project-tile:hover .project-tile-shot::before,
+.project-tile:focus-visible .project-tile-shot::before,
+.project-tile:focus-within .project-tile-shot::before { opacity: 1; }
+
+.project-overlay {
+  position:absolute; left:0; right:0; top:0;
+  /* Solo sobre la foto (misma altura que .project-tile-shot) */
+  height: 168px;
+  padding:10px 12px;
+  display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
+  color:#fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: opacity .28s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.project-tile:hover .project-overlay,
+.project-tile:focus-visible .project-overlay,
+.project-tile:focus-within .project-overlay { opacity: 1; }
+
+.project-overlay .project-title {
+  color:#fff; font-size:13px; font-weight:650; margin:0;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.project-overlay .project-year { color:#e5e7eb; font-size:11px; font-weight:500; flex:0 0 auto; }
 .project-tile[data-category] { border-left-width: 0 !important; }
+
+/* En táctil no hay hover: título visible */
+@media (hover: none) {
+  .project-tile-shot::before,
+  .project-overlay { opacity: 1; }
+}
 
 /* PANEL DE DETALLES: ocupa todo el ancho de la rejilla (grid-column:1/-1)
    y se inserta debajo de la tarjeta clicada (lo hace projects.js) */
@@ -1426,28 +1697,28 @@ body.lightbox-open { overflow: hidden; }
 
 /* El panel cambia su color de acento según data-category */
 .project-details-panel[data-category="graphic"] {
-    --accent-1: var(--cat-graphic); --accent-2: #f472b6; /* pink range */
-    --btn-bg:#fdf2f8; --btn-border:#fbcfe8; --btn-color:#9d174d;
+    --accent-1: var(--cat-graphic); --accent-2: #f0c4f0;
+    --btn-bg:#fdf2fb; --btn-border:#f0c4f0; --btn-color:#7a2d7a;
 }
 .project-details-panel[data-category="experience"] {
-    --accent-1: var(--cat-experience); --accent-2: #fbbf24; /* amber */
-    --btn-bg:#fffbeb; --btn-border:#fde68a; --btn-color:#92400e;
+    --accent-1: var(--cat-experience); --accent-2: #84F0CC;
+    --btn-bg:#e6f7f7; --btn-border:#9ad4d4; --btn-color:#005555;
 }
 .project-details-panel[data-category="engineering"] {
-    --accent-1: var(--cat-engineering); --accent-2: #60A5FA;
-    --btn-bg:#EFF6FF; --btn-border:#DBEAFE; --btn-color:#1e3a8a;
+    --accent-1: var(--cat-engineering); --accent-2: #6b7c8a;
+    --btn-bg:#eef1f3; --btn-border:#c5ced3; --btn-color:#182430;
 }
 .project-details-panel[data-category="research"] {
-    --accent-1: var(--cat-research); --accent-2: #22d3ee; /* cyan */
-    --btn-bg:#ecfeff; --btn-border:#a5f3fc; --btn-color:#155e75;
+    --accent-1: var(--cat-research); --accent-2: #84C084;
+    --btn-bg:#f0fdf0; --btn-border:#B4FCA8; --btn-color:#1a3d22;
 }
 .project-details-panel[data-category="software"] {
     --accent-1: var(--cat-software); --accent-2: #34D399; /* green */
     --btn-bg:#ecfdf5; --btn-border:#d1fae5; --btn-color:#065f46;
 }
 .project-details-panel[data-category="design"] {
-    --accent-1: var(--cat-design); --accent-2: #a78bfa; /* violet */
-    --btn-bg:#f5f3ff; --btn-border:#ddd6fe; --btn-color:#5b21b6;
+    --accent-1: var(--cat-design); --accent-2: #8bb8cc;
+    --btn-bg:#eef6f9; --btn-border:#a8c9d9; --btn-color:#184e66;
 }
 
 /* Badges reutilizables (categoría, estado, importancia) */
@@ -1492,8 +1763,8 @@ body.lightbox-open { overflow: hidden; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* Título de entrada con icono a la izquierda */
-.title-wrap { display:flex; align-items:center; gap:8px; }
-.timeline-icon { color:#28536B; font-size:18px; }
+.title-wrap { display:flex; align-items:flex-start; gap:10px; }
+.timeline-icon { color: var(--tl-color, #28536B); font-size:22px; line-height: 1.3; flex: 0 0 auto; }
 
 /* Texto invisible visualmente pero leído por lectores de pantalla */
 .visually-hidden { position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px, 1px, 1px, 1px); white-space: nowrap; }
@@ -1521,8 +1792,9 @@ body.lightbox-open { overflow: hidden; }
 
 /* Títulos un poco más grandes en pantallas anchas */
 @media (min-width: 1000px){
-  .timeline-header h3 { font-size: 18px; }
-  .timeline-card { padding: 16px 18px; }
+  .timeline-header h3 { font-size: 21px; }
+  .timeline-card { padding: 20px 22px; }
+  .timeline-item .bullets li { font-size: 15px; }
 }
 
 /* ------------------------------------------------------------
@@ -2079,21 +2351,16 @@ body { background: transparent; }
 @keyframes meshDrift { 0% { background-position: 0% 0%, 100% 0%, 50% 100%; } 50% { background-position: 6% 4%, 94% 6%, 50% 96%; } 100% { background-position: 0% 0%, 100% 0%, 50% 100%; } }
 #home-hero.hero { background-size: 140% 140%, 140% 140%, 160% 160%; animation: meshDrift 18s ease-in-out infinite; }
 
-/* Si no hay imagen real: degradado del color de la categoría
-   (evita repetir el logo assets/img/brand/HOme.png en todas las tiles) */
-.project-tile.no-image { background-image: linear-gradient(135deg, #64748b, #94a3b8); }
-.project-tile.no-image[data-category="graphic"] { background-image: var(--cover-graphic, linear-gradient(135deg, var(--cat-graphic), #f9a8d4)); }
-.project-tile.no-image[data-category="experience"] { background-image: var(--cover-experience, linear-gradient(135deg, var(--cat-experience), #fcd34d)); }
-.project-tile.no-image[data-category="engineering"] { background-image: var(--cover-engineering, linear-gradient(135deg, var(--cat-engineering), #93c5fd)); }
-.project-tile.no-image[data-category="research"] { background-image: var(--cover-research, linear-gradient(135deg, var(--cat-research), #67e8f9)); }
-.project-tile.no-image[data-category="software"] { background-image: var(--cover-software, linear-gradient(135deg, var(--cat-software), #6ee7b7)); }
-.project-tile.no-image[data-category="design"] { background-image: var(--cover-design, linear-gradient(135deg, var(--cat-design), #c4b5fd)); }
-.project-tile.no-image::before { background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0) 60%); }
-.project-tile.no-image { background-position: center; background-size: cover; }
-/* Las portadas de categoría son ilustraciones, y algunas tienen el fondo
-   claro. El velo suave del degradado no basta ahí: el título blanco se
-   perdía sobre el crema de Engineering. Con portada, velo más fuerte. */
-.project-tile.no-image.cover-bg::before {
+/* Si no hay imagen real: degradado / portada de categoría en la zona foto */
+.project-tile.no-image .project-tile-shot { background-image: linear-gradient(135deg, #64748b, #94a3b8); }
+.project-tile.no-image[data-category="graphic"] .project-tile-shot { background-image: var(--cover-graphic, linear-gradient(135deg, var(--cat-graphic), #f0c4f0)); }
+.project-tile.no-image[data-category="experience"] .project-tile-shot { background-image: var(--cover-experience, linear-gradient(135deg, var(--cat-experience), #84F0CC)); }
+.project-tile.no-image[data-category="engineering"] .project-tile-shot { background-image: var(--cover-engineering, linear-gradient(135deg, var(--cat-engineering), #6b7c8a)); }
+.project-tile.no-image[data-category="research"] .project-tile-shot { background-image: var(--cover-research, linear-gradient(135deg, #0C5220, var(--cat-research))); }
+.project-tile.no-image[data-category="software"] .project-tile-shot { background-image: var(--cover-software, linear-gradient(135deg, var(--cat-software), #6ee7b7)); }
+.project-tile.no-image[data-category="design"] .project-tile-shot { background-image: var(--cover-design, linear-gradient(135deg, var(--cat-design), #8bb8cc)); }
+.project-tile.no-image .project-tile-shot { background-position: center; background-size: cover; }
+.project-tile.no-image.cover-bg .project-tile-shot::before {
   background: linear-gradient(to top, rgba(0,0,0,0.68), rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.08));
 }
 
@@ -2116,6 +2383,22 @@ body { background: transparent; }
   font-size: 15px; font-weight: 700;
   letter-spacing: .01em;
 }
+.type-heading.cat-heading {
+  margin-top: 28px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--ix-color, var(--brand-strong));
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 8px;
+}
+.type-heading.cat-heading:first-child { margin-top: 4px; }
+.type-heading[data-category="software"]    { --ix-color: var(--cat-software); }
+.type-heading[data-category="graphic"]     { --ix-color: var(--cat-graphic); }
+.type-heading[data-category="design"]      { --ix-color: var(--cat-design); }
+.type-heading[data-category="research"]    { --ix-color: var(--cat-research); }
+.type-heading[data-category="engineering"] { --ix-color: var(--cat-engineering); }
+.type-heading[data-category="experience"]  { --ix-color: var(--cat-experience); }
 /* Línea que se come el espacio sobrante a la derecha del título */
 .type-heading::after {
   content: ""; flex: 1; height: 1px;
@@ -2139,27 +2422,24 @@ body { background: transparent; }
 .project-tile.github-tile {
   background: var(--surface);
   border: 1px dashed var(--brand);
-  display: flex; align-items: center; justify-content: center;
-  text-decoration: none;
+  display: flex; flex-direction: column; align-items: stretch; justify-content: center;
+  text-decoration: none; min-height: 168px;
   transition: background .2s ease, border-color .2s ease, transform .2s ease;
 }
-.project-tile.github-tile::before { background: none; }   /* sin velo oscuro */
-.project-tile.github-tile:hover { background: var(--brand-soft); transform: translateY(-3px); }
-/* El overlay normal es una fila (título a la izquierda, año a la derecha)
-   con el título recortado a una línea. Aquí lo pasamos a columna centrada
-   y quitamos el recorte, o el texto se corta a media palabra. */
+.project-tile.github-tile .project-tile-shot { display: none; }
 .project-tile.github-tile .project-overlay {
-  position: static; padding: 16px; background: none;
+  position: static; height: auto; opacity: 1; padding: 20px 16px;
+  background: none; pointer-events: auto;
   flex-direction: column; align-items: center; justify-content: center;
   gap: 6px; text-align: center; width: 100%;
 }
+.project-tile.github-tile:hover { background: var(--brand-soft); transform: translateY(-3px); }
 .project-tile.github-tile .project-title {
   color: var(--brand-strong); text-shadow: none;
   display: flex; align-items: center; justify-content: center; gap: 6px;
   white-space: normal; overflow: visible; text-overflow: clip;
   font-size: 15px; line-height: 1.3;
 }
-/* Sin el puntito de categoría: esta tarjeta no es un proyecto */
 .project-tile.github-tile .project-title::before { display: none; }
 .project-tile.github-tile .project-year {
   color: var(--text-muted); text-shadow: none; line-height: 1.35;
@@ -2300,11 +2580,10 @@ body { background: transparent; }
   box-shadow: var(--shadow-lg);
 }
 
-/* Las tarjetas de proyecto ya usan background-image para su foto
-   o degradado, asi que aqui el brillo va en ::after.
-   z-index 0 lo deja por debajo de .project-overlay (z-index 1). */
+/* Brillo del cursor solo sobre la foto, no sobre la descripción */
 .project-tile { isolation: isolate; }
-.project-tile::after {
+.project-tile-shot { isolation: isolate; }
+.project-tile-shot::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -2317,8 +2596,8 @@ body { background: transparent; }
   );
   transition: --spot-alpha .35s ease;
 }
-.project-tile:hover::after { --spot-alpha: 0.28; }
-.project-tile .project-overlay { z-index: 1; }
+.project-tile:hover .project-tile-shot::after { --spot-alpha: 0.28; }
+.project-tile .project-overlay { z-index: 2; }
 
 /* ------------------------------------------------------------
    MICRO-INTERACCIONES
@@ -2375,7 +2654,7 @@ p, li { text-wrap: pretty; }
     background-image: none;
     transition: none;
   }
-  .project-tile::after { display: none; }
+  .project-tile-shot::after { display: none; }
 }
 
 
